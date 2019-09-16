@@ -8,6 +8,6 @@ class Cart extends Model
 {
     public function cart_item()
     {
-        return $this->hasMany('App\Models\Cart_item', 'cart_id', 'id');
+        return $this->hasMany('App\Models\CartItem', 'cart_id', 'id');
     }
 }

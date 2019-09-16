@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
             $table->boolean('is_highlight')->nullable()->default(false);
             $table->boolean('is_new')->nullable()->default(true);
             $table->string('slug', 100)->nullable();
-            $table->string('amount', 100)->nullable();
+            $table->string('quantity', 100)->nullable();
             $table->string('meta_title', 100)->nullable();
             $table->string('meta_description', 100)->nullable();
             $table->string('meta_keyword', 100)->nullable();

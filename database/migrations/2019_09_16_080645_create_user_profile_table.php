@@ -16,6 +16,7 @@ class CreateUserProfileTable extends Migration
         Schema::create('user_profile', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('profile_id')->unsigned();
+            $table->string('value', 100)->nullable();
             $table->timestamps();
         });
     }

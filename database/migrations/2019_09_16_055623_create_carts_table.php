@@ -19,6 +19,8 @@ class CreateCartsTable extends Migration
             $table->string('content', 100)->nullable();
             $table->string('note', 100)->nullable();
             $table->string('status', 100)->nullable();
+            $table->string('payment_status', 100)->nullable();
+            $table->string('delivery_status', 100)->nullable();
             $table->string('total', 100)->nullable();
             $table->dateTime('finished_date')->nullable();
             $table->bigInteger('created_by')->nullable();

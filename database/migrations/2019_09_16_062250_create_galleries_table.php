@@ -25,7 +25,7 @@ class CreateGalleriesTable extends Migration
             $table->string('slug', 100)->nullable();
             $table->string('meta_title', 100)->nullable();
             $table->string('meta_description', 100)->nullable();
-            $table->string('keyword', 100)->nullable();
+            $table->string('meta_keyword', 100)->nullable();
             $table->string('meta_page_topic', 100)->nullable();
             $table->bigInteger('order')->nullable();
             $table->string('language', 3)->nullable();

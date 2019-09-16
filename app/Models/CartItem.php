@@ -8,6 +8,6 @@ class CartItem extends Model
 {
     public function cart()
     {
-        return $this->belongsTo('App\Models\Cart', 'id');
+        return $this->belongsTo('App\Models\Cart');
     }
 }

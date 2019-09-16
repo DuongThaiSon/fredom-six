@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    public function cart_item()
+    public function cartItems()
     {
-        return $this->hasMany('App\Models\CartItem', 'cart_id', 'id');
+        return $this->hasMany('App\Models\CartItem');
     }
 }

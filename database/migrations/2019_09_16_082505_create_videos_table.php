@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateVideosTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('videos', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name', 100)->nullable();
+            $table->string('image', 100)->nullable();
+            $table->string('url', 100)->nullable();
+            $table->string('description', 100)->nullable();
+            $table->text('detail')->nullable();
+            $table->boolean('is_public')->nullable()->default(true);
+            $table->boolean('is_new')->nullable()->default(true);
+            $table->boolean('is_highlight')->nullable()->default(false);
+            $table->string('slug', 100)->nullable();
+            $table->string('meta_title', 100)->nullable();
+            $table->string('meta_description', 100)->nullable();
+            $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('videos');
+    }
+}

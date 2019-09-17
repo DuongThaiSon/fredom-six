@@ -9,11 +9,12 @@
 | is assigned the "web" middleware group. Enjoy building your Admin!
 |
 */
-Route::get('', [
+Route::group(['middleware'=>'auth:admin'], function(){
+    Route::get('', [
         'as' => 'admin.dashboard.index',
         'uses' => 'DashboardController@index'
-    ]);
-
+    ]);;
+});
 
 Route::get('login', [
     'as' => 'admin.login.showLoginForm',

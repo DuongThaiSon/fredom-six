@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email', 100)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 100);
-            $table->string('avatar', 100);
+            $table->string('avatar', 100)->nullable();
             $table->boolean('is_active')->default('0');
             $table->ipAddress('last_login_ip')->nullable();
             $table->dateTime('last_login_time')->nullable();

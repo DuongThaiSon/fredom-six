@@ -27,8 +27,8 @@ body {
 /* Icon */
 .material-icons {
   vertical-align: middle;
-  height: 23px;
-  width: 23px;
+  height: 20px;
+  width: 20px;
 }
 /*------ SCROLL BAR------ */
 /* width */
@@ -57,29 +57,35 @@ body {
   max-width: 270px;
   height: 100vh;
   .left-menu {
+    margin-left: 0 !important;
     margin-bottom: 60px;
+    li {
+      margin-right: 0;
+    }
+    a:hover {
+      color: #ffe600;
+    }
   }
-  a:hover {
-    color: #ffe600;
-  }
+
   &.active {
     min-width: 100px;
     max-width: 100px;
     text-align: center;
     ul li a {
       font-size: 10px;
-      margin-right: 5px;
+      padding-left: 20px;
+      padding-right: 20px;
       i {
         font-size: 30px;
-        margin-left: 8px;
-        margin-bottom: 5px;
+        margin-left: 5px;
+        margin-bottom: 10px;
       }
     }
     .left-menu {
       margin-top: 5px;
     }
     .has-child li a {
-      padding-left: 14px;
+      padding: 10px 10px;
     }
     .sidebar-header {
       img {
@@ -103,8 +109,7 @@ body {
     width: 100%;
     a {
       color: #eaeaea;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding: 10px 24px 10px 24px;
       font-size: 13px;
     }
     i {
@@ -223,7 +228,10 @@ body {
     }
     #content {
       width: 100%;
-      padding: 30px 20px 50px 20px;
+      padding: 30px 3px 50px 20px;
+      form {
+        margin-top: 38px !important;
+      }
     }
     input,
     select {
@@ -293,7 +301,7 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
   padding: 0.5rem;
   position: fixed;
   top: 87px;
-  right: 80px;
+  right: 38px;
   z-index: 999;
   button,
   a {

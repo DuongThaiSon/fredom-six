@@ -19,8 +19,8 @@ body {
 /* Icon */
 .material-icons {
   vertical-align: middle;
-  height: 23px;
-  width: 23px; }
+  height: 20px;
+  width: 20px; }
 
 /*------ SCROLL BAR------ */
 /* width */
@@ -47,24 +47,28 @@ body {
   max-width: 270px;
   height: 100vh; }
   #sidebar .left-menu {
+    margin-left: 0 !important;
     margin-bottom: 60px; }
-  #sidebar a:hover {
-    color: #ffe600; }
+    #sidebar .left-menu li {
+      margin-right: 0; }
+    #sidebar .left-menu a:hover {
+      color: #ffe600; }
   #sidebar.active {
     min-width: 100px;
     max-width: 100px;
     text-align: center; }
     #sidebar.active ul li a {
       font-size: 10px;
-      margin-right: 5px; }
+      padding-left: 20px;
+      padding-right: 20px; }
       #sidebar.active ul li a i {
         font-size: 30px;
-        margin-left: 8px;
-        margin-bottom: 5px; }
+        margin-left: 5px;
+        margin-bottom: 10px; }
     #sidebar.active .left-menu {
       margin-top: 5px; }
     #sidebar.active .has-child li a {
-      padding-left: 14px; }
+      padding: 10px 10px; }
     #sidebar.active .sidebar-header img {
       margin-left: 8px !important;
       margin-top: 17px !important; }
@@ -80,8 +84,7 @@ body {
     width: 100%; }
     #sidebar ul li a {
       color: #eaeaea;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding: 10px 24px 10px 24px;
       font-size: 13px; }
     #sidebar ul li i {
       margin-right: 14px; }
@@ -168,7 +171,9 @@ body {
       letter-spacing: 0.01em; }
     #page-content #main-content #content {
       width: 100%;
-      padding: 30px 20px 50px 20px; }
+      padding: 30px 3px 50px 20px; }
+      #page-content #main-content #content form {
+        margin-top: 38px !important; }
     #page-content #main-content input,
     #page-content #main-content select {
       border-bottom: 1px solid #818e9b;
@@ -226,7 +231,7 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
   padding: 0.5rem;
   position: fixed;
   top: 87px;
-  right: 80px;
+  right: 38px;
   z-index: 999; }
   .save-group-buttons button,
   .save-group-buttons a {

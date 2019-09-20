@@ -28,4 +28,21 @@ Route::post('logout', [
     'as' => 'admin.login.logout',
     'uses' => 'Auth\LoginController@logout'
 ]);
+Route::get('password/reset', [
+    'as' => 'password.request',
+    'uses' => 'Auth\ForgotPasswordController@showLinkRequestForm'
+]);
+Route::post('password/email', [
+    'as' => 'password.email',
+    'uses' => 'Auth\ForgotPasswordController@sendResetLinkEmail'
+]);
+Route::post('password/reset', [
+    'uses' => 'Auth\ResetPasswordController@reset'
+]);
+
+Route::get('password/reset/{token}',[
+    'as' => 'password.reset',
+    'uses' => 'Auth\ResetPasswordController@showResetForm'
+]);
+
 

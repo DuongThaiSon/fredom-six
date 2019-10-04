@@ -53,7 +53,7 @@
                     href="#submenu1"
                     data-toggle="collapse"
                     data-target="#submenu1"
-                    class="nav-link collapsed active"
+                    class="nav-link collapsed"
                   >
                     <i class="material-icons align-middle">group_work</i><span>Sản phẩm</span>
                   </a>
@@ -65,7 +65,7 @@
                       <li class="nav-item">
                         <a href="product.html" class="nav-link">Quản lý sản phẩm</a>
                       </li>
-                      <li class="nav-item active">
+                      <li class="nav-item">
                         <a href="productcatDetail.html" class="nav-link">Thêm mới danh mục sản phẩm</a>
                       </li>
                       <li class="nav-item">
@@ -134,41 +134,41 @@
                     </div>
                 </li>
 
-                <!-- Video -->
-              <li class="nav-item has-child">
-                  <a
-                    href="#videosubmenu"
-                    data-toggle="collapse"
-                    data-target="#videosubmenu"
-                    class="nav-link collapsed"
-                  >
-                    <i class="material-icons align-middle">video_library</i><span>Video</span>
-                  </a>
-                  <div class="sub collapse" id="videosubmenu">
-                    <ul class="flex-column nav">
-                      <li class="nav-item">
-                        <a href="videoDetail.html" class="nav-link">Tạo video mới</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="video.html" class="nav-link">Quản lý video</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="videocatDetail.html" class="nav-link">Thêm mới danh mục video</a>
-                      </li>
-                      <li class="nav-item">
-                        <a href="videocat.html" class="nav-link">Quản lý danh mục video</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              <!-- Order -->
-              <li class="nav-item">
-                  <a href="order.html" class="nav-link" id="menu-order">
-                    <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
-                  </a>
-              </li>  
-                <!-- Language -->
+                  <!-- Video -->
+                <li class="nav-item has-child">
+                    <a
+                      href="#videosubmenu"
+                      data-toggle="collapse"
+                      data-target="#videosubmenu"
+                      class="nav-link collapsed"
+                    >
+                      <i class="material-icons align-middle">video_library</i><span>Video</span>
+                    </a>
+                    <div class="sub collapse" id="videosubmenu">
+                      <ul class="flex-column nav">
+                        <li class="nav-item">
+                          <a href="videoDetail.html" class="nav-link">Tạo video mới</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="video.html" class="nav-link">Quản lý video</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="videocatDetail.html" class="nav-link">Thêm mới danh mục video</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="videocat.html" class="nav-link">Quản lý danh mục video</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                <!-- Order -->
                 <li class="nav-item">
+                    <a href="order.html" class="nav-link" id="menu-order">
+                      <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
+                    </a>
+                </li>  
+                <!-- Language -->
+                <li class="nav-item active">
                   <a href="language.html" class="nav-link" id="menu-language">
                     <i class="material-icons align-middle">language</i><span>Ngôn ngữ</span>
                   </a>
@@ -350,8 +350,18 @@
         <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
-              <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC SẢN PHẨM</h1>
+              <h1 class="mt-3 pl-4">QUẢN LÝ NGÔN NGỮ</h1>
               <div class="save-group-buttons">
+                  <a
+                  data-toggle="tooltip"
+                  title="Quay lại"
+                  class="btn btn-sm btn-dark"
+                  href="language.html"
+                >
+                  <i class="material-icons">
+                    reply
+                  </i>
+                </a>
                   <button class="btn btn-sm btn-dark" data-toggle="tooltip" title="Lưu">
                     <i class="material-icons">
                       save
@@ -367,162 +377,51 @@
                     </i>
                   </a>
                 </div>
-              <form action="" class="bg-white mb-0 p-4 pt-5">
+                <!-- Form -->
+              <form action="" class="bg-white p-4 pt-5">
                 <div class="row">
                   <div class="col-md-6">
-                    <legend>Thông tin cơ bản</legend>
                     <div class="form-group">
-                      <label>ID</label>
-                      <input type="text" name="id" class="form-control" />
+                      <label>Tên ngôn ngữ</label>
+                      <input type="text" name="id" class="form-control" placeholder="Tên ngôn ngữ"/>
                       <small class="form-text"
-                        >ID là mã của mục, đây là một thuộc tính duy nhất</small
+                        >Tên của loại ngôn ngữ(ví dụ: Tiếng Việt, Tiếng Anh,..)</small
                       >
                     </div>
 
                     <div class="form-group">
-                      <label>Tên mục</label>
+                      <label>Viết tắt (2 kí tự, VD: vi)</label>
                       <input
                         type="text"
                         name="name"
                         required
                         class="form-control"
-                        placeholder="Tên mục"
+                        placeholder="Viết tắt"
                       />
-                      <small class="form-text">Tên của thư mục chứa dữ liệu</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Mục này nằm trong mục</label>
-                        <select name="cat" class="form-control">
-                          <option></option>
-                        </select>
-                        <small class="form-text"
-                          >Đặt mục cha cho mục dữ liệu này, bạn có thể để trống để hiểu rằng đây là mục lớn nhất</small
-                        >
-                      </div>
-
-                    <!-- Button Toggle -->
-                    <div class="mb-2">
-                      <label class="control-label">Hiển thị nổi bật </label>
-                      <input
-                        type="checkbox"
-                        class="checkbox-toggle"
-                        name="highlight"
-                        id="highlight"
-                      />
-                      <label class="label-checkbox" for="highlight"
-                        >Khi tính năng được bật, danh mục này sẽ được hiển thị trên trang chủ hoặc các điểm chỉ định trên giao diện.</label
-                      >
-                    </div>
-                    <small class="form-text"
-                      >Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
-                      thị trên trang chủ hoặc các điểm chỉ định trên giao
-                      diện.</small
-                    >
-
-                    <div class="form-group mt-4">
-                        <label class="control-label">Ảnh đại diện</label>
-                        <input
-                          type="file"
-                          class="form-control"
-                          name="image"
-                          placeholder="Ảnh đại diện"
-                        />
-                        <small class="form-text"
-                          >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
-                          trang web đang có nội dung nói về chủ đề nào
-                        </small>
-                      </div>
+                      <small class="form-text">Tên viết tắt của loại ngôn ngữ(ví dụ: vi, en,..)</small>
                   </div>
-
+                  </div>
                   <div class="col-lg-6">
-                    <legend>Tối ưu hóa SEO</legend>
-                    <div class="form-group">
-                      <label class="control-label"
-                        >Tiêu đề Browser (title)</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="page_title"
-                        placeholder="Tiêu đề Browser (title)"
-                      />
-                      <small class="form-text"
-                        >Tiêu đề của trang chủ có tác dụng tốt nhất cho
-                        SEO</small
-                      >
-                    </div>
-
-                    <div class="form-group">
-                      <label class="control-label">Tối ưu hóa URL</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        name="slug"
-                        placeholder="Tối ưu URL"
-                      />
-                      <small class="form-text"
-                        >Tối ưu hóa đường dẫn URL dể tốt nhất cho SEO.</small
-                      >
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">Thẻ Meta Description</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="slug"
-                          placeholder="Thẻ Meta Description"
-                        />
-                        <small class="form-text"
-                          >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
-                        >
-                      </div>
-                      
-                      <div class="form-group">
-                          <label class="control-label">Thẻ Meta keywords</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            name="slug"
-                            placeholder="Thẻ Meta keywords"
-                          />
-                          <small class="form-text"
-                            >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
-                          >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label">Thẻ Meta Page Topic</label>
+                      <legend>BIỂU TƯỢNG</legend>
+                          <div class="form-group">
                             <input
-                              type="text"
+                              type="file"
                               class="form-control"
-                              name="slug"
-                              placeholder="Thẻ Meta Page Topic"
+                              name="image"
+                              placeholder="Ảnh đại diện"
                             />
                             <small class="form-text"
-                              >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của trang web đang có nội dung nói về chủ đề nào</small
-                            >
-                        </div>
-
-                  </div>
-                </div>
-
-                  <!-- CK Editor -->
-                  <div class="row">
-                    <div class="col-12">
-                      <legend>Nội dung mô tả</legend>
-                      <div class="form-group">
-                        <textarea class="form-control" name="des"></textarea>
+                              >Ảnh sẽ hiển thị trên các trang web. Yêu cầu về ảnh: nhỏ vừa đủ để sử dụng, đúng kích thước tiêu chuẩn.
+                            </small>
+                          </div>
                       </div>
-                    </div>
-                  </div>
+                </div>
               </form>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
 
     <!-- SCRIPT -->
     <script
@@ -544,10 +443,5 @@
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/main.js"></script>
-    <script>
-     $("#submenu1").addClass("show")
-     CKEDITOR.replace("des");
-     CKEDITOR.replace("detail");
-     </script>
   </body>
 </html>

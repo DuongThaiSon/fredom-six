@@ -17,6 +17,9 @@
             <img class="logo-icon-login" src="/assets/admin/img/icon/logo-login.png" alt="">
             <img class="leotive" src="/assets/admin/img/icon/leotive.png" alt="">
             <p class="title"> Admin Panel Login </p>
+            @if(Session::has('win'))
+                <div class="alert alert-success">{{ Session::get('win')}}</div>
+            @endif
             <form role="form" action="/admin/login" method="POST">
             @csrf
              @if ($errors->any())

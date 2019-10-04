@@ -13,7 +13,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::get('', [
         'as' => 'admin.dashboard.index',
         'uses' => 'DashboardController@index'
-    ]);;
+    ]);
+    Route::get('password/change',[
+        'as' => 'password.change',
+        'uses' => 'ChangePasswordController@getChangePassword'
+    ]);
+    Route::post('password/change',[
+        'as' => 'password.change',
+        'uses' => 'ChangePasswordController@postChangePassword'
+    ]);
 });
 
 Route::get('login', [
@@ -44,5 +52,6 @@ Route::get('password/reset/{token}',[
     'as' => 'password.reset',
     'uses' => 'Auth\ResetPasswordController@showResetForm'
 ]);
+
 
 

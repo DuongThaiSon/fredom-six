@@ -22,6 +22,14 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@postChangePassword'
     ]);
+    Route::get('user/{id}',[
+        'as' => 'user.info',
+        'uses' => 'UserController@info'
+    ]);
+    Route::post('info/change',[
+        'as' => 'info.change',
+        'uses' => 'UserController@changeInfo'
+    ]);
 });
 
 Route::get('login', [

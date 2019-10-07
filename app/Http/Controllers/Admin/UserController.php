@@ -314,4 +314,47 @@ class UserController extends Controller
         }
     }
 
+    public function getAddUser()
+    {
+        return view('admin.user.add');
+    }
+    public function postAddUser(Request $request)
+    {
+        $this->validate($request,[
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+            'name' => 'required',
+        ],[
+            'email.unique' => 'Email đã được đăng kí',
+            'password.min' => 'Mật khẩu ít nhất 8 kí tự'
+        ]);   
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password =  bcrypt($request['password']);
+        if ($request->hasFile('avatar')) {
+            $destinationDir = public_path('media/user');
+            $fileName = time().'.'.$request->avatar->extension();
+            $request->avatar->move($destinationDir, $fileName);
+            $user['avatar'] = '/media/user/'.$fileName;
+        }
+        $user->save();
+        $request = $request->only([
+            'position',
+            'phone',
+            'address',
+            'skype',
+            'birthday'
+        ]);
+        $this->handleAttributeExistance(array_keys($request));
+        $listAttribute = Profile::whereIn('name', array_keys($request))->get();
+        $syncData = [];
+        foreach ($listAttribute as $item) {
+            $syncData[$item->id] = ['value' => $request[$item->name]];
+        }
+        $user->profiles()->syncWithoutDetaching($syncData);
+        return redirect()->back()->with('win', 'Tạo tài khoản thành công');
+    }
+
+
 }

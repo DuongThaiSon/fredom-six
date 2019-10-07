@@ -22,7 +22,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@postChangePassword'
     ]);
-    Route::get('user/{id}',[
+    Route::get('user/info/{id}',[
         'as' => 'user.info',
         'uses' => 'UserController@info'
     ]);
@@ -30,6 +30,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'info.change',
         'uses' => 'UserController@changeInfo'
     ]);
+    Route::get('user/add',[
+        'as' => 'user.add',
+        'uses' => 'UserController@getAddUser'
+    ]);
+    Route::post('user/add',[
+        'as' => 'user.add',
+        'uses' => 'UserController@postAddUser'
+    ]);
+
 });
 
 Route::get('login', [

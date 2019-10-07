@@ -16,6 +16,9 @@ body {
     color: #818e9b; }
   body label {
     margin-bottom: 0 !important; }
+  body h5 {
+    text-transform: none !important;
+    letter-spacing: 0 !important; }
 
 /* Icon */
 .material-icons {
@@ -176,6 +179,10 @@ body {
       color: #000000; }
     #page-content .navbar-top .nav-search {
       padding-top: 10px; }
+    #page-content .navbar-top .search-button {
+      border: none;
+      background: #ffffff;
+      outline: none; }
   #page-content .right-top-bar {
     padding-top: 8px; }
     #page-content .right-top-bar .dropdown-toggle {
@@ -229,6 +236,39 @@ body {
       font-weight: 900;
       font-size: 16px !important;
       padding-top: 6.5px; }
+    #page-content #main-content .col-6 {
+      max-width: 492px; }
+    #page-content #main-content #change-password-form {
+      margin-top: 100px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #000000;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 23px; }
+      #page-content #main-content #change-password-form button {
+        width: 160px;
+        height: 48px;
+        background: rgba(0, 0, 0, 0.9);
+        border-radius: 4px; }
+      #page-content #main-content #change-password-form h1 {
+        font-weight: 500 !important;
+        font-size: 24px;
+        margin-bottom: 25px; }
+      #page-content #main-content #change-password-form h5 {
+        font-size: 18px;
+        color: #191919; }
+      #page-content #main-content #change-password-form p {
+        font-size: 14px; }
+      #page-content #main-content #change-password-form label {
+        font-size: 14px;
+        margin-bottom: 14px !important; }
+      #page-content #main-content #change-password-form input {
+        background: #e5e5e5;
+        max-width: 490px;
+        height: 48px;
+        border: 1px solid #929bad;
+        border-radius: 6px; }
 
 /* TOGGLE CHECKBOX */
 .label-checkbox {
@@ -358,3 +398,19 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
         border: solid white;
         border-width: 0px 2px 2px 0;
         transform: rotate(45deg); }
+
+#user-info label {
+  font-size: 14px;
+  margin-bottom: 14px !important; }
+#user-info button {
+  width: 160px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
+  margin-left: 200px; }
+#user-info input {
+  background: #e5e5e5 !important;
+  max-width: 490px;
+  height: 48px;
+  border: 1px solid #929bad;
+  border-radius: 6px; }

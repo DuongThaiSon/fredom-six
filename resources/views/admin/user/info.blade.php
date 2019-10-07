@@ -362,7 +362,14 @@
                   </i>
                 </a>
                 </div>
-              <form action="" class="mb-0 p-4 pt-5" id="user-info">
+              <form action="{{ route('info.change') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
+                @csrf
+                      @if($errors->any())
+                          <div class="alert alert-danger">{{ $errors->first() }}</div>
+                      @endif
+                      @if(Session::has('win'))
+                          <div class="alert alert-success">{{ Session::get('win') }}</div>
+                      @endif
                 <div class="row">
                   <div class="col-5">
                     <legend>ẢNH ĐẠI DIỆN</legend>
@@ -370,7 +377,7 @@
                         <input
                           type="file"
                           class="form-control"
-                          name="image"
+                          name="avatar"
                           placeholder="Ảnh đại diện"
                         />
                         <small class="form-text"
@@ -384,11 +391,13 @@
                       <label class="control-label"
                         >ID</label
                       >
-                      <input disabled
+                      <input 
+                    value="{{ $user->id }}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="id"
                         placeholder=""
+                        readonly
                       />
                       
                     </div>
@@ -397,9 +406,10 @@
                         >Họ tên</label
                       >
                       <input
+                    value="{{ $user->name }}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="name"
                         placeholder="Họ và tên"
                       />
                       
@@ -409,9 +419,10 @@
                         >Chức vụ</label
                       >
                       <input
+                      value="{{ $user->position }}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="position"
                         placeholder="Chức vụ"
                       />
                       
@@ -437,9 +448,10 @@
                         >Password</label
                       >
                       <input
+                      value=""
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="password"
                         placeholder="Mật khẩu"
                       />
                       
@@ -449,9 +461,10 @@
                         >Phone Number</label
                       >
                       <input
+                      value="{{ $user->phone }}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="phone"
                         placeholder="Số điện thoại"
                       />
                       
@@ -461,9 +474,10 @@
                         >Email</label
                       >
                       <input
+                    value="{{$user->email}}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="email"
                         placeholder="abc@gmail.com"
                       />
                       
@@ -473,9 +487,10 @@
                         >Address</label
                       >
                       <input
+                      value="{{$user->address}}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="address"
                         placeholder="Địa chỉ"
                       />
                       
@@ -485,9 +500,10 @@
                         >Skype</label
                       >
                       <input
+                      value="{{$user->skype}}"
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="skype"
                         placeholder="Skype"
                       />
                       
@@ -497,15 +513,16 @@
                         >Birthday</label
                       >
                       <input
-                        type="text"
+                      value="{{$user->birthday}}"
+                        type="date"
                         class="form-control"
-                        name="page_title"
+                        name="birthday"
                         placeholder="Sinh nhật"
                       />
                       
                     </div>
                     <div class="form-group d-flex" style="max-width: 490px;">
-                        <button type="submit" href="#" class="btn ml-auto btn-primary flex-right">Save</button>
+                        <button type="submit" class="btn ml-auto btn-primary flex-right">Save</button>
                       </div>
                   </div>
                 </div>

@@ -27,6 +27,9 @@ body {
   text-transform: none !important;
   letter-spacing: 0 !important;
  }
+ .clear {
+  clear: both;
+ }
 }
 
 /* Icon */
@@ -518,7 +521,7 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
   border-radius: 4px;
   margin-left: 200px;
  }
- input {
+ input,select {
   background: #e5e5e5 !important;
   max-width: 490px;
   height: 48px;

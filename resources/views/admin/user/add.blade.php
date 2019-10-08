@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'contact', 'title' => __('User Info')])
+@extends('admin.layouts.main', ['activePage' => 'contact', 'title' => __('Add User')])
 @section('content')
         <!-- Content -->
         <div id="main-content">
@@ -17,14 +17,14 @@
                   </i>
                 </a>
                 </div>
-              <form action="{{ route('info.change') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('user.add') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
                 @csrf
-                      @if($errors->any())
-                          <div class="alert alert-danger">{{ $errors->first() }}</div>
-                      @endif
-                      @if(Session::has('win'))
-                          <div class="alert alert-success">{{ Session::get('win') }}</div>
-                      @endif
+                @if($errors->any())
+                    <div class="alert alert-danger">{{ $errors->first() }}</div>
+                @endif
+                @if(Session::has('win'))
+                    <div class="alert alert-success">{{ Session::get('win') }}</div>
+                @endif
                 <div class="row">
                   <div class="col-5">
                     <legend>ẢNH ĐẠI DIỆN</legend>
@@ -46,8 +46,7 @@
                       <label class="control-label"
                         >ID</label
                       >
-                      <input 
-                    value="{{ $user->id }}"
+                      <input
                         type="text"
                         class="form-control"
                         name="id"
@@ -61,7 +60,6 @@
                         >Họ tên</label
                       >
                       <input
-                    value="{{ $user->name }}"
                         type="text"
                         class="form-control"
                         name="name"
@@ -74,7 +72,6 @@
                         >Chức vụ</label
                       >
                       <input
-                      value="{{ $user->position }}"
                         type="text"
                         class="form-control"
                         name="position"
@@ -103,8 +100,7 @@
                         >Password</label
                       >
                       <input
-                      value=""
-                        type="text"
+                        type="password"
                         class="form-control"
                         name="password"
                         placeholder="Mật khẩu"
@@ -116,7 +112,6 @@
                         >Phone Number</label
                       >
                       <input
-                      value="{{ $user->phone }}"
                         type="text"
                         class="form-control"
                         name="phone"
@@ -129,8 +124,7 @@
                         >Email</label
                       >
                       <input
-                    value="{{$user->email}}"
-                        type="text"
+                        type="email"
                         class="form-control"
                         name="email"
                         placeholder="abc@gmail.com"
@@ -142,7 +136,6 @@
                         >Address</label
                       >
                       <input
-                      value="{{$user->address}}"
                         type="text"
                         class="form-control"
                         name="address"
@@ -155,7 +148,6 @@
                         >Skype</label
                       >
                       <input
-                      value="{{$user->skype}}"
                         type="text"
                         class="form-control"
                         name="skype"
@@ -168,7 +160,6 @@
                         >Birthday</label
                       >
                       <input
-                      value="{{$user->birthday}}"
                         type="date"
                         class="form-control"
                         name="birthday"
@@ -177,7 +168,7 @@
                       
                     </div>
                     <div class="form-group d-flex" style="max-width: 490px;">
-                        <button type="submit" class="btn ml-auto btn-primary flex-right">Save</button>
+                        <button type="submit" href="#" class="btn ml-auto btn-primary flex-right">Save</button>
                       </div>
                   </div>
                 </div>

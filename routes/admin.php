@@ -22,13 +22,45 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@postChangePassword'
     ]);
-    Route::get('user/{id}',[
+    Route::get('user/info/{id}',[
         'as' => 'user.info',
         'uses' => 'UserController@info'
     ]);
     Route::post('info/change',[
         'as' => 'info.change',
         'uses' => 'UserController@changeInfo'
+    ]);
+    Route::get('user/add',[
+        'as' => 'user.add',
+        'uses' => 'UserController@getAddUser'
+    ]);
+    Route::post('user/add',[
+        'as' => 'user.add',
+        'uses' => 'UserController@postAddUser'
+    ]);
+    Route::get('user/admin',[
+        'as' => 'user.admin',
+        'uses' => 'UserController@admin'
+    ]);
+    Route::get('user/delete/{id}',[
+        'as' =>'user.delete',
+        'uses' => 'UserController@delete'
+    ]);
+    Route::post('user/deleteAll',[
+        'as' => 'user.deleteAll',
+        'uses' => 'UserController@deleteAll'
+    ]);
+    Route::get('contact',[
+        'as' => 'contact',
+        'uses' => 'ContactController@index'
+    ]);
+    Route::get('contact/delete/{id}',[
+        'as' => 'contact.delete',
+        'uses' => 'ContactController@delete'
+    ]);
+    Route::post('contact/delete',[
+        'as' => 'contact.delete',
+        'uses' => 'ContactController@deleteAll'
     ]);
 });
 

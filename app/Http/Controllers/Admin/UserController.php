@@ -374,9 +374,13 @@ class UserController extends Controller
     public function deleteAll(Request $request)
     {
         $users = $request->id;
-        foreach ($users as $user) {
-            if($user != Auth::user()->id){
-                User::findOrFail($user)->delete();
+        if(empty($users)) {
+            return redirect()->back()->with('fail', 'Không có dữ liệu để xóa');
+        } else {
+            foreach ($users as $user) {
+                if($user != Auth::user()->id){
+                    User::findOrFail($user)->delete();
+                }
             }
         }
         return redirect()->back()->with('win', 'Xóa dữ liệu thành công');

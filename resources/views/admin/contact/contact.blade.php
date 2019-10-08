@@ -16,6 +16,9 @@
               <!-- Save group button -->
               <form action="{{ route('contact.delete')}}" method="POST">
                 @csrf
+                @if(Session::has('fail'))
+                <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                @endif
               @if(Session::has('win'))
                   <div class="alert alert-success">{{ Session::get('win')}}</div>
                 @endif

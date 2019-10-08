@@ -9,17 +9,16 @@
               <form method="POST" action="{{ route('user.deleteAll') }}">
                 @csrf
                   <div class="save-group-buttons">
-                      <a href="{{ route('user.add')}}">
-                    <button
-                      class="btn btn-sm btn-dark"
-                      data-toggle="tooltip"
-                      title="Thêm thành viên mới"
-                    >
-                      <i class="material-icons">
-                        note_add
-                      </i>
-                    </button>
-                  </a>
+                      <a
+                        class="btn btn-sm btn-dark"
+                        data-toggle="tooltip"
+                        title="Thêm thành viên mới"
+                        href="{{ route('user.add')}}"
+                      >
+                        <i class="material-icons">
+                          note_add
+                        </i>
+                      </a>
                     <button
                       data-toggle="tooltip"
                       title="Xóa toàn bộ mục đã chọn"
@@ -59,6 +58,9 @@
                         </tr>
                       </thead>
                       <tbody>
+                          @if(Session::has('fail'))
+                          <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                          @endif
                           @if(Session::has('win'))
                           <div class="alert alert-success">{{ Session::get('win') }}</div>
                           @endif

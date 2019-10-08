@@ -50,6 +50,18 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'user.deleteAll',
         'uses' => 'UserController@deleteAll'
     ]);
+    Route::get('contact',[
+        'as' => 'contact',
+        'uses' => 'ContactController@index'
+    ]);
+    Route::get('contact/delete/{id}',[
+        'as' => 'contact.delete',
+        'uses' => 'ContactController@delete'
+    ]);
+    Route::post('contact/delete',[
+        'as' => 'contact.delete',
+        'uses' => 'ContactController@deleteAll'
+    ]);
 });
 
 Route::get('login', [

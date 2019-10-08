@@ -23,7 +23,7 @@ class ChangePasswordController extends Controller
         ],
         [
             'newpass.min' => 'Mật khẩu ít nhất 8 kí tự',
-            're-newpass.same' => 'Mật khẩu chưa trùng khớp' 
+            're-newpass.same' => 'Mật khẩu không trùng khớp' 
         ]);
         $email = Auth::user()->email;
         $credentials = array('email'=> $email, 'password'=>$request->oldpass);

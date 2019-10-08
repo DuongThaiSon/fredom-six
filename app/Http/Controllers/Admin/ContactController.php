@@ -25,9 +25,14 @@ class ContactController extends Controller
     public function deleteAll(Request $request)
     {
         $contact = $request->id;
-        foreach ($contact as $id) {
-            Contact::findOrFail($id)->delete();
+        if(empty($contact)) {
+            return redirect()->back()->with('fail', 'Không có dữ liệu để xóa');
+        }else {
+            foreach ($contact as $id) {
+                Contact::findOrFail($id)->delete();
+            }
         }
+        
         return redirect()->back()->with('win','Xóa dữ liệu thành công');
     }
 }

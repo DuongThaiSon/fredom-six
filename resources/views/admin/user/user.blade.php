@@ -9,17 +9,16 @@
               <form method="POST" action="{{ route('user.deleteAll') }}">
                 @csrf
                   <div class="save-group-buttons">
-                      <a href="{{ route('user.add')}}">
-                    <button
-                      class="btn btn-sm btn-dark"
-                      data-toggle="tooltip"
-                      title="Thêm thành viên mới"
-                    >
-                      <i class="material-icons">
-                        note_add
-                      </i>
-                    </button>
-                  </a>
+                      <a
+                        class="btn btn-sm btn-dark"
+                        data-toggle="tooltip"
+                        title="Thêm thành viên mới"
+                        href="{{ route('user.add')}}"
+                      >
+                        <i class="material-icons">
+                          note_add
+                        </i>
+                      </a>
                     <button
                       data-toggle="tooltip"
                       title="Xóa toàn bộ mục đã chọn"
@@ -59,6 +58,9 @@
                         </tr>
                       </thead>
                       <tbody>
+                          @if(Session::has('fail'))
+                          <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                          @endif
                           @if(Session::has('win'))
                           <div class="alert alert-success">{{ Session::get('win') }}</div>
                           @endif
@@ -75,10 +77,10 @@
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td class="text-center">
-                              <a href="/admin/user/info/{{ $user->id }}" data-toggle="tooltip" title="Sửa"
+                              <a href="{{ route('user.add',$user->id ) }}" data-toggle="tooltip" title="Sửa"
                                 ><i class="material-icons">border_color</i></a
                               >
-                              <a @if(Auth::user()->id==$user->id)href="#"@else href="/admin/user/delete/{{ $user->id }}"@endif data-toggle="tooltip" title="Xóa"
+                              <a @if(Auth::user()->id==$user->id)href="#"@else href="{{ route('user.delete' ,$user->id) }}"@endif data-toggle="tooltip" title="Xóa"
                                 ><i class="material-icons">delete</i></a
                               >
                             </td>

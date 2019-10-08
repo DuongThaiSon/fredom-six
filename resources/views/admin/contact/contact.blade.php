@@ -14,8 +14,11 @@
             <div id="content">
               <h1 class="mt-3 pl-4">QUẢN LÝ NỘI DUNG LIÊN HỆ TỪ KHÁCH HÀNG</h1>
               <!-- Save group button -->
-              <form action="{{ route('contact.delete')}}" method="POST">
+              <form action="{{ route('contact.deleteAll')}}" method="POST">
                 @csrf
+                @if(Session::has('fail'))
+                <div class="alert alert-danger">{{ Session::get('fail') }}</div>
+                @endif
               @if(Session::has('win'))
                   <div class="alert alert-success">{{ Session::get('win')}}</div>
                 @endif
@@ -74,7 +77,7 @@
                         <td>{{ $contact->email }}</td>
                         <td>{{ $contact->created_at }}</td>
                         <td class="text-center">
-                          <a href="/admin/contact/delete/{{ $contact->id }}"><i class="material-icons">delete</i></a>
+                          <a href="{{ route('contact.delete', $contact->id ) }}"><i class="material-icons">delete</i></a>
                         </td>
                       </tr>
                     @empty

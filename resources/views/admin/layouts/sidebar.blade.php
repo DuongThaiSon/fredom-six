@@ -142,7 +142,7 @@
 
             <!--Contact-->
             <li class="nav-item">
-            <a href="contact.html" class="nav-link" id="menu-contact">
+            <a href="{{ route('contact')}}" class="nav-link" id="menu-contact">
                 <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
             </a>
             </li>
@@ -184,10 +184,10 @@
             <div class="sub collapse" id="menu-admin-user">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="info.html" class="nav-link">Thêm mới quản trị viên & người dùng</a>
+                    <a href="{{ route('user.add')}}" class="nav-link">Thêm mới quản trị viên & người dùng</a>
                 </li>
                 <li>
-                    <a href="user.html" class="nav-link">Danh sách quản trị viên</a>
+                    <a href="{{ route('user.admin')}}" class="nav-link">Danh sách quản trị viên</a>
                 </li>
                 <li>
                     <a href="#" class="nav-link">Danh sách người dùng</a>

@@ -35,7 +35,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'UserController@getAddUser'
     ]);
     Route::post('user/add',[
-        'as' => 'user.add',
+        'as' => 'user.postadd',
         'uses' => 'UserController@postAddUser'
     ]);
     Route::get('user/admin',[
@@ -50,6 +50,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'user.deleteAll',
         'uses' => 'UserController@deleteAll'
     ]);
+
+
+
+
     Route::get('contact',[
         'as' => 'contact',
         'uses' => 'ContactController@index'
@@ -59,8 +63,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ContactController@delete'
     ]);
     Route::post('contact/delete',[
-        'as' => 'contact.delete',
+        'as' => 'contact.deleteAll',
         'uses' => 'ContactController@deleteAll'
+    ]);
+
+
+
+    Route::get('order',[
+        'as' => 'order',
+        'uses' => 'OrderController@index'
     ]);
 });
 

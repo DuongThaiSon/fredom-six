@@ -17,7 +17,7 @@
                   </i>
                 </a>
                 </div>
-              <form action="{{ route('user.add') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('user.postadd') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
                 @csrf
                 @if($errors->any())
                     <div class="alert alert-danger">{{ $errors->first() }}</div>

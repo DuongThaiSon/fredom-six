@@ -285,9 +285,11 @@
         <div class="navbar-top fixed-top bg-white">
           <div class="nav-search float-left align-middle">
             <form class="form-inline md-form form-sm">
-              <i class="material-icons text-secondary">
-                search
-              </i>
+              <button class="search-button" type="submit">
+                  <i class="material-icons text-secondary">
+                      search
+                    </i>
+              </button>
               <input
                 class="form-control form-control-sm bg-white"
                 type="text"
@@ -356,45 +358,45 @@
 
         <!-- Content -->
         <div id="main-content">
-          <!-- Search Group Button -->
+        <!-- Search Group Button -->
         <div class="search-button-group">
-            <div class="row collapse" id="advancesearch">
+          <div class="row collapse" id="advancesearch">
             <div class="form-row">
               <div class="form-group col">
-              <label>Mục</label>
-              <select class="form-control search-change p-2">
-                <option></option>
-              </select>
+                <label>Mục</label>
+                <select class="form-control search-change p-2">
+                  <option></option>
+                </select>
               </div>
           
               <div class="form-group col">
-              <label>Người tạo</label>
-              <select class="form-control search-change p-2">
-                <option></option>
-                <option>Admin</option>
-              </select>
+                <label>Người tạo</label>
+                <select class="form-control search-change p-2">
+                  <option></option>
+                  <option>Admin</option>
+                </select>
               </div>
           
               <div class="form-group col">
-              <label>Từ ngày</label>
-              <input
-                id="to_date"
-                type="text"
-                class="form-control datepicker search-change p-2"
-              />
+                <label>Từ ngày</label>
+                <input
+                  id="to_date"
+                  type="text"
+                  class="form-control datepicker search-change p-2"
+                />
               </div>
           
               <div class="form-group col">
-              <label>Đến ngày</label>
-              <input
-                id="from_date"
-                type="text"
-                class="form-control datepicker search-change p-2"
-              />
+                <label>Đến ngày</label>
+                <input
+                  id="from_date"
+                  type="text"
+                  class="form-control datepicker search-change p-2"
+                />
               </div>
-            </div>
             </div>
           </div>
+      </div>
    <!-- End Search Group Button -->
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">

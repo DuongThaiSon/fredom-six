@@ -1,5 +1,7 @@
 body {
   background: #f5f6f8; }
+  body .clear {
+    clear: both; }
 
 /* Logo */
 #logo img {
@@ -8,8 +10,8 @@ body {
 /* Form */
 #login-form .form {
   position: relative;
-  min-width: 538px;
-  min-height: 367px;
+  width: 538px;
+  min-height: 350px;
   margin-left: 120px;
   margin-top: 150px;
   border: 1px solid #ffffff;

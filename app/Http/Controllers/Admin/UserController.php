@@ -356,5 +356,29 @@ class UserController extends Controller
         return redirect()->back()->with('win', 'Tạo tài khoản thành công');
     }
 
+    const PER_PAGE = 10;
 
+    public function admin()
+    {
+        $users = User::orderBy('id')->Paginate(self::PER_PAGE);
+        return view('admin.user.user', compact('users'));
+    }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $users = $request->id;
+        foreach ($users as $user) {
+            if($user != Auth::user()->id){
+                User::findOrFail($user)->delete();
+            }
+        }
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
 }

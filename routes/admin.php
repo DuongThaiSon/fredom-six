@@ -38,7 +38,18 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'user.add',
         'uses' => 'UserController@postAddUser'
     ]);
-
+    Route::get('user/admin',[
+        'as' => 'user.admin',
+        'uses' => 'UserController@admin'
+    ]);
+    Route::get('user/delete/{id}',[
+        'as' =>'user.delete',
+        'uses' => 'UserController@delete'
+    ]);
+    Route::post('user/deleteAll',[
+        'as' => 'user.deleteAll',
+        'uses' => 'UserController@deleteAll'
+    ]);
 });
 
 Route::get('login', [

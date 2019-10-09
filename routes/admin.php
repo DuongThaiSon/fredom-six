@@ -80,6 +80,121 @@ Route::group(['middleware'=>'auth:admin'], function(){
          ]);
 
     });
+    
+    Route::group(['prefix' => 'setting'],
+    function(){ 
+        Route::get('/', [
+        'as' => 'admin.setting.infoSetting',
+        'uses' => 'SettingController@infoSetting'
+        ]);
+        Route::post('/postinfosetting', [
+            'as' => 'admin.setting.postInfoSetting',
+            'uses' => 'SettingController@postInfoSetting'
+        ]);
+        Route::get('/sendmail', [
+            'as' => 'admin.setting.sendmail',
+            'uses' => 'SettingController@sendmail'
+        ]);
+        Route::post('/postsendmail', [
+            'as' => 'admin.setting.postSendmail',
+            'uses' => 'SettingController@postSendmail'
+        ]);
+        Route::get('/seo', [
+            'as' => 'admin.setting.seo',
+            'uses' => 'SettingController@seo'
+        ]);
+        Route::post('/postseo', [
+            'as' => 'admin.setting.postSeo',
+            'uses' => 'SettingController@postSeo'
+        ]);
+        Route::get('/emailcontent', [
+            'as' => 'admin.setting.emailcontent',
+            'uses' => 'SettingController@emailContent'
+        ]);
+    });
+   
+    Route::group(['prefix' => 'component'], 
+    function (){
+        Route::get('/', [
+            'as' => 'admin.component.index',
+            'uses' => 'ComponentController@index'
+        ]);
+        Route::get('/add',[
+            'as' => 'admin.component.addco',
+            'uses' => 'ComponentController@addCo'
+        ]);
+        Route::post('/postaddco', [
+            'as' => 'admin.component.postaddco',
+            'uses' => 'ComponentController@postAddCo'
+        ]);
+        Route::get('/edit/{id}', [
+            'as' => 'admin.component.editco',
+            'uses' => 'ComponentController@editCo'
+        ]);
+        Route::post('/edit/{id}', [
+            'as' => 'admin.component.posteditco',
+            'uses' => 'ComponentController@postEditCo'
+        ]);
+    });
+    Route::get('password/change',[
+        'as' => 'password.change',
+        'uses' => 'ChangePasswordController@getChangePassword'
+    ]);
+    Route::post('password/change',[
+        'as' => 'password.change',
+        'uses' => 'ChangePasswordController@postChangePassword'
+    ]);
+    Route::get('user/info/{id}',[
+        'as' => 'user.info',
+        'uses' => 'UserController@info'
+    ]);
+    Route::post('info/change',[
+        'as' => 'info.change',
+        'uses' => 'UserController@changeInfo'
+    ]);
+    Route::get('user/add',[
+        'as' => 'user.add',
+        'uses' => 'UserController@getAddUser'
+    ]);
+    Route::post('user/add',[
+        'as' => 'user.postadd',
+        'uses' => 'UserController@postAddUser'
+    ]);
+    Route::get('user/admin',[
+        'as' => 'user.admin',
+        'uses' => 'UserController@admin'
+    ]);
+    Route::get('user/delete/{id}',[
+        'as' =>'user.delete',
+        'uses' => 'UserController@delete'
+    ]);
+    Route::post('user/deleteAll',[
+        'as' => 'user.deleteAll',
+        'uses' => 'UserController@deleteAll'
+    ]);
+
+
+
+
+    Route::get('contact',[
+        'as' => 'contact',
+        'uses' => 'ContactController@index'
+    ]);
+    Route::get('contact/delete/{id}',[
+        'as' => 'contact.delete',
+        'uses' => 'ContactController@delete'
+    ]);
+    Route::post('contact/delete',[
+        'as' => 'contact.deleteAll',
+        'uses' => 'ContactController@deleteAll'
+    ]);
+
+
+
+    Route::get('order',[
+        'as' => 'order',
+        'uses' => 'OrderController@index'
+    ]);
 });
 
 
@@ -111,5 +226,6 @@ Route::get('password/reset/{token}',[
     'as' => 'password.reset',
     'uses' => 'Auth\ResetPasswordController@showResetForm'
 ]);
+
 
 

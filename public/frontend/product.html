@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
     <!-- MATERIAL ICON -->
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -40,8 +41,8 @@
             <!-- Dashboard -->
             <li class="nav-item">
               <a href="admin.html" class="nav-link" id="menu-dashboard">
-                <i class="material-icons align-middle">dashboard</i>Tổng quan
-                hệ thống
+                <i class="material-icons align-middle">dashboard</i><span>Tổng quan
+                  hệ thống</span>
               </a>
             </li>
             <!-- Product -->
@@ -52,9 +53,9 @@
                   data-target="#submenu1"
                   class="nav-link collapsed active"
                 >
-                  <i class="material-icons align-middle">group_work</i>Sản phẩm
+                  <i class="material-icons align-middle">group_work</i><span>Sản phẩm</span>
                 </a>
-                <div class="collapse" id="submenu1">
+                <div class="sub collapse" id="submenu1">
                   <ul class="flex-column nav">
                     <li class="nav-item">
                       <a href="productDetail.html" class="nav-link">Tạo mới sản phẩm</a>
@@ -80,9 +81,9 @@
                 data-target="#submenu2"
                 class="nav-link collapsed"
               >
-                <i class="material-icons align-middle">dvr</i>Tin bài
+                <i class="material-icons align-middle">dvr</i><span>Tin bài</span>
               </a>
-              <div class="collapse" id="submenu2">
+              <div class="sub collapse" id="submenu2">
                 <ul class="flex-column nav">
                   <li class="nav-item">
                     <a href="detail.html" class="nav-link">Tạo bài mới</a>
@@ -108,10 +109,10 @@
                 data-target="#gallerysubmenu"
                 class="nav-link collapsed"
               >
-                <i class="material-icons align-middle">collections</i>Slide &
-                Album ảnh
+                <i class="material-icons align-middle">collections</i><span>Slide &
+                  Album ảnh</span>
               </a>
-              <div class="collapse" id="gallerysubmenu">
+              <div class="sub collapse" id="gallerysubmenu">
                   <ul class="flex-column nav">
                     <li class="nav-item">
                       <a href="galleryDetail.html" class="nav-link"> Tạo album ảnh mới</a>
@@ -139,9 +140,9 @@
                   data-target="#videosubmenu"
                   class="nav-link collapsed"
                 >
-                  <i class="material-icons align-middle">video_library</i>Video
+                  <i class="material-icons align-middle">video_library</i><span>Video</span>
                 </a>
-                <div class="collapse" id="videosubmenu">
+                <div class="sub collapse" id="videosubmenu">
                   <ul class="flex-column nav">
                     <li class="nav-item">
                       <a href="videoDetail.html" class="nav-link">Tạo video mới</a>
@@ -161,27 +162,27 @@
             <!-- Order -->
             <li class="nav-item">
                 <a href="order.html" class="nav-link" id="menu-order">
-                  <i class="material-icons align-middle">shopping_cart</i>Đặt hàng
+                  <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
                 </a>
             </li>  
             <!-- Language -->
             <li class="nav-item">
               <a href="language.html" class="nav-link" id="menu-language">
-                <i class="material-icons align-middle">language</i>Ngôn ngữ
+                <i class="material-icons align-middle">language</i><span>Ngôn ngữ</span>
               </a>
             </li>
 
             <!--Contact-->
             <li class="nav-item">
               <a href="contact.html" class="nav-link" id="menu-contact">
-                <i class="material-icons align-middle">chat_bubble_outline</i>Liên hệ
+                <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
               </a>
             </li>
 
             <!-- Component -->
             <li class="nav-item">
               <a href="component.html" class="nav-link" id="menu-component">
-                <i class="material-icons align-middle">picture_in_picture</i>Thành phần tĩnh
+                <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
               </a>
             </li>
 
@@ -192,9 +193,9 @@
                 data-target="#menusubmenu"
                 href="#menusubmenu"
                 class="nav-link collapsed"
-                ><i class="material-icons align-middle">menu</i>Menu</a
+                ><i class="material-icons align-middle">menu</i><span>Menu</span></a
               >
-              <div class="collapse" id="menusubmenu">
+              <div class="sub collapse" id="menusubmenu">
                 <ul class="flex-column nav">
                   <li class="nav-item">
                     <a href="menucatDetail.html" class="nav-link">Tạo menu mới</a>
@@ -213,10 +214,10 @@
                 data-target="#menu-admin-user"
                 href="#menu-admin-user"
                 class="nav-link collapsed"
-                ><i class="material-icons align-middle">face</i>Quản trị viên
-                và người dùng</a
+                ><i class="material-icons align-middle">face</i><span>Quản trị viên
+                và người dùng</span></a
               >
-              <div class="collapse" id="menu-admin-user">
+              <div class="sub collapse" id="menu-admin-user">
                 <ul class="flex-column nav">
                   <li class="nav-item">
                     <a href="info.html" class="nav-link"
@@ -238,7 +239,7 @@
               <a href="file.html" class="nav-link" id="menu-dashboard">
                 <i class="material-icons align-middle"
                   >settings_system_daydream</i
-                >Quản lý file
+                ><span>Quản lý file</span>
               </a>
             </li>
 
@@ -249,9 +250,9 @@
                   data-target="#setting-sub-menu"
                   href="#setting-sub-menu"
                   class="nav-link collapsed"
-                  ><i class="material-icons">settings</i>Thiết lập hệ thống</a
+                  ><i class="material-icons">settings</i><span>Thiết lập hệ thống</span></a
                 >
-                <div class="collapse" id="setting-sub-menu">
+                <div class="sub collapse" id="setting-sub-menu">
                   <ul class="flex-column nav">
                     <li class="nav-item">
                       <a href="infoSetting.html" class="nav-link">Thông tin</a>
@@ -284,15 +285,32 @@
         <div class="navbar-top fixed-top bg-white">
           <div class="nav-search float-left align-middle">
             <form class="form-inline md-form form-sm">
-              <i class="material-icons text-secondary">
-                search
-              </i>
+              <button class="search-button" type="submit">
+                  <i class="material-icons text-secondary">
+                      search
+                    </i>
+              </button>
               <input
                 class="form-control form-control-sm bg-white"
                 type="text"
                 placeholder="Search"
                 aria-label="Search"
               />
+              <span class="input-group-append">
+                  <button
+                   class="btn btn-white pt-1"
+                   data-toggle="collapse"
+                   type="button"
+                   href="#advancesearch"
+                  >
+                   <i
+                    class="material-icons text-secondary"
+                    title="Tìm kiếm nâng cao"
+                    data-toggle="tooltip"
+                    >expand_more</i
+                   >
+                  </button>
+              </span>
             </form>
           </div>
 
@@ -329,7 +347,7 @@
                 <a href="signin.html" class="dropdown-item">Thoát</a>
               </div>
 
-              <a href="signin.html" class="btn btn-sm">
+              <a href="signin.html" class="btn btn-sm" id="power-button">
                 <i class="material-icons">
                   settings_power
                 </i>
@@ -340,6 +358,46 @@
 
         <!-- Content -->
         <div id="main-content">
+        <!-- Search Group Button -->
+        <div class="search-button-group">
+          <div class="row collapse" id="advancesearch">
+            <div class="form-row">
+              <div class="form-group col">
+                <label>Mục</label>
+                <select class="form-control search-change p-2">
+                  <option></option>
+                </select>
+              </div>
+          
+              <div class="form-group col">
+                <label>Người tạo</label>
+                <select class="form-control search-change p-2">
+                  <option></option>
+                  <option>Admin</option>
+                </select>
+              </div>
+          
+              <div class="form-group col">
+                <label>Từ ngày</label>
+                <input
+                  id="to_date"
+                  type="text"
+                  class="form-control datepicker search-change p-2"
+                />
+              </div>
+          
+              <div class="form-group col">
+                <label>Đến ngày</label>
+                <input
+                  id="from_date"
+                  type="text"
+                  class="form-control datepicker search-change p-2"
+                />
+              </div>
+            </div>
+          </div>
+      </div>
+   <!-- End Search Group Button -->
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
               <h1 class="mt-3 pl-4">SẢN PHẨM</h1>
@@ -367,8 +425,8 @@
           <table class="table-sm table-hover table mb-2" width="100%">
             <thead>
               <tr class="text-muted">
-                <th></th>
-                <th class="text-center">
+                <th style="width: 34.4px;"></th>
+                <th style="width: 34.4px;">
                   <a
                   id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ"
                   >
@@ -389,14 +447,17 @@
             <tbody class="sort">
               <tr>
                 <td
-                  class="text-muted"
+                  class="text-muted connect"
                   data-toggle="tooltip"
                   title="Giữ icon này kéo thả để sắp xếp"
                 >
                   <i class="material-icons">format_line_spacing</i>
                 </td>
                 <td class="text-center">
-                  <input type="checkbox" class="checkdel" />
+                    <label class="container">
+                        <input type="checkbox" class="checkdel">
+                        <span class="checkmark"></span>
+                    </label>
                 </td>
                 <td>155</td>
                 <td class="editname">
@@ -481,14 +542,17 @@
 
               <tr>
                   <td
-                    class="text-muted"
+                    class="text-muted connect"
                     data-toggle="tooltip"
                     title="Giữ icon này kéo thả để sắp xếp"
                   >
                     <i class="material-icons">format_line_spacing</i>
                   </td>
                   <td class="text-center">
-                    <input type="checkbox" class="checkdel" />
+                      <label class="container">
+                          <input type="checkbox" class="checkdel">
+                          <span class="checkmark"></span>
+                      </label>
                   </td>
                   <td>151</td>
                   <td class="editname">
@@ -635,13 +699,7 @@
     <script>
         $("#submenu1").addClass("show");
         
-        $(".toggle-icon").click(function(){
-          if($(this).text() == "check_circle_outline"){
-            $(this).text("highlight_off").removeClass("text-primary")
-          }else{
-            $(this).text("check_circle_outline").addClass("text-primary")
-          }
-        })
+  
     </script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 // Toggle Icon
 $(document).ready(function() {
  $(".toggle-icon").click(function() {

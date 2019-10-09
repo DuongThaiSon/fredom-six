@@ -53,16 +53,16 @@
             <div class="sub collapse" id="submenu2">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="detail.html" class="nav-link">Tạo bài mới</a>
+                    <a href="{{Route('admin.articles.create')}}" class="nav-link">Tạo bài mới</a>
                 </li>
                 <li class="nav-item">
-                    <a href="article.html" class="nav-link">Quản lý tin bài</a>
+                    <a href="{{Route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
                 </li>
                 <li class="nav-item">
-                    <a href="articlecatDetail.html" class="nav-link">Thêm mới danh mục tin bài</a>
+                    <a href="{{Route('admin.articleCats.create')}}" class="nav-link">Thêm mới danh mục tin bài</a>
                 </li>
                 <li class="nav-item">
-                    <a href="articlecat.html" class="nav-link">Quản lý danh mục tin bài</a>
+                    <a href="{{Route('admin.articleCats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
                 </li>
                 </ul>
             </div>
@@ -85,15 +85,15 @@
                     <a href="galleryDetail.html" class="nav-link"> Tạo album ảnh mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="gallery.html" class="nav-link"> Quản lý album ảnh</a>
+                    <a href="{{Route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
-                    <a href="gallerycatDetail.html" class="nav-link">
+                    <a href="{{Route('admin.galleryCats.create')}}" class="nav-link">
                         Thêm mới danh mục album ảnh</a
                     >
                     </li>
                     <li class="nav-item">
-                    <a href="gallerycat.html" class="nav-link"> Quản lý danh mục album ảnh</a>
+                    <a href="{{Route('admin.galleryCats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
                     </li>
                 </ul>
                 </div>
@@ -112,16 +112,16 @@
                 <div class="sub collapse" id="videosubmenu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="videoDetail.html" class="nav-link">Tạo video mới</a>
+                    <a href="{{Route('admin.videos.create')}}" class="nav-link">Tạo video mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="video.html" class="nav-link">Quản lý video</a>
+                    <a href="{{Route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="videocatDetail.html" class="nav-link">Thêm mới danh mục video</a>
+                    <a href="{{Route('admin.videoCats.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="videocat.html" class="nav-link">Quản lý danh mục video</a>
+                    <a href="{{Route('admin.videoCats.index')}}" class="nav-link">Quản lý danh mục video</a>
                     </li>
                 </ul>
                 </div>
@@ -238,7 +238,7 @@
         </div>
 
         <div class="toggle-button" id="sidebarCollapse">
-        <a href="#"> <img src="img/Subtract.png" class="mr-2" alt=""> Toggle sidebar</a>
+        <a href="#"> <img src="{{ asset('assets/admin')}}/img/Subtract.png" class="mr-2" alt=""> Toggle sidebar</a>
         </div>
     </section>
 </div>

@@ -3,3 +3,4 @@ Dashboard
 <form id="logout" method="POST" action="/admin/logout">
     @csrf
 </form>
+

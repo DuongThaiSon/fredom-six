@@ -389,11 +389,6 @@ class UserController extends Controller
     public function check(Request $request)
     {  
         $email = User::where('email', $request->email)->count();
-        print_r($email);die;
-        if ($email > 0) {
-            echo '1';
-        }else {
-            echo '0';
-        }
+        print_r($email);
     }
 }

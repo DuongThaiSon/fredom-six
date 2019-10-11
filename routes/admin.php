@@ -191,10 +191,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
 
 
-    Route::get('order',[
-        'as' => 'order',
-        'uses' => 'OrderController@index'
-    ]);
+    Route::post('check-user', 'UserController@check');
 });
 
 

@@ -385,4 +385,15 @@ class UserController extends Controller
         }
         return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
     }
+
+    public function check(Request $request)
+    {  
+        $email = User::where('email', $request->email)->count();
+        print_r($email);die;
+        if ($email > 0) {
+            echo '1';
+        }else {
+            echo '0';
+        }
+    }
 }

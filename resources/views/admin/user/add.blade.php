@@ -181,9 +181,7 @@
         </div>
       </section>
     </div>
-    <script src="{{ asset('assets/admin') }}/js/jquery-3.4.1.min.js"></script>
-    <script src="{{ asset('assets/admin') }}/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="{{ asset('assets/admin') }}/js/main.js"></script>
+   @push('js')
     <script>
     $("#menu-admin-user").addClass("show");
     $(document).ready(function(){
@@ -205,4 +203,5 @@
 
     });
     </script>
+    @endpush
 @endsection

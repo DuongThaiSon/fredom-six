@@ -408,7 +408,8 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
   background: rgba(0, 0, 0, 0.9);
   border-radius: 4px;
   margin-left: 200px; }
-#user-info input {
+#user-info input,
+#user-info select {
   background: #e5e5e5 !important;
   max-width: 490px;
   height: 48px;

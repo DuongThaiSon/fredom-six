@@ -104,6 +104,7 @@
                         class="form-control"
                         name="password"
                         placeholder="Mật khẩu"
+                        required
                       />
                       
                     </div>
@@ -122,12 +123,14 @@
                     <div class="form-group">
                       <label class="control-label"
                         >Email</label
-                      >
+                      ><div class="alert" id="check-email" style="max-width: 490px; display:none"></div>
                       <input
                         type="email"
                         class="form-control"
+                        id="check"
                         name="email"
                         placeholder="abc@gmail.com"
+                        required
                       />
                       
                     </div>
@@ -178,8 +181,28 @@
         </div>
       </section>
     </div>
-
+    <script src="{{ asset('assets/admin') }}/js/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('assets/admin') }}/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/admin') }}/js/main.js"></script>
     <script>
-     $("#menu-admin-user").addClass("show")
-     </script>
+    $("#menu-admin-user").addClass("show");
+    $(document).ready(function(){
+      
+        $("#check").blur(function(){
+          $.ajax({
+          url: "/admin/check-user",
+          type: "post",
+          data: {email : $("#check").val()},
+          success: function(result){
+                if(result == '1'){
+                $("#check-email").css({"display":"block"}).html("Email đã được đăng kí").addClass('alert-danger').removeClass('alert-success');
+                }else{
+                $("#check-email").css({"display":"none"}).removeClass('alert-danger');
+                }
+            }
+          });
+        });
+
+    });
+    </script>
 @endsection

@@ -149,7 +149,7 @@
 
             <!-- Component -->
             <li class="nav-item">
-            <a href="component.html" class="nav-link" id="menu-component">
+            <a href="{{ route('admin.component.index')}}" class="nav-link" id="menu-component">
                 <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
             </a>
             </li>
@@ -217,19 +217,19 @@
                 <div class="sub collapse" id="setting-sub-menu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="infoSetting.html" class="nav-link">Thông tin</a>
+                    <a href="{{ route('admin.setting.infoSetting') }}" class="nav-link">Thông tin</a>
                     </li>
                     <li class="nav-item">
-                    <a href="seo.html" class="nav-link">Tối ưu SEO trang chủ</a>
+                    <a href="{{ route('admin.setting.seo') }}" class="nav-link">Tối ưu SEO trang chủ</a>
                     </li>
                     <li class="nav-item">
-                    <a href="sendmail.html" class="nav-link">Tài khoản gửi email</a>
+                    <a href="{{ route('admin.setting.sendMail') }}" class="nav-link">Tài khoản gửi email</a>
                     </li>
                     <li class="nav-item">
                     <a href="#" class="nav-link">Sao lưu & Phục hồi dữ liệu</a>
                     </li> 
                     <li class="nav-item"> 
-                    <a href="emailcontent.html" class="nav-link">Nội dung email gửi đi</a>
+                    <a href="{{ route('admin.setting.emailContent') }}" class="nav-link">Nội dung email gửi đi</a>
                     </li>                  
                 </ul>
                 </div>

@@ -42,6 +42,7 @@
         crossorigin="anonymous"
     ></script>
     <!-- Jquery -->
+    <script src="https://cdn.ckeditor.com/4.12.1/full-all/ckeditor.js"></script>
     <script src="{{ asset('assets/admin') }}/js/jquery-3.4.1.min.js"></script>
     <script src="{{ asset('assets/admin') }}/js/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ asset('assets/admin') }}/js/main.js"></script>

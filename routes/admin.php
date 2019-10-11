@@ -87,30 +87,47 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'admin.setting.infoSetting',
         'uses' => 'SettingController@infoSetting'
         ]);
-        Route::post('/postinfosetting', [
+        Route::post('/post-info-setting', [
             'as' => 'admin.setting.postInfoSetting',
             'uses' => 'SettingController@postInfoSetting'
         ]);
-        Route::get('/sendmail', [
-            'as' => 'admin.setting.sendmail',
-            'uses' => 'SettingController@sendmail'
+        Route::get('/send-mail', [
+            'as' => 'admin.setting.sendMail',
+            'uses' => 'SettingController@sendMail'
         ]);
-        Route::post('/postsendmail', [
-            'as' => 'admin.setting.postSendmail',
-            'uses' => 'SettingController@postSendmail'
+        Route::post('/send-mail', [
+            'as' => 'admin.setting.postSendMail',
+            'uses' => 'SettingController@postSendMail'
         ]);
         Route::get('/seo', [
             'as' => 'admin.setting.seo',
             'uses' => 'SettingController@seo'
         ]);
-        Route::post('/postseo', [
+        Route::post('/seo', [
             'as' => 'admin.setting.postSeo',
             'uses' => 'SettingController@postSeo'
         ]);
-        Route::get('/emailcontent', [
-            'as' => 'admin.setting.emailcontent',
+        Route::get('/email-content', [
+            'as' => 'admin.setting.emailContent',
             'uses' => 'SettingController@emailContent'
         ]);
+        Route::get('/email-content/add', [
+            'as' => 'admin.setting.addEmailContent',
+            'uses' => 'SettingController@addEmailContent'
+        ]);
+        Route::post('/email-content/add', [
+            'as' => 'admin.setting.postAddEmailContent',
+            'uses' => 'SettingController@postAddEmailContent'
+        ]);
+        Route::get('/email-content/edit/{id}', [
+            'as' => 'admin.setting.editEmailContent',
+            'uses' => 'SettingController@editEmailContent'
+        ]);
+        Route::post('/email-content/edit{id}', [
+            'as' => 'admin.setting.postEditEmailContent',
+            'uses' => 'SettingController@postEditEmailContent'
+        ]);
+
     });
    
     Route::group(['prefix' => 'component'], 
@@ -120,20 +137,24 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ComponentController@index'
         ]);
         Route::get('/add',[
-            'as' => 'admin.component.addco',
+            'as' => 'admin.component.addCo',
             'uses' => 'ComponentController@addCo'
         ]);
-        Route::post('/postaddco', [
-            'as' => 'admin.component.postaddco',
+        Route::post('/add', [
+            'as' => 'admin.component.postAddCo',
             'uses' => 'ComponentController@postAddCo'
         ]);
         Route::get('/edit/{id}', [
-            'as' => 'admin.component.editco',
+            'as' => 'admin.component.editCo',
             'uses' => 'ComponentController@editCo'
         ]);
         Route::post('/edit/{id}', [
-            'as' => 'admin.component.posteditco',
+            'as' => 'admin.component.postEditCo',
             'uses' => 'ComponentController@postEditCo'
+        ]);
+        Route::get('/public', [
+            'as' => 'admin.component.changePublic',
+            'uses' => 'ComponentController@changePublic'
         ]);
     });
     Route::get('password/change',[

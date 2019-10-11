@@ -6,13 +6,13 @@ $.ajaxSetup({
 // Toggle Icon
 $(document).ready(function() {
  $(".toggle-icon").click(function() {
-  if ($(this).text() == "check_circle_outline") {
+  if ($(this).hasClass("text-primary")) {
    $(this)
-    .text("highlight_off")
+    // .text("highlight_off")
     .removeClass("text-primary");
   } else {
    $(this)
-    .text("check_circle_outline")
+    // .text("check_circle_outline")
     .addClass("text-primary");
   }
  });

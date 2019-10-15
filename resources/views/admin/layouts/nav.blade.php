@@ -36,8 +36,8 @@
             </button>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Thay đổi thông tin cá nhân</a>
-                <a href="" class="dropdown-item">Đổi mật khẩu</a>
-                <a href="signin.html" class="dropdown-item">Thoát</a>
+                <a href="{{ route('password.change') }}" class="dropdown-item">Đổi mật khẩu</a>
+                <a href="signin.html" class="btn btn-sm dropdown-item" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">Thoát</a>
             </div>
             <a href="signin.html" class="btn btn-sm" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">
                 <i class="material-icons">

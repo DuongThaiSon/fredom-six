@@ -6,7 +6,7 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ DANH MỤC VIDEO</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <a href="{{ route('admin.videoCats.create') }}" class="btn btn-sm btn-dark">
+                <a href="{{ route('admin.video-cats.create') }}" class="btn btn-sm btn-dark">
                   <i class="material-icons">
                     create_new_folder
                   </i>
@@ -43,7 +43,7 @@
             <tbody class="sort sortcat">
             @include('admin.partials.categories_rows',['level' => 0])
             </tbody>
-          </table>         
+          </table>
         </div>
           <!-- Pagination -->
           <ul class="pagination float-left mt-4">
@@ -82,8 +82,8 @@
             </a>
         </div>
        </div>
-      </div>  
-@endsection  
+      </div>
+@endsection
 @push('js')
 <script>
  $(document).ready(function(){
@@ -96,17 +96,17 @@
        console.log(sort);
        $.ajax({
           method: 'POST',
-          url: "{{Route('admin.videoCats.sortcat')}}",
+          url: "{{Route('admin.video-cats.sortcat')}}",
           data: {
             sort: sort
           },
           success: function(){
             alert('SORTED');
-          }      
+          }
         });
      }
    }
     $( ".sortcat" ).sortable(sortableOptions);
   });
 </script>
-@endpush      
+@endpush

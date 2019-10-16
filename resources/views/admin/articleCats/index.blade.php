@@ -1,5 +1,5 @@
 @extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Articles Category')])
-@section('content')       
+@section('content')
         <div id="main-content">
           <!-- Search Group Button -->
           <div class="search-button-group">
@@ -12,7 +12,7 @@
                           <option>BẾP ĐIỆN TỪ</option>
                         </select>
                       </div>
-          
+
                       <div class="form-group col">
                         <label>Người tạo</label>
                         <select class="form-control search-change p-2">
@@ -20,7 +20,7 @@
                           <option>Admin</option>
                         </select>
                       </div>
-          
+
                       <div class="form-group col">
                         <label>Từ ngày</label>
                         <input
@@ -29,7 +29,7 @@
                           class="form-control datepicker search-change p-2"
                         />
                       </div>
-          
+
                       <div class="form-group col">
                         <label>Đến ngày</label>
                         <input
@@ -47,7 +47,7 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ DANH MỤC</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <a href="{{route('admin.articleCats.create')}}" class="btn btn-sm btn-dark">
+                <a href="{{route('admin.article-cats.create')}}" class="btn btn-sm btn-dark">
                   <i class="material-icons"> note_add</i>
                 </a>
                 <button id="btn-del-all" data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
@@ -57,7 +57,7 @@
               <!-- TABLE -->
               <div class="table-responsive bg-white mt-4" id="table">
               @csrf
-                <table class="table-sm table-hover table mb-2" width="100%">  
+                <table class="table-sm table-hover table mb-2" width="100%">
                   <thead>
                     <tr class="text-muted">
                       <th style="width: 34.5px;"></th>
@@ -79,18 +79,18 @@
                         <td class="text-muted connect" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
                           <i class="material-icons">format_line_spacing</i>
                         </td>
-                        <td class="text-center"> 
+                        <td class="text-center">
                           <input type="checkbox" class="checkdel" value="{{$category->id}}" />
                         </td>
                         <td>{{$category->id}}</td>
                         <td>
-                          <a href="{{route('admin.articleCats.edit', $category->id)}}">{{$category->name}}</a>
+                          <a href="{{route('admin.article-cats.edit', $category->id)}}">{{$category->name}}</a>
                         </td>
                         <td>{{$category->created_at}}</td>
                         <td>{{$category->user()->first()->name}}</td>
                         <td>
                           <div class="btn-group">
-                            <a href="{{route('admin.articleCats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
+                            <a href="{{route('admin.article-cats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
                               <i class="material-icons">border_color</i>
                             </a>
                             <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Copy dữ liệu">
@@ -105,10 +105,10 @@
                             </button>
                           </div>
                         </td>
-                      </tr>             
+                      </tr>
                   @endforeach
                   </tbody>
-                </table>  
+                </table>
                 {{-- {{$categories->links()}} --}}
               </div>
               <!-- Pagination -->
@@ -147,7 +147,7 @@
                 </a>
             </div>
           </div>
-        </div>     
+        </div>
 @endsection
 @push('js')
 <script>
@@ -167,7 +167,7 @@
           },
           success: function(){
             alert('SORTED');
-          }      
+          }
         });
      }
    }

@@ -21,13 +21,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['videos' => 'id']
     ]);
 
-    Route::resource('videoCats', 'VideoCategoryController', [
+    Route::resource('video-cats', 'VideoCategoryController', [
         'as' => 'admin',
-        'parameters' => ['videoCats' => 'id']
+        'parameters' => ['video-cats' => 'id']
     ]);
 
-    Route::post('videoCats/sortcat', [
-        'as' => 'admin.videoCats.sortcat',
+    Route::post('video-cats/sortcat', [
+        'as' => 'admin.video-cats.sortcat',
         'uses' => 'VideoCategoryController@sortcat'
     ]);
 
@@ -36,15 +36,20 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['gallery' => 'id']
     ]);
 
-    Route::resource('galleryCats', 'GalleryCategoryController',[
+    Route::resource('gallery-cats', 'GalleryCategoryController',[
         'as' => 'admin',
-        'parameters' => ['galleryCats' => 'id']
+        'parameters' => ['gallery-cats' => 'id']
     ]);
 
 
     Route::resource('articles', 'ArticleController', [
         'as' => 'admin',
         'parameters' => ['articles' => 'id']
+    ])->except('destroy');
+
+    Route::get('articles/{id}/delete', [
+        'as' => 'admin.articles.delete',
+        'uses' => 'ArticleController@destroy'
     ]);
 
     Route::post('articles/sort', [
@@ -52,13 +57,38 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@sort'
     ]);
 
-    Route::resource('articleCats', 'ArticleCategoryController', [
-        'as' => 'admin',
-        'parameters' => ['articleCats' => 'id']
+    Route::post('articles/change-is-public', [
+        'as' => 'admin.articles.change-is-public',
+        'uses' => 'ArticleController@changeIsPublic'
     ]);
 
-    Route::post('articleCats/sortcat', [
-        'as' => 'admin.articleCats.sortcat',
+    Route::post('articles/change-is-highlight', [
+        'as' => 'admin.articles.change-is-highlight',
+        'uses' => 'ArticleController@changeIsHighlight'
+    ]);
+
+    Route::post('articles/change-is-new', [
+        'as' => 'admin.articles.change-is-new',
+        'uses' => 'ArticleController@changeIsNew'
+    ]);
+
+    Route::get('articles/{id}/copy', [
+        'as' => 'admin.articles.copy',
+        'uses' => 'ArticleController@CopyData'
+    ]);
+
+    Route::post('articles/sort', [
+        'as' => 'admin.articles.sort',
+        'uses' => 'ArticleController@sort'
+    ]);
+
+    Route::resource('article-cats', 'ArticleCategoryController', [
+        'as' => 'admin',
+        'parameters' => ['article-cats' => 'id']
+    ]);
+
+    Route::post('article-cats/sortcat', [
+        'as' => 'admin.article-cats.sortcat',
         'uses' => 'ArticleCategoryController@sortcat'
     ]);
 
@@ -80,9 +110,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
          ]);
 
     });
-    
+
     Route::group(['prefix' => 'setting'],
-    function(){ 
+    function(){
         Route::get('/', [
         'as' => 'admin.setting.infoSetting',
         'uses' => 'SettingController@infoSetting'
@@ -129,8 +159,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     });
-   
-    Route::group(['prefix' => 'component'], 
+
+    Route::group(['prefix' => 'component'],
     function (){
         Route::get('/', [
             'as' => 'admin.component.index',

@@ -12,7 +12,7 @@
                   <option>BẾP ĐIỆN TỪ</option>
                 </select>
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Người tạo</label>
                 <select class="form-control search-change p-2">
@@ -20,7 +20,7 @@
                   <option>Admin</option>
                 </select>
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Từ ngày</label>
                 <input
@@ -29,7 +29,7 @@
                   class="form-control datepicker search-change p-2"
                 />
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Đến ngày</label>
                 <input
@@ -97,7 +97,7 @@
                     <a href="{{route('admin.gallery.edit', $gallery->id)}}">{{$gallery->name}}</a>
                   </td>
                   <td>
-                    <a href="{{route('admin.galleryCats.edit', $gallery->category()->first()->id)}}">{{$gallery->category()->first()->name}}</a>
+                    <a href="{{route('admin.gallery-cats.edit', $gallery->category()->first()->id)}}">{{$gallery->category()->first()->name}}</a>
                   </td>
                   <td>
                       <button type="button" class="btn btn-sm p-1" data-toggle="tooltip" title="Click để tắt">
@@ -142,7 +142,7 @@
               </tbody>
             </table>
 
-            
+
           </div>
           <!-- Pagination -->
           <ul class="pagination float-left mt-4">
@@ -181,5 +181,5 @@
             </a>
             </div>
           </div>
-         </div>     
+         </div>
 @endsection

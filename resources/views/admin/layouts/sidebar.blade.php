@@ -59,10 +59,10 @@
                     <a href="{{Route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{Route('admin.articleCats.create')}}" class="nav-link">Thêm mới danh mục tin bài</a>
+                    <a href="{{Route('admin.article-cats.create')}}" class="nav-link">Thêm mới danh mục tin bài</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{Route('admin.articleCats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
+                    <a href="{{Route('admin.article-cats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
                 </li>
                 </ul>
             </div>
@@ -88,12 +88,12 @@
                     <a href="{{Route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.galleryCats.create')}}" class="nav-link">
+                    <a href="{{Route('admin.gallery-cats.create')}}" class="nav-link">
                         Thêm mới danh mục album ảnh</a
                     >
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.galleryCats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
+                    <a href="{{Route('admin.gallery-cats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
                     </li>
                 </ul>
                 </div>
@@ -118,10 +118,10 @@
                     <a href="{{Route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.videoCats.create')}}" class="nav-link">Thêm mới danh mục video</a>
+                    <a href="{{Route('admin.video-cats.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.videoCats.index')}}" class="nav-link">Quản lý danh mục video</a>
+                    <a href="{{Route('admin.video-cats.index')}}" class="nav-link">Quản lý danh mục video</a>
                     </li>
                 </ul>
                 </div>
@@ -131,7 +131,7 @@
                 <a href="order.html" class="nav-link" id="menu-order">
                 <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
                 </a>
-            </li>  
+            </li>
 
             <!-- Language -->
             <li class="nav-item">
@@ -227,10 +227,10 @@
                     </li>
                     <li class="nav-item">
                     <a href="#" class="nav-link">Sao lưu & Phục hồi dữ liệu</a>
-                    </li> 
-                    <li class="nav-item"> 
+                    </li>
+                    <li class="nav-item">
                     <a href="{{ route('admin.setting.emailContent') }}" class="nav-link">Nội dung email gửi đi</a>
-                    </li>                  
+                    </li>
                 </ul>
                 </div>
             </li>

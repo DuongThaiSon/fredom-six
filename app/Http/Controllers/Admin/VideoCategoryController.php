@@ -34,7 +34,7 @@ class VideoCategoryController extends Controller
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;  
+                return $query;
             });
         return $categories;
     }
@@ -54,13 +54,13 @@ class VideoCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
             'name' => 'required|unique:categories',
@@ -68,7 +68,7 @@ class VideoCategoryController extends Controller
         ]);
 
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 'meta_title', 
+            'parent_id','name','description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
         ]);
         $attributes['type'] = 'video';
@@ -85,9 +85,9 @@ class VideoCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.videoCats.edit', $category->id)
+        return redirect()->route('admin.video-cats.edit', $category->id)
         ->with('success', 'Tao moi thanh cong');
-        
+
     }
 
     /**
@@ -133,7 +133,7 @@ class VideoCategoryController extends Controller
         $attributes['updated_by'] = $user->id;
 
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 'meta_title', 
+            'parent_id','name','description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
         ]);
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
@@ -148,7 +148,7 @@ class VideoCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.videoCats.edit', $category->id)
+        return redirect()->route('admin.video-cats.edit', $category->id)
 
         ->with('success', 'Cap nhat thanh cong');
     }
@@ -162,14 +162,14 @@ class VideoCategoryController extends Controller
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
-        return redirect()->route('admin.videoCats.index')->with('xoá thành công');
+        return redirect()->route('admin.video-cats.index')->with('xoá thành công');
     }
     public function sortcat(Request $request){
         $cats = $request->sort;
         $order = [];
 		foreach ($cats as $c) {
             $id = str_replace('cat_', '', $c);
-            
+
                 if($id != ''){
                     $order[] = Category::findOrFail($id)->order;
                 } else {
@@ -181,5 +181,5 @@ class VideoCategoryController extends Controller
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
         }
-    } 
+    }
 }

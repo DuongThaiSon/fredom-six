@@ -12,7 +12,7 @@
                     <option>BẾP ĐIỆN TỪ</option>
                   </select>
                   </div>
-              
+
                   <div class="form-group col">
                   <label>Người tạo</label>
                   <select class="form-control search-change p-2">
@@ -20,7 +20,7 @@
                     <option>Admin</option>
                   </select>
                   </div>
-              
+
                   <div class="form-group col">
                   <label>Từ ngày</label>
                   <input
@@ -29,7 +29,7 @@
                     class="form-control datepicker search-change p-2"
                   />
                   </div>
-              
+
                   <div class="form-group col">
                   <label>Đến ngày</label>
                   <input
@@ -125,14 +125,14 @@
                                     @method('DELETE')
                                     <button class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
                                         <i class="material-icons">delete</i>
-                                    </button>   
+                                    </button>
                                 </div>
                             </td>
                         </tr>
-                        </form>   
+                        </form>
                         @endforeach
                     </tbody>
-                </table>          
+                </table>
         </div>
 
         <!-- Pagination -->
@@ -192,7 +192,7 @@
           },
           success: function(){
             alert('SORTED');
-          }      
+          }
         });
      }
    }

@@ -56,7 +56,7 @@
                     <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
                       <i class="material-icons">playlist_add</i>
                     </a>
-                    <a href="{{route('admin.galleryCats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
+                    <a href="{{route('admin.gallery-cats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
                       <i class="material-icons">mode_edit</i>
                     </a>
                     <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
@@ -69,7 +69,7 @@
             </tbody>
           </table>
 
-          
+
         </div>
           <!-- Pagination -->
           <ul class="pagination float-left mt-4">
@@ -108,5 +108,5 @@
             </a>
             </div>
           </div>
-        </div>    
-  @endsection       
+        </div>
+  @endsection

@@ -32,9 +32,9 @@ class ArticleCategoryController extends Controller
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;  
+                return $query;
             });
-        
+
         return $Categories;
     }
 
@@ -81,7 +81,7 @@ class ArticleCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.articleCats.edit', $category->id)->with('SUCCESS');
+        return redirect()->route('admin.article-cats.edit', $category->id)->with('SUCCESS');
     }
 
     /**
@@ -143,7 +143,7 @@ class ArticleCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.articleCats.edit', $category->id)->with('UPDATED COMPLE');
+        return redirect()->route('admin.article-cats.edit', $category->id)->with('UPDATED COMPLE');
     }
 
     /**
@@ -155,7 +155,7 @@ class ArticleCategoryController extends Controller
     public function destroy($id)
     {
         Category::findOrFail($id)->delete();
-        return redirect()->route('admin.articleCats.index')->with('DETELED COMPLE');
+        return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
     }
     public function sortcat(Request $request){
         $cats = $request->sort;
@@ -168,7 +168,7 @@ class ArticleCategoryController extends Controller
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
         }
-    } 
+    }
     // public function movetop(Article $article,$articlecat = null, Request $request){
     //     $condition = [];
     //     $condition[] = ['order', '>', $article->order];
@@ -189,6 +189,6 @@ class ArticleCategoryController extends Controller
     //     }
     //     if ($request->ajax()) {
     //         return 0;
-    //     } 
-    // }   
+    //     }
+    // }
 }

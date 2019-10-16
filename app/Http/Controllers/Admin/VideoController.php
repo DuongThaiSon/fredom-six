@@ -23,9 +23,9 @@ class VideoController extends Controller
         return view('admin.videos.index', compact('videos'));
     }
 
-    /** 
+    /**
      * Get the sub categories
-     * 
+     *
      * @param int $parent_id
      * @return mix
      */
@@ -67,12 +67,12 @@ class VideoController extends Controller
             'image' => 'nullable|sometimes|image'
         ]);
 
-        
+
 
         $attributes = $request->only([
-            'category_id','name','url','description', 'detail', 'slug', 'meta_title', 
+            'category_id','name','url','description', 'detail', 'slug', 'meta_title',
             'meta_description', 'meta_page_topic','meta_keyword',
-            'is_highlight', 'is_public', 'is_new' 
+            'is_highlight', 'is_public', 'is_new'
         ]);
         if (Auth::check())
         {
@@ -117,7 +117,7 @@ class VideoController extends Controller
     {
        $video = Video::findOrFail($id);
        $categories = $this->getSubCategories(0,$id);
-    
+
        return view('admin.videos.edit', compact('categories','video'));
     }
 
@@ -137,9 +137,9 @@ class VideoController extends Controller
         ]);
 
         $attributes = $request->only([
-            'category_id','name','url','description', 'detail', 'slug', 
+            'category_id','name','url','description', 'detail', 'slug',
             'meta_title', 'meta_description', 'meta_page_topic','meta_keyword',
-            'is_highlight', 'is_public', 'is_new' 
+            'is_highlight', 'is_public', 'is_new'
         ]);
         if (Auth::check())
         {
@@ -148,7 +148,7 @@ class VideoController extends Controller
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['is_public'] = isset($request->is_public)?1:0;
         $attributes['is_new'] = isset($request->is_new)?1:0;
-        
+
         if ($request->hasFile('image')){
             $destinationDir = public_path('media/video');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();

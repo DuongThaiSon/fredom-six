@@ -64,7 +64,7 @@
                   <tbody>
                       
                     @forelse ($contacts as $contact)
-                    <tr>
+                    <tr class="contact">
                         <td class="text-center">
                             <label class="container">
                                 <input type="checkbox" class="checkdel" name="id[]" value="{{ $contact->id }}">
@@ -77,7 +77,7 @@
                         <td>{{ $contact->email }}</td>
                         <td>{{ $contact->created_at }}</td>
                         <td class="text-center">
-                          <a href="{{ route('contact.delete', $contact->id ) }}"><i class="material-icons">delete</i></a>
+                          <a href="" class="btn-delete" data-id="{{ $contact->id }}"><i class="material-icons">delete</i></a>
                         </td>
                       </tr>
                     @empty
@@ -109,68 +109,11 @@
     </div>
 
    
-    @push('js')
-    <script>
-      $("#menu-contact").addClass("show");
-
-      $(".toggle-icon").click(function() {
-        if ($(this).text() == "check_circle_outline") {
-          $(this)
-            .text("highlight_off")
-            .removeClass("text-primary");
-        } else {
-          $(this)
-            .text("check_circle_outline")
-            .addClass("text-primary");
-        }
-      });
-        // $(".deleteAll-contact").click(function(e) {
-        //   e.preventDefault();
-        //   let _id = $(".checkdel:checked").length;
-          
-        //   if (_id < 1) {
-        //     Swal.fire({
-        //       type: 'error',
-        //       title: 'Lỗi...',
-        //       text: 'Không có dữ liệu để xóa!'
-        //     });
-        //   }else {
-        //     Swal.fire({
-        //     title: 'Bạn chắc chứ ?',
-        //     text: "Hành động sẽ xóa vĩnh viễn những dữ liệu đã chọn!",
-        //     type: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     cancelButtonText: 'Thôi, đùa đấy!',
-        //     confirmButtonText: 'Đúng, xóa nó đi!',
-        //     }).then((result) => {
-        //     if (result.value) {
-        //       Swal.fire(
-        //         'Đã xóa!',
-        //         'Dữ liệu xóa thành công.',
-        //         'success'
-        //       ).then((result)=>{$("#delete-all").submit();});
-        //       }
-        //     })
-        //   }
-        //   });
-        //   $("td a").click(function(e) {
-        //     e.preventDefault();
-        //     // Swal.showLoading();
-        //     Swal.fire({
-        //       position: 'top-end',
-        //       type: 'success',
-        //       title: 'Your work has been saved',
-        //       showConfirmButton: false,
-        //       timer: 9000
-        //     }).then((result) => { 
-        //       location.reload();
-        //     });
-        //   })
-    </script>
-    @endpush
+    
         </div>
       </div>
   </div>
   @endsection
+  @push('js')
+    <script src="{{ asset('assets/admin') }}/js/contact.js"></script>
+  @endpush

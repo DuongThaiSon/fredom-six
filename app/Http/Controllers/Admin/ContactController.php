@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Http\Services\Admin\ContactService;
 
 class ContactController extends Controller
 {
     const PER_PAGE = 20;
+    public function __construct(ContactService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index()
     {
         $contacts = Contact::orderBy('id')->Paginate(self::PER_PAGE);
@@ -24,15 +30,10 @@ class ContactController extends Controller
 
     public function deleteAll(Request $request)
     {
-        $contact = $request->id;
-        if(empty($contact)) {
-            return redirect()->back()->with('fail', 'Không có dữ liệu để xóa');
-        }else {
-            foreach ($contact as $id) {
-                Contact::findOrFail($id)->delete();
-            }
+        $deleted = $this->service->deleteAll($request->id);
+        if (!$deleted) {
+            return redirect()->back()->with('fali','Không có dữ liệu để xóa.');
         }
-        
-        return redirect()->back()->with('win','Xóa dữ liệu thành công');
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
     }
 }

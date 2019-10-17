@@ -18,15 +18,15 @@
                 
                 <div class="form-group">
                  <label for="">Mật khẩu cũ</label>
-                 <input type="password" name="oldpass" class="form-control">
+                 <input type="password" name="oldpass" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label for="">Mật khẩu mới</label>
-                  <input type="password" name="newpass" class="form-control">
+                  <input type="password" name="newpass" class="form-control" required>
                  </div>
                  <div class="form-group">
                    <label for="">Nhập lại mật khẩu mới</label>
-                   <input type="password" name="re-newpass" class="form-control">
+                   <input type="password" name="re-newpass" class="form-control" required>
                   </div>
                  <div class="form-group d-flex">
                    <button type="submit" href="#" class="btn ml-auto btn-primary float-right">Save</button>

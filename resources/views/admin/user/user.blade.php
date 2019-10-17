@@ -77,7 +77,7 @@
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td class="text-center">
-                              <a href="{{ route('user.add',$user->id ) }}" data-toggle="tooltip" title="Sửa"
+                              <a href="{{ route('user.info',$user->id ) }}" data-toggle="tooltip" title="Sửa"
                                 ><i class="material-icons">border_color</i></a
                               >
                               <a @if(Auth::user()->id==$user->id)href="#"@else href="{{ route('user.delete' ,$user->id) }}"@endif data-toggle="tooltip" title="Xóa"

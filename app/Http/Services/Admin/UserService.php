@@ -1,0 +1,59 @@
+<?php
+namespace App\Http\Services\Admin;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Profile;
+
+class UserService
+{
+    public function uploadAvatar($file, $destinationDir)
+    {
+        if ($file) {
+            $fileName = uniqid('leotive').'.'.$file->extension();
+            $file->move(public_path($destinationDir), $fileName);
+            $avatar = $destinationDir.$fileName;
+            return $avatar;
+        }
+        
+    }
+
+    private function handleAttributeExistance($attributes)
+    {
+        foreach ($attributes as $attribute) {
+            if (!Profile::where('name', $attribute)->first()) {
+                Profile::create(['name' => $attribute]);
+            }
+        }
+    }
+
+    public function updateUserProfile($request, $userChange)
+    {
+        $request = $request->only([
+            'position',
+            'phone',
+            'address',
+            'skype',
+            'birthday'
+        ]);
+        $this->handleAttributeExistance($request->keys());
+        $listAttribute = Profile::whereIn('name', $request->keys())->get();
+        $syncData = [];
+        foreach ($listAttribute as $item) {
+            $syncData[$item->id] = ['value' => $request[$item->name]];
+        }
+        $userChange->profiles()->syncWithoutDetaching($syncData);
+    }
+
+    public function createUser($request, $file, $destinationDir)
+    {
+        $avatar = $this->uploadAvatar($file, $destinationDir);
+        $attributes = [
+            'name', 'email', 
+        ];
+        $attributes = $request->only($attributes);
+        $attributes['password'] = bcrypt($request['password']);
+        $attributes['avatar'] = $avatar;
+        return $attributes;
+    }
+}

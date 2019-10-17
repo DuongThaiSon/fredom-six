@@ -21,18 +21,18 @@ class ContactController extends Controller
         return view('admin.contact.contact', compact('contacts'));
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $contact = Contact::findOrFail($id);
+        $contact = Contact::findOrFail($request->id);
         $contact->delete();
         return redirect()->back()->with('win','Xóa dữ liệu thành công');
     }
 
     public function deleteAll(Request $request)
     {
-        $deleted = $this->service->deleteAll($request->id);
+        $deleted = $this->service->deleteAll($request->ids);
         if (!$deleted) {
-            return redirect()->back()->with('fali','Không có dữ liệu để xóa.');
+            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
         }
         return redirect()->back()->with('win','Xóa dữ liệu thành công.');
     }

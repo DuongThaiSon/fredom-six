@@ -206,11 +206,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'contact',
         'uses' => 'ContactController@index'
     ]);
-    Route::get('contact/delete/{id}',[
+    Route::get('contact/delete',[
         'as' => 'contact.delete',
         'uses' => 'ContactController@delete'
     ]);
-    Route::post('contact/delete',[
+    Route::delete('contact/delete',[
         'as' => 'contact.deleteAll',
         'uses' => 'ContactController@deleteAll'
     ]);

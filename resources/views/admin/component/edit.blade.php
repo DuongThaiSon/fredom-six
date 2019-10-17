@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.postEditCo', $component->id) }}" >
+  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" >
 
     @csrf
   <div id="content">

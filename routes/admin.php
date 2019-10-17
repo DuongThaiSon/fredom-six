@@ -81,7 +81,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     });
     
-    Route::group(['prefix' => 'setting'],
+    Route::group(['prefix' => 'settings'],
     function(){ 
         Route::get('/', [
         'as' => 'admin.setting.infoSetting',
@@ -130,31 +130,35 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     });
    
-    Route::group(['prefix' => 'component'], 
+    Route::group(['prefix' => 'components'], 
     function (){
         Route::get('/', [
             'as' => 'admin.component.index',
             'uses' => 'ComponentController@index'
         ]);
         Route::get('/add',[
-            'as' => 'admin.component.addCo',
-            'uses' => 'ComponentController@addCo'
+            'as' => 'admin.component.create',
+            'uses' => 'ComponentController@create'
         ]);
         Route::post('/add', [
-            'as' => 'admin.component.postAddCo',
-            'uses' => 'ComponentController@postAddCo'
+            'as' => 'admin.component.store',
+            'uses' => 'ComponentController@store'
         ]);
         Route::get('/edit/{id}', [
-            'as' => 'admin.component.editCo',
-            'uses' => 'ComponentController@editCo'
+            'as' => 'admin.component.show',
+            'uses' => 'ComponentController@show'
         ]);
         Route::post('/edit/{id}', [
-            'as' => 'admin.component.postEditCo',
-            'uses' => 'ComponentController@postEditCo'
+            'as' => 'admin.component.update',
+            'uses' => 'ComponentController@update'
         ]);
         Route::get('/public', [
             'as' => 'admin.component.changePublic',
             'uses' => 'ComponentController@changePublic'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'admin.component.delete',
+            'uses' => 'ComponentController@delete'
         ]);
     });
     Route::get('password/change',[

@@ -165,35 +165,36 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@postChangePassword'
     ]);
-    Route::get('user/info/{id}',[
-        'as' => 'user.info',
-        'uses' => 'UserController@info'
-    ]);
-    Route::post('info/change',[
-        'as' => 'info.change',
-        'uses' => 'UserController@changeInfo'
-    ]);
-    Route::get('user/add',[
-        'as' => 'user.add',
-        'uses' => 'UserController@getAddUser'
-    ]);
-    Route::post('user/add',[
-        'as' => 'user.postadd',
-        'uses' => 'UserController@postAddUser'
-    ]);
-    Route::get('user/admin',[
-        'as' => 'user.admin',
-        'uses' => 'UserController@admin'
-    ]);
-    Route::get('user/delete/{id}',[
-        'as' =>'user.delete',
-        'uses' => 'UserController@delete'
-    ]);
-    Route::post('user/deleteAll',[
-        'as' => 'user.deleteAll',
-        'uses' => 'UserController@deleteAll'
-    ]);
-
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/info/{id}',[
+            'as' => 'user.info',
+            'uses' => 'UserController@info'
+        ]);
+        Route::post('/info/change',[
+            'as' => 'info.change',
+            'uses' => 'UserController@changeInfo'
+        ]);
+        Route::get('/add',[
+            'as' => 'user.add',
+            'uses' => 'UserController@getAddUser'
+        ]);
+        Route::post('/add',[
+            'as' => 'user.postadd',
+            'uses' => 'UserController@postAddUser'
+        ]);
+        Route::get('/admin',[
+            'as' => 'user.admin',
+            'uses' => 'UserController@admin'
+        ]);
+        Route::get('/delete/{id}',[
+            'as' =>'user.delete',
+            'uses' => 'UserController@delete'
+        ]);
+        Route::post('/deleteAll',[
+            'as' => 'user.deleteAll',
+            'uses' => 'UserController@deleteAll'
+        ]);
+    });
 
 
 

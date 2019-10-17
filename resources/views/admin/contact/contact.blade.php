@@ -14,7 +14,7 @@
             <div id="content">
               <h1 class="mt-3 pl-4">QUẢN LÝ NỘI DUNG LIÊN HỆ TỪ KHÁCH HÀNG</h1>
               <!-- Save group button -->
-              <form action="{{ route('contact.deleteAll')}}" method="POST">
+              <form action="{{ route('contact.deleteAll')}}" method="POST" id="delete-all">
                 @csrf
                 @if(Session::has('fail'))
                 <div class="alert alert-danger">{{ Session::get('fail') }}</div>
@@ -26,7 +26,7 @@
                 <button
                   data-toggle="tooltip"
                   title="Xóa toàn bộ mục đã chọn"
-                  class="btn btn-sm btn-dark"
+                  class="btn btn-sm btn-dark deleteAll-contact"
                   target="_blank"
                   type="submit"
                 >
@@ -109,6 +109,7 @@
     </div>
 
    
+    @push('js')
     <script>
       $("#menu-contact").addClass("show");
 
@@ -123,7 +124,52 @@
             .addClass("text-primary");
         }
       });
+        // $(".deleteAll-contact").click(function(e) {
+        //   e.preventDefault();
+        //   let _id = $(".checkdel:checked").length;
+          
+        //   if (_id < 1) {
+        //     Swal.fire({
+        //       type: 'error',
+        //       title: 'Lỗi...',
+        //       text: 'Không có dữ liệu để xóa!'
+        //     });
+        //   }else {
+        //     Swal.fire({
+        //     title: 'Bạn chắc chứ ?',
+        //     text: "Hành động sẽ xóa vĩnh viễn những dữ liệu đã chọn!",
+        //     type: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     cancelButtonText: 'Thôi, đùa đấy!',
+        //     confirmButtonText: 'Đúng, xóa nó đi!',
+        //     }).then((result) => {
+        //     if (result.value) {
+        //       Swal.fire(
+        //         'Đã xóa!',
+        //         'Dữ liệu xóa thành công.',
+        //         'success'
+        //       ).then((result)=>{$("#delete-all").submit();});
+        //       }
+        //     })
+        //   }
+        //   });
+        //   $("td a").click(function(e) {
+        //     e.preventDefault();
+        //     // Swal.showLoading();
+        //     Swal.fire({
+        //       position: 'top-end',
+        //       type: 'success',
+        //       title: 'Your work has been saved',
+        //       showConfirmButton: false,
+        //       timer: 9000
+        //     }).then((result) => { 
+        //       location.reload();
+        //     });
+        //   })
     </script>
+    @endpush
         </div>
       </div>
   </div>

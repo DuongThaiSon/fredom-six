@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
 use Auth;
 
@@ -14,7 +14,7 @@ class ChangePasswordController extends Controller
     {
         return view('admin.user.changePassword');
     }
-    public function postChangePassword(UserRequest $request)
+    public function postChangePassword(ChangePasswordRequest $request)
     {
         $email = Auth::user()->email;
         $credentials = array('email'=> $email, 'password'=>$request->oldpass);

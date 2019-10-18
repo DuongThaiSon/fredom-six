@@ -16,12 +16,12 @@
               <!-- Save group button -->
               <form action="{{ route('contact.deleteAll')}}" method="POST" id="delete-all">
                 @csrf
-                @if(Session::has('fail'))
+                {{-- @if(Session::has('fail'))
                 <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                 @endif
               @if(Session::has('win'))
                   <div class="alert alert-success">{{ Session::get('win')}}</div>
-                @endif
+                @endif --}}
               <div class="save-group-buttons">
                 <button
                   data-toggle="tooltip"

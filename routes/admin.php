@@ -190,11 +190,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'user.admin',
             'uses' => 'UserController@admin'
         ]);
-        Route::get('/delete/{id}',[
+        Route::delete('/delete',[
             'as' =>'user.delete',
             'uses' => 'UserController@delete'
         ]);
-        Route::post('/deleteAll',[
+        Route::delete('/deleteAll',[
             'as' => 'user.deleteAll',
             'uses' => 'UserController@deleteAll'
         ]);

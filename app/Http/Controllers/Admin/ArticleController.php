@@ -64,9 +64,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $attributes = $this->service->RequestDataCreate($request);
-
-        $attributes = $this->service->UploadImage('/media/article', $request->avatar);
+        $attributes = $this->service->Create($request, Article::max('order'), '/medie/article', $request->avatar);
 
         $article = Article::create($attributes);
 
@@ -108,9 +106,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-       $attributes = $this->service->RequestDataEdit($request);
-
-       $attributes = $this->service->UploadImage('/media/article', $request->avatar);
+       $attributes = $this->service->Edit($request, '/media/article', $request->avatar);
 
         $articles = Article::findOrFail($id);
         $article  = $articles->fill($attributes);

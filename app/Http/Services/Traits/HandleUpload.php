@@ -11,8 +11,8 @@ trait HandleUpload
         if($name) {
             $file                 = uniqid('leotive').'.'.$name->extension();
             $name->move(public_path($destinationDir), $file);
-            $attributes['avatar'] = $destinationDir.$file;
+            $avatar = $destinationDir.$file;
+            return $avatar;
         }
-        return $attributes;
     }
 }

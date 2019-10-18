@@ -14,12 +14,43 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::get('', [
         'as' => 'admin.dashboard.index',
         'uses' => 'DashboardController@index'
-    ]);;
+    ]);
 
     Route::resource('videos', 'VideoController',[
         'as' => 'admin',
         'parameters' => ['videos' => 'id']
+    ])->except('destroy');
+
+    Route::get('videos/{id}/delete', [
+        'as' => 'admin.videos.delete',
+        'uses' => 'VideoController@destroy'
     ]);
+
+    Route::post('videos/sort', [
+        'as' => 'admin.videos.sort',
+        'uses' => 'VideoController@sort'
+    ]);
+
+    Route::post('videos/change-is-public', [
+        'as' => 'admin.videos.change-is-public',
+        'uses' => 'VideoController@changeIsPublic'
+    ]);
+
+    Route::post('videos/change-is-highlight', [
+        'as' => 'admin.videos.change-is-highlight',
+        'uses' => 'VideoController@changeIsHighlight'
+    ]);
+
+    Route::post('videos/change-is-new', [
+        'as' => 'admin.videos.change-is-new',
+        'uses' => 'VideoController@changeIsNew'
+    ]);
+
+    Route::get('videos/{id}/copy', [
+        'as' => 'admin.videos.copy',
+        'uses' => 'VideoController@CopyData'
+    ]);
+
 
     Route::resource('video-cats', 'VideoCategoryController', [
         'as' => 'admin',
@@ -75,11 +106,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::get('articles/{id}/copy', [
         'as' => 'admin.articles.copy',
         'uses' => 'ArticleController@CopyData'
-    ]);
-
-    Route::post('articles/sort', [
-        'as' => 'admin.articles.sort',
-        'uses' => 'ArticleController@sort'
     ]);
 
     Route::resource('article-cats', 'ArticleCategoryController', [

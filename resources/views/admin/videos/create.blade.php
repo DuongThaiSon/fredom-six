@@ -42,6 +42,7 @@
                         required
                         class="form-control"
                         placeholder="Tên video"
+                        value="{{ $video->name ?? '' }}"
                       />
                       <small class="form-text">Tên của video chứa dữ liệu</small>
                     </div>
@@ -54,12 +55,13 @@
                         required
                         class="form-control"
                         placeholder="Url video"
+                        value="{{ $video->url ?? '' }}"
                       />
                       <small class="form-text"
                         >Dán đoạn link url đã copy từ youtube vào.</small
                       >
                     </div>
-                   
+
                     <div class="form-group">
                         <label>Nằm trong mục</label>
                         <select name="category_id" class="form-control">
@@ -74,7 +76,7 @@
                     <!-- Button Toggle -->
                     <div class="mb-2">
                       <label class="control-label">Hiển thị</label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_public" id="public"/>
+                      <input type="checkbox" class="checkbox-toggle" name="is_public" id="public" {{ isset($video)&&$video->is_public==1?'checked':'' }}/>
                       <label class="label-checkbox" for="public">Hiển thị</label>
                       <small class="form-text">
                         Khi tính năng “Hiển thị” được bật, bài viết này có thể
@@ -83,7 +85,7 @@
                     </div>
                     <div class="mb-2">
                       <label class="control-label">Nổi bật</label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"/>
+                    <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight" {{ isset($video)&&$video->is_highlight==1?'checked':'' }}/>
                       <label class="label-checkbox" for="highlight">Nổi bật</label>
                     </div>
                     <small class="form-text">
@@ -93,7 +95,7 @@
                     </small>
                     <div class="mb-2">
                       <label class="control-label">Mới</label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"/>
+                      <input type="checkbox" class="checkbox-toggle" name="is_new" id="new" {{ isset($video)&&$video->is_new==1?'checked':'' }}/>
                       <label class="label-checkbox" for="new">Mới </label>
                     </div>
                     <small class="form-text"
@@ -114,6 +116,7 @@
                         class="form-control"
                         name="meta_title"
                         placeholder="Tiêu đề Browser (title)"
+                        value="{{ $video->meta_title ?? '' }}"
                       />
                       <small class="form-text"
                         >Tiêu đề của trang chủ có tác dụng tốt nhất cho
@@ -128,6 +131,7 @@
                         class="form-control"
                         name="slug"
                         placeholder="Tối ưu URL"
+                        value="{{ $video->slug ?? '' }}"
                       />
                       <small class="form-text"
                         >Tối ưu hóa đường dẫn URL dể tốt nhất cho SEO.</small
@@ -141,12 +145,13 @@
                           class="form-control"
                           name="meta_description"
                           placeholder="Thẻ Meta Description"
+                          value="{{ $video->meta_description ?? '' }}"
                         />
                         <small class="form-text"
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
                         >
                       </div>
-                      
+
                       <div class="form-group">
                           <label class="control-label">Thẻ Meta keywords</label>
                           <input
@@ -154,12 +159,13 @@
                             class="form-control"
                             name="meta_keyword"
                             placeholder="Thẻ Meta keywords"
+                            value="{{ $video->meta_keyword ?? '' }}"
                           />
                           <small class="form-text"
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
                           >
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">Thẻ Meta Page Topic</label>
                             <input
@@ -167,12 +173,13 @@
                               class="form-control"
                               name="meta_page_topic"
                               placeholder="Thẻ Meta Page Topic"
+                              value="{{ $video->meta_page_topic ?? '' }}"
                             />
                             <small class="form-text"
                               >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của trang web đang có nội dung nói về chủ đề nào</small
                             >
                         </div>
-   
+
                         <div class="form-group">
                           <label class="control-label">Ảnh đại diện</label>
                           <input
@@ -180,6 +187,7 @@
                             class="form-control"
                             name="image"
                             placeholder="Ảnh đại diện"
+                            value="{{ $video->image ?? '' }}"
                           />
                           <small class="form-text"
                             >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
@@ -194,7 +202,7 @@
                   <div class="col-12">
                     <legend>Nội dung tóm tắt</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="description"></textarea>
+                      <textarea class="form-control" name="description">{{ $video->description ?? '' }}</textarea>
                     </div>
                   </div>
                 </div>
@@ -203,14 +211,14 @@
                   <div class="col-12">
                     <legend>Mô tả video</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="detail"></textarea>
+                      <textarea class="form-control" name="detail">{{ $video->detail ?? '' }}</textarea>
                     </div>
                   </div>
                 </div>
               </form>
             </div>
            </div>
-          </div>  
+          </div>
 @endsection
 @push('js')
  <script>

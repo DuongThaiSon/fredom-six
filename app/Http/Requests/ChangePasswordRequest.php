@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class ChangePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => 'nullable|sometimes|image',
-            'password' => 'required|min:8',
-            'email' => 'required|unique:users,email',
+            'oldpass' => 'required',
+            'newpass' => 'required|min:8',
+            're-newpass' => 'required|same:newpass'
         ];
     }
 
@@ -38,11 +38,11 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
-            'avatar.image' => 'Ảnh không đúng định dạng',
-            'password.min' => 'Mật khẩu ít nhất 8 kí tự',
-            'email.unique' => 'Email đã được đăng kí',
-            'email.required' => 'Vui lòng điền email',
-            'password.required' => 'Vui lòng điền mật khẩu'
+            'newpass.min' => 'Mật khẩu ít nhất 8 kí tự',
+            're-newpass.same' => 'Mật khẩu không trùng khớp', 
+            'oldpass.required' => 'Vui lòng nhập mật khẩu cũ',
+            'newpass.required' => 'Vui lòng nhập mật khẩu mới',
+            're-newpass.required' => 'Vui lòng nhập lại mật khẩu mới'
         ];
     }
 }

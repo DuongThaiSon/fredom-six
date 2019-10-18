@@ -22,7 +22,7 @@
                     <button
                       data-toggle="tooltip"
                       title="Xóa toàn bộ mục đã chọn"
-                      class="btn btn-sm btn-dark"
+                      class="btn btn-sm btn-dark delete-all-user"
                       type="submit"
                     >
                       <i class="material-icons">
@@ -58,17 +58,17 @@
                         </tr>
                       </thead>
                       <tbody>
-                          @if(Session::has('fail'))
+                          {{-- @if(Session::has('fail'))
                           <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                           @endif
                           @if(Session::has('win'))
                           <div class="alert alert-success">{{ Session::get('win') }}</div>
-                          @endif
+                          @endif --}}
                         @forelse ($users as $user)
                         <tr>
                             <td class="text-center">
                                 <label class="container">
-                                    <input type="checkbox" name="id[]" class="checkdel" value="{{ $user->id }} ">
+                                    <input type="checkbox" name="id[]" class="checkdel"  @if(Auth::user()->id==$user->id)value=""@else value="{{ $user->id }}" @endif >
                                     <span class="checkmark"></span>
                                 </label>
                             </td>
@@ -80,10 +80,11 @@
                               <a href="{{ route('user.info',$user->id ) }}" data-toggle="tooltip" title="Sửa"
                                 ><i class="material-icons">border_color</i></a
                               >
-                              <a @if(Auth::user()->id==$user->id)href="#"@else href="{{ route('user.delete' ,$user->id) }}"@endif data-toggle="tooltip" title="Xóa"
+                              <a href="" @if(Auth::user()->id==$user->id)class=""@else class="btn-delete-user" @endif data-id="{{ $user->id }}" data-toggle="tooltip" title="Xóa"
                                 ><i class="material-icons">delete</i></a
                               >
                             </td>
+                            
                           </tr>
                         @empty
                             
@@ -109,18 +110,8 @@
         </div>
       </section>
     </div>
-    <script>
-      $("#menu-admin-user").addClass("show");
-      $(".toggle-icon").click(function() {
-        if ($(this).text() == "check_circle_outline") {
-          $(this)
-            .text("highlight_off")
-            .removeClass("text-primary");
-        } else {
-          $(this)
-            .text("check_circle_outline")
-            .addClass("text-primary");
-        }
-      });
-    </script>
+    
   @endsection
+  @push('js')
+  <script src="{{ asset('assets/admin') }}/js/user.js"></script>
+  @endpush

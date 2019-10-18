@@ -64,6 +64,7 @@
                         class="form-control"
                         name="name"
                         placeholder="Họ và tên"
+                        required
                       />
                       
                     </div>
@@ -76,6 +77,7 @@
                         class="form-control"
                         name="position"
                         placeholder="Chức vụ"
+                        required
                       />
                       
                     </div>
@@ -117,6 +119,7 @@
                         class="form-control"
                         name="phone"
                         placeholder="Số điện thoại"
+                        required
                       />
                       
                     </div>

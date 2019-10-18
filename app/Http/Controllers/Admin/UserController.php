@@ -205,16 +205,16 @@ class UserController extends Controller
         return view('admin.user.user', compact('users'));
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($request->id);
         $user->delete();
         return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
     }
 
     public function deleteAll(Request $request)
     {
-        $users = $request->id;
+        $users = $request->ids;
         if(empty($users)) {
             return redirect()->back()->with('fail', 'Không có dữ liệu để xóa');
         } else {

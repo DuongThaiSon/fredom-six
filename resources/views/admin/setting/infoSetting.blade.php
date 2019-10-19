@@ -44,7 +44,8 @@
                 type="text"
                 name="company_website_url"
                 class="form-control"
-                placeholder="leotive.com"
+                placeholder="http://www.leotive.com"
+                required
                 value="{{ $setting->company_website_url }}"
               />
               <small class="form-text"
@@ -87,7 +88,6 @@
               <input
                 type="text"
                 name="company_tel"
-                required
                 class="form-control"
                 placeholder="The cat in the hat"
                 value="{{ $setting->company_tel }}"
@@ -102,7 +102,6 @@
               <input
                 type="text"
                 name="company_hotline"
-                required
                 class="form-control"
                 placeholder=""
                 value="{{ $setting->company_hotline }}"
@@ -119,7 +118,6 @@
               <input
                 type="text"
                 name="company_mobile"
-                required
                 class="form-control"
                 placeholder="The cat in the hat"
                 value="{{ $setting->company_mobile }}"
@@ -134,7 +132,6 @@
               <input
                 type="text"
                 name="company_email"
-                required
                 class="form-control"
                 placeholder="hi@leotive.com"
                 value="{{ $setting->company_email }}"
@@ -149,7 +146,6 @@
               <input
                 type="text"
                 name="company_facebook_url"
-                required
                 class="form-control"
                 placeholder="http://facebook.com/leotive"
                 value="{{ $setting->company_facebook_url }}"

@@ -14,19 +14,19 @@
             <div id="content">
               <h1 class="mt-3 pl-4">QUẢN LÝ NỘI DUNG LIÊN HỆ TỪ KHÁCH HÀNG</h1>
               <!-- Save group button -->
-              <form action="{{ route('contact.deleteAll')}}" method="POST">
+              <form action="{{ route('contact.deleteAll')}}" method="POST" id="delete-all">
                 @csrf
-                @if(Session::has('fail'))
+                {{-- @if(Session::has('fail'))
                 <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                 @endif
               @if(Session::has('win'))
                   <div class="alert alert-success">{{ Session::get('win')}}</div>
-                @endif
+                @endif --}}
               <div class="save-group-buttons">
                 <button
                   data-toggle="tooltip"
                   title="Xóa toàn bộ mục đã chọn"
-                  class="btn btn-sm btn-dark"
+                  class="btn btn-sm btn-dark deleteAll-contact"
                   target="_blank"
                   type="submit"
                 >
@@ -64,7 +64,7 @@
                   <tbody>
                       
                     @forelse ($contacts as $contact)
-                    <tr>
+                    <tr class="contact">
                         <td class="text-center">
                             <label class="container">
                                 <input type="checkbox" class="checkdel" name="id[]" value="{{ $contact->id }}">
@@ -77,7 +77,7 @@
                         <td>{{ $contact->email }}</td>
                         <td>{{ $contact->created_at }}</td>
                         <td class="text-center">
-                          <a href="{{ route('contact.delete', $contact->id ) }}"><i class="material-icons">delete</i></a>
+                          <a href="" class="btn-delete" data-id="{{ $contact->id }}"><i class="material-icons">delete</i></a>
                         </td>
                       </tr>
                     @empty
@@ -109,22 +109,11 @@
     </div>
 
    
-    <script>
-      $("#menu-contact").addClass("show");
-
-      $(".toggle-icon").click(function() {
-        if ($(this).text() == "check_circle_outline") {
-          $(this)
-            .text("highlight_off")
-            .removeClass("text-primary");
-        } else {
-          $(this)
-            .text("check_circle_outline")
-            .addClass("text-primary");
-        }
-      });
-    </script>
+    
         </div>
       </div>
   </div>
   @endsection
+  @push('js')
+    <script src="{{ asset('assets/admin') }}/js/contact.js"></script>
+  @endpush

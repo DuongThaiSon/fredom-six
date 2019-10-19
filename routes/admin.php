@@ -136,9 +136,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
          ]);
 
     });
-
-    Route::group(['prefix' => 'setting'],
-    function(){
+    
+    Route::group(['prefix' => 'settings'],
+    function(){ 
         Route::get('/', [
         'as' => 'admin.setting.infoSetting',
         'uses' => 'SettingController@infoSetting'
@@ -185,32 +185,36 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     });
-
-    Route::group(['prefix' => 'component'],
+   
+    Route::group(['prefix' => 'components'], 
     function (){
         Route::get('/', [
             'as' => 'admin.component.index',
             'uses' => 'ComponentController@index'
         ]);
         Route::get('/add',[
-            'as' => 'admin.component.addCo',
-            'uses' => 'ComponentController@addCo'
+            'as' => 'admin.component.create',
+            'uses' => 'ComponentController@create'
         ]);
         Route::post('/add', [
-            'as' => 'admin.component.postAddCo',
-            'uses' => 'ComponentController@postAddCo'
+            'as' => 'admin.component.store',
+            'uses' => 'ComponentController@store'
         ]);
         Route::get('/edit/{id}', [
-            'as' => 'admin.component.editCo',
-            'uses' => 'ComponentController@editCo'
+            'as' => 'admin.component.show',
+            'uses' => 'ComponentController@show'
         ]);
         Route::post('/edit/{id}', [
-            'as' => 'admin.component.postEditCo',
-            'uses' => 'ComponentController@postEditCo'
+            'as' => 'admin.component.update',
+            'uses' => 'ComponentController@update'
         ]);
         Route::get('/public', [
             'as' => 'admin.component.changePublic',
             'uses' => 'ComponentController@changePublic'
+        ]);
+        Route::get('/delete/{id}', [
+            'as' => 'admin.component.delete',
+            'uses' => 'ComponentController@delete'
         ]);
     });
     Route::get('password/change',[
@@ -221,35 +225,36 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@postChangePassword'
     ]);
-    Route::get('user/info/{id}',[
-        'as' => 'user.info',
-        'uses' => 'UserController@info'
-    ]);
-    Route::post('info/change',[
-        'as' => 'info.change',
-        'uses' => 'UserController@changeInfo'
-    ]);
-    Route::get('user/add',[
-        'as' => 'user.add',
-        'uses' => 'UserController@getAddUser'
-    ]);
-    Route::post('user/add',[
-        'as' => 'user.postadd',
-        'uses' => 'UserController@postAddUser'
-    ]);
-    Route::get('user/admin',[
-        'as' => 'user.admin',
-        'uses' => 'UserController@admin'
-    ]);
-    Route::get('user/delete/{id}',[
-        'as' =>'user.delete',
-        'uses' => 'UserController@delete'
-    ]);
-    Route::post('user/deleteAll',[
-        'as' => 'user.deleteAll',
-        'uses' => 'UserController@deleteAll'
-    ]);
-
+    Route::group(['prefix' => 'user'], function(){
+        Route::get('/info/{id}',[
+            'as' => 'user.info',
+            'uses' => 'UserController@info'
+        ]);
+        Route::post('/info/change',[
+            'as' => 'info.change',
+            'uses' => 'UserController@changeInfo'
+        ]);
+        Route::get('/add',[
+            'as' => 'user.add',
+            'uses' => 'UserController@getAddUser'
+        ]);
+        Route::post('/add',[
+            'as' => 'user.postadd',
+            'uses' => 'UserController@postAddUser'
+        ]);
+        Route::get('/admin',[
+            'as' => 'user.admin',
+            'uses' => 'UserController@admin'
+        ]);
+        Route::delete('/delete',[
+            'as' =>'user.delete',
+            'uses' => 'UserController@delete'
+        ]);
+        Route::delete('/deleteAll',[
+            'as' => 'user.deleteAll',
+            'uses' => 'UserController@deleteAll'
+        ]);
+    });
 
 
 
@@ -257,11 +262,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'contact',
         'uses' => 'ContactController@index'
     ]);
-    Route::get('contact/delete/{id}',[
+    Route::get('contact/delete',[
         'as' => 'contact.delete',
         'uses' => 'ContactController@delete'
     ]);
-    Route::post('contact/delete',[
+    Route::delete('contact/delete',[
         'as' => 'contact.deleteAll',
         'uses' => 'ContactController@deleteAll'
     ]);

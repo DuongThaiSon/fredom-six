@@ -46,6 +46,7 @@
                   name="seo_page_title"
                   class="form-control"
                   placeholder="leotive.com"
+                  required
                   value="{{ $setting->seo_page_title }}"
                 />
                 <small class="form-text"
@@ -58,7 +59,6 @@
                 <input
                   type="text"
                   name="seo_meta_page_topic"
-                  required
                   class="form-control"
                   placeholder="The cat in the hat"
                   value="{{ $setting->seo_page_title }}"
@@ -73,7 +73,6 @@
                 <input
                   type="text"
                   name="seo_meta_copyright"
-                  required
                   class="form-control"
                   placeholder="Địa chỉ"
                   value="{{ $setting->seo_meta_copyright }}"
@@ -88,7 +87,6 @@
                 <input
                   type="text"
                   name="seo_meta_author"
-                  required
                   class="form-control"
                   placeholder="The cat in the hat"
                   value="{{ $setting->seo_meta_author }}"
@@ -103,7 +101,6 @@
                 <input
                   type="text"
                   name="seo_meta_keywords"
-                  required
                   class="form-control"
                   placeholder=""
                   value="{{ $setting->seo_meta_keywords }}"
@@ -122,7 +119,6 @@
                 <input
                   type="text"
                   name="seo_meta_des"
-                  required
                   class="form-control"
                   placeholder="The cat in the hat"
                   value="{{ $setting->seo_meta_des }}"

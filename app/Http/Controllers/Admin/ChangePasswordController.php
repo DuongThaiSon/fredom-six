@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Models\User;
 use Auth;
 
@@ -13,18 +14,8 @@ class ChangePasswordController extends Controller
     {
         return view('admin.user.changePassword');
     }
-    public function postChangePassword(Request $request)
+    public function postChangePassword(ChangePasswordRequest $request)
     {
-        $this->validate($request,
-        [
-            'oldpass' => 'required',
-            'newpass' => 'required|min:8',
-            're-newpass' => 'required|same:newpass'
-        ],
-        [
-            'newpass.min' => 'Mật khẩu ít nhất 8 kí tự',
-            're-newpass.same' => 'Mật khẩu không trùng khớp' 
-        ]);
         $email = Auth::user()->email;
         $credentials = array('email'=> $email, 'password'=>$request->oldpass);
         if(Auth::attempt($credentials)){

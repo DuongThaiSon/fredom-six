@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Component extends Model
 {
-    protected $fillable = ['name', 'detail'];
+    protected $guarded = ['id'];
     
 	public function comCreatedBy() {
         return $this->belongsTo('App\Models\User', 'created_by');

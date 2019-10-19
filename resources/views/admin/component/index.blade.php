@@ -18,7 +18,9 @@
           </i>
         </a>
       </div>
-
+        @if(Session::has('success'))
+          <div class="alert alert-success">{{ Session::get('success') }}</div>
+        @endif
       <!-- TABLE -->
       <div class="table-responsive bg-white mt-4" id="table">
         <table

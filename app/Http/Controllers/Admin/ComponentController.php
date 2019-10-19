@@ -22,13 +22,21 @@ class ComponentController extends Controller
     }
     public function create()
     {
-        return view('admin.component.add');
+       return view('admin.component.add');
     }
     public function store(Request $request)
     {
-        $attributes = $this->service->component($request);
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required'
+        ],
+        [
+            'name.required' => 'Tiêu đề không được để trống',
+            'detail.required' => 'Nội dung không được để trống'
+        ]);
+        $attributes = $this->service->componentCreate($request);
         $component = Component::create($attributes);
-        return redirect()->back()->with('success', 'Tạo dữ liệu thành công !');
+        return redirect()->route('admin.component.index')->with('success', 'Tạo dữ liệu thành công !');
     }
     public function show($id)
     {
@@ -37,8 +45,16 @@ class ComponentController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required'
+        ],
+        [
+            'name.required' => 'Tiêu đề không được để trống',
+            'detail.required' => 'Nội dung không được để trống'
+        ]);
         $component = Component::findOrFail($id);
-        $attributes = $this->service->component($request);
+        $attributes = $this->service->componentEdit($request);
         $component->fill($attributes);
         $component->save();
         return redirect()->back()->with('success', 'Lưu dữ liệu thành công !');

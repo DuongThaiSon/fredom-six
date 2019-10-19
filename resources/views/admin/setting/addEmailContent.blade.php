@@ -14,9 +14,9 @@
         @if($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>
       @endif
-      @if(Session::has('success'))
+      {{-- @if(Session::has('success'))
         <div class="alert alert-success">{{ Session::get('success') }}</div>
-      @endif
+      @endif --}}
          <div class="bg-white mb-0 p-4 pt-5">
           <div class="save-group-buttons">
             <button

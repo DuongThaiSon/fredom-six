@@ -27,9 +27,6 @@
       @if($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>
       @endif
-      @if(Session::has('success'))
-        <div class="alert alert-success">{{ Session::get('success') }}</div>
-      @endif
       <div class="bg-white p-4 pt-5">
       <div class="row">
         <div class="col-12">

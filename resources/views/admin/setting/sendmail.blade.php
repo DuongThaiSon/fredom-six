@@ -42,6 +42,7 @@
                 name="email_smtp_server"
                 class="form-control"
                 placeholder="smtp.gmail.com"
+                required
                 value="{{ $setting->email_smtp_server }}"
               />
               <small class="form-text"
@@ -98,7 +99,6 @@
               <input
                 type="text"
                 name="email_smtp_name"
-                required
                 class="form-control"
                 placeholder="LEOTIVE"
                 value="{{ $setting->email_smtp_name }}"
@@ -113,7 +113,6 @@
               <input
                 type="text"
                 name="email_smtp_email_address"
-                required
                 class="form-control"
                 placeholder="no-reply@leotive.com"
                 value="{{ $setting->email_smtp_email_address}}"

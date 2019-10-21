@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'avatar' => 'nullable|sometimes|image',
             'password' => 'required|min:8',
             'email' => 'required|unique:users,email',
+            'phone' => 'required|numeric'
         ];
     }
 
@@ -42,7 +43,8 @@ class UserRequest extends FormRequest
             'password.min' => 'Mật khẩu ít nhất 8 kí tự',
             'email.unique' => 'Email đã được đăng kí',
             'email.required' => 'Vui lòng điền email',
-            'password.required' => 'Vui lòng điền mật khẩu'
+            'password.required' => 'Vui lòng điền mật khẩu',
+            'phone.numeric' => 'Phone number phải là số'
         ];
     }
 }

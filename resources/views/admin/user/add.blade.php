@@ -23,7 +23,15 @@
                     <div class="alert alert-danger">{{ $errors->first() }}</div>
                 @endif
                 @if(Session::has('win'))
-                    <div class="alert alert-success">{{ Session::get('win') }}</div>
+                @push('js')
+                <script>
+                Swal.fire(
+                  'Đã tạo!',
+                  'Tạo user thành công.',
+                  'success'
+                  )
+                  </script>
+                @endpush
                 @endif
                 <div class="row">
                   <div class="col-5">

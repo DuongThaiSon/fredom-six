@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.postEditCo', $component->id) }}" >
+  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" >
 
     @csrf
   <div id="content">
@@ -65,10 +65,8 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              value="1"
-              @if($component->is_public == 1)
-                checked
-              @endif
+              {{isset($component)&&$component->is_public==1?'checked':''}}
+              
             />
             <label class="label-checkbox" for="public"
               >Hiển thị</label

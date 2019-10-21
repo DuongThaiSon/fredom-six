@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+body {
+  font-family: 'Nunito', sans-serif;
+}
+// news
+#news {
+  .row{
+    margin-bottom: 138px;
+  }
+  .news-container {
+    margin: 0 166px;
+    h6 {
+      font-size: 30px;
+      margin-bottom: 36px;
+    }
+    .time {
+      color: #aaaaaa;
+      margin-bottom: 30px;
+    }
+    .title-detail {
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+    img {
+      width: 100%;
+      height: 350px;
+    }
+    .news-detail-link {
+      font-size: 24px;
+    }
+  }
+  // pagination
+  .pagination {
+    .page-item {
+      &.active {
+        .page-link {
+          color: #ffffff !important;
+          background: #000000 !important;
+          border: #000000 !important;
+        }
+      }
+      margin-right: 8px !important;
+      .fas {
+        font-size: 12px;
+      }
+      .page-link {
+        &:focus {
+          outline: none !important;
+        }
+        border-radius: 5px !important;
+        color: #000000 !important;
+      }
+    }
+  }
+}
+// news detail
+#news-detail {
+  margin-top: 40px;
+  .detail-content {
+    .detail-title {
+      font-size: 36px;
+      font-family: "Roboto",sans-serif !important;
+      color: #000000;
+      margin-bottom: 44px;
+    }
+    .img-detail {
+      margin-bottom: 36px;
+      img {
+        width: 80%;
+        margin-left: 70px;
+      }
+    }
+    .img-cap {
+      margin-top: 21px;
+    }
+    p{
+      margin-bottom: 80px;
+    }
+    h3 {
+      font-family: 'Nunito', sans-serif !important;
+      font-size: 24px;
+    }
+  }
+  .detail-bottom {
+    margin-top: 80px;
+    .fab {
+      font-size: 20px;
+      margin: 0 10px;
+    }
+  }
+  .more-news {
+    margin-top: 48px;
+    p{
+      font-family: "Nunito",sans-serif;
+      font-size: 18px;
+    }
+  }
+  .time {
+    color: #aaaaaa;
+    margin-bottom: 30px;
+  }
+}
+
+#showcase {
+  .showcase-image {
+    height: 600px;
+    overflow:hidden;
+  }
+}
+// showroom {
+#showroom {
+  margin-top: 50px;
+}

@@ -8,7 +8,7 @@
       <!-- Save group button -->
       <div class="save-group-buttons">
         <a
-          href="{{ route('admin.component.addCo') }}"
+          href="{{ route('admin.component.create') }}"
           class="btn btn-sm btn-dark"
           data-toggle="tooltip"
           title="Thêm mới"
@@ -18,7 +18,9 @@
           </i>
         </a>
       </div>
-
+        @if(Session::has('success'))
+          <div class="alert alert-success">{{ Session::get('success') }}</div>
+        @endif
       <!-- TABLE -->
       <div class="table-responsive bg-white mt-4" id="table">
         <table
@@ -58,7 +60,7 @@
               <td>{{ isset($comp->comCreatedBy)?$comp->comCreatedBy->name:'' }}</td>
               <td>{{ $comp->updated_at }}</td>
               <td class="text-center">
-                <a href="{{ route('admin.component.editCo', $comp->id) }}" data-toggle="tooltip" title="Sửa"
+                <a href="{{ route('admin.component.show', $comp->id) }}" data-toggle="tooltip" title="Sửa"
                   ><i class="material-icons">border_color</i></a
                 >
               </td>
@@ -87,7 +89,7 @@
         let _this = $(this);
         let _title = $(this).parents('.component-body-table').find('.display-client').attr('title');
         $.ajax({
-          url: '/admin/component/public',
+          url: '/admin/components/public',
           data: {
             id: _id,
             value: _value,

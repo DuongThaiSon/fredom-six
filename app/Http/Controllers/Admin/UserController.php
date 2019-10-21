@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Services\Admin\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Models\Profile;
 use Auth;
 
 class UserController extends Controller
 {
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     public function info($id)
     {
         $user = User::findOrFail($id);
@@ -38,29 +45,13 @@ class UserController extends Controller
                     [
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $user['avatar'] = '/media/user/'.$fileName;
-                    }
-                    $user->password = bcrypt($request['password']);
-                    $user->name = $request->name;
-                    $user->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
+                    $userChange->password = bcrypt($request['password']);
+                    $userChange->name = $request->name;
+                    $userChange->save();
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     Auth::logout();
                     return redirect()->route('admin.login.showLoginForm')->with('win', 'Thông tin thay đổi thành công, vui lòng đăng nhập lại hệ thống');
                 }else {                         // nếu user đang sửa là user đang đăng nhập và không sửa email và không thay đổi pass
@@ -68,28 +59,12 @@ class UserController extends Controller
                     [
                         'avatar' => 'nullable|sometimes|image'
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $user['avatar'] = '/media/user/'.$fileName;
-                    }
-                    $user->name = $request->name;
-                    $user->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
+                    $userChange->name = $request->name;
+                    $userChange->save();
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     
                     return redirect()->back()->with('win', 'Thông tin thay đổi thành công');
                 }
@@ -105,30 +80,14 @@ class UserController extends Controller
                         'email.unique' => 'Email đã được đăng kí',
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
                     $userChange->email = $request->email;
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     Auth::logout();
                     return redirect()->route('admin.login.showLoginForm')->with('win', 'Thông tin thay đổi thành công, vui lòng đăng nhập lại hệ thống');
                 }else {                                 // nếu user đang sửa là user  đang đăng nhập và sửa email và không thay đổi pass
@@ -139,29 +98,13 @@ class UserController extends Controller
                     ],[
                         'email.unique' => 'Email đã được đăng kí'
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     Auth::logout();
                     return redirect()->route('admin.login.showLoginForm')->with('win', 'Thông tin thay đổi thành công, vui lòng đăng nhập lại hệ thống');
                 }
@@ -177,57 +120,26 @@ class UserController extends Controller
                     [
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     return redirect()->back()->with('win', 'Thông tin thay đổi thành công');
                 }else {                                 // nếu user đang sửa không phải là user đang đăng nhập và không sửa mail và không sửa pass
                     $this->validate($request,
                     [
                         'avatar' => 'nullable|sometimes|image'
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    // print_r($request);die;
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     return redirect()->back()->with('win', 'Thông tin thay đổi thành công');
                 }
             }else {                                 // nếu user đang sửa không phải là user đang đăng nhập và sửa mail
@@ -242,30 +154,13 @@ class UserController extends Controller
                         'email.unique' => 'Email đã được đăng kí',
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
                     $userChange->email = $request->email;
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     return redirect()->back()->with('win', 'Thông tin thay đổi thành công');
                 }else {                             // nếu user đang sửa không phải là user đang đăng nhập và sửa mail và không sửa pass
                     $this->validate($request,
@@ -275,29 +170,13 @@ class UserController extends Controller
                     ],[
                         'email.unique' => 'Email đã được đăng kí'
                     ]);
-                    if ($request->hasFile('avatar')) {
-                        $destinationDir = public_path('media/user');
-                        $fileName = time().'.'.$request->avatar->extension();
-                        $request->avatar->move($destinationDir, $fileName);
-                        $userChange['avatar'] = '/media/user/'.$fileName;
-                    }
+                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;
                     $userChange->save();
-                    $request = $request->only([
-                        'position',
-                        'phone',
-                        'address',
-                        'skype',
-                        'birthday'
-                    ]);
-                    $this->handleAttributeExistance(array_keys($request));
-                    $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-                    $syncData = [];
-                    foreach ($listAttribute as $item) {
-                        $syncData[$item->id] = ['value' => $request[$item->name]];
-                    }
-                    $userChange->profiles()->syncWithoutDetaching($syncData);
+                    $request = collect($request);
+                    $this->service->updateUserProfile($request, $userChange);
                     return redirect()->back()->with('win', 'Thông tin thay đổi thành công');
                 }
             }
@@ -305,54 +184,16 @@ class UserController extends Controller
 
     }
 
-    private function handleAttributeExistance($attributes)
-    {
-        foreach ($attributes as $attribute) {
-            if (!Profile::where('name', $attribute)->first()) {
-                Profile::create(['name' => $attribute]);
-            }
-        }
-    }
-
     public function getAddUser()
     {
         return view('admin.user.add');
     }
-    public function postAddUser(Request $request)
+    public function postAddUser(UserRequest $request)
     {
-        $this->validate($request,[
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8',
-            'name' => 'required',
-        ],[
-            'email.unique' => 'Email đã được đăng kí',
-            'password.min' => 'Mật khẩu ít nhất 8 kí tự'
-        ]);   
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password =  bcrypt($request['password']);
-        if ($request->hasFile('avatar')) {
-            $destinationDir = public_path('media/user');
-            $fileName = time().'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $fileName);
-            $user['avatar'] = '/media/user/'.$fileName;
-        }
-        $user->save();
-        $request = $request->only([
-            'position',
-            'phone',
-            'address',
-            'skype',
-            'birthday'
-        ]);
-        $this->handleAttributeExistance(array_keys($request));
-        $listAttribute = Profile::whereIn('name', array_keys($request))->get();
-        $syncData = [];
-        foreach ($listAttribute as $item) {
-            $syncData[$item->id] = ['value' => $request[$item->name]];
-        }
-        $user->profiles()->syncWithoutDetaching($syncData);
+        $attributes = $this->service->createUser($request, $request->avatar, '/media/user/');
+        $user = User::create($attributes);
+        $request = collect($request);
+        $this->service->updateUserProfile($request, $user);
         return redirect()->back()->with('win', 'Tạo tài khoản thành công');
     }
 
@@ -364,16 +205,16 @@ class UserController extends Controller
         return view('admin.user.user', compact('users'));
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($request->id);
         $user->delete();
         return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
     }
 
     public function deleteAll(Request $request)
     {
-        $users = $request->id;
+        $users = $request->ids;
         if(empty($users)) {
             return redirect()->back()->with('fail', 'Không có dữ liệu để xóa');
         } else {
@@ -382,8 +223,9 @@ class UserController extends Controller
                     User::findOrFail($user)->delete();
                 }
             }
+            return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
         }
-        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+        
     }
 
     public function check(Request $request)

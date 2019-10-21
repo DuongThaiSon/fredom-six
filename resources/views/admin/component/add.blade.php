@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.postAddCo') }}" >
+  <form method="POST" action="{{ route('admin.component.store') }}" >
     @csrf
   <div id="content">
     <h1 class="mt-3 pl-4">Thông tin bài viết</h1>
@@ -26,9 +26,6 @@
       <!-- Form -->
       @if($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>
-      @endif
-      @if(Session::has('success'))
-        <div class="alert alert-success">{{ Session::get('success') }}</div>
       @endif
       <div class="bg-white p-4 pt-5">
       <div class="row">
@@ -64,7 +61,7 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              value="1"
+              value=""
             />
             <label class="label-checkbox" for="public"
               >Hiển thị</label

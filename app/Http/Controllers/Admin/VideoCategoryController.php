@@ -75,7 +75,7 @@ class VideoCategoryController extends Controller
         $user = Auth::user();
         $attributes['created_by'] =$user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['order'] = Catgory::max('order') ? (Article::max('order') + 1) : 1;
+        $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
         if ($request->hasFile('avatar')){
             $destinationDir = public_path('media/videoCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
@@ -176,7 +176,6 @@ class VideoCategoryController extends Controller
                     continue;
                 }
         }
-        print_r($cats);die;
 		rsort($order);
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);

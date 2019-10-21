@@ -81,7 +81,7 @@ class VideoController extends Controller
     public function store(VideoRequest $request)
     {
 
-        $attributes  = $this->service->Create($request, Video::max('order'), '/media/Videos', $request->image);
+        $attributes  = $this->service->Create($request, Video::max('order'), 'media/Videos/', $request->image);
 
         $video = Video::create($attributes);
 
@@ -109,8 +109,8 @@ class VideoController extends Controller
     public function edit($id)
     {
 
-       $video = Video::findOrFail($id);
-       $category = Category::findOrFail($video->category_id);
+       $video = Video::findOrFail($id)->load('category');
+       $category = Category::find($video->category_id);
        $categories = $this->getSubCategories(0);
 
        return view('admin.videos.edit', compact('categories','video', 'category'));
@@ -126,7 +126,7 @@ class VideoController extends Controller
     public function update(VideoRequest $request, $id)
     {
 
-        $attributes = $this->service->Edit($request, '/media/Videos', $request->image);
+        $attributes = $this->service->Edit($request, 'media/Videos/', $request->image);
 
         $videos = Video::findOrFail($id);
         $video = $videos->fill($attributes);
@@ -145,7 +145,13 @@ class VideoController extends Controller
     public function destroy($id)
     {
 
-        Video::findOrFail($id)->delete();
+        $video = Video::findOrFail($id);
+        $folder = public_path($video->avatar);
+        if (file_exists($folder))
+        {
+            unlink($folder);
+        }
+        $video->delete();
         return redirect()->route('admin.videos.index')->with('DELETED COMPLE');
     }
 

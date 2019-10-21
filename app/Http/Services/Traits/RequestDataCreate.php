@@ -16,11 +16,12 @@ trait RequestDataCreate
         $attributes['is_public']    = isset($request->is_public)?1:0;
         $attributes['is_new']       = isset($request->is_new)?1:0;
         $attributes['order']        = $order ? ($order + 1) : 1;
-        $attributes['slug']         = Str::slug($request->name,'-');
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
         $avatar                     = $this->UploadImage($destinationDir,$name);
         if($request->hasFile('avatar')){
             $attributes['avatar']        = $avatar;
-        } else {
+        }
+        if($request->hasFile('image')) {
             $attributes['image']        = $avatar;
         }
 

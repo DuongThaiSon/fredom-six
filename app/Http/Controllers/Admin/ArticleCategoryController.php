@@ -154,7 +154,16 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findOrFail($id)->delete();
+        $categories = $this->getSubCategories(0);
+        foreach ($categories as $category)
+        {
+            $parent_id = $category->parent_id;
+            if($id === $parent_id)
+            {
+                $cat = Category::where('id', $category->id);
+                print_r($cat);die;
+            }
+        }
         return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
     }
     public function sortcat(Request $request){
@@ -169,26 +178,4 @@ class ArticleCategoryController extends Controller
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
         }
     }
-    // public function movetop(Article $article,$articlecat = null, Request $request){
-    //     $condition = [];
-    //     $condition[] = ['order', '>', $article->order];
-    //     $condition[] = ['language', session('lang')];
-    //     if ($articlecat) {
-    //         $id_string = $articlecat;
-    //         Articlecat::getIdString($articlecat, $id_string);
-    //         $otherArticles = Article::where($condition)->whereIn('cat', explode(',', $id_string))->orderBy('order', 'asc')->get();
-    //     } else {
-    //         $otherArticles = Article::where($condition)->orderBy('order', 'asc')->get();
-    //     }
-    //     foreach ($otherArticles as $otherArticle){
-    //         $oldorder = $article->order;
-    //         $article->order = $otherArticle->order;
-    //         $otherArticle->order = $oldorder;
-    //         $article->save();
-    //         Article::where('id', $otherArticle->id)->update(['order' => $oldorder]);
-    //     }
-    //     if ($request->ajax()) {
-    //         return 0;
-    //     }
-    // }
 }

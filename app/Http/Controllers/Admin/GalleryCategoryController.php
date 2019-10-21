@@ -26,6 +26,7 @@ class GalleryCategoryController extends Controller
         $categories = Category::where('parent_id', $parent_id)
             ->where('type', 'gallery')
             ->where('id', '<>', $ignore_id)
+            ->orderBy('order', 'desc')
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
@@ -71,7 +72,8 @@ class GalleryCategoryController extends Controller
         $attributes['created_by'] = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['order'] = Category::max('order') ? (Article::max('order') + 1) : 1;
+        $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
             $destinationDir = public_path('media/galleryCategories');
@@ -134,6 +136,7 @@ class GalleryCategoryController extends Controller
         $attributes['updated_by'] = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['is_public'] = isset($request->is_public)?1:0;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
             $destinationDir = public_path('media/galleryCategories');
@@ -162,5 +165,19 @@ class GalleryCategoryController extends Controller
 
         return redirect()->route('admin.gallery-cats.index')->with('Delete Comple');
 
+    }
+
+    public function sortcat(Request $request)
+    {
+        $cats = $request->sort;
+		$order = array();
+		foreach ($cats as $c) {
+			$id = str_replace('cat_', '', $c);
+			$order[] = Category::findOrFail($id)->order;
+		}
+		rsort($order);
+		foreach ($order as $k => $v) {
+            Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+        }
     }
 }

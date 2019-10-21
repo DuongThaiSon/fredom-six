@@ -82,7 +82,7 @@
             <div class="sub collapse" id="gallerysubmenu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="galleryDetail.html" class="nav-link"> Tạo album ảnh mới</a>
+                    <a href="{{ Route('admin.gallery.create') }}" class="nav-link"> Tạo album ảnh mới</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{Route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>

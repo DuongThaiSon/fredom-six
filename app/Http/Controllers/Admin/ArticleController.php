@@ -64,7 +64,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $attributes = $this->service->Create($request, Article::max('order'), '/medie/article', $request->avatar);
+        $attributes = $this->service->Create($request, Article::max('order'), 'media/article/', $request->avatar);
 
         $article = Article::create($attributes);
 
@@ -92,9 +92,10 @@ class ArticleController extends Controller
     public function edit($id)
     {
         $article = Article::findOrFail($id);
+        $category = Category::find($article->category_id);
         $categories = $this->getSubCategories(0,$id);
 
-        return view('admin.articles.edit', compact('article', 'categories'));
+        return view('admin.articles.edit', compact('article', 'categories', 'category'));
     }
 
     /**
@@ -106,7 +107,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-       $attributes = $this->service->Edit($request, '/media/article', $request->avatar);
+       $attributes = $this->service->Edit($request, 'media/article/', $request->avatar);
 
         $articles = Article::findOrFail($id);
         $article  = $articles->fill($attributes);
@@ -123,7 +124,16 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        Article::findOrFail($id)->delete();
+        $article = Article::findOrFail($id);
+
+        $folder = public_path($article->avatar);
+        if (file_exists($folder))
+        {
+            unlink($folder);
+        }
+        $article->delete();
+
+
         return redirect()->route('admin.articles.index')->with('DELETEED COMPLE');
 
     }
@@ -158,4 +168,5 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.articles.index')->with('COPPIED');
     }
+
 }

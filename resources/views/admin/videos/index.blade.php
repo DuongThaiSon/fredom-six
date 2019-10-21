@@ -109,7 +109,7 @@
                                             data-toggle="tooltip" title="Sửa">
                                             <i class="material-icons">border_color</i>
                                         </a>
-                                        <a href="{{ route('admin.videos.create') }}?id={{ $video->id }}" class="btn btn-sm p-1 btn-copy" data-id="{{$video->id}}" data-toggle="tooltip" title="Copy dữ liệu">
+                                        <a id="move-to-top" href="{{ route('admin.videos.create') }}?id={{ $video->id }}" class="btn btn-sm p-1 btn-copy" data-id="{{$video->id}}" data-toggle="tooltip" title="Copy dữ liệu">
                                             <i class="material-icons">file_copy</i>
                                         </a>
                                         <a href="#" class="btn btn-sm p-1" data-toggle="tooltip"
@@ -208,6 +208,10 @@
 
                 },
             });
+        });
+        $('a#move-to-top').click(function() {
+            row = $(this).closest('tr');
+            $(this).closest('tbody#order').prepend(row);
         });
     });
 </script>

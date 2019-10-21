@@ -26,12 +26,13 @@ class GalleryCategoryController extends Controller
         $categories = Category::where('parent_id', $parent_id)
             ->where('type', 'gallery')
             ->where('id', '<>', $ignore_id)
+            ->orderBy('order', 'desc')
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;  
+                return $query;
             });
-        
+
         return $categories;
     }
 
@@ -61,7 +62,7 @@ class GalleryCategoryController extends Controller
         ]);
 
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 
+            'parent_id','name','description', 'detail', 'slug',
             'meta_title', 'meta_discription', 'meta_keyword','meta_page_topic',
             'is_highlight', 'is_public'
         ]);
@@ -71,7 +72,8 @@ class GalleryCategoryController extends Controller
         $attributes['created_by'] = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['order'] = Category::max('order') ? (Article::max('order') + 1) : 1;
+        $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
             $destinationDir = public_path('media/galleryCategories');
@@ -82,7 +84,7 @@ class GalleryCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.galleryCats.edit', $category->id)->with('SUCCESS');
+        return redirect()->route('admin.gallery-cats.edit', $category->id)->with('SUCCESS');
     }
 
     /**
@@ -125,7 +127,7 @@ class GalleryCategoryController extends Controller
         ]);
 
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 'meta_title', 
+            'parent_id','name','description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword','meta_page_topic',
             'is_highlight', 'is_public'
         ]);
@@ -134,6 +136,7 @@ class GalleryCategoryController extends Controller
         $attributes['updated_by'] = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['is_public'] = isset($request->is_public)?1:0;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
             $destinationDir = public_path('media/galleryCategories');
@@ -147,7 +150,7 @@ class GalleryCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.galleryCats.edit', $category->id)->with('update comple');
+        return redirect()->route('admin.gallery-cats.edit', $category->id)->with('update comple');
     }
 
     /**
@@ -160,7 +163,21 @@ class GalleryCategoryController extends Controller
     {
         Category::findOrFail($id)->delete();
 
-        return redirect()->route('admin.galleryCats.index')->with('Delete Comple');
+        return redirect()->route('admin.gallery-cats.index')->with('Delete Comple');
 
+    }
+
+    public function sortcat(Request $request)
+    {
+        $cats = $request->sort;
+		$order = array();
+		foreach ($cats as $c) {
+			$id = str_replace('cat_', '', $c);
+			$order[] = Category::findOrFail($id)->order;
+		}
+		rsort($order);
+		foreach ($order as $k => $v) {
+            Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+        }
     }
 }

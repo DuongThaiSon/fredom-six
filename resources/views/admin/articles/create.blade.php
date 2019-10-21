@@ -30,7 +30,7 @@
                   </a>
                 </div>
                 <!-- Form -->
-             
+
                 <div class="row">
                   <div class="col-md-6">
                     <legend>Thông tin cơ bản</legend>
@@ -59,7 +59,7 @@
                       <label>Nằm trong mục</label>
                       <select name="category_id" class="form-control">
                         <option value="0"></option>
-                          @include('admin.partials.categories_options', ['level'=>0])
+                          @include('admin.partials.options', ['level'=>0])
                       </select>
                       <small class="form-text"
                         >Chọn mục cho dữ liệu này, bạn không nên để trống</small
@@ -160,7 +160,7 @@
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
                         >
                       </div>
-                      
+
                       <div class="form-group">
                           <label class="control-label">Thẻ Meta keywords</label>
                           <input
@@ -173,7 +173,7 @@
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
                           >
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">Thẻ Meta Page Topic</label>
                             <input

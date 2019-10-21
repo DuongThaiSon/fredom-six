@@ -32,9 +32,9 @@ class ArticleCategoryController extends Controller
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;  
+                return $query;
             });
-        
+
         return $Categories;
     }
 
@@ -81,7 +81,7 @@ class ArticleCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.articleCats.edit', $category->id)->with('SUCCESS');
+        return redirect()->route('admin.article-cats.edit', $category->id)->with('SUCCESS');
     }
 
     /**
@@ -143,7 +143,7 @@ class ArticleCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.articleCats.edit', $category->id)->with('UPDATED COMPLE');
+        return redirect()->route('admin.article-cats.edit', $category->id)->with('UPDATED COMPLE');
     }
 
     /**
@@ -154,8 +154,17 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findOrFail($id)->delete();
-        return redirect()->route('admin.articleCats.index')->with('DETELED COMPLE');
+        $categories = $this->getSubCategories(0);
+        foreach ($categories as $category)
+        {
+            $parent_id = $category->parent_id;
+            if($id === $parent_id)
+            {
+                $cat = Category::where('id', $category->id);
+                print_r($cat);die;
+            }
+        }
+        return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
     }
     public function sortcat(Request $request){
         $cats = $request->sort;
@@ -168,27 +177,5 @@ class ArticleCategoryController extends Controller
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
         }
-    } 
-    // public function movetop(Article $article,$articlecat = null, Request $request){
-    //     $condition = [];
-    //     $condition[] = ['order', '>', $article->order];
-    //     $condition[] = ['language', session('lang')];
-    //     if ($articlecat) {
-    //         $id_string = $articlecat;
-    //         Articlecat::getIdString($articlecat, $id_string);
-    //         $otherArticles = Article::where($condition)->whereIn('cat', explode(',', $id_string))->orderBy('order', 'asc')->get();
-    //     } else {
-    //         $otherArticles = Article::where($condition)->orderBy('order', 'asc')->get();
-    //     }
-    //     foreach ($otherArticles as $otherArticle){
-    //         $oldorder = $article->order;
-    //         $article->order = $otherArticle->order;
-    //         $otherArticle->order = $oldorder;
-    //         $article->save();
-    //         Article::where('id', $otherArticle->id)->update(['order' => $oldorder]);
-    //     }
-    //     if ($request->ajax()) {
-    //         return 0;
-    //     } 
-    // }   
+    }
 }

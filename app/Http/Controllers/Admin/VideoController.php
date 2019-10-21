@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Video;
+use App\Http\Requests\VideoRequest;
+use App\Http\Services\VideoService;
+use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Video;
 use App\Models\User;
 use Auth;
 
 class VideoController extends Controller
 {
     const PER_PAGE = 10;
+
+    public function __construct(VideoService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,13 +27,13 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::orderBy('created_at', 'desc')->with('Category')->paginate(self::PER_PAGE);
+        $videos = Video::orderBy('order', 'desc')->with('Category')->paginate(self::PER_PAGE);
         return view('admin.videos.index', compact('videos'));
     }
 
-    /** 
+    /**
      * Get the sub categories
-     * 
+     *
      * @param int $parent_id
      * @return mix
      */
@@ -45,12 +53,23 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\ResponsSe
      */
-    public function create()
+    public function create(Request $request)
     {
-        $categories = $this->getSubCategories(0);
-        return view('admin.videos.create', compact('categories'));
+        if(empty($request->id))
+        {
+            $categories = $this->getSubCategories(0);
+            return view('admin.videos.create', compact('categories'));
+        }
+        else
+        {
+            $id = $request->id;
+            $categories = $this->getSubCategories(0);
+            $video = Video::findOrFail($id);
+            return view('admin.videos.create', compact('categories', 'video'));
+        }
+
     }
 
     /**
@@ -59,36 +78,10 @@ class VideoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VideoRequest $request)
     {
-        $request->validate([
-            'category_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
-            'image' => 'nullable|sometimes|image'
-        ]);
 
-        
-
-        $attributes = $request->only([
-            'category_id','name','url','description', 'detail', 'slug', 'meta_title', 
-            'meta_description', 'meta_page_topic','meta_keyword',
-            'is_highlight', 'is_public', 'is_new' 
-        ]);
-        if (Auth::check())
-        {
-            $attributes['created_by'] = Auth::user()->id;
-        }
-
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['is_new'] = isset($request->is_new)?1:0;
-
-        if ($request->hasFile('image')){
-            $destinationDir = public_path('media/video');
-            $filename = uniqid('leotive').'.'.$request->image->extension();
-            $request->image->move($destinationDir, $filename);
-            $attributes['image'] = '/media/video/'.$filename;
-        };
+        $attributes  = $this->service->Create($request, Video::max('order'), 'media/Videos/', $request->image);
 
         $video = Video::create($attributes);
 
@@ -115,10 +108,12 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-       $video = Video::findOrFail($id);
-       $categories = $this->getSubCategories(0,$id);
-    
-       return view('admin.videos.edit', compact('categories','video'));
+
+       $video = Video::findOrFail($id)->load('category');
+       $category = Category::find($video->category_id);
+       $categories = $this->getSubCategories(0);
+
+       return view('admin.videos.edit', compact('categories','video', 'category'));
     }
 
     /**
@@ -128,33 +123,11 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VideoRequest $request, $id)
     {
-        $request->validate([
-            'category_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
-            'image' => 'nullable|sometimes|image'
-        ]);
 
-        $attributes = $request->only([
-            'category_id','name','url','description', 'detail', 'slug', 
-            'meta_title', 'meta_description', 'meta_page_topic','meta_keyword',
-            'is_highlight', 'is_public', 'is_new' 
-        ]);
-        if (Auth::check())
-        {
-            $attributes['updated_by'] = Auth::user()->id;
-        }
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['is_new'] = isset($request->is_new)?1:0;
-        
-        if ($request->hasFile('image')){
-            $destinationDir = public_path('media/video');
-            $filename = uniqid('leotive').'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $filename);
-            $attributes['image'] = '/media/video/'.$filename;
-        };
+        $attributes = $this->service->Edit($request, 'media/Videos/', $request->image);
+
         $videos = Video::findOrFail($id);
         $video = $videos->fill($attributes);
         $video->save();
@@ -171,7 +144,49 @@ class VideoController extends Controller
      */
     public function destroy($id)
     {
-        Video::findOrFail($id)->delete();
-        return redirect()->route('admin.videos.index')->with('xoá thành công');
+
+        $video = Video::findOrFail($id);
+        $folder = public_path($video->avatar);
+        if (file_exists($folder))
+        {
+            unlink($folder);
+        }
+        $video->delete();
+        return redirect()->route('admin.videos.index')->with('DELETED COMPLE');
     }
+
+    public function sort(Request $request)
+    {
+
+        $this->service->SortData($request);
+    }
+
+    public function changeIsPublic(Request $request)
+    {
+
+        $this->service->IsPublic(Video::findOrFail($request->id), $request);
+        return response()->json(compact('video'), 200);
+
+    }
+
+    public function changeIsHighlight(Request $request)
+    {
+
+        $this->service->IsHighlight(Video::findOrFail($request->id), $request);;
+        return response()->json(compact('video'), 200);
+    }
+
+    public function changeIsNew(Request $request)
+    {
+
+        $this->service->IsNew(Video::findOrFail($request->id), $request);
+        return response()->json(compact('video'), 200);
+    }
+
+    // public function CopyData($id)
+    // {
+    //     $this->service->Copy(Video::findOrFail($id));
+
+    //     return redirect()->route('admin.videos.index')->with('COPPIED');
+    // }
 }

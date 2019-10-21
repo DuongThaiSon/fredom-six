@@ -4,7 +4,7 @@
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
               <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC ALBUM ẢNH</h1>
-                <form action="{{route('admin.galleryCats.store')}}" method="POST" class="bg-white mt-3 mb-0 p-4 pt-5" enctype="multipart/form-data">
+                <form action="{{route('admin.gallery-cats.store')}}" method="POST" class="bg-white mt-3 mb-0 p-4 pt-5" enctype="multipart/form-data">
               @csrf
               @if ($errors->any())
                 <div class="alert bg-danger" role="alert">
@@ -30,7 +30,7 @@
                   </a>
                 </div>
               <!--Form  -->
-             
+
                 <div class="row">
                   <div class="col-md-6">
                     <legend>Thông tin cơ bản</legend>
@@ -99,7 +99,7 @@
                       thị trên trang chủ hoặc các điểm chỉ định trên giao
                       diện.</small
                     >
-                
+
                   </div>
 
                   <div class="col-lg-6">
@@ -146,7 +146,7 @@
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
                         >
                       </div>
-                      
+
                       <div class="form-group">
                           <label class="control-label">Thẻ Meta keywords</label>
                           <input
@@ -159,7 +159,7 @@
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
                           >
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">Thẻ Meta Page Topic</label>
                             <input
@@ -201,11 +201,10 @@
               <!-- End Form -->
             </div>
           </div>
-        </div>    
+        </div>
 @endsection
 @push('js')
  <script>
     CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
 </script>
 @endpush

@@ -12,7 +12,7 @@
                   <option>BẾP ĐIỆN TỪ</option>
                 </select>
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Người tạo</label>
                 <select class="form-control search-change p-2">
@@ -20,7 +20,7 @@
                   <option>Admin</option>
                 </select>
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Từ ngày</label>
                 <input
@@ -29,7 +29,7 @@
                   class="form-control datepicker search-change p-2"
                 />
                 </div>
-            
+
                 <div class="form-group col">
                 <label>Đến ngày</label>
                 <input
@@ -47,11 +47,11 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ ALBUM ẢNH</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <button class="btn btn-sm btn-dark" data-toggle="tooltip" title="Thêm mới">
+                <a href="{{ Route('admin.gallery.create') }}" class="btn btn-sm btn-dark" data-toggle="tooltip" title="Thêm mới">
                   <i class="material-icons">
                     note_add
                   </i>
-                </button>
+                </a>
                 <button data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
                   <i class="material-icons">
                     delete_forever
@@ -61,6 +61,7 @@
 
           <!-- TABLE -->
           <div class="table-responsive bg-white mt-4" id="table">
+                @csrf
             <table class="table-sm table-hover table mb-2" width="100%">
               <thead>
                 <tr class="text-muted">
@@ -82,39 +83,37 @@
                 </tr>
               </thead>
               <tbody class="sort">
-                <tr>
                   @foreach ($galleries as $gallery )
-                   <form action="{{ route('admin.gallery.destroy',$gallery->id) }}" method="POST">
-                        @csrf
-                  <td class="text-muted" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
+                <tr id="item_{{$gallery->id}}" class="ui-state-default">
+                  <td class="text-muted connect" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
                     <i class="material-icons">format_line_spacing</i>
                   </td>
                   <td class="text-center">
-                    <input type="checkbox" class="checkdel" />
+                    <input type="checkbox" class="checkdel" value="{{$gallery->id}}" delid="{{$gallery->id}}" />
                   </td>
                   <td>{{$gallery->id}}</td>
                   <td class="editname">
                     <a href="{{route('admin.gallery.edit', $gallery->id)}}">{{$gallery->name}}</a>
                   </td>
                   <td>
-                    <a href="{{route('admin.galleryCats.edit', $gallery->category()->first()->id)}}">{{$gallery->category()->first()->name}}</a>
+                    <a href="{{route('admin.gallery-cats.edit', $gallery->category()->first()->id)}}">{{$gallery->category()->first()->name}}</a>
                   </td>
                   <td>
-                      <button type="button" class="btn btn-sm p-1" data-toggle="tooltip" title="Click để tắt">
-                        <i class="material-icons toggle-icon">check_circle_outline</i>
+                      <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$gallery->id}}" value="{{$gallery->is_public}}"  data-toggle="tooltip"  title="{{ $gallery->is_public==1?'Click để tắt':'Click để bật' }}">
+                        <i class="material-icons toggle-icon">{{isset($gallery)&&$gallery->is_public==1?'check_circle_outline':'close'}}</i>
                       </button>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-sm p-1" data-toggle="tooltip" title="Click để bật">
+                    <button type="button" class="btn btn-sm p-1 click-highlight" curentid="{{$gallery->id}}" value="{{$gallery->is_highlight}}"  data-toggle="tooltip"  title="{{ $gallery->is_highlight==1?'Click để tắt':'Click để bật' }}">
                     <i class="material-icons toggle-icon">
-                        highlight_off
+                            {{isset($gallery)&&$gallery->is_highlight==1?'check_circle_outline':'close'}}
                     </i>
                     </button>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-sm p-1" data-toggle="tooltip" title="Click để bật">
+                    <button type="button" class="btn btn-sm p-1 click-new" curentid="{{$gallery->id}}" value="{{$gallery->is_new}}"  data-toggle="tooltip"  title="{{ $gallery->is_new==1?'Click để tắt':'Click để bật' }}">
                     <i class="material-icons toggle-icon">
-                        highlight_off
+                            {{isset($gallery)&&$gallery->is_new==1?'check_circle_outline':'close'}}
                     </i>
                     </button>
                   </td>
@@ -131,8 +130,7 @@
                       <a href="#" class="btn btn-sm p-1"  data-toggle="tooltip" title="Đưa lên đầu tiên">
                         <i class="material-icons">call_made</i>
                       </a>
-                      @method('DELETE')
-                      <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
+                      <a href="{{ route('admin.gallery.delete', $gallery->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
                         <i class="material-icons">delete</i>
                       </a>
                     </div>
@@ -142,7 +140,7 @@
               </tbody>
             </table>
 
-            
+
           </div>
           <!-- Pagination -->
           <ul class="pagination float-left mt-4">
@@ -181,5 +179,80 @@
             </a>
             </div>
           </div>
-         </div>     
+         </div>
 @endsection
+@push('js')
+<script>
+    $(document).ready(function () {
+        /**sort**/
+        let sortableOptions = {
+            handle: ".connect",
+            placeholder: "ui-state-highlight",
+            forcePlaceholderSize: true,
+            update: function () {
+                let sort = $(this).sortable("toArray");
+                console.log(sort);
+                $.ajax({
+                    method: 'POST',
+                    url: '/admin/gallery/sort',
+                    data: {
+                        sort: sort
+                    },
+                    success: function () {
+                        alert('SORTED');
+                    }
+                });
+            }
+        }
+        $(".sort").sortable(sortableOptions);
+        /**Button public**/
+        $(".click-public").click(function() {
+           let value = $(this).parents(".ui-state-default").find(".click-public").attr("value");
+           let id = $(this).parents(".ui-state-default").find(".click-public").attr("curentid");
+            $.ajax({
+                method: 'POST',
+                url: '/admin/gallery/change-is-public',
+                data: {
+                value : value,
+                id : id
+                },
+                success: function(data){
+
+                },
+            });
+        });
+                /**Button highlight**/
+        $(".click-highlight").click(function() {
+                let value = $(this).parents(".ui-state-default").find(".click-highlight").attr("value");
+                let id = $(this).parents(".ui-state-default").find(".click-highlight").attr("curentid");
+            $.ajax({
+                method: 'POST',
+                url: '/admin/gallery/change-is-highlight',
+                data: {
+                value : value,
+                id : id
+                },
+                success: function(data){
+
+                },
+            });
+        });
+                /**Button new**/
+        $(".click-new").click(function() {
+                let value = $(this).parents(".ui-state-default").find(".click-new").attr("value");
+                let id = $(this).parents(".ui-state-default").find(".click-new").attr("curentid");
+            $.ajax({
+                method: 'POST',
+                url: '/admin/gallery/change-is-new',
+                data: {
+                value : value,
+                id : id
+                },
+                success: function(data){
+
+                },
+            });
+        });
+    });
+</script>
+@endpush

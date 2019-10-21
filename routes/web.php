@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::group([
+    'namespace' => 'client'
+], function () {
+    Route::get('introduces',[
+        'as' => 'client.introduces.index',
+        'uses' => 'ArticleController@index'
+    ]);
 });

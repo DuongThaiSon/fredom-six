@@ -65,10 +65,8 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              value="1"
-              @if($component->is_public == 1)
-                checked
-              @endif
+              {{isset($component)&&$component->is_public==1?'checked':''}}
+              
             />
             <label class="label-checkbox" for="public"
               >Hiển thị</label

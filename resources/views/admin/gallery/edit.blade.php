@@ -197,7 +197,7 @@
            let id = $(this).parents(".ui-state-default").find(".click-public").attr("curentid");
             $.ajax({
                 method: 'POST',
-                url: '/admin/articles/change-is-public',
+                url: '/admin/images/change-is-public',
                 data: {
                 value : value,
                 id : id

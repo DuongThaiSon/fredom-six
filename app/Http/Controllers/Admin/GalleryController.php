@@ -272,38 +272,31 @@ class GalleryController extends Controller
 
 
         // return redirect()->route('admin.images.edit',$image->id)->with('succes');
-
         $request->validate([
-            'name' => 'nullable|sometimes|image'
+                'name' => 'nullable|sometimes|image'
         ]);
-
-        $attributes = $request->only([
-            'url','caption'
-        ]);
-        if ($request->hasFile('name'))
-        {
-            $destinationDir      = public_path('media/uploadImg');
+        $gallery = Gallery::findOrFail($id);
+        $image = Image::findOrFail($gallery->images()->first()->id);
+        // $attributes['name'] = $image->name;
+        if ($request->hasFile('name')) {
+            $destinationDir = public_path('media/uploadImg');
             $filename = uniqid('leotive').'.'.$request->name->extension();
             $request->name->move($destinationDir, $filename);
-            $attributes['name']  = '/media/uploadImg/'.$filename;
-         }
-        //  print_r($request->hasFile('name'));die;
+            $attributes['name'] = '/media/uploadImg/'.$filename;
+        }
+        else
+        {
+            $attributes['name'] = $request->img_name;
+        }
         $attributes['is_public'] = isset($request->is_public)?1:0;
+        $image->update([
+            'name' => $attributes['name'],
+            'is_public' => $attributes['is_public'],
+            'caption' => $request->caption,
+            'url' => $request->url,
+        ]);
 
-        // $galleries = Gallery::findOrFail($id);
-        $gallery = Gallery::findOrFail($id);
-        $images = Image::findOrFail($gallery->images()->first()->id);
-        $image = $images->fill($attributes);
-        $image->save();
-        // $gallery->images()->update([
-        //     'is_public'     => $attributes['is_public'],
-        //     'url'           => $request->url,
-        //     'caption'       => $request->caption,
-        //     'updated_by'    => Auth::user()->id,
-        //     'name'          => $attributes['name']
-        // ])->where('id', $gallery->images->id);
-
-        return redirect()->route('admin.images.edit',$gallery->id)->with('succes');
+        return redirect()->back()->with('succes');
     }
 
     /**
@@ -314,8 +307,23 @@ class GalleryController extends Controller
      */
     public function imageDestroy($id)
     {
-        Image::findOrFail($id)->delete();
-        return redirect()->route('admin.gallery.edit')->with('Delete Comple');
+        $image = Image::findOrFail($id);
+        $folder = public_path($image->name);
+        if (file_exists($folder))
+        {
+            unlink($folder);
+        }
+        $image->delete();
+        return redirect()->back()->with('Delete Compled');
+    }
+
+    public function changeIsPublicImage(Request $request) {
+        $id = $request->id;
+        $image =  Image::findOrFail($id);
+        $image->is_public = ($request->value == 1) ? '0' : '1';
+        $image->save();
+        return response()->json(compact('image'), 200);
+
     }
 
     public function sort(Request $request)

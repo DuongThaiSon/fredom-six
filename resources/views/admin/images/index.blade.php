@@ -1,7 +1,7 @@
 @foreach ($gallery->images as $image)
     {{-- <form action="{{ route('admin.image.destroy',$video->id) }}" method="POST">
     @csrf --}}
-    <tr>
+    <tr class="ui-state-default">
         <td class="text-center">
             <input type="checkbox" class="checkdel" value="{{$image->id}}" />
         </td>
@@ -26,7 +26,7 @@
                     <i class="material-icons">border_color</i>
                 </a>
                 {{-- @method('DELETE') --}}
-                <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
+                <a href="{{ Route('admin.images.delete', $image->id)}}"  class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
                     <i class="material-icons">delete</i>
                 </a>
             </div>

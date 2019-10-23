@@ -71,17 +71,18 @@ class GalleryController extends Controller
             'meta_description', 'meta_keyword', 'meta_page_topic',
             'is_highlight', 'is_public', 'is_new'
         ]);
-        $attributes['created_by'] = Auth::user()->id;
+        $attributes['created_by']   = Auth::user()->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['is_new'] = isset($request->is_new)?1:0;
+        $attributes['is_public']    = isset($request->is_public)?1:0;
+        $attributes['is_new']       = isset($request->is_new)?1:0;
+        $attributes['order']        = Gallery::max('order') ? (Gallery::max('order') + 1) : 1;
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if($request->hasFile('avatar')){
             $destinationDir = public_path('media/galleryCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = 'media/galleryCategories/'.$filename;
+            $attributes['avatar'] = '/media/galleryCategories/'.$filename;
         }
 
         $gallery = Gallery::create($attributes);
@@ -109,8 +110,9 @@ class GalleryController extends Controller
     public function edit($id)
     {
         $gallery = Gallery::findOrFail($id);
-        $categories = $this->getSubCategories(0,$id);
-        return view('admin.gallery.edit', compact('gallery','categories'));
+        $category = Category::find($gallery->category_id);
+        $categories = $this->getSubCategories(0);
+        return view('admin.gallery.edit', compact('gallery','categories', 'category'));
 
     }
 
@@ -123,24 +125,16 @@ class GalleryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'category_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
-            'avatar' => 'nullable|sometimes|image'
-        ]);
-
-
         $attributes = $request->only([
             'category_id', 'name', 'link_to', 'description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword', 'meta_page_topic',
             'is_highlight', 'is_public', 'is_new'
         ]);
         $user = Auth::user();
-        $attributes['updated_by'] = $user->id;
+        $attributes['updated_by']   = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['is_new'] = isset($request->is_new)?1:0;
-        $attributes['order'] = Gallery::max('order') ? (Article::max('order') + 1) : 1;
+        $attributes['is_public']    = isset($request->is_public)?1:0;
+        $attributes['is_new']       = isset($request->is_new)?1:0;
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
 
@@ -148,7 +142,7 @@ class GalleryController extends Controller
             $destinationDir = public_path('media/galleryCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = 'media/galleryCategories/'.$filename;
+            $attributes['avatar'] = '/media/galleryCategories/'.$filename;
         }
         $galleries = Gallery::findOrFail($id);
         $gallery = $galleries->fill($attributes);
@@ -200,21 +194,27 @@ class GalleryController extends Controller
         $request->validate([
             'name' => 'nullable|sometimes|image'
         ]);
+
+        $attributes['is_public'] = isset($request->is_public)?1:0;
+        $attributes['order'] = Image::max('order') ? (Image::max('order') + 1) : 1;
             if ($request->hasFile('name')) {
-                foreach ($request->name as $name) {
                     $destinationDir = public_path('media/uploadImg');
-                    $filename = uniqid('leotive').'.'.$name->extension();
-                    $name->move($destinationDir, $filename);
+                    $filename = uniqid('leotive').'.'.$request->name->extension();
+                    $request->name->move($destinationDir, $filename);
                     $attributes['name'] = '/media/uploadImg/'.$filename;
-
-
-                    $gallery = Gallery::find($id);
-                    $gallery->images()->create([
-                        'created_by' => Auth::user()->id,
-                        'name' => $attributes['name'],
-                    ]);
-                }
             }
+            // print_r($request->hasFile('name'));die;
+            // print_r($attributes['name']);die;
+            $gallery = Gallery::findOrFail($id);
+            $gallery->images()->create([
+                'created_by' => Auth::user()->id,
+                'name' => $attributes['name'],
+                'is_public' => $attributes['is_public'],
+                'order' => $attributes['order'] = Image::max('order') ? (Image::max('order') + 1) : 1,
+                'caption' => $request->caption,
+                'url' => $request->url,
+
+            ]);
 
         return redirect()->route('admin.gallery.edit',$gallery->id)->with('succes');
     }
@@ -225,16 +225,20 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function imageEdit($id)
+    public function imageEdit(Request $request, $id)
     {
+        $image_id = $request->image_id;
+        // print_r($image_id);die;s
         $gallery = Gallery::findOrFail($id);
-        $image = Image::findOrFail($gallery->images()->id);
+        $image = Image::findOrFail($image_id);
+        // print_r($image);die;
         // $image = Image::findOrFail($gallery->images->id);
         // return redirect()->route('admin.images.edit', [
         //     'id' => $gallery->id,
         //     'image_id' => $image_id
         // ]);
-        return view('admin.images.edit', compact('gallery', 'image', 'categories'));
+        // return redirect()->route('admin.images.edit', $gallery->id);
+        return view('admin.images.edit', compact('gallery','image'));
 
     }
 
@@ -273,34 +277,33 @@ class GalleryController extends Controller
             'name' => 'nullable|sometimes|image'
         ]);
 
-        // $attributes = $request->only([
-        //     'url', 'caption'
-        // ]);
-
-        // $user = Auth::user();
-        // $attributes['created_by'] = $user->id;
-        if($request->hasFile('name')) {
-            $file = $request->file('name');
-            $destinationDir = public_path('media/uploadImg');
+        $attributes = $request->only([
+            'url','caption'
+        ]);
+        if ($request->hasFile('name'))
+        {
+            $destinationDir      = public_path('media/uploadImg');
             $filename = uniqid('leotive').'.'.$request->name->extension();
             $request->name->move($destinationDir, $filename);
-            $attributes['name'] = '/media/uploadImg/'.$filename;
-            // $attributes['size'] = filesize($file);
-
-            // list($width, $height, $type, $attr) = getimagesize("'/media/uploadImg/'.$filename");
-            // $attributes['size'] = $width.'x'.$height;
-        }
+            $attributes['name']  = '/media/uploadImg/'.$filename;
+         }
+        //  print_r($request->hasFile('name'));die;
+        $attributes['is_public'] = isset($request->is_public)?1:0;
 
         // $galleries = Gallery::findOrFail($id);
-        $gallery = Gallery::find($id);
-        $gallery->images()->update([
-            'url' => $request->url,
-            'caption' => $request->caption,
-            'created_by' => Auth::user()->id,
-            'name' => $attributes['name']
-        ])->where('id', $gallery->images->id);
+        $gallery = Gallery::findOrFail($id);
+        $images = Image::findOrFail($gallery->images()->first()->id);
+        $image = $images->fill($attributes);
+        $image->save();
+        // $gallery->images()->update([
+        //     'is_public'     => $attributes['is_public'],
+        //     'url'           => $request->url,
+        //     'caption'       => $request->caption,
+        //     'updated_by'    => Auth::user()->id,
+        //     'name'          => $attributes['name']
+        // ])->where('id', $gallery->images->id);
 
-        return redirect()->route('admin.images.edit',$gallery->id, $gallery->images->id)->with('succes');
+        return redirect()->route('admin.images.edit',$gallery->id)->with('succes');
     }
 
     /**

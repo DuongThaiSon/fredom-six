@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Article;
 use Auth;
@@ -71,12 +72,13 @@ class ArticleCategoryController extends Controller
         $attributes['created_by'] = Auth::user()->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
         $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if($request->hasFile('avatar')){
             $destinationDir = public_path('media/articleCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = 'media/articleCategories/'.$filename;
+            $attributes['avatar'] = '/media/articleCategories/'.$filename;
         }
 
         $category = Category::create($attributes);
@@ -120,10 +122,9 @@ class ArticleCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:categories'.$id,
             'avatar' => 'nullable|sometimes|image'
         ]);
-
         $attributes = $request->only([
             'parent_id', 'name', 'description', 'is_highlight', 'meta_title', 'slug', 'meta_keyword', 'meta_discription',
             'meta_page_topic'
@@ -131,12 +132,13 @@ class ArticleCategoryController extends Controller
 
         $attributes['updated_by'] = Auth::user()->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if($request->hasFile('avatar')){
             $destinationDir = public_path('media/articleCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = 'media/articleCategories/'.$filename;
+            $attributes['avatar'] = '/media/articleCategories/'.$filename;
         }
 
         $categories = Category::findOrFail($id);
@@ -154,16 +156,13 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($id)
     {
+        $categoryid = $this->getSubCategories($id);
+        $this->foreachlong($categoryid);
+        Category::findOrFail($id)->delete();
         $categories = $this->getSubCategories(0);
-        foreach ($categories as $category)
-        {
-            $parent_id = $category->parent_id;
-            if($id === $parent_id)
-            {
-                $cat = Category::where('id', $category->id);
-                print_r($cat);die;
-            }
-        }
+        $category = $categories->filter(function($value, $key) use ($id){
+            return $value->id == $id;
+        });
         return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
     }
     public function sortcat(Request $request){
@@ -176,6 +175,21 @@ class ArticleCategoryController extends Controller
 		rsort($order);
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+        }
+    }
+
+    private function foreachlong($chil_id)
+    {
+        foreach ($chil_id as $key => $child) {
+            $cat_child = $this->getSubCategories($child->id);
+            if(!empty($cat_child))
+            {
+                Category::findOrFail($child->id)->delete();
+            }
+            else
+            {
+                $this->foreachlong($cat_child);
+            }
         }
     }
 }

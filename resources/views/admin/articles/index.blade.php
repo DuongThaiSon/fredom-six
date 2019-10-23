@@ -117,10 +117,10 @@
                                         title="Sửa">
                                         <i class="material-icons">border_color</i>
                                     </a>
-                                    <a href="{{route('admin.articles.copy', $article->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Copy dữ liệu">
+                                    <a href="{{ route('admin.articles.create') }}?id={{ $article->id }}" class="btn btn-sm p-1 btn-copy" data-id="{{$article->id}}" data-toggle="tooltip" title="Copy dữ liệu">
                                         <i class="material-icons">file_copy</i>
                                     </a>
-                                    <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
+                                    <a href="#" class="btn btn-sm p-1 " data-toggle="tooltip" title="Đưa lên đầu tiên">
                                         <i class="material-icons">call_made</i>
                                     </a>
                                    <a href="{{route('admin.articles.delete', $article->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
@@ -222,3 +222,23 @@
     });
 </script>
 @endpush
+            {{-- $('.move-top-button').click(function(e){
+                e.preventDefault();
+                $("[data-toggle=tooltip]").tooltip('hide');
+                var article_id = $(this).attr('article-id');
+                var cat_id = $('#cat').val();
+                if(!cat_id) cat_id = 0;
+                $('#cat_table').html(showloading());
+                $.ajax({
+                    url: '/admin/articles/movetop/' + article_id + '/' + cat_id,
+                    async: true,
+                    success: function(data) {
+                        if (data != 0) {
+                            alert(data);
+                            return;
+                        } else {
+                            run_search();
+                        }
+                    }
+                });
+            }); --}}

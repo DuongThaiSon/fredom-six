@@ -67,7 +67,8 @@ class VideoController extends Controller
             $id = $request->id;
             $categories = $this->getSubCategories(0);
             $video = Video::findOrFail($id);
-            return view('admin.videos.create', compact('categories', 'video'));
+            $category = Category::find($video->category_id);
+            return view('admin.videos.create', compact('categories', 'video', 'category'));
         }
 
     }
@@ -81,7 +82,7 @@ class VideoController extends Controller
     public function store(VideoRequest $request)
     {
 
-        $attributes  = $this->service->Create($request, Video::max('order'), 'media/Videos/', $request->image);
+        $attributes  = $this->service->Create($request, Video::max('order'), '/media/Videos/', $request->image);
 
         $video = Video::create($attributes);
 
@@ -126,7 +127,7 @@ class VideoController extends Controller
     public function update(VideoRequest $request, $id)
     {
 
-        $attributes = $this->service->Edit($request, 'media/Videos/', $request->image);
+        $attributes = $this->service->Edit($request, '/media/Videos/', $request->image);
 
         $videos = Video::findOrFail($id);
         $video = $videos->fill($attributes);

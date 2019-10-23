@@ -6,6 +6,7 @@
               <h1 class="mt-3 pl-4">THÔNG TIN ALBUM ẢNH</h1>
               <form action="{{route('admin.gallery.update',$gallery->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
               @csrf
+              @method('PUT')
               <div class="save-group-buttons">
                   <button class="btn btn-sm btn-dark" data-toggle="tooltip" title="Lưu">
                     <i class="material-icons">
@@ -19,7 +20,7 @@
                   </a>
                 </div>
               <!-- Form -->
-              
+
                 <div class="row">
                   <div class="col-md-6">
                     <legend>Thông tin cơ bản</legend>
@@ -34,18 +35,18 @@
                       <input type="text" name="name" required class="form-control" placeholder="Tên gallery" value="{{$gallery->name}}" />
                       <small class="form-text">Tên của gallery chứa dữ liệu</small>
                     </div>
-                    
+
                     <div class="form-group">
                       <label>URL gallery</label>
                       <input type="text" name="link_to" required class="form-control" placeholder="URL gallery" value={{$gallery->link_to}}/>
                       <small class="form-text">Dán đoạn link url đã copy từ youtube vào.</small>
                     </div>
-                    
+
                     <div class="form-group">
                       <label>Nằm trong mục</label>
                       <select name="category_id" class="form-control">
                         <option value='0'></option>
-                        @include('admin.partials.categories_options',['level' => 0])
+                        @include('admin.partials.options',['level' => 0])
                       </select>
                       <small class="form-text">Đặt mục cha cho mục dữ liệu này, mục cha ở đây nghĩa là các mục gallery lớn đã được tạo trước đó.</small>
                     </div>
@@ -95,19 +96,19 @@
                     <div class="form-group">
                         <label class="control-label">Thẻ Meta Description</label>
                         <input type="text" class="form-control" name="meta_description" placeholder="Thẻ Meta Description" value="{{$gallery->meta_description}}"/>
-                        <small class="form-text">Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. 
-                        Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. 
+                        <small class="form-text">Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó.
+                        Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn.
                         Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small>
                       </div>
-                      
+
                       <div class="form-group">
                           <label class="control-label">Thẻ Meta keywords</label>
                           <input type="text" class="form-control" name="meta_keyword" placeholder="Thẻ Meta keywords" value="{{$gallery->meta_keyword}}"/>
-                          <small class="form-text">Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, 
-                          Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, 
+                          <small class="form-text">Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung,
+                          Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này,
                           các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small>
                         </div>
-                        
+
                         <div class="form-group">
                             <label class="control-label">Thẻ Meta Page Topic</label>
                             <input type="text" class="form-control" name="meta_page_topic" placeholder="Thẻ Meta Page Topic" value="{{$gallery->meta_page_topic}}"/>
@@ -177,7 +178,7 @@
                           </thead>
                           <tbody>
                               {{-- list image --}}
-                             @include('admin.images.list_image')
+                             @include('admin.images.index')
                               {{-- end list imgage --}}
                           </tbody>
                         </table>
@@ -187,10 +188,24 @@
                  {{-- </form> --}}
               <!-- End Form -->
             </div>
-  @endsection   
+  @endsection
   @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
-</script>   
+    CKEDITOR.replace("caption");
+    $(".click-public").click(function() {
+           let value = $(this).parents(".ui-state-default").find(".click-public").attr("value");
+           let id = $(this).parents(".ui-state-default").find(".click-public").attr("curentid");
+            $.ajax({
+                method: 'POST',
+                url: '/admin/articles/change-is-public',
+                data: {
+                value : value,
+                id : id
+                },
+                success: function(data){
+
+                },
+            });
+        });
+</script>
 @endpush

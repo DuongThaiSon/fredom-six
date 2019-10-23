@@ -47,15 +47,20 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'VideoController@changeIsNew'
     ]);
 
-    Route::get('videos/{id}/copy', [
-        'as' => 'admin.videos.copy',
-        'uses' => 'VideoController@CopyData'
-    ]);
+    // Route::get('videos/{id}/copy', [
+    //     'as' => 'admin.videos.copy',
+    //     'uses' => 'VideoController@CopyData'
+    // ]);
 
     // video category
     Route::resource('video-cats', 'VideoCategoryController', [
         'as' => 'admin',
         'parameters' => ['video-cats' => 'id']
+    ])->except('destroy');
+
+    Route::get('video-cats/{id}/delete', [
+        'as' => 'admin.video-cats.delete',
+        'uses' => 'VideoCategoryController@destroy'
     ]);
 
     Route::post('video-cats/sortcat', [
@@ -98,6 +103,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('gallery-cats', 'GalleryCategoryController',[
         'as' => 'admin',
         'parameters' => ['gallery-cats' => 'id']
+    ])->except('destroy');
+
+    Route::get('gallery-cats/{id}/delete', [
+        'as' => 'admin.gallery-cats.delete',
+        'uses' => 'GalleryCategoryController@destroy'
     ]);
 
     Route::post('gallery-cats/sortcat', [
@@ -171,15 +181,21 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'admin.images.store',
             'uses' => 'GalleryController@imageStore'
         ]);
-         Route::get('images/{image_id}', [
+
+        Route::get('images-edit', [
             'as' => 'admin.images.edit',
             'uses' => 'GalleryController@imageEdit'
-         ]);
+        ]);
+
+        Route::post('images-update', [
+            'as' => 'admin.images.update',
+            'uses' => 'GalleryController@imageUpdate'
+        ]);
 
     });
-    
+
     Route::group(['prefix' => 'settings'],
-    function(){ 
+    function(){
         Route::get('/', [
         'as' => 'admin.setting.infoSetting',
         'uses' => 'SettingController@infoSetting'
@@ -226,8 +242,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     });
-   
-    Route::group(['prefix' => 'components'], 
+<<<<<<< HEAD
+
+    Route::group(['prefix' => 'components'],
+=======
+
+    Route::group(['prefix' => 'components'],
+>>>>>>> fix-delete-category-upload-image
     function (){
         Route::get('/', [
             'as' => 'admin.component.index',

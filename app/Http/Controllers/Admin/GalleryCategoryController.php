@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Auth;
 
@@ -122,7 +123,7 @@ class GalleryCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:categories',$id,
             'avatar' => 'nullable|sometimes|image'
         ]);
 
@@ -133,9 +134,9 @@ class GalleryCategoryController extends Controller
         ]);
 
         $user = Auth::user();
-        $attributes['updated_by'] = $user->id;
+        $attributes['updated_by']   = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
+        $attributes['is_public']    = isset($request->is_public)?1:0;
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
@@ -161,7 +162,13 @@ class GalleryCategoryController extends Controller
      */
     public function destroy($id)
     {
+        $categoryid = $this->getSubCategories($id);
+        $this->foreachlong($categoryid);
         Category::findOrFail($id)->delete();
+        $categories = $this->getSubCategories(0);
+        $category = $categories->filter(function($value, $key) use ($id){
+            return $value->id == $id;
+        });
 
         return redirect()->route('admin.gallery-cats.index')->with('Delete Comple');
 
@@ -178,6 +185,20 @@ class GalleryCategoryController extends Controller
 		rsort($order);
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+        }
+    }
+    private function foreachlong($chil_id)
+    {
+        foreach ($chil_id as $key => $child) {
+            $cat_child = $this->getSubCategories($child->id);
+            if(!empty($cat_child))
+            {
+                Category::findOrFail($child->id)->delete();
+            }
+            else
+            {
+                $this->foreachlong($cat_child);
+            }
         }
     }
 }

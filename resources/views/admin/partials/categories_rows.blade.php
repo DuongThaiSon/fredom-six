@@ -29,7 +29,7 @@
                                     <a href="{{route('admin.'.$category->type.'-cats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
-                                    <a href="{{ Route('admin.'.$category->type.'-cats.delete', $category->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
+                                    <a href="{{route('admin.'.$category->type.'-cats.delete', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </div>

@@ -7,12 +7,15 @@ use App\Models\Profile;
 
 class UserService
 {
-    public function uploadAvatar($file, $destinationDir)
+    public function uploadAvatar($request, $destinationDir)
     {
-        if ($file) {
-            $fileName = uniqid('leotive').'.'.$file->extension();
-            $file->move(public_path($destinationDir), $fileName);
+        if ($request->avatar) {
+            $fileName = uniqid('leotive').'.'.$request->avatar->extension();
+            $request->avatar->move(public_path($destinationDir), $fileName);
             $avatar = $destinationDir.$fileName;
+            return $avatar;
+        }else{
+            $avatar = User::findOrFail($request->id)->avatar;
             return $avatar;
         }
         
@@ -47,7 +50,7 @@ class UserService
 
     public function createUser($request, $file, $destinationDir)
     {
-        $avatar = $this->uploadAvatar($file, $destinationDir);
+        $avatar = $this->uploadAvatar($request, $destinationDir);
         $attributes = [
             'name', 'email', 
         ];

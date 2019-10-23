@@ -45,7 +45,7 @@ class UserController extends Controller
                     [
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
@@ -59,7 +59,7 @@ class UserController extends Controller
                     [
                         'avatar' => 'nullable|sometimes|image'
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->name = $request->name;
                     $userChange->save();
@@ -80,7 +80,7 @@ class UserController extends Controller
                         'email.unique' => 'Email đã được đăng kí',
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->email = $request->email;
                     $userChange->password = bcrypt($request['password']);
@@ -98,7 +98,7 @@ class UserController extends Controller
                     ],[
                         'email.unique' => 'Email đã được đăng kí'
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;
@@ -120,7 +120,7 @@ class UserController extends Controller
                     [
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
@@ -133,7 +133,7 @@ class UserController extends Controller
                     [
                         'avatar' => 'nullable|sometimes|image'
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->name = $request->name;
                     $userChange->save();
@@ -154,7 +154,7 @@ class UserController extends Controller
                         'email.unique' => 'Email đã được đăng kí',
                         'password.min' => 'Mật khẩu ít nhất 8 kí tự',
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     $userChange->email = $request->email;
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
@@ -170,7 +170,7 @@ class UserController extends Controller
                     ],[
                         'email.unique' => 'Email đã được đăng kí'
                     ]);
-                    $userChange['avatar'] = $this->service->uploadAvatar($request->avatar, '/media/user/');
+                    $userChange['avatar'] = $this->service->uploadAvatar($request, '/media/user/');
                     
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;

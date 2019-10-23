@@ -20,7 +20,7 @@
   <script src="/assets/client/js/popper.min.js"></script>
   <script src="/assets/client/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/assets/client/js/slick.min.js"></script>
-
+  <script src="https://kit.fontawesome.com/969fc0c091.js" crossorigin="anonymous"></script>
   <script src="/assets/client/js/aos.js"></script>
   <script src="/assets/client/js/owl.carousel.js"></script>
   <script src="/assets/client/js/script.js"></script>
@@ -118,141 +118,160 @@
         </div>
       </nav>
     </div>
-    <!-- showcase -->
-    <div id="showcase">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-          <li data-target="#myCarousel" data-slide-to="3"></li>
-        </ol>
-        <div class="carousel-inner">
-          <!-- slide -->
-          <div class="carousel-item active"
-            style="background:url('/assets/client/img/banner.png'); background-size: cover; height: 900px;">
-            <div class="container">
-              <div class="row">
-                <div class="col-6"></div>
-                <div class="col-md-6 d-none d-md-block" style="padding-left: 70px;">
-                  <div class="showcase-title">
-                    <h2 class="text-uppercase font-italic">the</h2>
-                    <h2 class="text-uppercase font-italic ml-3">most</h2>
-                    <h1 class="text-uppercase display-4">luxury</h1>
-                    <h1 class="text-uppercase display-4 mb-4" style="margin-left: 120px;">
-                      bag
-                    </h1>
-                    <p>
-                      Use this text to share information about your brand with your
-                      customers. Describe a product, share annoucement, or welcome
-                      customers to your store
-                    </p>
-                    <a href="#" class="btn text-uppercase">news arrivals</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- breadcrumb -->
+    <div class="bread-crumb">
+      <div class="row" style="background: #ebebeb;">
+        <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+              <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Giới thiệu</a></li>
+            </ol>
+          </nav>
         </div>
       </div>
     </div>
   </section>
-  <!-- news -->
-  <section id="news">
-    <div class="news-container">
-      <!-- news-1 -->
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="news-img">
-            <img src="/assets/client/img/news/news-1.png" alt="">
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="news-title">
-            <h6 class="font-weight-bold">Càng đông càng rẻ, thổi bay nắng hè với con mưa sale Moolez</h6>
-            <div class="time">
-              <i class="fas fa-clock"></i>
-              <span>Thứ tư, tháng 9, 2019</span>
+  <!-- about-detail -->
+  <section id="about-detail">
+    <div class="container">
+      <div class="about-slide">
+        <div id="about-slide" class="owl-carousel owl-theme">
+          <div class="item">
+            <a href="#">
+              <img src="/assets/client/img/datran.png" alt="">
+            </a>
+            <div class="banner-content position-absolute">
+              <div class="banner-text"></div>
             </div>
-            <p class="title-detail">Đánh bay cơn nóng mùa hè với ƯU ĐÃI tới 50%++ từ MOOLEZ, áp dụng DUY NHẤT tại
-              ​Showroom Trần Duy Hưng và Nha Trang.​ Đánh bay cơn nóng mùa hè với ƯU ĐÃI tới 50%++ từ MOOLEZ, áp dụng
-              DUY NHẤT tại ​Showroom Trần Duy Hưng và Nha Trang.​ Đánh bay cơn nóng mùa hè với ƯU ĐÃI tới 50%++ từ
-              MOOLEZ, áp dụng DUY NHẤT tại ​Showroom Trần Duy Hưng và Nha Trang.​ Đánh bay cơn nóng mùa hè với ƯU ĐÃI
-              tới 50%++ từ MOOLEZ, áp dụng DUY NHẤT tại ​Showroom Trần Duy Hưng và Nha Trang.​</p>
-            <a href="#" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
-        </div>
-      </div>
-      <!-- news-2 -->
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <div class="news-img">
-            <img src="/assets/client/img/news/news-2.png" alt="">
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="news-title">
-            <h6 class="font-weight-bold">Đẹp đa dụng đầy phong cách cùng bộ office bag từ Moolez</h6>
-            <div class="time">
-              <i class="fas fa-clock"></i>
-              <span>Thứ tư, tháng 9, 2019</span>
+          <div class="item">
+            <a href="#">
+              <img src="/assets/client/img/datran.png" alt="">
+            </a>
+            <div class="banner-content">
+              <div class="banner-text"></div>
             </div>
-            <p class="title-detail">Lấy cảm hứng từ hình ảnh những phụ nữ văn phòng độc lập và hiện đại, Tháng 7 này
-              Moolez đặc biệt gửi tặng đến các nữ khách hàng yêu quý của mình một chiếc Office bag vô cùng thời trang và
-              đa dụng. Office bag tập trung vào những đường nét tối giản mà tinh tế, không khoa trương, không cầu kì mà
-              vẫn khiến người mang nó nổi bật theo một cách rất riêng.
-            </p>
-            <a href="#" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
-        </div>
-      </div>
-      <!-- news-3 -->
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <div class="news-img">
-            <img src="/assets/client/img/news/news-3.png" alt="">
-          </div>
-        </div>
-        <div class="col-12 col-md-6">
-          <div class="news-title">
-            <h6 class="font-weight-bold">Biệt đãi ngọt ngào 699.000đ dành riêng cho quý ông</h6>
-            <div class="time">
-              <i class="fas fa-clock"></i>
-              <span>Thứ tư, tháng 9, 2019</span>
+          <div class="item">
+            <a href="#">
+              <img src="/assets/client/img/datran.png" alt="">
+            </a>
+            <div class="banner-content">
+              <div class="banner-text"></div>
             </div>
-            <p class="title-detail">Với mong muốn ngày càng nhiều quý ông Việt được sở hữu những sản phẩm đồ da được làm
-              từ DA THẬT mang tinh thần Australia, MOOLEZ dành tặng ƯU ĐÃI NGỌT NGÀO duy nhất cho Phái Mạnh. Với mong
-              muốn ngày càng nhiều quý ông Việt được sở hữu những sản phẩm đồ da được làm từ DA THẬT mang tinh thần
-              Australia, MOOLEZ dành tặng ƯU ĐÃI NGỌT NGÀO duy nhất cho Phái Mạnh.
-              Với mong muốn ngày càng nhiều quý ông Việt được sở hữu những sản phẩm đồ da được làm từ DA THẬT mang tinh
-              thần Australia, MOOLEZ dành tặng ƯU ĐÃI NGỌT NGÀO duy nhất cho Phái Mạnh​</p>
-            <a href="#" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
         </div>
-      </div>
-      <!-- pagination -->
-      <div class="row mb-0 justify-content-end">
-        <nav>
-          <ul class="pagination">
-            <li class="page-item">
-              <a class="page-link shadow-none" href="#" aria-label="Previous">
-                <span aria-hidden="true"><i class="fas fa-chevron-left mr-2"></i> Previous</span>
-              </a>
-            </li>
-            <li class="page-item active"><a class="page-link shadow-none" href="#">1</a></li>
-            <li class="page-item"><a class="page-link shadow-none" href="#">2</a></li>
-            <li class="page-item"><a class="page-link shadow-none" href="#">3</a></li>
-            <li class="page-item"><a class="page-link shadow-none" href="#">...</a></li>
-            <li class="page-item"><a class="page-link shadow-none" href="#">9</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">Next <i class="fas fa-chevron-right ml-2"></i></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <div class="about-content">
+          <h3 class="text-center">{!! $about->name !!}</h3>
+          <div class="under-line"></div>
+          {!! $about->detail !!}
+          <div class="share mt-5">
+            <span>Share: </span>
+            <a class="mx-2" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn"><i class="fab fa-facebook-square fa-2x" style="color: #3b5998;"></i></a>
+            <a class="mx-2" target="_blank" href="https://twitter.com/intent/tweet?url=https://moolez.vn/"><i class="fab fa-twitter fa-2x" style="color: #55acee;"></i></a>
+            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description=Init%20HTML%20%E2%80%93%20Kh%E1%BB%9Fi%20%C4%91%E1%BA%A7u%20d%E1%BB%B1%20%C3%A1n%20Web"><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="clear"></div>
+  </section>
+  <!-- about-2 -->
+  <section id="about-2">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-12">
+          <div class="about-img">
+            <img src="/assets/client/img/ceo.png" class="img-fluid" alt="">
+            <div class="about-text">
+              <p class="ceo-name text-center m-0">Mrs. Thái Hương Lan</p>
+              <p class="text-center m-0 font-weight-bold text-dark" style="font-size: 13px;">CEO & Founder Moolez</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-12 ours-work">
+          <h4 class="text-uppercase" style="font-size: 36px; color: #ffffff">our work</h4>
+          <div class="under-line-white"></div>
+          <div class="ours-work-detail">
+            <!-- detail-1 -->
+            {{-- @forelse ($ourworks as $ourwork)
+            <div class="detail-{{ $ourwork->id}} mb-3">
+              <a href="#detail-{{ $ourwork->id}}" class="collapsed text-uppercase active" data-target="#detail-{{ $ourwork->id }}"
+                data-toggle="collapse">
+                {!! $ourwork->name !!}
+              </a>
+              <div class="collapse mt-3" id="detail-{{ $ourwork->id}}">
+                {!! $ourwork->detail !!}
+              </div>
+            </div>
+            @empty
+                
+            @endforelse --}}
+            <div id="accordion">
+                @forelse ($ourworks as $ourwork)
+                <div class="button font-weight-bold {{ $ourwork->id == 1? 'active' :''}}" role="button"
+                style="cursor: pointer; margin-top: 20px;">
+                {!! $ourwork->name !!}
+              </div>
+              <div class="slide mt-3">
+                  {!! $ourwork->detail !!}
+                </div>
+                @empty
+                    
+                @endforelse
+                  
+            <!-- detail-2 -->
+            {{-- <div class="detail-2 mb-3">
+              <a href="#detail-2" class="collapsed text-uppercase" data-target="#detail-2" data-toggle="collapse">
+                sứ mệnh
+              </a>
+              <div class="collapse mt-3" id="detail-2">
+              </div>
+            </div>
+            <!-- detail-3 -->
+            <div class="detail-3 mb-3">
+              <a href="#detail-3" class="collapsed text-uppercase" data-target="#detail-3" data-toggle="collapse">
+                tầm nhìn
+              </a>
+              <div class="collapse mt-3" id="detail-3">
+              </div>
+            </div>
+            <!-- detail-4 -->
+            <div class="detail-4 mb-3">
+              <a href="#detail-4" class="collapsed text-uppercase" data-target="#detail-4" data-toggle="collapse">
+                Giá trị cốt lõi: Văn hóa doanh nghiệp + năng lực
+              </a>
+              <div class="collapse mt-3" id="detail-4">
+                <p>Đối với sản phẩm mang thương hiệu Moolez, khách hàng luôn được sở hữu những sản phẩm chất lượng
+                  đẳng
+                  cấp nhất, từ nguyên liệu da nhập khẩu của các nước nổi tiếng như Italia đến linh kiện,
+                  phụ kiện đạt tiêu chuẩn châu Âu với kiểu dáng thời thượng, dẫn đầu xu hướng.</p>
+                <p>
+                  Bên cạnh đó, khách hàng còn được hưởng nhiều giá trị gia tăng,và dịch vụ khác biệt mà các hãng khác
+                  chưa hoặc không có.
+                </p>
+              </div>
+            </div>
+            <!-- detail-5 -->
+            <div class="detail-5">
+              <a href="#detail-5" class="collapsed text-uppercase" data-target="#detail-5" data-toggle="collapse">
+                Thông điệp từ người đứng đầu
+              </a>
+              <div class="collapse  mt-3" id="detail-5">
+                <p>Đối với sản phẩm mang thương hiệu Moolez, khách hàng luôn được sở hữu những sản phẩm chất lượng
+                  đẳng
+                  cấp nhất, từ nguyên liệu da nhập khẩu của các nước nổi tiếng như Italia đến linh kiện,
+                  phụ kiện đạt tiêu chuẩn châu Âu với kiểu dáng thời thượng, dẫn đầu xu hướng.</p>
+                <p>
+                  Bên cạnh đó, khách hàng còn được hưởng nhiều giá trị gia tăng,và dịch vụ khác biệt mà các hãng khác
+                  chưa hoặc không có.
+                </p>
+              </div>
+            </div> --}}
+          </div>
+        </div>
+      </div>
     </div>
   </section>
   <!-- showroom -->
@@ -332,6 +351,29 @@
       </div>
     </div>
   </section>
+
+  <script src="/assets/client/js/jquery.min.js"></script>
+  <script src="/assets/client/js/owl.carousel.js"></script>
+  <script>
+    ///----- Auto-Close Accordion
+    $(document).ready(function () {
+      //--- initial state of elements
+      $('.slide:not(:first)').hide()
+      //----- click function
+      $("#accordion").find("div[role|='button']").click(function () { //---- tabs or buttons
+        //---- active class
+        $("#accordion").find("div[role|='button']").removeClass('active');
+        $('.slide').slideUp('fast');
+        var selected = $(this).next('.slide');
+        if (selected.is(":hidden")) {
+          $(this).next('.slide').slideDown('fast');
+          $(this).toggleClass('active');
+        }
+      });
+    });
+  </script>
+  <script src="/assets/client/js/script.js"></script>
+
 </body>
 
 </html>

@@ -30,4 +30,9 @@ Route::group([
         'as' => 'client.news.detail',
         'uses' => 'NewController@show'
     ]);
+
+    Route::get('showrooms',[
+        'as' => 'client.showrooms.index',
+        'uses' => 'ShowroomController@index'
+    ]);
 });

@@ -21,7 +21,7 @@
                 <img src="{{ asset('/media/showroom') }}/{{ $showmb->avatar }}" alt="">
               </div>
               <div class="showroom-detail">
-                <p><i class="fas fa-map-marker-alt"></i> {{ $showmb->address }}</p>
+                <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmb->address }}</p>
                 <p><i class="fas fa-phone-alt"></i> {{ $showmb->email }}</p>
                 <p><i class="fas fa-envelope"></i> {{ $showmb->phone }}</p>
               </div>

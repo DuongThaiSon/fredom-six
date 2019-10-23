@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Dashboard')])
+@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Component')])
 @section('content')
 <!-- Content -->
 <div id="main-content">

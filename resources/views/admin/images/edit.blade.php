@@ -31,6 +31,7 @@
                         <div class="form-group">
                             <label class="control-label">Upload ảnh</label>
                             <input type="file" class="form-control" name="name" placeholder="Upload ảnh"/>
+                            <input type="hidden" name="img_name" value="{{ $image->name }}">
                         </div>
                         <div class="mb-2">
                             <label class="control-label">Hiển thị</label>
@@ -59,7 +60,7 @@
                     <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                            <textarea class="form-control" name="caption">{{$image->caption}}</textarea>
+                            <textarea class="form-control" name="caption">{{ $image->caption }}</textarea>
                         </div>
                     </div>
                 </div>

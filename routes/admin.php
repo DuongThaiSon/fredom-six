@@ -191,8 +191,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'admin.images.update',
             'uses' => 'GalleryController@imageUpdate'
         ]);
-
     });
+    Route::get('images/{id}/delete',[
+        'as' => 'admin.images.delete',
+        'uses' => 'GalleryController@imageDestroy'
+    ]);
+    Route::post('images/change-is-public', [
+        'as' => 'admin.images.change-is-public',
+        'uses' => 'GalleryController@changeIsPublicImage'
+    ]);
 
     Route::group(['prefix' => 'settings'],
     function(){

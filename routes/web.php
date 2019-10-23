@@ -21,4 +21,8 @@ Route::group([
         'as' => 'client.introduces.index',
         'uses' => 'ArticleController@index'
     ]);
+    Route::get('showrooms',[
+        'as' => 'client.showrooms.index',
+        'uses' => 'ShowroomController@index'
+    ]);
 });

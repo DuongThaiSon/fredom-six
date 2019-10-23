@@ -1,33 +1,76 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.main', ['activePage' => 'GalleryCats', 'title' => __('Upload')])
 @section('content')
-<form action="{{route('admin.images.update', $gallery->id, $image->id)}}" method="POST" enctype="multipart/form-data">
-@csrf
-@method('PUT')
-    <button class=" btn button-primary align-items-center" title="lưu">Lưu</button>
-    <div class="row">
-        <div class="col-6">
-            <div class="fa-upload form-group">
-                <label>FILE UPLOAD</label><br>
-                <input id="img" type="file" name="name" value="{{$image->name}}"><br>
-            </div>
+<div id="main-content">
+    <div class="container-fluid" style="background: #e5e5e5;">
+        <div id="content">
+            <h1 class="mt-3 pl-4">UPLOAD ẢNH</h1>
+            <!-- Form -->
+            <form action="{{ Route('admin.images.update', $gallery->id) }}" method="POST" enctype="multipart/form-data"
+                class="bg-white p-4 pt-5">
+                @csrf
+                {{-- @method('PUT') --}}
+                <div class="save-group-buttons">
+                    <a href="{{ Route('admin.gallery.edit', $gallery->id) }}" data-toggle="tooltip" title="Quay lại" class="btn btn-sm btn-dark" href="language.html">
+                        <i class="material-icons">
+                            reply
+                        </i>
+                    </a>
+                    <button class="btn btn-sm btn-dark" data-toggle="tooltip" title="Lưu">
+                        <i class="material-icons">
+                            save
+                        </i>
+                    </button>
+                    <a class="btn btn-sm btn-dark" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
+                        <i class="material-icons">
+                            help_outline
+                        </i>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Upload ảnh</label>
+                            <input type="file" class="form-control" name="name" placeholder="Upload ảnh"/>
+                        </div>
+                        <div class="mb-2">
+                            <label class="control-label">Hiển thị</label>
+                            <input type="checkbox" class="checkbox-toggle" name="is_public" id="public" {{ isset($image)&&$image->is_public==1?'checked':'' }} />
+                            <label class="label-checkbox" for="public">Hiển thị</label>
+                            <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                                hiện thị trên giao diện trang web
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="control-label">Url image</label>
+                            <input type="text" class="form-control" name="url" placeholder="Url image" value="{{$image->url}}" />
+                            <small class="form-text">Gián đoạn link url vào, khi click vào ảnh này thì sẽ trỏ đến link
+                                đã gián.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CK Editor -->
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <legend>Nội dung mô tả</legend>
+                        <div class="form-group">
+                            <textarea class="form-control" name="caption">{{$image->caption}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </form>
         </div>
-        <div class="col-6">
-            <div class="form-group">
-                <label>URL</label>
-                <input type="text" name="url" class="form-control" value="{{$image->url}}">
-            </div>  
-        </div> 
     </div>
-    <div class="row">
-        <img id="avatar" class="thumbnail" width="300px" height="300px" height="350px" src="{{$image->name}}">
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <legend>Nội dung tóm tắt</legend>
-            <div class="form-group">
-                <textarea class="form-control" name="caption">{{$image->caption}}</textarea>
-            </div>
-        </div>
-    </div>
-</form>
+</div>
 @endsection
+@push('js')
+<script>
+    CKEDITOR.replace("caption");
+</script>
+@endpush

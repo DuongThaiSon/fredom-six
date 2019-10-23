@@ -96,7 +96,7 @@
                     <a href="{{route('admin.gallery.edit', $gallery->id)}}">{{$gallery->name}}</a>
                   </td>
                   <td>
-                    <a href="{{route('admin.gallery-cats.edit', $gallery->category()->first()->id)}}">{{$gallery->category()->first()->name}}</a>
+                    <a href="#">{{$gallery->category()->first()->name??''}}</a>
                   </td>
                   <td>
                       <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$gallery->id}}" value="{{$gallery->is_public}}"  data-toggle="tooltip"  title="{{ $gallery->is_public==1?'Click để tắt':'Click để bật' }}">

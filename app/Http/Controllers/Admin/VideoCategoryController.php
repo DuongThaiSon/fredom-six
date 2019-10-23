@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Auth;
 
@@ -71,16 +72,17 @@ class VideoCategoryController extends Controller
             'parent_id','name','description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
         ]);
-        $attributes['type'] = 'video';
+        $attributes['type']         = 'video';
         $user = Auth::user();
-        $attributes['created_by'] =$user->id;
+        $attributes['created_by']   = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
+        $attributes['order']        = Category::max('order') ? (Category::max('order') + 1) : 1;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
         if ($request->hasFile('avatar')){
             $destinationDir = public_path('media/videoCategories');
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/videoCategries/'.$filename;
+            $attributes['avatar']   = '/media/videoCategries/'.$filename;
         };
 
         $category = Category::create($attributes);
@@ -125,18 +127,18 @@ class VideoCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories,id,'.$id,
+            'name' => 'required|unique:categories'.$id,
             'avatar' => 'nullable|sometimes|image'
         ]);
-
-        $user = Auth::user();
-        $attributes['updated_by'] = $user->id;
 
         $attributes = $request->only([
             'parent_id','name','description', 'detail', 'slug', 'meta_title',
             'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
         ]);
+        $user                       = Auth::user();
+        $attributes['updated_by']   = $user->id;
         $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
+        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')){
             $destinationDir = public_path('media/videoCategories');
@@ -161,7 +163,13 @@ class VideoCategoryController extends Controller
      */
     public function destroy($id)
     {
+        $categoryid = $this->getSubCategories($id);
+        $this->foreachlong($categoryid);
         Category::findOrFail($id)->delete();
+        $categories = $this->getSubCategories(0);
+        $category = $categories->filter(function($value, $key) use ($id){
+            return $value->id == $id;
+        });
         return redirect()->route('admin.video-cats.index')->with('xoá thành công');
     }
     public function sortcat(Request $request){
@@ -179,6 +187,20 @@ class VideoCategoryController extends Controller
 		rsort($order);
 		foreach ($order as $k => $v) {
             Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+        }
+    }
+    private function foreachlong($chil_id)
+    {
+        foreach ($chil_id as $key => $child) {
+            $cat_child = $this->getSubCategories($child->id);
+            if(!empty($cat_child))
+            {
+                Category::findOrFail($child->id)->delete();
+            }
+            else
+            {
+                $this->foreachlong($cat_child);
+            }
         }
     }
 }

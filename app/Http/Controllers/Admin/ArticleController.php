@@ -50,10 +50,21 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $categories = $this->getSubCategories(0);
-        return view('admin.articles.create', compact('categories'));
+        if(empty($request->id))
+        {
+            $categories = $this->getSubCategories(0);
+            return view('admin.articles.create', compact('categories'));
+        }
+        else
+        {
+            $id = $request->id;
+            $categories = $this->getSubCategories(0);
+            $article = Article::findOrFail($id);
+            $category = Category::find($article->category_id);
+            return view('admin.articles.create', compact('categories', 'article', 'category'));
+        }
     }
 
     /**
@@ -64,7 +75,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $attributes = $this->service->Create($request, Article::max('order'), 'media/article/', $request->avatar);
+        $attributes = $this->service->Create($request, Article::max('order'), '/media/article/', $request->avatar);
 
         $article = Article::create($attributes);
 
@@ -93,7 +104,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         $category = Category::find($article->category_id);
-        $categories = $this->getSubCategories(0,$id);
+        $categories = $this->getSubCategories(0);
 
         return view('admin.articles.edit', compact('article', 'categories', 'category'));
     }
@@ -107,7 +118,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-       $attributes = $this->service->Edit($request, 'media/article/', $request->avatar);
+       $attributes = $this->service->Edit($request, '/media/article/', $request->avatar);
 
         $articles = Article::findOrFail($id);
         $article  = $articles->fill($attributes);

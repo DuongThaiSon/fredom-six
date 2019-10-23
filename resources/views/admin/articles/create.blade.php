@@ -51,6 +51,7 @@
                         required
                         class="form-control"
                         placeholder="The cat in the hat"
+                        value="{{$article->name ?? ''}}"
                       />
                       <small class="form-text">Tên của tin bài</small>
                     </div>
@@ -74,6 +75,7 @@
                         class="checkbox-toggle"
                         name="is_public"
                         id="public"
+                        {{ isset($article)&&$article->is_public==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="public"
                         >Hiển thị</label
@@ -90,6 +92,7 @@
                         class="checkbox-toggle"
                         name="is_highlight"
                         id="highlight"
+                        {{ isset($article)&&$article->is_highlight==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="highlight"
                         >Nổi bật</label
@@ -107,6 +110,7 @@
                         class="checkbox-toggle"
                         name="is_new"
                         id="new"
+                        {{ isset($article)&&$article->is_new==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="new">Mới </label>
                     </div>
@@ -128,6 +132,7 @@
                         class="form-control"
                         name="meta_title"
                         placeholder="Tiêu đề Browser (title)"
+                        value="{{$article->meta_title ?? ''}}"
                       />
                       <small class="form-text"
                         >Tiêu đề của trang chủ có tác dụng tốt nhất cho
@@ -142,6 +147,7 @@
                         class="form-control"
                         name="slug"
                         placeholder="Tối ưu URL"
+                        value="{{$article->slug ?? ''}}"
                       />
                       <small class="form-text"
                         >Tối ưu hóa đường dẫn URL dể tốt nhất cho SEO.</small
@@ -155,6 +161,7 @@
                           class="form-control"
                           name="meta_description"
                           placeholder="Thẻ Meta Description"
+                          value="{{$article->meta_description ?? ''}}"
                         />
                         <small class="form-text"
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
@@ -168,6 +175,7 @@
                             class="form-control"
                             name="meta_keyword"
                             placeholder="Thẻ Meta keywords"
+                            value="{{$article->meta_keyword ?? ''}}"
                           />
                           <small class="form-text"
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
@@ -181,6 +189,7 @@
                               class="form-control"
                               name="meta_page_topic"
                               placeholder="Thẻ Meta Page Topic"
+                              value="{{$article->meta_page_topic ?? ''}}"
                             />
                             <small class="form-text"
                               >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của trang web đang có nội dung nói về chủ đề nào</small
@@ -194,6 +203,7 @@
                             class="form-control"
                             name="avatar"
                             placeholder="Ảnh đại diện"
+                            value="{{$article->avatar ?? ''}}"
                           />
                           <small class="form-text"
                             >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
@@ -209,7 +219,7 @@
                       <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="description"></textarea>
+                          <textarea class="form-control" name="description">{{$article->description}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -218,7 +228,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="detail"></textarea>
+                          <textarea class="form-control" name="detail">{{$article->detail}}</textarea>
                         </div>
                       </div>
                     </div>

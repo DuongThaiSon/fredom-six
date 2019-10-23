@@ -25,7 +25,7 @@ class VideoRequest extends FormRequest
     {
         return [
             'category_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
+            'name' => 'required',
             'image' => 'nullable|sometimes|image'
         ];
     }

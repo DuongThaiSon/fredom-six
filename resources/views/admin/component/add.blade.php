@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Dashboard')])
+@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Create Component')])
 @section('content')
 <!-- Content -->
 <div id="main-content">
@@ -32,10 +32,10 @@
         <div class="col-12">
           <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
           <div class="form-group">
-            <label>Tên nội dung</label>
-            <input type="text" name="name" class="form-control" placeholder="Tên nội dung"/>
+            <label>Tên Showroom</label>
+            <input type="text" name="name" class="form-control" placeholder="Tên Showroom"/>
             <small class="form-text"
-              >Đặt tên cho nội dung</small
+              >Đặt tên cho Showroom</small
             >
           </div>
 

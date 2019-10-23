@@ -103,21 +103,21 @@ body {
           border-radius: 50%;
           top: -5%;
           right: -10%; }
-#header #showcase h1,
-#header #showcase h2,
-#header #showcase a,
-#header #showcase p {
+ #showcase h1,
+ #showcase h2,
+ #showcase a,
+ #showcase p {
   color: #ffffff; }
-#header #showcase .carousel-indicators li {
+ #showcase .carousel-indicators li {
   width: 15px;
   height: 15px;
   border-radius: 100%; }
-#header #showcase .showcase-title {
+ #showcase .showcase-title {
   margin-top: 250px; }
-  #header #showcase .showcase-title p {
+   #showcase .showcase-title p {
     width: 450px;
     margin-bottom: 40px; }
-  #header #showcase .showcase-title a {
+   #showcase .showcase-title a {
     border: 1.5px solid #ffffff;
     border-radius: 0 !important;
     padding: 10px 50px; }

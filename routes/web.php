@@ -21,4 +21,13 @@ Route::group([
         'as' => 'client.introduces.index',
         'uses' => 'ArticleController@index'
     ]);
+
+    Route::get('news',[
+        'as' => 'client.news.index',
+        'uses' => 'NewController@index'
+    ]);
+    Route::get('news/{id}',[
+        'as' => 'client.news.detail',
+        'uses' => 'NewController@show'
+    ]);
 });

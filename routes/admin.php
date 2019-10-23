@@ -242,13 +242,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     });
-<<<<<<< HEAD
 
     Route::group(['prefix' => 'components'],
-=======
-
-    Route::group(['prefix' => 'components'],
->>>>>>> fix-delete-category-upload-image
     function (){
         Route::get('/', [
             'as' => 'admin.component.index',

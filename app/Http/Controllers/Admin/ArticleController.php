@@ -105,7 +105,6 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
         $category = Category::find($article->category_id);
         $categories = $this->getSubCategories(0);
-
         return view('admin.articles.edit', compact('article', 'categories', 'category'));
     }
 

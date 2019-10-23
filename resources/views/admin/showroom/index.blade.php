@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Component')])
+@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Showroom')])
 @section('content')
 <!-- Content -->
 <div id="main-content">
@@ -8,7 +8,7 @@
       <!-- Save group button -->
       <div class="save-group-buttons">
         <a
-          href="{{ route('admin.component.create') }}"
+          href="{{ route('admin.showrooms.create') }}"
           class="btn btn-sm btn-dark"
           data-toggle="tooltip"
           title="Thêm mới"
@@ -30,37 +30,44 @@
           <thead>
             <tr class="text-muted">
               <th class="text-center">ID</th>
-              <th style="width: 500px;">Tên</th>
+              <th style="width: 100px;">Tên</th>
+              <th>Email</th>
+              <th>Số điện thoại</th>
+              <th>Địa chỉ</th>
+              {{-- <th>Ảnh đại diện</th> --}}
               <th style="width: 44.8px;">Hiển thị</th>
-              <th>Người đăng</th>
-              <th>Ngày tạo</th>
+              <th>Chi nhánh</th>
               <th class="text-center">Thao tác</th>
           </tr>
           </thead>
           <tbody>
-              @foreach ($components as $comp)
+              @foreach ($showroom as $show)
             <tr class="component-body-table">
               <td class="text-center">
-                  {{ $comp->id }}
+                  {{ $show->id }}
               </td>
-              <td>{{ $comp->name }}</td>
+              <td>{{ $show->name }}</td>
+              <td>{{ $show->email }}</td>
+              <td>{{ $show->phone }}</td>
+              <td>{{ $show->address }}</td>
+              {{-- <td> <img src="/media/showroom/{{ $show->avatar }}" alt=""> </td> --}}
               <td>
                 <button
                   type="button"
                   class="btn btn-sm p-1 display-client"
-                  title="{{ $comp->is_public===1?'click để tắt':'click để bật' }}"
+                  title="{{ $show->is_public===1?'click để tắt':'click để bật' }}"
                   data-toggle="tooltip"
-                  value="{{ $comp->is_public }}"
-                  data-id="{{ $comp->id }}"
+                  value="{{ $show->is_public }}"
+                  data-id="{{ $show->id }}"
                   
                 >
-                  <i class="material-icons toggle-icon {{ $comp->is_public===1?'text-primary':'' }}">check_circle_outline</i>
+                  <i class="material-icons toggle-icon {{ $show->is_public===1?'text-primary':'' }}">check_circle_outline</i>
                 </button>
               </td>
-              <td>{{ isset($comp->comCreatedBy)?$comp->comCreatedBy->name:'' }}</td>
-              <td>{{ $comp->updated_at }}</td>
+              {{-- <td>{{ isset($show->showroomCreatedBy)?$show->showroomCreatedBy->name:'' }}</td> --}}
+              <td>{{ $show->regions }}</td>
               <td class="text-center">
-                <a href="{{ route('admin.component.show', $comp->id) }}" data-toggle="tooltip" title="Sửa"
+                <a href="{{ route('admin.showrooms.edit', $show->id) }}" data-toggle="tooltip" title="Sửa"
                   ><i class="material-icons">border_color</i></a
                 >
               </td>
@@ -69,7 +76,7 @@
           </tbody>
         </table>
       </div>
-      {{ $components->links() }}
+      {{ $showroom->links() }}
 
       <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc" target="_blank" class="float-right mt-4">
         <i class="material-icons">
@@ -89,18 +96,18 @@
         let _this = $(this);
         let _title = $(this).parents('.component-body-table').find('.display-client').attr('title');
         $.ajax({
-          url: '/admin/components/public',
+          url: '/admin/showrooms/public',
           data: {
             id: _id,
             value: _value,
           },
           success: function(data){
             if(_value==0){
-              _this.parents('.component-body-table').find('.display-client').attr('value', data.component.is_public);
+              _this.parents('.component-body-table').find('.display-client').attr('value', data.showroom.is_public);
               _this.parents('.component-body-table').find('.display-client').attr('title', 'Click để tắt');
             }
             else{
-              _this.parents('.component-body-table').find('.display-client').attr('value', data.component.is_public);
+              _this.parents('.component-body-table').find('.display-client').attr('value', data.showroom.is_public);
               _this.parents('.component-body-table').find('.display-client').attr('title', 'click để bật');
             }
           },

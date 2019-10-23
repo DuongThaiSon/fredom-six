@@ -1,10 +1,9 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Edit Component')])
+@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Create Showroom')])
 @section('content')
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" >
-
+  <form method="POST" action="{{ route('admin.showrooms.store') }}" enctype="multipart/form-data">
     @csrf
   <div id="content">
     <h1 class="mt-3 pl-4">Thông tin bài viết</h1>
@@ -28,19 +27,55 @@
       @if($errors->any())
         <div class="alert alert-danger">{{ $errors->first() }}</div>
       @endif
-      @if(Session::has('success'))
-        <div class="alert alert-success">{{ Session::get('success') }}</div>
-      @endif
       <div class="bg-white p-4 pt-5">
       <div class="row">
         <div class="col-12">
           <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
           <div class="form-group">
             <label>Tên Showroom</label>
-            <input type="text" name="name" class="form-control" placeholder="Tên Showroom" value="{{ $component->name }}"/>
+            <input type="text" name="name" class="form-control" placeholder="Tên Showroom"/>
+            <small class="form-text">Đặt tên cho Showroom</small>
+          </div>
+          <div class="form-group">
+            <label>Chi nhánh</label>
+            {{-- <input type="text" name="email" class="form-control" placeholder="Chi nhánh"/> --}}
+            <select name="regions" class="form-control" id="sel1">
+              <option>Miền Bắc</option>
+              <option>Miền Trung</option>
+              <option>Miền Nam</option>
+            </select>
+            <small class="form-text">Chọn tên chi nhánh</small>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="text" name="email" class="form-control" placeholder="Email"/>
             <small class="form-text"
-              >Đặt tên cho Showroom</small
+              >Email của liên hệ showroom</small>
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" name="phone" class="form-control" placeholder="Số điện thoại"/>
+            <small class="form-text"
+              >Số điện thoại của showroom</small
             >
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" name="address" class="form-control" placeholder="Địa chỉ"/>
+            <small class="form-text"
+              >Địa chỉ showroom</small
+            >
+          </div>
+          <div class="form-group">
+            <label class="control-label">Ảnh đại diện</label>
+            <input
+              type="file"
+              class="form-control"
+              name="avatar"
+              placeholder="Ảnh đại diện"
+            />
+            <small class="form-text"
+              >Ảnh đại diện showroom</small>
           </div>
 
           <div class="form-group">
@@ -51,7 +86,7 @@
               required
               class="form-control"
               placeholder="Ngôn ngữ"
-              value="{{ $component->language }}"
+              value=""
               readonly
             />
             <small class="form-text">Ngôn ngữ của trang(Ví dụ:Tiếng Việt,Tiếng Anh)</small>
@@ -65,8 +100,7 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              {{isset($component)&&$component->is_public==1?'checked':''}}
-              
+              value=""
             />
             <label class="label-checkbox" for="public"
               >Hiển thị</label
@@ -85,7 +119,7 @@
             <div class="col-12">
               <legend>Nội dung</legend>
               <div class="form-group">
-                <textarea class="form-control" name="detail" >{{ $component->detail }}</textarea>
+                <textarea class="form-control" name="detail"></textarea>
               </div>
             </div>
           </div>

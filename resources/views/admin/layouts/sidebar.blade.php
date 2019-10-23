@@ -154,6 +154,13 @@
             </a>
             </li>
 
+            <!-- Showroom -->
+            <li class="nav-item">
+                <a href="{{ route('admin.showrooms.index')}}" class="nav-link" id="menu-showroom">
+                    <i class="material-icons align-middle">ballot</i><span>Quản lý Showroom</span>
+                </a>
+                </li>
+
             <!-- Menu -->
             <li class="nav-item has-child">
             <a

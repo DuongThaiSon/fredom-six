@@ -274,6 +274,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ComponentController@delete'
         ]);
     });
+    Route::resource('showrooms', 'ShowroomController',[
+        'as' => 'admin',
+        'parameters' => ['showrooms' => 'id']
+    ]);
+
     Route::get('password/change',[
         'as' => 'password.change',
         'uses' => 'ChangePasswordController@getChangePassword'

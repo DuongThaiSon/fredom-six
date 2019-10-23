@@ -3,27 +3,27 @@
 namespace App\Http\Services\Admin;
 
 use Illuminate\Http\Request;
-use App\Models\Component;
+use App\Models\Showroom;
 use Auth;
 
 
-Class ComponentService
+Class ShowroomService
 {
     private $attributes = [
-        'name', 'detail',
+        'name', 'detail', 'email', 'phone', 'address', 'avatar', 'regions'
     ];
-    public function componentCreate($request)
+    public function showroomCreate($request)
     {
         $attributes = $request->only($this->attributes);
         $attributes['language'] = session('lang', env('DEFAULT_LANG', 'vi'));
         $attributes['is_public'] = $request->has('is_public')?1:0;
-        $attributes['order'] = Component::max('order') ? (Component::max('order') + 1) : 1;
+        $attributes['order'] = Showroom::max('order') ? (Showroom::max('order') + 1) : 1;
         $attributes['created_by'] = Auth::id();
 
         return $attributes;
         
     }
-    public function componentEdit($request)
+    public function showroomEdit($request)
     {
         $attributes = $request->only($this->attributes);
         $attributes['language'] = session('lang', env('DEFAULT_LANG', 'vi'));

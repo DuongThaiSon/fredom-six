@@ -219,7 +219,7 @@
                       <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="description">{{$article->description}}</textarea>
+                          <textarea class="form-control" name="description">{{$article->description?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -228,7 +228,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="detail">{{$article->detail}}</textarea>
+                          <textarea class="form-control" name="detail">{{$article->detail?? ''}}</textarea>
                         </div>
                       </div>
                     </div>

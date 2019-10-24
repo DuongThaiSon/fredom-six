@@ -1,8 +1,4 @@
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-    }
-});
+require("../bootstrap");
 
 $(document).ready(function() {
     var pageId = $("#page-id").val();
@@ -17,8 +13,6 @@ $(document).ready(function() {
         .parent("li")
         .parents("li")
         .addClass("active");
-
-    console.log(pageId);
 
     // sidebar toggle
     $("#sidebarCollapse").on("click", function() {

@@ -69,9 +69,9 @@
             </div>
             <div class="share">
               <span class="share-link text-uppercase font-weight-bold">share this: </span>
-              <a target="_blank" href="https://twitter.com/intent/tweet?url=moolez.vn/{{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn/{{ route('client.news.detail', $detail->id??'' )}}&media=moolez.vn/{{ $detail->avatar??''}}&description=Init%20HTML%20%E2%80%93%20Kh%E1%BB%9Fi%20%C4%91%E1%BA%A7u%20d%E1%BB%B1%20%C3%A1n%20Web"><i class="fab fa-pinterest"></i></a>
-              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn/{{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-facebook-square"></i></a>
+              <a target="_blank" href="https://twitter.com/intent/tweet?text={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-twitter"></i></a>
+              <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ route('client.news.detail', $detail->id??'' )}}&media=moolez.vn/{{ $detail->avatar??''}}&description="><i class="fab fa-pinterest"></i></a>
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-facebook-square"></i></a>
             </div>
           </div>
           <hr>
@@ -83,7 +83,7 @@
           <div class="more-news">
             <a href="{{ route('client.news.detail', $newest->id )}}">
               <div class="news-img">
-                <img src="/assets/client/img/news/news-2.png" alt="">
+                <img src="{{ $newest->avatar }}" alt="">
               </div>
               <p class="news-title font-weight-bold">{{ $newest->name }}</p>
             </a>

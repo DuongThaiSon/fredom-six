@@ -50,7 +50,7 @@
             <span>Share: </span>
             <a class="mx-2" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn"><i class="fab fa-facebook-square fa-2x" style="color: #3b5998;"></i></a>
             <a class="mx-2" target="_blank" href="https://twitter.com/intent/tweet?url=https://moolez.vn/"><i class="fab fa-twitter fa-2x" style="color: #55acee;"></i></a>
-            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description=Init%20HTML%20%E2%80%93%20Kh%E1%BB%9Fi%20%C4%91%E1%BA%A7u%20d%E1%BB%B1%20%C3%A1n%20Web"><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
+            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description="><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
           </div>
         </div>
       </div>

@@ -57,5 +57,16 @@ class seed_categories_table extends Seeder
                 'order' => '3'
             ]
         );
+        DB:table('categories')->insert(
+            [
+                'id' => '8',
+                'name' => 'intro',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'gallery',
+                'order' => '5',
+                'parent_id' => '0'
+            ]
+            );
     }
 }

@@ -10,7 +10,7 @@
               <P>Giấy ĐKDN: 017084424 - Ngày cấp: 12/05/2017, được sửa đổi lần thứ nhất
                 ngày 24/07/2017</P>
               <p>
-                Cơn quan cáp: Phòng Đăng Ký kinh doanh - Sở kế hoạch và đầu tư TP.Hà Nội
+                Cơ quan cấp: Phòng Đăng ký Kinh doanh - Sở Kế hoạch và Đầu tư TP.Hà Nội
               </p>
               <p>
                 Địa chỉ đăng ký kinh doanh: Số 18 Đoàn Trần Nghiệp, Phường Bùi Thị Xuân,
@@ -35,8 +35,8 @@
                 <a class="mr-2" href=""><i class="fab fa-pinterest fa-2x"></i></a>
                 <a href=""><i class="fab fa-facebook fa-2x"></i></a>
               </div>
-              <a href="">Trang chủ</a>
-              <a href="">Giới thiệu</a>
+              <a href="/">Trang chủ</a>
+              <a href="{{route('client.introduces.index')}}">Giới thiệu</a>
               <a href="">Câu hỏi thường gặp</a>
               <a href="">Liên hệ với chúng tôi</a>
               <a href="">Liên hệ với đại lý</a>
@@ -44,8 +44,8 @@
             </div>
           </div>
           <div class="row  mt-4" style="color: #a3a3a3; font-size: 13px;">
-            <div class="col-4 pt-3">DỊCH PHỤ KHÁCH HÀNG: 0932 221 285</div>
-            <div class="col-5 pt-3">GIỜ LÀM VIỆC: CÁCH NGÀY TRONG TUẦN 8:00 ĐẾN 18:00</div>
+            <div class="col-4 pt-3">DỊCH VỤ KHÁCH HÀNG: 0932 221 285</div>
+            <div class="col-5 pt-3">GIỜ LÀM VIỆC: 8:00 ĐẾN 18:00 CÁC NGÀY TRONG TUẦN </div>
             <div class="col-3 mb-5">
               <a href=""><img src="{{ asset('assets/client') }}/img/chart.png" alt=""></a>
             </div>

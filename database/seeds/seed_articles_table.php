@@ -21,7 +21,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '3',
                 'order' => '7',
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '4',
                 'name' => 'SỨ MỆNH',
@@ -29,7 +31,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '3',
                 'order' => '2'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '5',
                 'name' => 'TẦM NHÌN',
@@ -37,7 +41,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '3',
                 'order' => '3'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '6',
                 'name' => 'GIÁ TRỊ CỐT LÕI: VĂN HÓA DOANH NGHIỆP + NĂNG LỰC',
@@ -47,7 +53,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '3',
                 'order' => '4'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '7',
                 'name' => 'THÔNG ĐIỆP TỪ NGƯỜI ĐỨNG ĐẦU',
@@ -57,7 +65,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '3',
                 'order' => '5'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '3',
                 'name' => 'HyperX Cloud Silver',
@@ -67,7 +77,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '2',
                 'updated_at' => '2019-10-23 00:54:54'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '2',
                 'name' => 'ABOUT MOOLEZ',
@@ -82,7 +94,9 @@ class seed_articles_table extends Seeder
                 'is_new' => '',
                 'is_public' => '1',
                 'category_id' => '1'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '9',
                 'name' => 'Càng đông càng rẻ, thổi bay nắng hè với con mưa sale Moolez',
@@ -104,7 +118,9 @@ class seed_articles_table extends Seeder
                 'is_highlight' => '1',
                 'category_id' => '2',
                 'updated_at' => '2019-10-23 00:54:54'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '10',
                 'name' => 'Đẹp đa dụng đầy phong cách cùng bộ office bag từ Moolez',
@@ -116,7 +132,9 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'category_id' => '2',
                 'updated_at' => '2019-10-23 00:54:54'
-            ],
+            ]
+        );
+        DB::table('articles')->insert(
             [
                 'id' => '11',
                 'name' => 'Biệt đãi ngọt ngào 699.000đ dành riêng cho quý ông',

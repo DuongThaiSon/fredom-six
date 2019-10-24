@@ -17,15 +17,19 @@
     <div class="container">
       <div class="about-slide">
         <div id="about-slide" class="owl-carousel owl-theme">
+          @forelse ($slideAbout as $image)
           <div class="item">
             <a href="#">
-              <img src="/assets/client/img/datran.png" alt="">
+              <img src="{{ $image->name }}" alt="Slide">
             </a>
             <div class="banner-content position-absolute">
               <div class="banner-text"></div>
             </div>
           </div>
-          <div class="item">
+          @empty
+              
+          @endforelse
+          {{-- <div class="item">
             <a href="#">
               <img src="/assets/client/img/datran.png" alt="">
             </a>
@@ -40,7 +44,8 @@
             <div class="banner-content">
               <div class="banner-text"></div>
             </div>
-          </div>
+          </div> --}}
+          
         </div>
         <div class="about-content">
           <h3 class="text-center">{!! $about->name !!}</h3>
@@ -63,7 +68,7 @@
       <div class="row">
         <div class="col-lg-6 col-12">
           <div class="about-img">
-            <img src="/assets/client/img/ceo.png" class="img-fluid" alt="">
+            <img src="{{ $ceo->name }}" class="img-fluid" alt="CEO">
             <div class="about-text">
               <p class="ceo-name text-center m-0">Mrs. Thái Hương Lan</p>
               <p class="text-center m-0 font-weight-bold text-dark" style="font-size: 13px;">CEO & Founder Moolez</p>

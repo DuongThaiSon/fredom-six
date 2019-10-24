@@ -123,8 +123,8 @@ input:focus {
       margin-left: 70px; }
   #news-detail .detail-content .img-cap {
     margin-top: 21px; }
-  #news-detail .detail-content p {
-    margin-bottom: 80px; }
+  /* #news-detail .detail-content p {
+    margin-bottom: 80px; } */
   #news-detail .detail-content h3 {
     font-family: 'Nunito', sans-serif !important;
     font-size: 24px; }

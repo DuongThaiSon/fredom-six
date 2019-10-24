@@ -37,13 +37,13 @@ body {
 
 #email > img {
    position:absolute;
-   top: 120px;
+   top: 112px;
    right: 38px;
 }
 
 #pass > img {
    position:absolute;
-   bottom: 115px;
+   bottom: 125px;
    right: 38px;
 }
 
@@ -56,7 +56,6 @@ body {
    font-weight: 500;
    font-size: 24px;
    line-height: 28px;
-   
    color: #000000;
 }
 
@@ -69,7 +68,7 @@ form {
    width: 160px;
    height: 48px;
    background: rgba(0, 0, 0, 0.9);
-   border-radius: 4px;     
+   border-radius: 4px;
 }
 
 
@@ -98,7 +97,7 @@ button.send-mail {
    height: 48px;
    font-size: 14px;
    background: rgba(0, 0, 0, 0.9);
-   border-radius: 4px; 
+   border-radius: 4px;
    margin-top: 10px;
 }
 button.change-pass {
@@ -106,6 +105,6 @@ button.change-pass {
    height: 48px;
    font-size: 14px;
    background: rgba(0, 0, 0, 0.9);
-   border-radius: 4px; 
+   border-radius: 4px;
    margin-top: 10px;
 }

@@ -1,6 +1,7 @@
 require("../bootstrap");
 
 $(document).ready(function() {
+    console.log(ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName ));
     var pageId = $("#page-id").val();
     // Add active class
     $(".menu-" + pageId)

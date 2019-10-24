@@ -1,4 +1,6 @@
 window._ = require('lodash');
+window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
+require('./ckEditor');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

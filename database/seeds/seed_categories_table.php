@@ -57,7 +57,7 @@ class seed_categories_table extends Seeder
                 'order' => '3'
             ]
         );
-        DB:table('categories')->insert(
+        DB::table('categories')->insert(
             [
                 'id' => '8',
                 'name' => 'intro',

@@ -48,9 +48,9 @@
           
         </div>
         <div class="about-content">
-          <h3 class="text-center">{!! $about->name !!}</h3>
+          <h3 class="text-center">{!! $about->name??'' !!}</h3>
           <div class="under-line"></div>
-          {!! $about->detail !!}
+          {!! $about->detail??'' !!}
           <div class="share mt-5">
             <span>Share: </span>
             <a class="mx-2" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn"><i class="fab fa-facebook-square fa-2x" style="color: #3b5998;"></i></a>
@@ -68,7 +68,7 @@
       <div class="row">
         <div class="col-lg-6 col-12">
           <div class="about-img">
-            <img src="{{ $ceo->name }}" class="img-fluid" alt="CEO">
+            <img src="{{ $ceo->name??'' }}" class="img-fluid" alt="CEO">
             <div class="about-text">
               <p class="ceo-name text-center m-0">Mrs. Thái Hương Lan</p>
               <p class="text-center m-0 font-weight-bold text-dark" style="font-size: 13px;">CEO & Founder Moolez</p>

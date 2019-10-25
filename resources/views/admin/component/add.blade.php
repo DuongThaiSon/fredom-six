@@ -32,11 +32,10 @@
         <div class="col-12">
           <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
           <div class="form-group">
-            <label>Tên Showroom</label>
-            <input type="text" name="name" class="form-control" placeholder="Tên Showroom"/>
+            <label>Tên nội dung</label>
+            <input type="text" name="name" class="form-control" placeholder="Tên nội dung"/>
             <small class="form-text"
-              >Đặt tên cho Showroom</small
-            >
+              >Đặt tên cho nội dung</small>
           </div>
 
           <div class="form-group">

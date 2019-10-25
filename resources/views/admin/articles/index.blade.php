@@ -84,32 +84,52 @@
                                 <i class="material-icons">format_line_spacing</i>
                             </td>
                             <td class="text-center">
-                                <input type="checkbox" class="checkdel" value="{{$article->id}}" delid="{{$article->id}}" />
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                            data-id="{{ $article->id }}">
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
                             </td>
                             <td>{{$article->id}}</td>
                             <td class="editname">
                                 <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name}}</a>
                             </td>
                             <td>
-                                <a href="{{route('admin.article-cats.edit', $article->category_id)}}">{{$article->category()->first()->name??''}}</a>
+                                <a href="{{route('admin.article-cats.edit', $article->category_id)}}">{{$article->category->name??''}}</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$article->id}}" value="{{$article->is_public}}"  data-toggle="tooltip"  title="{{ $article->is_public==1?'Click để tắt':'Click để bật' }}">
-                                    <i class="material-icons toggle-icon">{{isset($article)&&$article->is_public==1?'check_circle_outline':'close'}}</i>
+                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_public?'Click để tắt':'Click để bật' }}"
+                                    data-id="{{ $article->id }}"
+                                    data-value="{{ $article->is_public }}"
+                                    data-field="is_public"
+                                    data-toggle="tooltip" >
+                                    <i class="material-icons {{ $article->is_public?'text-primary':'' }}">{{ $article->is_public?'check_circle_outline':'highlight_off' }}</i>
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm p-1 click-highlight"  curentid="{{$article->id}}" value="{{$article->is_highlight}}"  data-toggle="tooltip" title="{{ $article->is_highlight==1?'Click để tắt':'Click để bật' }}">
-                                    <i class="material-icons toggle-icon">{{isset($article)&&$article->is_highlight==1?'check_circle_outline':'close'}}</i>
+                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_highlight?'Click để tắt':'Click để bật' }}"
+                                    data-id="{{ $article->id }}"
+                                    data-value="{{ $article->is_highlight }}"
+                                    data-field="is_highlight"
+                                    data-toggle="tooltip" >
+                                    <i class="material-icons {{ $article->is_highlight?'text-primary':'' }}">{{ $article->is_highlight?'check_circle_outline':'highlight_off' }}</i>
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm p-1 click-new" curentid="{{$article->id}}" value="{{$article->is_new}}" data-toggle="tooltip" title="{{ $article->is_new==1?'Click để tắt':'Click để bật' }}">
-                                    <i class="material-icons toggle-icon">{{isset($article)&&$article->is_new==1?'check_circle_outline':'close'}}</i>
+                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_new?'Click để tắt':'Click để bật' }}"
+                                    data-id="{{ $article->id }}"
+                                    data-value="{{ $article->is_new }}"
+                                    data-field="is_new"
+                                    data-toggle="tooltip" >
+                                    <i class="material-icons {{ $article->is_new?'text-primary':'' }}">{{ $article->is_new?'check_circle_outline':'highlight_off' }}</i>
                                 </button>
                             </td>
                             <td>{{$article->created_at}}</td>
-                            <td>{{$article->user()->first()->name}}</td>
+                            <td>{{$article->user->name ?? ''}}</td>
                             <td>
                                 <div class="btn-group">
 
@@ -150,27 +170,31 @@
 @push('js')
 <script>
     $(document).ready(function () {
+        core.makeTableOrderable('/admin/articles/sort');
+        core.initCheckboxButton();
+        core.updateViewViewStatus('/admin/articles/update-view-status');
         /**sort**/
-        let sortableOptions = {
-            handle: ".connect",
-            placeholder: "ui-state-highlight",
-            forcePlaceholderSize: true,
-            update: function () {
-                let sort = $(this).sortable("toArray");
-                console.log(sort);
-                $.ajax({
-                    method: 'POST',
-                    url: '/admin/articles/sort',
-                    data: {
-                        sort: sort
-                    },
-                    success: function () {
-                        alert('SORTED');
-                    }
-                });
-            }
-        }
-        $(".sort").sortable(sortableOptions);
+        // let sortableOptions = {
+        //     handle: ".connect",
+        //     placeholder: "ui-state-highlight",
+        //     forcePlaceholderSize: true,
+        //     update: function () {
+        //         let sort = $(this).sortable("toArray");
+        //         console.log(sort);
+        //         $.ajax({
+        //             method: 'POST',
+        //             url: '/admin/articles/sort',
+        //             data: {
+        //                 sort: sort
+        //             },
+        //             success: function () {
+        //                 alert('SORTED');
+        //             }
+        //         });
+        //     }
+        // }
+        // $(".sort").sortable(sortableOptions);
+
         /**Button public**/
         $(".click-public").click(function() {
            let value = $(this).parents(".ui-state-default").find(".click-public").attr("value");
@@ -222,23 +246,3 @@
     });
 </script>
 @endpush
-            {{-- $('.move-top-button').click(function(e){
-                e.preventDefault();
-                $("[data-toggle=tooltip]").tooltip('hide');
-                var article_id = $(this).attr('article-id');
-                var cat_id = $('#cat').val();
-                if(!cat_id) cat_id = 0;
-                $('#cat_table').html(showloading());
-                $.ajax({
-                    url: '/admin/articles/movetop/' + article_id + '/' + cat_id,
-                    async: true,
-                    success: function(data) {
-                        if (data != 0) {
-                            alert(data);
-                            return;
-                        } else {
-                            run_search();
-                        }
-                    }
-                });
-            }); --}}

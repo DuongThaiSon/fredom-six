@@ -131,20 +131,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@sort'
     ]);
 
-    Route::post('articles/change-is-public', [
-        'as' => 'admin.articles.change-is-public',
-        'uses' => 'ArticleController@changeIsPublic'
-    ]);
-
-    Route::post('articles/change-is-highlight', [
-        'as' => 'admin.articles.change-is-highlight',
-        'uses' => 'ArticleController@changeIsHighlight'
-    ]);
-
-    Route::post('articles/change-is-new', [
-        'as' => 'admin.articles.change-is-new',
-        'uses' => 'ArticleController@changeIsNew'
-    ]);
+    Route::post('articles/update-view-status', 'ArticleController@updateViewStatus');
 
     Route::get('articles/{id}/copy', [
         'as' => 'admin.articles.copy',

@@ -19289,12 +19289,13 @@ $(document).ready(function () {
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 __webpack_require__(/*! ./ckEditor */ "./resources/js/ckEditor.js");
+
+window.core = __webpack_require__(/*! ./core */ "./resources/js/core.js");
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
 
 window.csrfToken = $('meta[name="csrf-token"]').attr("content");
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
@@ -19535,6 +19536,316 @@ function () {
 
   return ckUploadAdapter;
 }();
+
+/***/ }),
+
+/***/ "./resources/js/core.js":
+/*!******************************!*\
+  !*** ./resources/js/core.js ***!
+  \******************************/
+/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCheckboxButton", function() { return initCheckboxButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAnItem", function() { return deleteAnItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMultipleItems", function() { return deleteMultipleItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTableOrderable", function() { return makeTableOrderable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateViewViewStatus", function() { return updateViewViewStatus; });
+
+/**
+ * Init behavior button
+ */
+
+function initCheckboxButton() {
+  // Button check/uncheck all
+  $("#btn-ck-all").off(".checkAll");
+  $("#btn-ck-all").on("click.checkAll", renderButtonCheckAll); // Behavior check input
+
+  $(".form-check-input").change(function () {
+    // Change appear button check all
+    changeAppearButtonCheckAll(); // If check a button and its category has sub
+    // Let's check all its subs
+
+    if ($(this).prop("checked") == true) {
+      // Check its sub
+      var checkBoxes = $(this).parents("table").parent().parent().find("ul .form-check-input");
+      checkBoxes.prop("checked", true);
+    } // If uncheck a button and all buttons at same level are uncheck
+    // Let's uncheck its parent
+
+
+    if ($(this).prop("checked") == false) {
+      var checkLevel = $(this).attr("level-input");
+      var parent = $(this).parent().closest("ul").parent().find(".form-check-input").first();
+
+      var _checkBoxes = $(this).parent().closest("ul").find(".form-check-input[level-input=" + checkLevel + "]:checkbox:checked");
+
+      if (_checkBoxes.length == 0) {
+        parent.prop("checked", false);
+      }
+    }
+  });
+} // Change appear button check all
+
+function changeAppearButtonCheckAll() {
+  if ($("input.form-check-input:checkbox:checked").length == $("input.form-check-input:checkbox").length) {
+    $("#btn-ck-all i").text("check_box");
+  } else if ($("input.form-check-input:checkbox:checked").length > 0) {
+    $("#btn-ck-all i").text("indeterminate_check_box");
+  } else {
+    $("#btn-ck-all i").text("check_box_outline_blank");
+  }
+}
+
+function renderButtonCheckAll() {
+  var checkBoxes = $(".form-check-input");
+  checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+
+  if ($("input.form-check-input:checkbox:checked").length == $("input.form-check-input:checkbox").length) {
+    $("#btn-ck-all i").text("check_box");
+  } else if ($("input.form-check-input:checkbox:checked").length > 0) {
+    $("#btn-ck-all i").text("indeterminate_check_box");
+  } else {
+    $("#btn-ck-all i").text("check_box_outline_blank");
+  }
+}
+/**
+ * Click remove an item
+ *
+ * @param delete_url string
+ */
+
+
+function deleteAnItem(delete_url) {
+  var item_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $(".delete-category").click(function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var delete_id = $(this).attr("data-id");
+    swal({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(item_name, " n\xE0y!"),
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonClass: "btn btn-danger",
+      cancelButtonClass: "btn",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Thôi không xóa",
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        swal({
+          onOpen: function onOpen() {
+            swal.showLoading();
+          }
+        });
+        $.ajax({
+          url: delete_url + "/" + delete_id,
+          method: "POST",
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            _this.closest("li").remove();
+
+            swal({
+              title: "Thành công",
+              text: "Bài viết đã được xóa.",
+              type: "success",
+              confirmButtonClass: "btn btn-success",
+              buttonsStyling: false
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swal({
+                title: "Không được phép!",
+                type: "error",
+                confirmButtonClass: "btn btn-danger",
+                buttonsStyling: false,
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              })["catch"](swal.noop);
+            } else {
+              swal({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
+                type: "error",
+                confirmButtonClass: "btn btn-danger",
+                buttonsStyling: false
+              })["catch"](swal.noop);
+            }
+          }
+        });
+      }
+    })["catch"](swal.noop);
+  });
+}
+/**
+ * Click remove selected items
+ *
+ * @param delete_url string
+ */
+
+function deleteMultipleItems(delete_url) {
+  var item_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $("#btn-del-all").click(function () {
+    var countchecked = $("input.form-check-input:checkbox:checked").length;
+
+    if (countchecked > 0) {
+      swal({
+        title: "Bạn chắc chứ?",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(item_name, " \u0111\xE3 ch\u1ECDn!"),
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn btn-danger",
+        cancelButtonClass: "btn",
+        confirmButtonText: "Đúng, xóa hết đi",
+        cancelButtonText: "Thôi không xóa",
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          var delete_id = "";
+          $("input.form-check-input:checkbox:checked").each(function (index) {
+            delete_id += $(this).attr("data-id") + ",";
+          });
+          delete_id = delete_id.slice(0, delete_id.length - 1);
+          swal({
+            onOpen: function onOpen() {
+              swal.showLoading();
+            }
+          });
+          $.ajax({
+            url: delete_url,
+            method: "POST",
+            data: {
+              ids: delete_id,
+              _method: "DELETE"
+            },
+            success: function success() {
+              for (; $("input.form-check-input:checkbox:checked").length > 0;) {
+                var _this = $("input.form-check-input:checkbox:checked").first();
+
+                _this.closest("li").remove();
+              }
+
+              swal({
+                title: "Thành công",
+                text: "\u0110\xE3 x\xF3a c\xE1c ".concat(item_name, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                type: "success",
+                confirmButtonClass: "btn btn-success",
+                buttonsStyling: false
+              });
+              changeAppearButtonCheckAll();
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                swal({
+                  title: "Không được phép!",
+                  type: "error",
+                  confirmButtonClass: "btn btn-danger",
+                  buttonsStyling: false,
+                  html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                })["catch"](swal.noop);
+              } else {
+                swal({
+                  title: "Lỗi",
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
+                  type: "error",
+                  confirmButtonClass: "btn btn-danger",
+                  buttonsStyling: false
+                })["catch"](swal.noop);
+              }
+            }
+          });
+        }
+      })["catch"](swal.noop);
+    } else {
+      swal({
+        title: "Err...",
+        text: "Ch\u01B0a ch\u1ECDn ".concat(item_name, " n\xE0o c\u1EA3."),
+        buttonsStyling: false,
+        confirmButtonClass: "btn btn-info"
+      })["catch"](swal.noop);
+    }
+  });
+}
+function makeTableOrderable(order_url) {
+  $(".sort").sortable({
+    handle: ".connect",
+    placeholder: "ui-state-highlight",
+    forcePlaceholderSize: true,
+    update: function update(event, ui) {
+      var sort = $(this).sortable("toArray");
+      $.ajax({
+        url: order_url,
+        method: "POST",
+        data: {
+          sort: sort
+        },
+        error: function error(err) {
+          if (err.status === 403) {
+            swal({
+              title: "Lỗi!",
+              type: "error",
+              confirmButtonClass: "btn btn-danger",
+              buttonsStyling: false,
+              html: "\
+                                <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                <hr>\
+                                <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+            })["catch"](swal.noop);
+          }
+        }
+      });
+    }
+  });
+}
+function updateViewViewStatus(updateUrl) {
+  $(".btn-update-view-status").off(".updateViewStatus");
+  $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function () {
+    var context = $(this);
+    var data = {
+      value: context.attr('data-value'),
+      id: context.attr('data-id'),
+      field: context.attr('data-field')
+    }; // console.log(data);
+
+    $.ajax({
+      url: updateUrl,
+      method: "POST",
+      data: data,
+      success: function success(scs) {
+        console.log(scs.value);
+
+        if (scs.value) {
+          console.log('in');
+          context.attr('title', "Click để tắt");
+          context.attr('data-value', scs.value);
+          context.find(".material-icons").addClass("text-primary").text("check_circle_outline");
+        } else {
+          console.log('out');
+          context.attr('title', "Click để bật");
+          context.attr('data-value', 0);
+          context.find(".material-icons").removeClass("text-primary").text("highlight_off");
+        }
+
+        return;
+      },
+      error: function error(err) {}
+    });
+  }, 500));
+}
 
 /***/ }),
 

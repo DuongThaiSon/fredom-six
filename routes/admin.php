@@ -284,7 +284,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('showrooms', 'ShowroomController',[
         'as' => 'admin',
         'parameters' => ['showrooms' => 'id']
+    ])->except('destroy');
+    Route::get('showrooms/delete/{id}', [
+        'as' => 'admin.showrooms.delete',
+        'uses' => 'ShowroomController@destroy'
     ]);
+    // Route::get('showrooms/public', [
+    //     'as' => 'admin.showrooms.changePublic',
+    //     'uses' => 'ShowroomController@changePublic'
+    // ]);
 
     Route::get('password/change',[
         'as' => 'password.change',

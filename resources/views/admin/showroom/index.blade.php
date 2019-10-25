@@ -35,14 +35,14 @@
               <th>Số điện thoại</th>
               <th>Địa chỉ</th>
               {{-- <th>Ảnh đại diện</th> --}}
-              <th style="width: 44.8px;">Hiển thị</th>
+              {{-- <th style="width: 44.8px;">Hiển thị</th> --}}
               <th>Chi nhánh</th>
               <th class="text-center">Thao tác</th>
           </tr>
           </thead>
           <tbody>
               @foreach ($showroom as $show)
-            <tr class="component-body-table">
+            <tr class="showroom-body-table">
               <td class="text-center">
                   {{ $show->id }}
               </td>
@@ -51,19 +51,17 @@
               <td>{{ $show->phone }}</td>
               <td>{{ $show->address }}</td>
               {{-- <td> <img src="/media/showroom/{{ $show->avatar }}" alt=""> </td> --}}
-              <td>
+              {{-- <td>
                 <button
                   type="button"
-                  class="btn btn-sm p-1 display-client"
+                  class="btn btn-sm p-1 display-showroom"
                   title="{{ $show->is_public===1?'click để tắt':'click để bật' }}"
                   data-toggle="tooltip"
                   value="{{ $show->is_public }}"
-                  data-id="{{ $show->id }}"
-                  
-                >
+                  data-id="{{ $show->id }}">
                   <i class="material-icons toggle-icon {{ $show->is_public===1?'text-primary':'' }}">check_circle_outline</i>
                 </button>
-              </td>
+              </td> --}}
               {{-- <td>{{ isset($show->showroomCreatedBy)?$show->showroomCreatedBy->name:'' }}</td> --}}
               <td>{{ $show->regions }}</td>
               <td class="text-center">
@@ -87,37 +85,4 @@
   </div>
 </div>
 @endsection
-@push('js')
-  <script>
-    $(document).ready(function(){
-      $('.display-client').click(function(){
-        let _id = $(this).parents('.component-body-table').find('.display-client').attr('data-id');
-        let _value = $(this).parents('.component-body-table').find('.display-client').attr('value');
-        let _this = $(this);
-        let _title = $(this).parents('.component-body-table').find('.display-client').attr('title');
-        $.ajax({
-          url: '/admin/showrooms/public',
-          data: {
-            id: _id,
-            value: _value,
-          },
-          success: function(data){
-            if(_value==0){
-              _this.parents('.component-body-table').find('.display-client').attr('value', data.showroom.is_public);
-              _this.parents('.component-body-table').find('.display-client').attr('title', 'Click để tắt');
-            }
-            else{
-              _this.parents('.component-body-table').find('.display-client').attr('value', data.showroom.is_public);
-              _this.parents('.component-body-table').find('.display-client').attr('title', 'click để bật');
-            }
-          },
-          error: function(e){
-            console.log(e);
-            
-          }
-        });
-      });
-      
-    });
-  </script>
-@endpush     
+

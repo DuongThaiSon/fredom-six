@@ -11,7 +11,7 @@
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
-        <div class="row mt-5">
+        <div class="row">
           <!-- showroom -->
           @foreach ($showroommb as $showmb)
            <div class="col-12 col-lg-4">
@@ -26,8 +26,16 @@
                 <p><i class="fas fa-envelope"></i> {{ $showmb->phone }}</p>
               </div>
               <div class="group-button d-flex justify-content-end">
-                <a href="#" class="btn">Liên hệ</a>
-                <a href="#" class="btn">Chỉ đường</a>
+                <a href="" class="btn">Liên hệ</a>
+                <a href="#" class="btn" data-toggle="modal" data-target="#map-north-{{ $loop->iteration }}">Chỉ đường</a>
+              </div>
+            </div>
+          </div>
+          <!-- map modal -->
+          <div class="modal fade" id="map-north-{{ $loop->iteration }}" style="top: 150px;">
+            <div class="modal-dialog">
+              <div class="modal-content" style="max-height:300px !important;">
+                  {!! $showmb->map !!}
               </div>
             </div>
           </div>
@@ -43,7 +51,7 @@
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
-        <div class="row mt-5">
+        <div class="row">
           <!-- showroom -->
           @foreach ($showroommt as $showmt)
           <div class="col-12 col-lg-4">
@@ -59,7 +67,15 @@
               </div>
               <div class="group-button d-flex justify-content-end">
                 <a href="#" class="btn">Liên hệ</a>
-                <a href="#" class="btn">Chỉ đường</a>
+                <a href="#" class="btn" data-toggle="modal" data-target="#map-central-{{ $loop->iteration }}">Chỉ đường</a>
+              </div>
+            </div>
+          </div>
+          <!-- map modal -->
+          <div class="modal fade" id="map-central-{{ $loop->iteration }}" style="top: 150px;">
+            <div class="modal-dialog">
+              <div class="modal-content" style="max-height:300px !important;">
+                  {!! $showmt->map !!}
               </div>
             </div>
           </div>
@@ -75,7 +91,7 @@
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
-        <div class="row mt-5">
+        <div class="row">
           <!-- showroom -->
           @foreach ($showroommn as $showmn)
           <div class="col-12 col-lg-4">
@@ -91,7 +107,15 @@
               </div>
               <div class="group-button d-flex justify-content-end">
                 <a href="#" class="btn">Liên hệ</a>
-                <a href="#" class="btn">Chỉ đường</a>
+                <a href="" class="btn" data-toggle="modal" data-target="#map-south-{{  $loop->iteration  }}">Chỉ đường</a>
+              </div>
+            </div>
+          </div>
+          <!-- map modal -->
+          <div class="modal fade" id="map-south-{{  $loop->iteration  }}" style="top: 150px;">
+            <div class="modal-dialog">
+              <div class="modal-content" style="max-height:300px !important;">
+                  {!! $showmn->map !!}
               </div>
             </div>
           </div>
@@ -102,4 +126,6 @@
       </div>
     </div>
   </section>
+    
+  
 @endsection

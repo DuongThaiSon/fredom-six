@@ -109,7 +109,7 @@
                                 </button>
                             </td>
                             <td>{{$article->created_at}}</td>
-                            <td>{{$article->user()->first()->name}}</td>
+                            <td>{{$article->user()->first()->name??''}}</td>
                             <td>
                                 <div class="btn-group">
 

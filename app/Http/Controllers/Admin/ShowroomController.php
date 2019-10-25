@@ -44,6 +44,7 @@ class ShowroomController extends Controller
      */
     public function store(ShowroomRequest $request)
     {
+        $fileName = '';
         if($request->hasFile('avatar')){
             $fileName = uniqid('showroom') . '.' .$request->avatar->extension();
             $request->avatar->move(public_path('media/showroom'), $fileName);

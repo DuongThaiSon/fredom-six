@@ -61,7 +61,7 @@
                 <img src="{{ asset('/media/showroom') }}/{{ $showmt->avatar }}" alt="">
               </div>
               <div class="showroom-detail">
-                <p><i class="fas fa-map-marker-alt"></i> {{ $showmt->address }}</p>
+                <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmt->address }}</p>
                 <p><i class="fas fa-phone-alt"></i> {{ $showmt->email }}</p>
                 <p><i class="fas fa-envelope"></i> {{ $showmt->phone }}</p>
               </div>
@@ -101,7 +101,7 @@
                 <img src="{{ asset('/media/showroom') }}/{{ $showmn->avatar }}" alt="">
               </div>
               <div class="showroom-detail">
-                <p><i class="fas fa-map-marker-alt"></i> {{ $showmn->address }}</p>
+                <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmn->address }}</p>
                 <p><i class="fas fa-phone-alt"></i> {{ $showmn->email }}</p>
                 <p><i class="fas fa-envelope"></i> {{ $showmn->phone }}</p>
               </div>

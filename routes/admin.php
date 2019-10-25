@@ -343,6 +343,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
 
     Route::post('check-user', 'UserController@check');
+
+    Route::post('/upload-image', 'MediaController@uploadImage');
 });
 
 
@@ -374,6 +376,7 @@ Route::get('password/reset/{token}',[
     'as' => 'password.reset',
     'uses' => 'Auth\ResetPasswordController@showResetForm'
 ]);
+
 
 
 

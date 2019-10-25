@@ -228,7 +228,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="detail">{{$article->detail?? ''}}</textarea>
+                          <textarea class="form-control ck-classic" name="detail">{{$article->detail?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -240,6 +240,7 @@
   @push('js')
  <script>
     // CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("detail");
+
 </script>
 @endpush

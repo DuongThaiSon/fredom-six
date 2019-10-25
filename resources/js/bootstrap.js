@@ -1,5 +1,4 @@
 window._ = require('lodash');
-window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');
 require('./ckEditor');
 
 /**
@@ -8,13 +7,15 @@ require('./ckEditor');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
+window.csrfToken = $('meta[name="csrf-token"]').attr("content");
+
 window.axios = require('axios');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 $.ajaxSetup({
     headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        "X-CSRF-TOKEN": window.csrfToken
     }
 });
 

@@ -1,4 +1,6 @@
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+window.ClassicEditor = require( '@ckeditor/ckeditor5-build-classic')
+import { ckUploadAdapter } from './ckUploadAdapter';
+
 
 const ckEditorClassicOptions = {
     heading: {
@@ -11,8 +13,7 @@ const ckEditorClassicOptions = {
             { model: 'heading5', view: 'h5', title: 'Heading 5' }
         ]
     },
-    plugins: [ SimpleUploadAdapter ],
-    // extraPlugins: [ MyUploadAdapterPlugin ]
+    extraPlugins: [ customUploadAdapterPlugin ]
 };
 
 const ckEditorClassicOptionsMin = {
@@ -36,24 +37,24 @@ $(document).ready(function() {
             });
     }
 
-    allHtmlElements = document.querySelectorAll('.ck-classic-min');
-    for (let j = 0; j < allHtmlElements.length; ++j) {
-        ClassicEditor
-            .create(allHtmlElements[j], ckEditorClassicOptionsMin)
-            .then(editor => {
-                allCkEditors.push(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    }
+    // allHtmlElements = document.querySelectorAll('.ck-classic-min');
+    // for (let j = 0; j < allHtmlElements.length; ++j) {
+    //     ClassicEditor
+    //         .create(allHtmlElements[j], ckEditorClassicOptionsMin)
+    //         .then(editor => {
+    //             allCkEditors.push(editor);
+    //         })
+    //         .catch(error => {
+    //             console.error(error);
+    //         });
+    // }
 
 
 
 
 });
 
-ckEditor = function(name) {
+window.ckEditor = function(name) {
     for (let i = 0; i < allCkEditors.length; i++) {
         if (allCkEditors[i].sourceElement.id === name) return allCkEditors[i];
     }
@@ -61,8 +62,11 @@ ckEditor = function(name) {
     return null;
 }
 
-function MyUploadAdapterPlugin( editor ) {
-    editor.plugins.get( 'FileRepository' ).createUploadAdapter = function( loader ) {
-        // ...
+
+
+function customUploadAdapterPlugin( editor ) {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+        // Configure the URL to the upload script in your back-end here!
+        return new ckUploadAdapter( loader, '/admin/upload-image' );
     };
 }

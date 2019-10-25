@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Optix\Media\HasMedia;
 
 class Gallery extends Model
 {
+    use HasMedia;
+
     protected $guarded = ['id'];
 
     public function user()
@@ -21,5 +24,11 @@ class Gallery extends Model
     public function images()
     {
         return $this->morphMany('App\Models\Image', 'imageable');
+    }
+
+    public function registerMediaGroups()
+    {
+        $this->addMediaGroup('gallery')
+             ->performConversions('thumb');
     }
 }

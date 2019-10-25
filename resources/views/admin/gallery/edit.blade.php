@@ -139,50 +139,7 @@
                 @csrf --}}
                 <div class="row">
                   <div class="col-12">
-                    <legend>Ảnh trong album</legend>
-                    <button class="btn btn-sm btn-dark float-left" data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn">
-                      <i class="material-icons">
-                        delete_forever
-                      </i>
-                    </button>
-
-                    <div class="float-right">
-                      <a href="{{route('admin.images.create', $gallery->id)}}" class="btn btn-sm btn-dark float-left" data-toggle="tooltip" title="Upload ảnh">
-                        <i class="material-icons">
-                          file_upload
-                        </i>
-                      </a>
-                      <a class="btn btn-sm btn-dark float-left ml-4" data-toggle="tooltip" title="Upload nhiều ảnh">
-                        <i class="material-icons">
-                          perm_media
-                        </i>
-                      </a>
-                    </div>
-                    <!-- Table -->
-                    <div class="table-responsive bg-white">
-                        <table class="table-sm table-hover table mt-3" width="100%">
-                          <thead>
-                            <tr class="text-muted">
-                              <th>
-                                <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
-                                  <i class="material-icons text-muted">check_box_outline_blank</i>
-                                </a>
-                              </th>
-                              <th>ID</th>
-                              <th>Ảnh</th>
-                              <th>Link</th>
-                              <th>Caption</th>
-                              <th style="width: 40px;">Hiển thị</th>
-                              <th style="width: 40px;">Thao tác</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                              {{-- list image --}}
-                             @include('admin.images.index')
-                              {{-- end list imgage --}}
-                          </tbody>
-                        </table>
-                      </div>
+                    <input type="file" name="gallery_images" id="gallery-images">
                   </div>
                 </div>
                  {{-- </form> --}}
@@ -190,6 +147,7 @@
             </div>
   @endsection
   @push('js')
+  <script src="/assets/admin/js/gallery.edit.js"></script>
  <script>
     CKEDITOR.replace("caption");
     $(".click-public").click(function() {

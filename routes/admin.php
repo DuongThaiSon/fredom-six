@@ -69,6 +69,30 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // gallery
+    Route::group([
+        'prefix' => 'gallery/{gallery}'
+    ], function() {
+        Route::post('process', [
+            'as' => 'admin.images.processImage',
+            'uses' => 'GalleryController@processImage'
+        ]);
+
+        Route::post('images', [
+            'as' => 'admin.images.store',
+            'uses' => 'GalleryController@imageStore'
+        ]);
+
+        Route::get('images-edit', [
+            'as' => 'admin.images.edit',
+            'uses' => 'GalleryController@imageEdit'
+        ]);
+
+        Route::post('images-update', [
+            'as' => 'admin.images.update',
+            'uses' => 'GalleryController@imageUpdate'
+        ]);
+    });
+
     Route::resource('gallery','GalleryController',[
         'as' => 'admin',
         'parameters' => ['gallery' => 'id']
@@ -155,30 +179,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleCategoryController@sortcat'
     ]);
 
-    // image
-    Route::group([
-        'prefix' => 'gallery/{id}'
-    ], function() {
-        Route::get('images', [
-            'as' => 'admin.images.create',
-            'uses' => 'GalleryController@imageCreate'
-        ]);
-
-        Route::post('images', [
-            'as' => 'admin.images.store',
-            'uses' => 'GalleryController@imageStore'
-        ]);
-
-        Route::get('images-edit', [
-            'as' => 'admin.images.edit',
-            'uses' => 'GalleryController@imageEdit'
-        ]);
-
-        Route::post('images-update', [
-            'as' => 'admin.images.update',
-            'uses' => 'GalleryController@imageUpdate'
-        ]);
-    });
     Route::get('images/{id}/delete',[
         'as' => 'admin.images.delete',
         'uses' => 'GalleryController@imageDestroy'

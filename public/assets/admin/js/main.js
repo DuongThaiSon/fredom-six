@@ -19849,14 +19849,26 @@ function updateViewViewStatus(updateUrl) {
 
 /***/ }),
 
+/***/ "./resources/sass/admin/main.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/admin/main.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!******************************************!*\
-  !*** multi ./resources/js/admin/main.js ***!
-  \******************************************/
+/*!***************************************************************************!*\
+  !*** multi ./resources/js/admin/main.js ./resources/sass/admin/main.scss ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/main.js */"./resources/js/admin/main.js");
+__webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/main.js */"./resources/js/admin/main.js");
+module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/sass/admin/main.scss */"./resources/sass/admin/main.scss");
 
 
 /***/ })

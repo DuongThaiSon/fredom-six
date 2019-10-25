@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\Image;
+use Optix\Media\Facades\Conversion;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Schema::defaultStringLength(191);
+
+        // register thumbnail image on upload
+        Conversion::register('thumb', function (Image $image) {
+            return $image->fit(64, 64);
+        });
     }
 }

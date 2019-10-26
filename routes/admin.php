@@ -126,6 +126,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@destroy'
     ]);
 
+
     Route::post('articles/sort', [
         'as' => 'admin.articles.sort',
         'uses' => 'ArticleController@sort'
@@ -157,6 +158,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['article-cats' => 'id']
     ])->except('destroy');
 
+
+    Route::get('articles/category/{id}',[
+        'as' => 'admin.article.cat',    // article theo category id
+        'uses' => 'ArticleCategoryController@articles'
+    ]);
+
     Route::get('article-cats/{id}/delete', [
         'as' => 'admin.article-cats.delete',
         'uses' => 'ArticleCategoryController@destroy'
@@ -169,6 +176,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // image
+
+    Route::get('galleries/category/{id}',[
+        'as' => 'admin.gallery.cat',    // gallery theo category id
+        'uses' => 'GalleryCategoryController@gallery'
+    ]);
+    
     Route::group([
         'prefix' => 'gallery/{id}'
     ], function() {
@@ -176,6 +189,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'admin.images.create',
             'uses' => 'GalleryController@imageCreate'
         ]);
+
+        
+    
 
         Route::post('images', [
             'as' => 'admin.images.store',

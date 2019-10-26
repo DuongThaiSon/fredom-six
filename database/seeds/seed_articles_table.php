@@ -91,7 +91,7 @@ class seed_articles_table extends Seeder
                 
                 <p>Lu&ocirc;n nắm bắt v&agrave; dẫn đầu xu hướng, Moolez ti&ecirc;n phong tạo dựng phong c&aacute;ch, mang cả thế giới thời trang đến với người Việt.</p>',
                 'is_public' => '1',
-                'category_id' => '1'
+                'category_id' => '4'
             ]
         );
         DB::table('articles')->insert(

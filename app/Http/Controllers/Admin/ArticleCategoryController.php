@@ -192,4 +192,12 @@ class ArticleCategoryController extends Controller
             }
         }
     }
+
+    public function articles($id)
+    {
+        $articles = Article::where('category_id', $id)
+                    ->orderBy('order')
+                    ->paginate();
+        return view('admin.articles.index', compact('articles'));
+    }
 }

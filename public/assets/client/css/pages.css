@@ -797,3 +797,33 @@ input[type=number]::-webkit-outer-spin-button {
       border-top-right-radius: .25rem !important; }
 
 /*# sourceMappingURL=pages.css.map */
+#map {
+  top: 150px !important; }
+
+.modal {
+  top: 50px !important; }
+
+.modal-dialog {
+  max-width: 841px; }
+
+.modal-content {
+  background: #000000;
+  color: #ffffff; }
+  .modal-content .modal-header {
+    border-bottom: 1px solid transparent !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important; }
+    .modal-content .modal-header .close-button {
+      font-size: 33px;
+      color: #ffffff; }
+
+.modal-body {
+  padding-left: 136px !important;
+  padding-right: 136px !important;
+  padding-bottom: 50px; }
+  .modal-body .label {
+    font-size: 14px !important; }
+  .modal-body .form-control {
+    border-radius: 5px !important; }
+  .modal-body .btn {
+    border-radius: 5px !important; }

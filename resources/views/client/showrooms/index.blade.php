@@ -18,7 +18,7 @@
             <div class="showroom">
               <p class="showroom-title">{{ $showmb->name }}</p>
               <div class="showroom-img">
-                <img src="{{ asset('/media/showroom') }}/{{ $showmb->avatar }}" alt="">
+                <img src="{{ asset('/media/showroom') }}/{{ $showmb->avatar }}" alt="{{ $showmb->avatar }}">
               </div>
               <div class="showroom-detail">
                 <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmb->address }}</p>
@@ -26,7 +26,7 @@
                 <p><i class="fas fa-envelope"></i> {{ $showmb->phone }}</p>
               </div>
               <div class="group-button d-flex justify-content-end">
-                <a href="" class="btn">Liên hệ</a>
+                <a href="" class="btn" data-toggle="modal" data-target="#formContact">Liên hệ</a>
                 <a href="#" class="btn" data-toggle="modal" data-target="#map-north-{{ $loop->iteration }}">Chỉ đường</a>
               </div>
             </div>
@@ -58,7 +58,7 @@
             <div class="showroom">
               <p class="showroom-title">{{ $showmt->name }}</p>
               <div class="showroom-img">
-                <img src="{{ asset('/media/showroom') }}/{{ $showmt->avatar }}" alt="">
+                <img src="{{ asset('/media/showroom') }}/{{ $showmt->avatar }}" alt="{{ $showmt->avatar }}">
               </div>
               <div class="showroom-detail">
                 <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmt->address }}</p>
@@ -66,7 +66,7 @@
                 <p><i class="fas fa-envelope"></i> {{ $showmt->phone }}</p>
               </div>
               <div class="group-button d-flex justify-content-end">
-                <a href="#" class="btn">Liên hệ</a>
+                <a href="#" class="btn" data-toggle="modal" data-target="#formContact">Liên hệ</a>
                 <a href="#" class="btn" data-toggle="modal" data-target="#map-central-{{ $loop->iteration }}">Chỉ đường</a>
               </div>
             </div>
@@ -98,7 +98,7 @@
             <div class="showroom">
               <p class="showroom-title">{{ $showmn->name }}</p>
               <div class="showroom-img">
-                <img src="{{ asset('/media/showroom') }}/{{ $showmn->avatar }}" alt="">
+                <img src="{{ asset('/media/showroom') }}/{{ $showmn->avatar }}" alt="{{ $showmn->avatar }}">
               </div>
               <div class="showroom-detail">
                 <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i> {{ $showmn->address }}</p>
@@ -106,7 +106,7 @@
                 <p><i class="fas fa-envelope"></i> {{ $showmn->phone }}</p>
               </div>
               <div class="group-button d-flex justify-content-end">
-                <a href="#" class="btn">Liên hệ</a>
+                <a href="#" class="btn" data-toggle="modal" data-target="#formContact">Liên hệ</a>
                 <a href="" class="btn" data-toggle="modal" data-target="#map-south-{{  $loop->iteration  }}">Chỉ đường</a>
               </div>
             </div>
@@ -126,6 +126,43 @@
       </div>
     </div>
   </section>
-    
-  
 @endsection
+<div class="modal fade" id="formContact">
+  <div class="modal-dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="close-button" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="font-weight-bold">Moolez Việt Nam</p>
+          <p>Địa chỉ: 18 Đoàn Trần Nghiệp, Hanoi, Vietnam</p>
+          <p>Email : sales@moolez.com.vn</p>
+          <p>Điện thoại : 1900292976</p>
+          <form action="{{ route('client.showrooms.contact') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+              <label for="name">Họ tên *</label>
+              <input name="name" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input name="email" type="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Số điện thoại *</label>
+              <input name="phone" type="phone" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Tin nhắn *</label>
+              <textarea class="form-control" required name="content" id=""></textarea>
+            </div>
+            <button type="submit" class="btn font-weight-bold">Gửi liên hệ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

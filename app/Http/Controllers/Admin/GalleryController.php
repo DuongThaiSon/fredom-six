@@ -317,6 +317,23 @@ class GalleryController extends Controller
         return redirect()->back()->with('Delete Compled');
     }
 
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids)) {
+            return 0;
+        }else {
+            foreach ($ids as $id) {
+                Gallery::findOrFail($id)->delete();
+            }
+            return 1;
+        }
+        if (!$deleted) {
+            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
+
     public function changeIsPublicImage(Request $request) {
         $id = $request->id;
         $image =  Image::findOrFail($id);
@@ -372,5 +389,23 @@ class GalleryController extends Controller
         $this->service->Copy(Article::findOrFail($id));
 
         return redirect()->route('admin.articles.index')->with('COPPIED');
+    }
+
+    public function movetop(Gallery $gallery, Request $request){
+        $condition = [];
+        $condition[] = ['order', '>', $gallery->order];
+
+        $otherGallerys = Gallery::where($condition)->orderBy('order', 'asc')->get();
+
+        foreach ($otherGallerys as $otherGallery){
+            $oldorder = $gallery->order;
+            $gallery->order = $otherGallery->order;
+            $otherGallery->order = $oldorder;
+            $gallery->save();
+            Gallery::where('id', $otherGallery->id)->update(['order' => $oldorder]);
+        }
+        if ($request->ajax()) {
+            return 0;
+        }
     }
 }

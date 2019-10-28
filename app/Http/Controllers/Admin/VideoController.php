@@ -156,6 +156,23 @@ class VideoController extends Controller
         return redirect()->route('admin.videos.index')->with('DELETED COMPLE');
     }
 
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids)) {
+            return 0;
+        }else {
+            foreach ($ids as $id) {
+                Video::findOrFail($id)->delete();
+            }
+            return 1;
+        }
+        if (!$deleted) {
+            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
+
     public function sort(Request $request)
     {
 
@@ -184,10 +201,21 @@ class VideoController extends Controller
         return response()->json(compact('video'), 200);
     }
 
-    // public function CopyData($id)
-    // {
-    //     $this->service->Copy(Video::findOrFail($id));
+    public function movetop(Video $video, Request $request){
+        $condition = [];
+        $condition[] = ['order', '>', $video->order];
 
-    //     return redirect()->route('admin.videos.index')->with('COPPIED');
-    // }
+        $otherVideos = Video::where($condition)->orderBy('order', 'asc')->get();
+
+        foreach ($otherVideos as $otherVideo){
+            $oldorder = $video->order;
+            $video->order = $otherVideo->order;
+            $otherVideo->order = $oldorder;
+            $video->save();
+            Video::where('id', $otherVideo->id)->update(['order' => $oldorder]);
+        }
+        if ($request->ajax()) {
+            return 0;
+        }
+    }
 }

@@ -52,7 +52,7 @@
                     note_add
                   </i>
                 </a>
-                <button data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
+                <button data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark delete-all" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
                   <i class="material-icons">
                     delete_forever
                   </i>
@@ -89,7 +89,7 @@
                     <i class="material-icons">format_line_spacing</i>
                   </td>
                   <td class="text-center">
-                    <input type="checkbox" class="checkdel" value="{{$gallery->id}}" delid="{{$gallery->id}}" />
+                    <input type="checkbox" class="checkdel" name=id[] value="{{$gallery->id}}" delid="{{$gallery->id}}" />
                   </td>
                   <td>{{$gallery->id}}</td>
                   <td class="editname">
@@ -127,7 +127,7 @@
                       <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Copy dữ liệu">
                         <i class="material-icons">file_copy</i>
                       </a>
-                      <a href="#" class="btn btn-sm p-1"  data-toggle="tooltip" title="Đưa lên đầu tiên">
+                      <a href="#" class="btn btn-sm p-1 move-top-button" gallery-id="{{$gallery->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                         <i class="material-icons">call_made</i>
                       </a>
                       <a href="{{ route('admin.gallery.delete', $gallery->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
@@ -182,77 +182,5 @@
          </div>
 @endsection
 @push('js')
-<script>
-    $(document).ready(function () {
-        /**sort**/
-        let sortableOptions = {
-            handle: ".connect",
-            placeholder: "ui-state-highlight",
-            forcePlaceholderSize: true,
-            update: function () {
-                let sort = $(this).sortable("toArray");
-                console.log(sort);
-                $.ajax({
-                    method: 'POST',
-                    url: '/admin/gallery/sort',
-                    data: {
-                        sort: sort
-                    },
-                    success: function () {
-                        alert('SORTED');
-                    }
-                });
-            }
-        }
-        $(".sort").sortable(sortableOptions);
-        /**Button public**/
-        $(".click-public").click(function() {
-           let value = $(this).parents(".ui-state-default").find(".click-public").attr("value");
-           let id = $(this).parents(".ui-state-default").find(".click-public").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/gallery/change-is-public',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-                /**Button highlight**/
-        $(".click-highlight").click(function() {
-                let value = $(this).parents(".ui-state-default").find(".click-highlight").attr("value");
-                let id = $(this).parents(".ui-state-default").find(".click-highlight").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/gallery/change-is-highlight',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-                /**Button new**/
-        $(".click-new").click(function() {
-                let value = $(this).parents(".ui-state-default").find(".click-new").attr("value");
-                let id = $(this).parents(".ui-state-default").find(".click-new").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/gallery/change-is-new',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-    });
-</script>
+<script src="{{ asset('assets/admin') }}/js/gallery.js"></script>
 @endpush

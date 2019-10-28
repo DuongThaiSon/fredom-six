@@ -43,7 +43,7 @@
                     title="Thêm video mới">
                     <i class="material-icons">note_add</i>
                 </a>
-                <button data-toggle="tooltip" title="Xóa toàn bộ video" class="btn btn-sm btn-dark" target="_blank">
+                <button data-toggle="tooltip" title="Xóa toàn bộ video" class="btn btn-sm btn-dark delete-all" target="_blank">
                     <i class="material-icons">delete_forever</i>
                 </button>
             </div>
@@ -77,7 +77,7 @@
                                     <i class="material-icons">format_line_spacing</i>
                                 </td>
                                 <td class="text-center">
-                                    <input type="checkbox" class="checkdel" value="{{$video->id}}" />
+                                    <input type="checkbox" class="checkdel" name=id[] value="{{$video->id}}" />
                                 </td>
                                 <td>{{$video->id}}</td>
                                 <td class="editname">
@@ -112,8 +112,7 @@
                                         <a href="{{ route('admin.videos.create') }}?id={{ $video->id }}" class="btn btn-sm p-1 btn-copy" data-id="{{$video->id}}" data-toggle="tooltip" title="Copy dữ liệu">
                                             <i class="material-icons">file_copy</i>
                                         </a>
-                                        <a href="#" id="move-to-top" class="btn btn-sm p-1" data-toggle="tooltip"
-                                            title="Đưa lên đầu tiên">
+                                        <a class="btn btn-sm p-1 move-top-button" video-id="{{$video->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                                             <i class="material-icons">call_made</i>
                                         </a>
                                         <a href="{{route('admin.videos.delete', $video->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
@@ -138,81 +137,5 @@
 </div>
 @endsection
 @push('js')
-<script>
-   $(document).ready(function () {
-        /**sort**/
-        let sortableOptions = {
-            handle: ".connect",
-            placeholder: "ui-state-highlight",
-            forcePlaceholderSize: true,
-            update: function () {
-                let sort = $(this).sortable("toArray");
-                console.log(sort);
-                $.ajax({
-                    method: 'POST',
-                    url: '/admin/videos/sort',
-                    data: {
-                        sort: sort
-                    },
-                    success: function () {
-                        alert('SORTED');
-                    }
-                });
-            }
-        }
-        $(".sort").sortable(sortableOptions);
-        /**Button public**/
-        $(".click-public").click(function() {
-           let value = $(this).parents(".ui-state-default").find(".click-public").attr("value");
-           let id = $(this).parents(".ui-state-default").find(".click-public").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/videos/change-is-public',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-                /**Button highlight**/
-        $(".click-highlight").click(function() {
-                let value = $(this).parents(".ui-state-default").find(".click-highlight").attr("value");
-                let id = $(this).parents(".ui-state-default").find(".click-highlight").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/videos/change-is-highlight',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-                /**Button new**/
-        $(".click-new").click(function() {
-                let value = $(this).parents(".ui-state-default").find(".click-new").attr("value");
-                let id = $(this).parents(".ui-state-default").find(".click-new").attr("curentid");
-            $.ajax({
-                method: 'POST',
-                url: '/admin/videos/change-is-new',
-                data: {
-                value : value,
-                id : id
-                },
-                success: function(data){
-
-                },
-            });
-        });
-        $('a#move-to-top').click(function() {
-            row = $(this).closest('tr');
-            $(this).closest('tbody#order').prepend(row);
-        });
-    });
-</script>
+<script src="{{ asset('assets/admin')}}/js/videos.js"></script>
 @endpush

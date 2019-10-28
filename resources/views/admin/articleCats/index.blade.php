@@ -50,7 +50,7 @@
                 <a href="{{route('admin.article-cats.create')}}" class="btn btn-sm btn-dark">
                   <i class="material-icons"> note_add</i>
                 </a>
-                <button id="btn-del-all" data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
+                <button id="btn-del-all" data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark delete-all" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">
                   <i class="material-icons">delete_forever</i>
                 </button>
               </div>
@@ -89,42 +89,5 @@
         </div>
 @endsection
 @push('js')
-<script>
- $(document).ready(function(){
-   let sortableOptions = {
-     handle: ".connect",
-     placeholder: "ui-state-highlight",
-     forcePlaceholderSize: true,
-     update: function() {
-       let sort = $(this).sortable("toArray");
-       console.log(sort);
-       $.ajax({
-          method: 'POST',
-          url: '/admin/article-cats/sortcat',
-          data: {
-            sort: sort
-          },
-          success: function(){
-            alert('SORTED');
-          }
-        });
-     }
-   }
-    $( ".sortcat" ).sortable(sortableOptions);
-    $('.delete-button').click(function(e){
-			e.preventDefault();
-			if (confirm('Bạn có chắc chắn muốn xóa?')){
-                var delete_id = $(this).attr('delete-id');
-				$.ajax({
-					url: '/admin/articleCats/' + delete_id,
-					async: true,
-					method: 'DELETE',
-					success: function(){
-					alert('DELETED');
-					}
-				});
-			}
-		});
-  });
-</script>
+    <script src="{{ asset('assets/admin') }}/js/articleCats.js"></script>
 @endpush

@@ -6,7 +6,7 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ DANH MỤC ALBUM ẢNH</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <a href="{{ Route('admin.gallery-cats.create') }}" class="btn btn-sm btn-dark">
+                <a href="{{ route('admin.gallery-cats.create') }}" class="btn btn-sm btn-dark">
                   <i class="material-icons">
                     create_new_folder
                   </i>

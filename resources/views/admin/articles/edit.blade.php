@@ -4,7 +4,7 @@
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
               <h1 class="mt-3 pl-4">Thông tin bài viết</h1>
-               <form action="{{Route('admin.articles.update', $article->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 p-4 pt-5">
+               <form action="{{route('admin.articles.update', $article->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 p-4 pt-5">
               @csrf
               @method('PUT')
               <div class="save-group-buttons">

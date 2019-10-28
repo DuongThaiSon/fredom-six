@@ -47,7 +47,7 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ ALBUM ẢNH</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <a href="{{ Route('admin.gallery.create') }}" class="btn btn-sm btn-dark" data-toggle="tooltip" title="Thêm mới">
+                <a href="{{ route('admin.galleries.create') }}" class="btn btn-sm btn-dark" data-toggle="tooltip" title="Thêm mới">
                   <i class="material-icons">
                     note_add
                   </i>
@@ -93,7 +93,7 @@
                   </td>
                   <td>{{$gallery->id}}</td>
                   <td class="editname">
-                    <a href="{{route('admin.gallery.edit', $gallery->id)}}">{{$gallery->name}}</a>
+                    <a href="{{route('admin.galleries.edit', $gallery->id)}}">{{$gallery->name}}</a>
                   </td>
                   <td>
                     <a href="#">{{$gallery->category()->first()->name??''}}</a>
@@ -121,7 +121,7 @@
                   <td>{{$gallery->user()->first()->name??''}}</td>
                   <td>
                     <div class="btn-group">
-                      <a href="{{route('admin.gallery.edit', $gallery->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
+                      <a href="{{route('admin.galleries.edit', $gallery->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">
                         <i class="material-icons">border_color</i>
                       </a>
                       <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Copy dữ liệu">
@@ -130,7 +130,7 @@
                       <a href="#" class="btn btn-sm p-1 move-top-button" gallery-id="{{$gallery->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                         <i class="material-icons">call_made</i>
                       </a>
-                      <a href="{{ route('admin.gallery.delete', $gallery->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
+                      <a href="{{ route('admin.galleries.delete', $gallery->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
                         <i class="material-icons">delete</i>
                       </a>
                     </div>

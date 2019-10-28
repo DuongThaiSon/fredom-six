@@ -26,7 +26,7 @@
                     <i class="material-icons">border_color</i>
                 </a>
                 {{-- @method('DELETE') --}}
-                <a href="{{ Route('admin.images.delete', $image->id)}}"  class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
+                <a href="{{ route('admin.images.delete', $image->id)}}"  class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
                     <i class="material-icons">delete</i>
                 </a>
             </div>

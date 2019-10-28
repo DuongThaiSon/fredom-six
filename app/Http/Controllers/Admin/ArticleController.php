@@ -200,30 +200,30 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('COPPIED');
     }
 
-    // public function search(Request $request)
-    // {
-    //     // print_r($request->to_date);die;
+    public function search(Request $request)
+    {
+        // print_r($request->category_id);die;
 
-    //     $categories = $this->getSubCategories(0);
-    //     $users = User::all();
+        $categories = $this->getSubCategories(0);
+        $users = User::all();
 
 
-    //     $articles = Article::select('*');
+        $articles = Article::query();
 
-    //     $fields = ['name', 'category_id', 'created_by'];
-    //     foreach($fields as $field){
-    //         if(!empty($request->$field)){
-    //             $articles->where($field, 'like', '%' .$request->$field.'%');
-    //         }
-    //     }
-    //     if (!empty($request->to_date) && !empty($request->from_date)) {
-    //         $articles->whereBetween('created_at', [$request->to_date, $request->from_date]);
-    //     }
+        $fields = ['name', 'category_id', 'created_by'];
+        foreach($fields as $field){
+            if(!empty($request->$field)){
+                $articles->where($field, 'like', '%' .$request->$field.'%');
+            }
+        }
+        if (!empty($request->to_date) && !empty($request->from_date)) {
+            $articles->whereBetween('created_at', [$request->to_date, $request->from_date]);
+        }
 
-    //     $articles = $articles->paginate(5);
+        $articles = $articles->paginate(5);
 
-    //     return view('admin.articles.index', compact('articles','categories','users'));
-    // }
+        return view('admin.articles.index', compact('articles','categories','users'));
+    }
 
     public function movetop(Article $article, Request $request){
         $condition = [];

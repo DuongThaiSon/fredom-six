@@ -311,6 +311,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
     });
     Route::resource('products', 'ProductController');
 
+    // product category
+    Route::group(['prefix' => 'product-categories'], function() {
+        //
+    });
+    Route::resource('product-categories', 'ProductCategoryController');
+
     Route::post('check-user', 'UserController@check');
     Route::post('upload-image', 'MediaController@uploadImage');
 });

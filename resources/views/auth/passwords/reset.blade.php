@@ -4,7 +4,7 @@
             <img class="logo-icon-login" src="/assets/admin/img/icon/logo-login.png" alt="">
             <img class="leotive" src="/assets/admin/img/icon/leotive.png" alt="">
             <p class="title"> Admin Change Password </p>
-            <form method="POST" action="{{ route('password.request')}}">
+            <form method="POST" action="{{ route('admin.password.request')}}">
             {{-- {{ csrf_field() }} --}}
             @csrf
                 <input type="hidden" name="token" value="{{ $token }}">

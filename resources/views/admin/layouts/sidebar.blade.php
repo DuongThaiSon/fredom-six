@@ -35,10 +35,10 @@
                     <a href="product.html" class="nav-link">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="productcatDetail.html" class="nav-link">Thêm mới danh mục sản phẩm</a>
+                    <a href="{{ route('admin.product-categories.create') }}" class="nav-link">Thêm mới danh mục sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="productcat.html" class="nav-link">Quản lý danh mục sản phẩm</a>
+                    <a href="{{ route('admin.product-categories.index') }}" class="nav-link">Quản lý danh mục sản phẩm</a>
                     </li>
                 </ul>
                 </div>

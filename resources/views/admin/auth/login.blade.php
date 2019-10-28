@@ -25,7 +25,7 @@
                     <img class="pw" src="/assets/admin/img/icon/hide-password.png" alt="">
                 </div>
                     <button type="submit" class="float-right lg text-white font-weight-bold">Đăng Nhập</button>
-                    <a class="forget float-right text-center text-white font-weight-bold" href="{{ route('password.request') }}">Quên mật khẩu</a>
+                    <a class="forget float-right text-center text-white font-weight-bold" href="{{ route('admin.password.request') }}">Quên mật khẩu</a>
             </form>
         </div>
  @endsection

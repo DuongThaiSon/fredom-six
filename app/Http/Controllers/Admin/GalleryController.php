@@ -11,6 +11,7 @@ use App\Models\Image;
 use Illuminate\Support\Str;
 use Auth;
 use File;
+use Optix\Media\MediaUploader;
 
 class GalleryController extends Controller
 {
@@ -171,176 +172,24 @@ class GalleryController extends Controller
         return redirect()->route('admin.gallery.index')->with('Delete Comple');
     }
 
-     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function imageCreate($id)
-    {
-        $gallery = Gallery::findOrFail($id);
-        // print_r($gallery->id);die;
-        return view('admin.images.create', compact('gallery'));
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function imageStore(Request $request, $id)
+    public function processImage(Request $request, Gallery $gallery)
     {
         $request->validate([
-            'name' => 'nullable|sometimes|image'
+            'gallery_images' => 'required|image'
         ]);
 
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['order'] = Image::max('order') ? (Image::max('order') + 1) : 1;
-            if ($request->hasFile('name')) {
-                    $destinationDir = public_path('media/uploadImg');
-                    $filename = uniqid('leotive').'.'.$request->name->extension();
-                    $request->name->move($destinationDir, $filename);
-                    $attributes['name'] = '/media/uploadImg/'.$filename;
-            }
-            // print_r($request->hasFile('name'));die;
-            // print_r($attributes['name']);die;
-            $gallery = Gallery::findOrFail($id);
-            $gallery->images()->create([
-                'created_by' => Auth::user()->id,
-                'name' => $attributes['name'],
-                'is_public' => $attributes['is_public'],
-                'order' => $attributes['order'] = Image::max('order') ? (Image::max('order') + 1) : 1,
-                'caption' => $request->caption,
-                'url' => $request->url,
+        $extension = $request->file('gallery_images')->getClientOriginalExtension();
+        $fileName = uniqid(date('d.m.Y')) . '.' .$extension;
 
-            ]);
+        $media = MediaUploader::fromFile($request->gallery_images)
+            ->useFileName($fileName) //tên file sau khi được upload lên
+            ->useName($fileName)  //tên record được lưu trong DB
+            ->upload();
 
-        return redirect()->route('admin.gallery.edit',$gallery->id)->with('succes');
-    }
+        $gallery->attachMedia($media, 'images');
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function imageEdit(Request $request, $id)
-    {
-        $image_id = $request->image_id;
-        // print_r($image_id);die;s
-        $gallery = Gallery::findOrFail($id);
-        $image = Image::findOrFail($image_id);
-        // print_r($image);die;
-        // $image = Image::findOrFail($gallery->images->id);
-        // return redirect()->route('admin.images.edit', [
-        //     'id' => $gallery->id,
-        //     'image_id' => $image_id
-        // ]);
-        // return redirect()->route('admin.images.edit', $gallery->id);
-        return view('admin.images.edit', compact('gallery','image'));
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function imageUpdate(Request $request, $id)
-    {
-        // $request->validate([
-        //     'name' => 'nullable|sometimes|image'
-        // ]);
-
-        // $attributes = $request->only([
-        //     'url', 'caption'
-        // ]);
-
-        // if($request->hasFile('name')) {
-        //     $destinationDir = public_path('media/uploadImg');
-        //     $filename = uniqid('leotive').'.'.$request->name->extension();
-        //     $request->name->move($destinationDir, $filename);
-        //     $attributes['name'] = '/media/uploadImg/'.$filename;
-        // }
-
-        // $images = Image::findOrFail($id);
-        // $image = $image->fill($attributes);
-        // $image->save();
-
-
-        // return redirect()->route('admin.images.edit',$image->id)->with('succes');
-        $request->validate([
-                'name' => 'nullable|sometimes|image'
-        ]);
-        $gallery = Gallery::findOrFail($id);
-        $image = Image::findOrFail($gallery->images()->first()->id);
-        // $attributes['name'] = $image->name;
-        if ($request->hasFile('name')) {
-            $destinationDir = public_path('media/uploadImg');
-            $filename = uniqid('leotive').'.'.$request->name->extension();
-            $request->name->move($destinationDir, $filename);
-            $attributes['name'] = '/media/uploadImg/'.$filename;
-        }
-        else
-        {
-            $attributes['name'] = $request->img_name;
-        }
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $image->update([
-            'name' => $attributes['name'],
-            'is_public' => $attributes['is_public'],
-            'caption' => $request->caption,
-            'url' => $request->url,
-        ]);
-
-        return redirect()->back()->with('succes');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function imageDestroy($id)
-    {
-        $image = Image::findOrFail($id);
-        $folder = public_path($image->name);
-        if (file_exists($folder))
-        {
-            unlink($folder);
-        }
-        $image->delete();
-        return redirect()->back()->with('Delete Compled');
-    }
-
-    public function deleteAll(Request $request)
-    {
-        $ids = $request->ids;
-        if(empty($ids)) {
-            return 0;
-        }else {
-            foreach ($ids as $id) {
-                Gallery::findOrFail($id)->delete();
-            }
-            return 1;
-        }
-        if (!$deleted) {
-            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
-        }
-        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
-    }
-
-    public function changeIsPublicImage(Request $request) {
-        $id = $request->id;
-        $image =  Image::findOrFail($id);
-        $image->is_public = ($request->value == 1) ? '0' : '1';
-        $image->save();
-        return response()->json(compact('image'), 200);
-
+        return response()->json($gallery->getMedia('images'), 201);
     }
 
     public function sort(Request $request)

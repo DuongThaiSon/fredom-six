@@ -11,7 +11,7 @@
         <ul class="nav flex-column">
             <!-- Dashboard -->
             <li class="nav-item">
-            <a href="admin.html" class="nav-link active" id="menu-dashboard">
+            <a href="admin.html" class="nav-link menu-dashboard" id="menu-dashboard">
                 <i class="material-icons align-middle">dashboard</i><span>Tổng quan
                 hệ thống</span>
             </a>
@@ -46,54 +46,54 @@
             <!-- News -->
 
             <li class="nav-item has-child">
-            <a href="#submenu2" data-toggle="collapse" data-target="#submenu2" class="nav-link collapsed">
-                <i class="material-icons align-middle">dvr</i>
-                <span>Tin bài</span>
-            </a>
-            <div class="sub collapse" id="submenu2">
-                <ul class="flex-column nav">
-                <li class="nav-item">
-                    <a href="{{Route('admin.articles.create')}}" class="nav-link">Tạo bài mới</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{Route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{Route('admin.article-cats.create')}}" class="nav-link">Thêm mới danh mục tin bài</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{Route('admin.article-cats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
-                </li>
-                </ul>
-            </div>
+                <a href="#submenu2" data-toggle="collapse" data-target="#submenu2" class="nav-link collapsed">
+                    <i class="material-icons align-middle">dvr</i>
+                    <span>Tin bài</span>
+                </a>
+                <div class="sub collapse" id="submenu2">
+                    <ul class="flex-column nav">
+                    <li class="nav-item">
+                        <a href="{{route('admin.articles.create')}}" class="nav-link menu-articles">Tạo bài mới</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.article-cats.create')}}" class="nav-link menu-articleCats">Thêm mới danh mục tin bài</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.article-cats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
+                    </li>
+                    </ul>
+                </div>
             </li>
 
             <!-- ALBUM -->
             <li class="nav-item has-child">
-            <a
-                href="#gallerysubmenu"
-                data-toggle="collapse"
-                data-target="#gallerysubmenu"
-                class="nav-link collapsed"
-            >
-                <i class="material-icons align-middle">collections</i><span>Slide &
-                Album ảnh</span>
-            </a>
+                <a
+                    href="#gallerysubmenu"
+                    data-toggle="collapse"
+                    data-target="#gallerysubmenu"
+                    class="nav-link collapsed"
+                >
+                    <i class="material-icons align-middle">collections</i><span>Slide &
+                    Album ảnh</span>
+                </a>
             <div class="sub collapse" id="gallerysubmenu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="{{ Route('admin.gallery.create') }}" class="nav-link"> Tạo album ảnh mới</a>
+                        <a href="{{ route('admin.gallery.create') }}" class="nav-link menu-galleries"> Tạo album ảnh mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>
+                    <a href="{{route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.gallery-cats.create')}}" class="nav-link">
+                    <a href="{{route('admin.gallery-cats.create')}}" class="nav-link">
                         Thêm mới danh mục album ảnh</a
                     >
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.gallery-cats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
+                    <a href="{{route('admin.gallery-cats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
                     </li>
                 </ul>
                 </div>
@@ -112,16 +112,16 @@
                 <div class="sub collapse" id="videosubmenu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="{{Route('admin.videos.create')}}" class="nav-link">Tạo video mới</a>
+                    <a href="{{route('admin.videos.create')}}" class="nav-link">Tạo video mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
+                    <a href="{{route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.video-cats.create')}}" class="nav-link">Thêm mới danh mục video</a>
+                    <a href="{{route('admin.video-cats.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{Route('admin.video-cats.index')}}" class="nav-link">Quản lý danh mục video</a>
+                    <a href="{{route('admin.video-cats.index')}}" class="nav-link">Quản lý danh mục video</a>
                     </li>
                 </ul>
                 </div>
@@ -249,3 +249,5 @@
         </div>
     </section>
 </div>
+
+<input type="hidden" id="page-id" value="{{ $activePage }}">

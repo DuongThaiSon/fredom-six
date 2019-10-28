@@ -198,17 +198,10 @@
 
                         <div class="form-group">
                           <label class="control-label">Ảnh đại diện</label>
-                          <input
-                            type="file"
-                            class="form-control"
-                            name="avatar"
-                            placeholder="Ảnh đại diện"
-                            value="{{$article->avatar ?? ''}}"
-                          />
-                          <small class="form-text"
-                            >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
-                            trang web đang có nội dung nói về chủ đề nào
-                          </small>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="avatar">
+                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                            </div>
                         </div>
                     </div>
                   </div>
@@ -219,7 +212,7 @@
                       <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="description">{{$article->description?? ''}}</textarea>
+                          <textarea class="form-control ck-classic" name="description">{{$article->description?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -228,7 +221,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="detail">{{$article->detail?? ''}}</textarea>
+                          <textarea class="form-control ck-classic" name="detail">{{$article->detail?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -239,7 +232,8 @@
   @endsection
   @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
+
 </script>
 @endpush

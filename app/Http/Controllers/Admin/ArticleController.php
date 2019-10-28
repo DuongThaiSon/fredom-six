@@ -15,8 +15,6 @@ use Auth;
 
 class ArticleController extends Controller
 {
-    const PER_PAGE =10;
-
     public function __construct(ArticleService $service)
     {
         $this->service = $service;
@@ -28,9 +26,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('order', 'desc')->with('Category')->paginate(self::PER_PAGE);
+        $articles = Article::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate();
         $categories = $this->getSubCategories(0);
-        // print_r($categories->toArray());die;
         $users = User::all();
         return view('admin.articles.index', compact('articles','categories', 'users'));
     }
@@ -191,6 +188,18 @@ class ArticleController extends Controller
 
         $this->service->IsNew(Article::findOrFail($request->id), $request);
         return response()->json(compact('article'), 200);
+    }
+
+    /**
+     * Update article attribute [public, highlight, new]
+     */
+    public function updateViewStatus(Request $request) {
+        $field = $request->field;
+        $article = Article::find($request->id);
+        $article->$field = $request->value?'0':'1';
+        $article->save();
+
+        return response()->json(['value' => $article->$field], 200);
     }
 
     public function CopyData($id)

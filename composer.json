@@ -15,6 +15,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
+        "optix/media": "^0.2.4",
         "santigarcor/laratrust": "5.2.*"
     },
     "require-dev": {

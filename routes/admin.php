@@ -77,7 +77,32 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'VideoCategoryController@sortcat'
     ]);
 
-    Route::resource('video-cats', 'VideoCategoryController', [
+    // gallery
+    Route::group([
+        'prefix' => 'gallery/{gallery}'
+    ], function() {
+        Route::post('process', [
+            'as' => 'admin.images.processImage',
+            'uses' => 'GalleryController@processImage'
+        ]);
+
+        Route::post('images', [
+            'as' => 'admin.images.store',
+            'uses' => 'GalleryController@imageStore'
+        ]);
+
+        Route::get('images-edit', [
+            'as' => 'admin.images.edit',
+            'uses' => 'GalleryController@imageEdit'
+        ]);
+
+        Route::post('images-update', [
+            'as' => 'admin.images.update',
+            'uses' => 'GalleryController@imageUpdate'
+        ]);
+    });
+
+    Route::resource('gallery','GalleryController',[
         'as' => 'admin',
         'parameters' => ['video-cats' => 'id']
     ])->except('destroy');
@@ -162,20 +187,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@sort'
     ]);
 
-    Route::post('articles/change-is-public', [
-        'as' => 'admin.articles.change-is-public',
-        'uses' => 'ArticleController@changeIsPublic'
-    ]);
-
-    Route::post('articles/change-is-highlight', [
-        'as' => 'admin.articles.change-is-highlight',
-        'uses' => 'ArticleController@changeIsHighlight'
-    ]);
-
-    Route::post('articles/change-is-new', [
-        'as' => 'admin.articles.change-is-new',
-        'uses' => 'ArticleController@changeIsNew'
-    ]);
+    Route::post('articles/update-view-status', 'ArticleController@updateViewStatus');
 
     Route::get('articles/search', [
         'as' => 'admin.articles.search',
@@ -209,49 +221,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleCategoryController@sortcat'
     ]);
 
-    Route::delete('article-cats/delete',[
-        'as' => 'admin.article-cats.deleteAll',
-        'uses' => 'ArticleCategoryController@deleteAll'
-    ]);
-
-    Route::resource('article-cats', 'ArticleCategoryController', [
-        'as' => 'admin',
-        'parameters' => ['article-cats' => 'id']
-    ])->except('destroy');
-
-    // image
-
-    Route::get('galleries/category/{id}',[
-        'as' => 'admin.gallery.cat',    // gallery theo category id
-        'uses' => 'GalleryCategoryController@gallery'
-    ]);
-    
-    Route::group([
-        'prefix' => 'gallery/{id}'
-    ], function() {
-        Route::get('images', [
-            'as' => 'admin.images.create',
-            'uses' => 'GalleryController@imageCreate'
-        ]);
-
-        
-    
-
-        Route::post('images', [
-            'as' => 'admin.images.store',
-            'uses' => 'GalleryController@imageStore'
-        ]);
-
-        Route::get('images-edit', [
-            'as' => 'admin.images.edit',
-            'uses' => 'GalleryController@imageEdit'
-        ]);
-
-        Route::post('images-update', [
-            'as' => 'admin.images.update',
-            'uses' => 'GalleryController@imageUpdate'
-        ]);
-    });
     Route::get('images/{id}/delete',[
         'as' => 'admin.images.delete',
         'uses' => 'GalleryController@imageDestroy'
@@ -411,6 +380,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
 
     Route::post('check-user', 'UserController@check');
+
+    Route::post('/upload-image', 'MediaController@uploadImage');
 });
 
 
@@ -442,6 +413,7 @@ Route::get('password/reset/{token}',[
     'as' => 'password.reset',
     'uses' => 'Auth\ResetPasswordController@showResetForm'
 ]);
+
 
 
 

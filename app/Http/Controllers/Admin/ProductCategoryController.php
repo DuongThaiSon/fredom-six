@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Category;
-use App\Services\ProductService;
+use App\Http\Services\ProductCategoryService;
 
 class ProductCategoryController extends Controller
 {
@@ -14,7 +15,7 @@ class ProductCategoryController extends Controller
      *
      * @return void
      */
-    public function __construct(ProductService $service)
+    public function __construct(ProductCategoryService $service)
     {
         $this->service = $service;
     }
@@ -47,9 +48,22 @@ class ProductCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductCategoryRequest $request)
     {
-        //
+        $attributes = $this->service->appendCreateData($request->all());
+        $productCategory = Category::create($attributes);
+
+        $response = [
+            'message' => 'Product Category created.',
+            'data'    => $productCategory->toArray(),
+        ];
+
+        if ($request->wantsJson()) {
+
+            return response()->json($response);
+        }
+
+        return redirect()->route('admin.product-categories.edit', $productCategory->id)->with('message', $response['message']);
     }
 
     /**

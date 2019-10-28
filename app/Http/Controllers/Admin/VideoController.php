@@ -82,7 +82,7 @@ class VideoController extends Controller
     public function store(VideoRequest $request)
     {
 
-        $attributes  = $this->service->Create($request, Video::max('order'), '/media/Videos/', $request->image);
+        $attributes  = $this->service->create($request, Video::max('order'), '/media/Videos/', $request->image);
 
         $video = Video::create($attributes);
 

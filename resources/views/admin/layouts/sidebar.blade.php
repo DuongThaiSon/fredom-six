@@ -35,10 +35,10 @@
                     <a href="product.html" class="nav-link">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.product-categories.create') }}" class="nav-link">Thêm mới danh mục sản phẩm</a>
+                    <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.product-categories.index') }}" class="nav-link">Quản lý danh mục sản phẩm</a>
+                    <a href="{{ route('admin.product-categories.index') }}" class="nav-link menu-product-categories-index">Quản lý danh mục sản phẩm</a>
                     </li>
                 </ul>
                 </div>
@@ -59,10 +59,10 @@
                         <a href="{{route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
                     </li>
                     {{-- <li class="nav-item">
-                        <a href="{{route('admin.article-cats.create')}}" class="nav-link menu-articleCats">Thêm mới danh mục tin bài</a>
+                        <a href="{{route('admin.article-categories.create')}}" class="nav-link menu-articleCats">Thêm mới danh mục tin bài</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('admin.article-cats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
+                        <a href="{{route('admin.article-categories.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
                     </li> --}}
                     </ul>
                 </div>
@@ -88,12 +88,12 @@
                     <a href="{{route('admin.galleries.index')}}" class="nav-link"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.gallery-cats.create')}}" class="nav-link">
+                    <a href="{{route('admin.gallery-categories.create')}}" class="nav-link">
                         Thêm mới danh mục album ảnh</a
                     >
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.gallery-cats.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
+                    <a href="{{route('admin.gallery-categories.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
                     </li>
                 </ul>
                 </div>
@@ -118,10 +118,10 @@
                     <a href="{{route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
                     {{-- <li class="nav-item">
-                    <a href="{{route('admin.video-cats.create')}}" class="nav-link">Thêm mới danh mục video</a>
+                    <a href="{{route('admin.video-categories.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.video-cats.index')}}" class="nav-link">Quản lý danh mục video</a>
+                    <a href="{{route('admin.video-categories.index')}}" class="nav-link">Quản lý danh mục video</a>
                     </li> --}}
                 </ul>
                 </div>

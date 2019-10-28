@@ -1,11 +1,11 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Detail Category')])
+@extends('admin.layouts.main', ['activePage' => 'product-categories-create', 'title' => __('Detail Category')])
 @section('content')
             <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
            <div id="content">
               <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC BÀI VIẾT</h1>
                 <!-- Save group button -->
-                <form action="{{route('admin.article-cats.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+                <form action="{{route('admin.product-categories.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
                   @csrf
                   @if ($errors->any())
                     <div class="alert bg-danger" role="alert">
@@ -43,20 +43,19 @@
                       <label>Nằm trong mục</label>
                       <select name="parent_id" class="form-control">
                         <option value="0"></option>
-                          @include('admin.partials.categories_options', ['level'=>0])
+                          @include('admin.partials.categories_options', ['level' => 0])
                       </select>
                       <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                     </div>
 
                     <!-- Button Toggle -->
                     <div class="mb-2">
-                      <label class="control-label">Nổi bật</label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"/>
-                      <label class="label-checkbox" for="highlight">Nổi bật</label>
+                      <label class="control-label">Hiển thị </label>
+                      <input type="checkbox" class="checkbox-toggle" name="is_public" id="is_public" checked/>
+                      <label class="label-checkbox" for="is_public">Hiển thị </label>
                     </div>
-                    <small class="form-text">Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
-                      thị trên trang chủ hoặc các điểm chỉ định trên giao
-                      diện.
+                    <small class="form-text">
+                        Khi tính năng “Hiển thị” được bật, bài viết này có thể hiện thị trên giao diện trang web.
                     </small>
 
                   </div>
@@ -77,7 +76,7 @@
 
                     <div class="form-group">
                         <label class="control-label">Thẻ Meta Description</label>
-                        <input type="text" class="form-control" name="meta_discription" placeholder="Thẻ Meta Description"/>
+                        <input type="text" class="form-control" name="meta_description" placeholder="Thẻ Meta Description"/>
                         <small class="form-text">Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn.
                         Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small>
                       </div>
@@ -98,10 +97,10 @@
 
                         <div class="form-group">
                           <label class="control-label">Ảnh đại diện</label>
-                          <input type="file" class="form-control" name="avatar" placeholder="Ảnh đại diện"/>
-                          <small class="form-text">Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
-                            trang web đang có nội dung nói về chủ đề nào
-                          </small>
+                          <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="avatar">
+                            <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                        </div>
                         </div>
                   </div>
                 </div>
@@ -112,7 +111,7 @@
                   <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="description"></textarea>
+                      <textarea class="form-control ck-classic" name="description"></textarea>
                     </div>
                   </div>
                 </div>
@@ -124,7 +123,6 @@
 @endsection
 @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+
 </script>
 @endpush

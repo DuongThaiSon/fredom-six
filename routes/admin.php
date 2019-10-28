@@ -48,17 +48,17 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // video category
-    Route::group(['prefix' => 'video-cats'], function() {
+    Route::group(['prefix' => 'video-categories'], function() {
         Route::get('{id}/delete', [
-            'as' => 'video-cats.delete',
+            'as' => 'video-categories.delete',
             'uses' => 'VideoCategoryController@destroy'
         ]);
         Route::post('sortcat', [
-            'as' => 'video-cats.sortcat',
+            'as' => 'video-categories.sortcat',
             'uses' => 'VideoCategoryController@sortcat'
         ]);
     });
-    Route::resource('video-cats', 'VideoCategoryController');
+    Route::resource('video-categories', 'VideoCategoryController');
 
     // gallery
     Route::group(['prefix' => 'galleries'], function() {
@@ -107,18 +107,18 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // gallery category
-    Route::group(['prefix' => 'gallery-cats'], function () {
+    Route::group(['prefix' => 'gallery-categories'], function () {
         Route::get('{id}/delete', [
-            'as' => 'gallery-cats.delete',
+            'as' => 'gallery-categories.delete',
             'uses' => 'GalleryCategoryController@destroy'
         ]);
         Route::post('sortcat', [
-            'as' => 'gallery-cats.sortcat',
+            'as' => 'gallery-categories.sortcat',
             'uses' => 'GalleryCategoryController@sortcat'
         ]);
     });
-    Route::resource('gallery-cats', 'GalleryCategoryController',[
-        'parameters' => ['gallery-cats' => 'id']
+    Route::resource('gallery-categories', 'GalleryCategoryController',[
+        'parameters' => ['gallery-categories' => 'id']
     ]);
 
     // article
@@ -153,17 +153,17 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['articles' => 'id']
     ]);
 
-    Route::group(['prefix' => 'article-cats'], function() {
+    Route::group(['prefix' => 'article-categories'], function() {
         Route::get('{id}/delete', [
-            'as' => 'article-cats.delete',
+            'as' => 'article-categories.delete',
             'uses' => 'ArticleCategoryController@destroy'
         ]);
         Route::post('sortcat', [
-            'as' => 'article-cats.sortcat',
+            'as' => 'article-categories.sortcat',
             'uses' => 'ArticleCategoryController@sortcat'
         ]);
     });
-    Route::resource('article-cats', 'ArticleCategoryController');
+    Route::resource('article-categories', 'ArticleCategoryController');
 
     Route::group(['prefix' => 'settings'], function(){
         Route::get('', [

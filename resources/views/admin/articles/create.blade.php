@@ -200,7 +200,7 @@
                           <label class="control-label">Ảnh đại diện</label>
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="avatar">
-                                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                                <label class="custom-file-label" for="">Choose file</label>
                             </div>
                         </div>
                     </div>

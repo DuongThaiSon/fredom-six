@@ -87,7 +87,7 @@ class VideoCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.video-cats.edit', $category->id)
+        return redirect()->route('admin.video-categories.edit', $category->id)
         ->with('success', 'Tao moi thanh cong');
 
     }
@@ -150,7 +150,7 @@ class VideoCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.video-cats.edit', $category->id)
+        return redirect()->route('admin.video-categories.edit', $category->id)
 
         ->with('success', 'Cap nhat thanh cong');
     }
@@ -170,7 +170,7 @@ class VideoCategoryController extends Controller
         $category = $categories->filter(function($value, $key) use ($id){
             return $value->id == $id;
         });
-        return redirect()->route('admin.video-cats.index')->with('xoá thành công');
+        return redirect()->route('admin.video-categories.index')->with('xoá thành công');
     }
     public function sortcat(Request $request){
         $cats = $request->sort;

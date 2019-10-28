@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Traits;
+namespace App\Http\Services\Traits;
 
 trait CategoryTrait
 {
@@ -36,12 +36,8 @@ trait CategoryTrait
                 $q->sub = $sub;
                 return $q;
             });
-            return $cat;
         }
-        if (!$parent_id) {
-            return $cat;
-        }
-        return null;
+        return $cat;
     }
 
     /**
@@ -56,86 +52,6 @@ trait CategoryTrait
         }
 
         return property_exists($this, 'categoryType') ? $this->categoryType : '';
-    }
-
-    /**
-     * Save a new entity in repository
-     *
-     * @throws ValidatorException
-     *
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function create(array $attributes)
-    {
-        if (array_key_exists('is_public', $attributes)) {
-            $attributes['is_public'] = 1;
-        } else {
-            $attributes['is_public'] = 0;
-        }
-        if (array_key_exists('files', $attributes)) {
-            $destinationPath = public_path('media/category'); // upload path
-            $extension = $attributes['files']->extension(); // getting image extension
-            $fileName = uniqid("mio") . '.' . $extension; // renameing image
-            $attributes['files']->move($destinationPath, $fileName); // uploading file to given path
-            $attributes['avatar'] = $fileName;
-            unset($attributes['files']);
-        }
-        if (!$attributes['slug']) {
-            $slug = str_slug($attributes['name'], '-');
-            while ($this->model->where('slug', $slug)->get()->count() > 0) {
-                $slug .= '-'.rand(0, 9);
-            }
-            $attributes['slug'] = $slug;
-        }
-        $attributes['type'] = $this->categoryType;
-        $attributes['created_by'] = $attributes['updated_by'] = auth()->guard('admin')->id();
-        $attributes['order'] = $this->model->max('order') + 1;
-        $model = $this->model->newInstance($attributes);
-        $model->save();
-
-        return $model;
-    }
-
-    /**
-     * Update a entity in repository by id
-     *
-     * @throws ValidatorException
-     *
-     * @param array $attributes
-     * @param       $id
-     *
-     * @return mixed
-     */
-    public function update(array $attributes, $id)
-    {
-        if (array_key_exists('is_public', $attributes)) {
-            $attributes['is_public'] = 1;
-        } else {
-            $attributes['is_public'] = 0;
-        }
-        if (array_key_exists('files', $attributes)) {
-            $destinationPath = public_path('media/category'); // upload path
-            $extension = $attributes['files']->extension(); // getting image extension
-            $fileName = uniqid("mio") . '.' . $extension; // renameing image
-            $attributes['files']->move($destinationPath, $fileName); // uploading file to given path
-            $attributes['avatar'] = $fileName;
-            unset($attributes['files']);
-        }
-        if (!$attributes['slug']) {
-            $slug = str_slug($attributes['name'], '-');
-            while ($this->model->where('slug', $slug)->get()->count() > 0) {
-                $slug .= '-'.rand(0, 9);
-            }
-            $attributes['slug'] = $slug;
-        }
-        $attributes['updated_by'] = auth()->guard('admin')->id();
-        $model = $this->model->findOrFail($id);
-        $model->fill($attributes);
-        $model->save();
-
-        return $model;
     }
 
     /**

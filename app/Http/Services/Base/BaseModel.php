@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Base;
+namespace App\Http\Services\Base;
 
 use Illuminate\Container\Container as Application;
 

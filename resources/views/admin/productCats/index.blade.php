@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'productCats', 'title' => __('Products Category')])
+@extends('admin.layouts.main', ['activePage' => 'product-categories-index', 'title' => __('Products Category')])
 @section('content')
         <div id="main-content">
           <!-- Search Group Button -->

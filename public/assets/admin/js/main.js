@@ -19274,8 +19274,20 @@ $(document).ready(function () {
     $(".nav-link.collapsed").attr("data-toggle", function (i, attr) {
       return attr == "collapse" ? "false" : "collapse";
     });
+  }); // read filename on custom input file
+
+  $('.custom-file-input').change(function () {// let fileName = readUploadFileName(this);
+    // $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
   });
 });
+
+function readUploadFileName(input) {
+  if (input.files && input.files[0]) {
+    return _.truncate(input.files[0].name, {
+      'length': 38
+    });
+  }
+}
 
 /***/ }),
 

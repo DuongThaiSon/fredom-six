@@ -217,9 +217,11 @@ class ArticleCategoryController extends Controller
 
     public function articles($id)
     {
+        $categories = $this->getSubCategories(0);
+        // $user = User::all();
         $articles = Article::where('category_id', $id)
                     ->orderBy('order')
                     ->paginate();
-        return view('admin.articles.index', compact('articles'));
+        return view('admin.articles.index', compact('articles', 'categories', 'user'));
     }
 }

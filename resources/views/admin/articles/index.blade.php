@@ -4,7 +4,7 @@
     <!-- Search Group Button -->
     {{-- <form action="#" method="get"> --}}
         <div class="search-button-group">
-            {{-- <form action="{{ Route('admin.articles.search')}}" method="GET" class="">
+            <form action="{{ Route('admin.articles.search')}}" method="GET" class="">
                 <button class="material-icons text-secondary">
                     search
                 </button>
@@ -13,12 +13,12 @@
                     <button class="btn btn-white pt-1" data-toggle="collapse" type="button" href="#advancesearch">
                         <i class="material-icons text-secondary" title="Tìm kiếm nâng cao" data-toggle="tooltip">expand_more</i>
                     </button>
-                </span> --}}
+                </span>
                 <div class="row collapse" id="advancesearch">
                     <div class="form-row">
                         <div class="form-group col">
                             <label>Mục</label>
-                            <select id="category_id" name="category" class="form-control search-change p-2">
+                            <select id="category_id" name="category_id" class="form-control search-change p-2">
                                 <option value="">
                                 @include('admin.partials.categories_options', ['level'=>0])
                             </select>
@@ -29,8 +29,8 @@
                             <select name="created_by" class="form-control search-change p-2">
                                     <option value="">
                                 @forelse ($users as $user)
-                                    <option value="{{ $user->id }}">
-                                        {{ $user->name }}
+                                    <option value="{{ $user->id ?? '' }}">
+                                        {{ $user->name??'' }}
                                     </option>
                                 @empty
 
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     {{-- </form> --}}
     <!-- End Search Group Button -->

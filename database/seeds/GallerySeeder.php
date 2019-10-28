@@ -19,6 +19,7 @@ class GallerySeeder extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'category_id' => '8',
+                'order' => '1'
             ]
         );
         DB::table('galleries')->insert(
@@ -29,6 +30,7 @@ class GallerySeeder extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'category_id' => '7',
+                'order' => '2'
             ]
         );
         DB::table('galleries')->insert(
@@ -38,6 +40,7 @@ class GallerySeeder extends Seeder
                 'is_public' => '1',
                 'is_new' => '1',
                 'category_id' => '8',
+                'order' => '3'
             ]
         );
     }

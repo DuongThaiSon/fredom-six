@@ -16,7 +16,7 @@
                                 @for ($i = 0; $i < $level; $i++)
                                     --|
                                 @endfor
-                                <a href="{{ route('admin.'.$category->type.'.cat', $category->id) }}">{{$category->name}}</a>
+                                <a href="#">{{$category->name}}</a>
                             </td>
                             <td> {{$category->subCat()->first()->name ?? ""}}</td>
                             <td style="width: 120px;">{{$category->created_at}}</td>

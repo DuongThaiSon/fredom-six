@@ -186,18 +186,18 @@
             <li class="nav-item has-child">
             <a data-toggle="collapse" data-target="#menu-admin-user" href="#menu-admin-user" class="nav-link collapsed">
                 <i class="material-icons align-middle">face</i>
-                <span>Quản trị viên và người dùng</span>
+                <span>Người dùng</span>
             </a>
             <div class="sub collapse" id="menu-admin-user">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.add')}}" class="nav-link">Thêm mới quản trị viên & người dùng</a>
+                    <a href="{{ route('admin.users.add')}}" class="nav-link">Thêm mới người dùng</a>
                 </li>
                 <li>
                     <a href="{{ route('admin.users.admin')}}" class="nav-link">Danh sách quản trị viên</a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link">Danh sách người dùng</a>
+                    <a href="#" class="nav-link">Danh sách thành viên</a>
                 </li>
                 </ul>
             </div>

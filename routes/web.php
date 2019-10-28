@@ -35,4 +35,8 @@ Route::group([
         'as' => 'client.showrooms.index',
         'uses' => 'ShowroomController@index'
     ]);
+    Route::post('showrooms',[
+        'as' => 'client.showrooms.contact',
+        'uses' => 'ContactController@contact'
+    ]);
 });

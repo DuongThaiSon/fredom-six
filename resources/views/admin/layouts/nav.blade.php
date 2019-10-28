@@ -33,7 +33,7 @@
         <div class="btn-group dropdown">
             <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
                 data-toggle="dropdown">
-                Leotive
+                {{ Auth::user()->name}}
             </button>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Thay đổi thông tin cá nhân</a>

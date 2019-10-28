@@ -1,7 +1,7 @@
 <div id="navbar">
         <nav class="navbar navbar-expand-md">
         <div class="container">
-            <a href="#" class="navbar-brand">
+            <a href="/" class="navbar-brand">
             <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />
             </a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -13,7 +13,7 @@
                 <a href="#" class="nav-link text-uppercase">new arrival</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">tin tức</a>
+                <a href="{{ route('client.news.index')}}" class="nav-link text-uppercase">tin tức</a>
                 </li>
                 <li class="nav-item pl-lg-5">
                 <a href="#" class="nav-link text-uppercase">nữ</a>
@@ -28,7 +28,7 @@
                 <a href="#" class="nav-link text-uppercase">gifts</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">showroom</a>
+                <a href="{{ route('client.showrooms.index') }}" class="nav-link text-uppercase">showroom</a>
                 </li>
             </ul>
             <div class="cart">

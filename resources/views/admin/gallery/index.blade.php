@@ -118,7 +118,7 @@
                     </button>
                   </td>
                   <td>{{$gallery->created_at}}</td>
-                  <td>{{$gallery->user()->first()->name}}</td>
+                  <td>{{$gallery->user()->first()->name??''}}</td>
                   <td>
                     <div class="btn-group">
                       <a href="{{route('admin.gallery.edit', $gallery->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa">

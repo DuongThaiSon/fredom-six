@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" >
+  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" enctype="multipart/form-data">
 
     @csrf
   <div id="content">
@@ -36,10 +36,10 @@
         <div class="col-12">
           <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
           <div class="form-group">
-            <label>Tên Showroom</label>
-            <input type="text" name="name" class="form-control" placeholder="Tên Showroom" value="{{ $component->name }}"/>
+            <label>Tên nội dung</label>
+            <input type="text" name="name" class="form-control" placeholder="Tên nội dung" value="{{ $component->name }}"/>
             <small class="form-text"
-              >Đặt tên cho Showroom</small
+              >Đặt tên cho nội dung</small
             >
           </div>
 

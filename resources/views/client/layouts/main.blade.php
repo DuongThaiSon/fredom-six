@@ -18,14 +18,7 @@
   <link rel="stylesheet" href="{{ asset('assets/client') }}/css/style.css" />
   <link rel="stylesheet" href="{{ asset('assets/client') }}/css/pages.css" />
   <link rel="stylesheet" href="{{ asset('assets/client') }}/css/responsive.css" />
-  <script src="{{ asset('assets/client') }}/js/jquery.min.js"></script>
-  <script src="{{ asset('assets/client') }}/js/popper.min.js"></script>
-  <script src="{{ asset('assets/client') }}/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="{{ asset('assets/client') }}/js/slick.min.js"></script>
-  <script src="https://kit.fontawesome.com/969fc0c091.js" crossorigin="anonymous"></script>
-  <script src="{{ asset('assets/client') }}/js/aos.js"></script>
-  <script src="{{ asset('assets/client') }}/js/owl.carousel.js"></script>
-  <script src="{{ asset('assets/client') }}/js/script.js"></script>
+  
   @stack('css')
 </head>
 
@@ -39,8 +32,15 @@
   
     @include('client.layouts.footer.footer')
   
-
-@stack('js')
+    <script src="{{ asset('assets/client') }}/js/jquery.min.js"></script>
+    <script src="{{ asset('assets/client') }}/js/popper.min.js"></script>
+    <script src="{{ asset('assets/client') }}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/client') }}/js/slick.min.js"></script>
+    <script src="https://kit.fontawesome.com/969fc0c091.js" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/client') }}/js/aos.js"></script>
+    <script src="{{ asset('assets/client') }}/js/owl.carousel.js"></script>
+    <script src="{{ asset('assets/client') }}/js/script.js"></script>
+    @stack('js')
 </body>
 
 </html>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Gallery;
 use Auth;
 
 class GalleryCategoryController extends Controller
@@ -200,5 +201,13 @@ class GalleryCategoryController extends Controller
                 $this->foreachlong($cat_child);
             }
         }
+    }
+
+    public function gallery($id)
+    {
+        $galleries = Gallery::where('category_id', $id)
+                    ->orderBy('order')
+                    ->paginate();
+        return view('admin.gallery.index', compact('galleries'));
     }
 }

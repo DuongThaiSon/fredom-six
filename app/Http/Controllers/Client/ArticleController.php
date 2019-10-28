@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Image;
 
 class ArticleController extends Controller
 {
@@ -16,9 +17,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $ceo = Image::where([
+            ['imageable_id', '=', '1'],
+            ['is_public', '=', '1']
+        ])->orderBy('order','desc')->first();
+        $slideAbout = Image::where([
+            ['imageable_id', '=', '3'],
+            ['is_public', '=', '1']
+        ])->orderBy('order', 'desc')->get();
         $ourworks = Article::where('category_id', 3)->orderBy('id')->get();
         $about = Article::where('category_id', 1)->first();
-        return view('client.introduce.introduce', compact('about', 'ourworks'));
+        return view('client.introduce.introduce', compact('about', 'ourworks', 'ceo', 'slideAbout'));
     }
 
     /**

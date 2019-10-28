@@ -1,151 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="/assets/client/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/assets/client/css/owl.carousel.min.css" />
-  <link rel="stylesheet" href="/assets/client/css/owl.theme.default.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/assets/client/css/aos.css" />
-  <link rel="stylesheet" href="/assets/client/css/animate.min.css" />
-  <link rel="stylesheet" type="text/css" href="/assets/client/css/slick.css" />
-  <link rel="stylesheet" href="/assets/client/css/style.css" />
-  <link rel="stylesheet" href="/assets/client/css/pages.css" />
-  <link rel="stylesheet" href="/assets/client/css/responsive.css" />
-  <script src="/assets/client/js/jquery.min.js"></script>
-  <script src="/assets/client/js/popper.min.js"></script>
-  <script src="/assets/client/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/assets/client/js/slick.min.js"></script>
-  <script src="https://kit.fontawesome.com/969fc0c091.js" crossorigin="anonymous"></script>
-  <script src="/assets/client/js/aos.js"></script>
-  <script src="/assets/client/js/owl.carousel.js"></script>
-  <script src="/assets/client/js/script.js"></script>
-  <title>Home Moolez 2</title>
-</head>
-
-<body>
-  <!-- header -->
-  <section id="header">
-    <!-- top -->
-    <div class="head-hotline">
+@extends('client.layouts.main', ['title' => __('Intro')])
+@section('content')
+  <div class="bread-crumb">
+    <div class="row" style="background: #ebebeb;">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-5">
-            <p class="hotline text-uppercase m-0">
-              hotline: 1900292976
-            </p>
-          </div>
-          <div class="col-lg-6 col-md-7">
-            <ul class="nav nav-head float-right">
-              <li class="nav-item p-0">
-                <select name="" id="" class="head-select">
-                  <option value="">VNĐ</option>
-                  <option value="">$</option>
-                  <option value="">£</option>
-                </select>
-              </li>
-              <li class="nav-item">
-                <select name="" id="" class="head-select">
-                  <option value="">Vietnamese</option>
-                  <option value="">United States</option>
-                  <option value="">England</option>
-                </select>
-              </li>
-              <li class="nav-item">
-                <a href="#">Đăng ký</a>
-              </li>
-              <li class="nav-item">
-                <a href="#">Đăng nhập</a>
-              </li>
-              <li class="nav-item p-0">
-                <button type="button" class="btn-search">
-                  <i class="fas fa-search"></i>
-                </button>
-                <div class="search-header">
-                  <input type="text" />
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Giới thiệu</a></li>
+          </ol>
+        </nav>
       </div>
     </div>
-    <!-- navbar -->
-    <div id="navbar">
-      <nav class="navbar navbar-expand-md">
-        <div class="container">
-          <a href="#" class="navbar-brand">
-            <img src="/assets/client/img/head-logo.png" alt="" />
-          </a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <i class="fas fa-bars text-white fa-2x pr-2"></i>
-          </button>
-          <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">new arrival</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">tin tức</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nữ</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nam</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">monoco</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">gifts</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">showroom</a>
-              </li>
-            </ul>
-            <div class="cart">
-              <div class="cart-icon">
-                <a href="#"> <i class="fas fa-shopping-basket"></i></a>
-                <div class="cart-items">08</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <!-- breadcrumb -->
-    <div class="bread-crumb">
-      <div class="row" style="background: #ebebeb;">
-        <div class="container">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Giới thiệu</a></li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
   <!-- about-detail -->
   <section id="about-detail">
     <div class="container">
       <div class="about-slide">
         <div id="about-slide" class="owl-carousel owl-theme">
+          @forelse ($slideAbout as $image)
           <div class="item">
             <a href="#">
-              <img src="/assets/client/img/datran.png" alt="">
+              <img src="{{ $image->name }}" alt="Slide">
             </a>
             <div class="banner-content position-absolute">
               <div class="banner-text"></div>
             </div>
           </div>
-          <div class="item">
+          @empty
+              
+          @endforelse
+          {{-- <div class="item">
             <a href="#">
               <img src="/assets/client/img/datran.png" alt="">
             </a>
@@ -160,17 +44,18 @@
             <div class="banner-content">
               <div class="banner-text"></div>
             </div>
-          </div>
+          </div> --}}
+          
         </div>
         <div class="about-content">
-          <h3 class="text-center">{!! $about->name !!}</h3>
+          <h3 class="text-center">{!! $about->name??'' !!}</h3>
           <div class="under-line"></div>
-          {!! $about->detail !!}
+          {!! $about->detail??'' !!}
           <div class="share mt-5">
             <span>Share: </span>
             <a class="mx-2" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn"><i class="fab fa-facebook-square fa-2x" style="color: #3b5998;"></i></a>
             <a class="mx-2" target="_blank" href="https://twitter.com/intent/tweet?url=https://moolez.vn/"><i class="fab fa-twitter fa-2x" style="color: #55acee;"></i></a>
-            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description=Init%20HTML%20%E2%80%93%20Kh%E1%BB%9Fi%20%C4%91%E1%BA%A7u%20d%E1%BB%B1%20%C3%A1n%20Web"><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
+            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description="><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
           </div>
         </div>
       </div>
@@ -183,7 +68,7 @@
       <div class="row">
         <div class="col-lg-6 col-12">
           <div class="about-img">
-            <img src="/assets/client/img/ceo.png" class="img-fluid" alt="">
+            <img src="{{ $ceo->name??'' }}" class="img-fluid" alt="CEO">
             <div class="about-text">
               <p class="ceo-name text-center m-0">Mrs. Thái Hương Lan</p>
               <p class="text-center m-0 font-weight-bold text-dark" style="font-size: 13px;">CEO & Founder Moolez</p>
@@ -275,83 +160,9 @@
     </div>
   </section>
   <!-- showroom -->
-  <section id="showroom">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 showroom">
-          <div class="col-lg-7 float-right">
-            <h2 class="showroom-title text-uppercase">showroom</h2>
-            <p>Hiện tại Moolez đã có 16 cửa hàng tại Việt Nam được phân bố rộng rãi các vùng miền</p>
-            <a href="#" class="learn text-uppercase">learn more</a>
-          </div>
-        </div>
+  
 
-        <div class="col-md-6 letter"
-          style="background: url('/assets/client/img/banner.png') no-repeat center; background-size: cover;">
-          <div class="col-lg-10">
-            <h2 class="letter-title text-uppercase">sign up for newsletter</h2>
-            <div class="position-relative">
-              <input type="email" name="" id="" placeholder="Your email address">
-              <button class="btn-sub text-uppercase">subscribe</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Footer -->
-  <section id="main-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-5 col-md-12 pt-5 mb-3">
-          <img class="mb-5" src="/assets/client/img/head-logo.png" alt="" />
-          <p>CÔNG TY CP THỜI TRANG MOOLEZ VIỆT NAM</p>
-          <P>Giấy ĐKDN: 017084424 - Ngày cấp: 12/05/2017, được sửa đổi lần thứ nhất
-            ngày 24/07/2017</P>
-          <p>
-            Cơn quan cáp: Phòng Đăng Ký kinh doanh - Sở kế hoạch và đầu tư TP.Hà Nội
-          </p>
-          <p>
-            Địa chỉ đăng ký kinh doanh: Số 18 Đoàn Trần Nghiệp, Phường Bùi Thị Xuân,
-            Quận Hai Ba Trưng, TP.Hà Nội
-          </p>
-          <p class="mt-5">
-            Bản quyển &copy; 2019 thuộc công ty Moolez VietNam jsc Design By Leotive
-          </p>
-        </div>
-        <div class="col-lg-4 col-md-12 policy pl-5">
-          <a href="#">Chính Sách Đổi Trả</a>
-          <a href="#">Chính Sách Bảo Hành</a>
-          <a href="#">Chính Sách Thẻ VIP</a>
-          <a href="#">Chính Sách Đại Lý</a>
-          <a href="#">Chính Sách Bảo Mật Thông Tin Khách Hàng</a>
-          <a href="#">Hướng Dẫn Chọn Size Giầy</a>
-          <a href="#">Chính Sách Bán Hàng Trên Website</a>
-        </div>
-        <div class="col-lg-3 col-md-12 mt-3 pl-5" style="line-height: 2;">
-          <div class="footer-icon d-flex mt-5 mb-5">
-            <a class="mr-2" href=""><i class="fab fa-twitter fa-2x"></i></a>
-            <a class="mr-2" href=""><i class="fab fa-pinterest fa-2x"></i></a>
-            <a href=""><i class="fab fa-facebook fa-2x"></i></a>
-          </div>
-          <a href="">Trang chủ</a>
-          <a href="">Giới thiệu</a>
-          <a href="">Câu hỏi thường gặp</a>
-          <a href="">Liên hệ với chúng tôi</a>
-          <a href="">Liên hệ với đại lý</a>
-          <img class="mt-5" src="/assets/client/img/bo-cong-thuong.png" alt="" />
-        </div>
-      </div>
-      <div class="row  mt-4" style="color: #a3a3a3; font-size: 13px;">
-        <div class="col-4 pt-3">DỊCH PHỤ KHÁCH HÀNG: 0932 221 285</div>
-        <div class="col-5 pt-3">GIỜ LÀM VIỆC: CÁCH NGÀY TRONG TUẦN 8:00 ĐẾN 18:00</div>
-        <div class="col-3 mb-5">
-          <a href=""><img src="/assets/client/img/chart.png" alt=""></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
+@endsection
   <script src="/assets/client/js/jquery.min.js"></script>
   <script src="/assets/client/js/owl.carousel.js"></script>
   <script>
@@ -373,7 +184,3 @@
     });
   </script>
   <script src="/assets/client/js/script.js"></script>
-
-</body>
-
-</html>

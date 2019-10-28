@@ -156,6 +156,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@deleteAll'
     ]);
 
+
     Route::post('articles/sort', [
         'as' => 'admin.articles.sort',
         'uses' => 'ArticleController@sort'
@@ -191,7 +192,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['articles' => 'id']
     ])->except('destroy');
 
-    // article category
+
+    Route::get('articles/category/{id}',[
+        'as' => 'admin.article.cat',    // article theo category id
+        'uses' => 'ArticleCategoryController@articles'
+    ]);
 
     Route::get('article-cats/{id}/delete', [
         'as' => 'admin.article-cats.delete',
@@ -215,6 +220,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ])->except('destroy');
 
     // image
+
+    Route::get('galleries/category/{id}',[
+        'as' => 'admin.gallery.cat',    // gallery theo category id
+        'uses' => 'GalleryCategoryController@gallery'
+    ]);
+    
     Route::group([
         'prefix' => 'gallery/{id}'
     ], function() {
@@ -222,6 +233,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'admin.images.create',
             'uses' => 'GalleryController@imageCreate'
         ]);
+
+        
+    
 
         Route::post('images', [
             'as' => 'admin.images.store',
@@ -330,7 +344,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('showrooms', 'ShowroomController',[
         'as' => 'admin',
         'parameters' => ['showrooms' => 'id']
+    ])->except('destroy');
+    Route::get('showrooms/delete/{id}', [
+        'as' => 'admin.showrooms.delete',
+        'uses' => 'ShowroomController@destroy'
     ]);
+    // Route::get('showrooms/public', [
+    //     'as' => 'admin.showrooms.changePublic',
+    //     'uses' => 'ShowroomController@changePublic'
+    // ]);
 
     Route::get('password/change',[
         'as' => 'password.change',

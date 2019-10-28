@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Image;
 
 class NewController extends Controller
 {
@@ -19,7 +20,15 @@ class NewController extends Controller
             ['category_id', '=', '2'],
             ['is_public', '=', '1']
         ])->orderBy('id','desc')->paginate(3);
-        return view('client.new.new', compact('news'));
+        $slide = Image::where([
+            ['imageable_id', '=', '2'],
+            ['is_public', '=', '1']
+        ])->orderBy('order', 'desc')->get();
+        // $firstSlide = $slide = Image::where([
+        //     ['imageable_id', '=', '2'],
+        //     ['is_public', '=', '1']
+        // ])->orderBy('id')->first();
+        return view('client.new.new', compact('news', 'slide'));
     }
 
     /**
@@ -56,6 +65,7 @@ class NewController extends Controller
             ['is_public', '=', '1'],
             ['is_new', '=', '1']
         ])->orderBy('id','desc')->limit(3)->get();
+
         $detail = Article::findOrFail($id);
         return view('client.new.detail', compact('newests', 'detail'));
     }

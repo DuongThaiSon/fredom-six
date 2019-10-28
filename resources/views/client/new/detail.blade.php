@@ -1,130 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="/assets/client/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/assets/client/css/owl.carousel.min.css" />
-  <link rel="stylesheet" href="/assets/client/css/owl.theme.default.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/assets/client/css/aos.css" />
-  <link rel="stylesheet" href="/assets/client/css/animate.min.css" />
-  <link rel="stylesheet" type="text/css" href="/assets/client/css/slick.css" />
-  <link rel="stylesheet" href="/assets/client/css/style.css" />
-  <link rel="stylesheet" href="/assets/client/css/pages.css" />
-  <link rel="stylesheet" href="/assets/client/css/responsive.css" />
-  <script src="/assets/client/js/jquery.min.js"></script>
-  <script src="/assets/client/js/popper.min.js"></script>
-  <script src="/assets/client/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="/assets/client/js/slick.min.js"></script>
-
-  <script src="/assets/client/js/aos.js"></script>
-  <script src="/assets/client/js/owl.carousel.js"></script>
-  <script src="/assets/client/js/script.js"></script>
-  <title>Home Moolez 2</title>
-</head>
-
-<body>
-  <!-- header -->
-  <section id="header">
-    <!-- top -->
-    <div class="head-hotline">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-5">
-            <p class="hotline text-uppercase m-0">
-              hotline: 1900292976
-            </p>
-          </div>
-          <div class="col-lg-6 col-md-7">
-            <ul class="nav nav-head float-right">
-              <li class="nav-item p-0">
-                <select name="" id="" class="head-select">
-                  <option value="">VNĐ</option>
-                  <option value="">$</option>
-                  <option value="">£</option>
-                </select>
-              </li>
-              <li class="nav-item">
-                <select name="" id="" class="head-select">
-                  <option value="">Vietnamese</option>
-                  <option value="">United States</option>
-                  <option value="">England</option>
-                </select>
-              </li>
-              <li class="nav-item">
-                <a href="#">Đăng ký</a>
-              </li>
-              <li class="nav-item">
-                <a href="#">Đăng nhập</a>
-              </li>
-              <li class="nav-item p-0">
-                <button type="button" class="btn-search">
-                  <i class="fas fa-search"></i>
-                </button>
-                <div class="search-header">
-                  <input type="text" />
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+@extends('client.layouts.main', ['title' => __('Detail')])
+@section('content')
+  <!-- showcase -->
+  <div id="showcase">
+    <div class="showcase-image">
+      <img src="/assets/client/img/SaleImage.png" class="w-100" alt="">
     </div>
-    <!-- navbar -->
-    <div id="navbar">
-      <nav class="navbar navbar-expand-md">
-        <div class="container">
-          <a href="#" class="navbar-brand">
-            <img src="/assets/client/img/head-logo.png" alt="" />
-          </a>
-          <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <i class="fas fa-bars text-white fa-2x pr-2"></i>
-          </button>
-          <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">new arrival</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">tin tức</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nữ</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nam</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">monoco</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">gifts</a>
-              </li>
-              <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">showroom</a>
-              </li>
-            </ul>
-            <div class="cart">
-              <div class="cart-icon">
-                <a href="#"> <i class="fas fa-shopping-basket"></i></a>
-                <div class="cart-items">08</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <!-- showcase -->
-    <div id="showcase">
-      <div class="showcase-image">
-        <img src="/assets/client/img/SaleImage.png" class="w-100" alt="">
-      </div>
-    </div>
-  </section>
+  </div>
   <!-- news detail -->
   <section id="news-detail">
     <div class="container">
@@ -137,12 +18,12 @@
             </div>
             <div class="time">
               <i class="fas fa-clock"></i>
-              <span>{{ $detail->updated_at}}</span>
+              <span>{{ $detail->updated_at ?? ''}}</span>
             </div>
           </div>
           <div class="detail-content">
-            <h2 class="detail-title font-weight-bold">{{ $detail->name }}</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+            <h2 class="detail-title font-weight-bold">{{ $detail->name??'' }}</h2>
+            {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and
               typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
               Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the
@@ -174,7 +55,10 @@
             <div class="img-detail">
               <img src="/assets/client/img/detail-img.png" alt="">
               <div class="img-cap text-center">Caption Images</div>
-            </div>
+            </div> --}}
+
+            {!! $detail->detail ??'' !!}
+
           </div>
           <div class="detail-bottom d-flex justify-content-between">
             <div class="tag">
@@ -185,9 +69,9 @@
             </div>
             <div class="share">
               <span class="share-link text-uppercase font-weight-bold">share this: </span>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-pinterest"></i></a>
-              <a href="#"><i class="fab fa-facebook-square"></i></a>
+              <a target="_blank" href="https://twitter.com/intent/tweet?text={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-twitter"></i></a>
+              <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ route('client.news.detail', $detail->id??'' )}}&media=moolez.vn/{{ $detail->avatar??''}}&description="><i class="fab fa-pinterest"></i></a>
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-facebook-square"></i></a>
             </div>
           </div>
           <hr>
@@ -199,7 +83,7 @@
           <div class="more-news">
             <a href="{{ route('client.news.detail', $newest->id )}}">
               <div class="news-img">
-                <img src="/assets/client/img/news/news-2.png" alt="">
+                <img src="{{ $newest->avatar }}" alt="">
               </div>
               <p class="news-title font-weight-bold">{{ $newest->name }}</p>
             </a>
@@ -229,83 +113,4 @@
       </div>
     </div>
   </section>
-  <!-- showroom -->
-  <section id="showroom">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 showroom">
-          <div class="col-lg-7 float-right">
-            <h2 class="showroom-title text-uppercase">showroom</h2>
-            <p>Hiện tại Moolez đã có 16 cửa hàng tại Việt Nam được phân bố rộng rãi các vùng miền</p>
-            <a href="#" class="learn text-uppercase">learn more</a>
-          </div>
-        </div>
-
-        <div class="col-md-6 letter"
-          style="background: url('/assets/client/img/banner.png') no-repeat center; background-size: cover;">
-          <div class="col-lg-10">
-            <h2 class="letter-title text-uppercase">sign up for newsletter</h2>
-            <div class="position-relative">
-              <input type="email" name="" id="" placeholder="Your email address">
-              <button class="btn-sub text-uppercase">subscribe</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Footer -->
-  <section id="main-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-5 col-md-12 pt-5 mb-3">
-          <img class="mb-5" src="/assets/client/img/head-logo.png" alt="" />
-          <p>CÔNG TY CP THỜI TRANG MOOLEZ VIỆT NAM</p>
-          <P>Giấy ĐKDN: 017084424 - Ngày cấp: 12/05/2017, được sửa đổi lần thứ nhất
-            ngày 24/07/2017</P>
-          <p>
-            Cơn quan cáp: Phòng Đăng Ký kinh doanh - Sở kế hoạch và đầu tư TP.Hà Nội
-          </p>
-          <p>
-            Địa chỉ đăng ký kinh doanh: Số 18 Đoàn Trần Nghiệp, Phường Bùi Thị Xuân,
-            Quận Hai Ba Trưng, TP.Hà Nội
-          </p>
-          <p class="mt-5">
-            Bản quyển &copy; 2019 thuộc công ty Moolez VietNam jsc Design By Leotive
-          </p>
-        </div>
-        <div class="col-lg-4 col-md-12 policy pl-5">
-          <a href="#">Chính Sách Đổi Trả</a>
-          <a href="#">Chính Sách Bảo Hành</a>
-          <a href="#">Chính Sách Thẻ VIP</a>
-          <a href="#">Chính Sách Đại Lý</a>
-          <a href="#">Chính Sách Bảo Mật Thông Tin Khách Hàng</a>
-          <a href="#">Hướng Dẫn Chọn Size Giầy</a>
-          <a href="#">Chính Sách Bán Hàng Trên Website</a>
-        </div>
-        <div class="col-lg-3 col-md-12 mt-3 pl-5" style="line-height: 2;">
-          <div class="footer-icon d-flex mt-5 mb-5">
-            <a class="mr-2" href=""><i class="fab fa-twitter fa-2x"></i></a>
-            <a class="mr-2" href=""><i class="fab fa-pinterest fa-2x"></i></a>
-            <a href=""><i class="fab fa-facebook fa-2x"></i></a>
-          </div>
-          <a href="">Trang chủ</a>
-          <a href="">Giới thiệu</a>
-          <a href="">Câu hỏi thường gặp</a>
-          <a href="">Liên hệ với chúng tôi</a>
-          <a href="">Liên hệ với đại lý</a>
-          <img class="mt-5" src="/assets/client/img/bo-cong-thuong.png" alt="" />
-        </div>
-      </div>
-      <div class="row  mt-4" style="color: #a3a3a3; font-size: 13px;">
-        <div class="col-4 pt-3">DỊCH PHỤ KHÁCH HÀNG: 0932 221 285</div>
-        <div class="col-5 pt-3">GIỜ LÀM VIỆC: CÁCH NGÀY TRONG TUẦN 8:00 ĐẾN 18:00</div>
-        <div class="col-3 mb-5">
-          <a href=""><img src="/assets/client/img/chart.png" alt=""></a>
-        </div>
-      </div>
-    </div>
-  </section>
-</body>
-
-</html>
+@endsection

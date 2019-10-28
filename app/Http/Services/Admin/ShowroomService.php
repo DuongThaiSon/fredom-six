@@ -10,7 +10,7 @@ use Auth;
 Class ShowroomService
 {
     private $attributes = [
-        'name', 'detail', 'email', 'phone', 'address', 'avatar', 'regions'
+        'name', 'detail', 'email', 'phone', 'address', 'avatar', 'regions', 'map'
     ];
     public function showroomCreate($request)
     {

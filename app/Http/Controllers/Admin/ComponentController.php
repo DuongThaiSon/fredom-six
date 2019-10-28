@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Component;
 use App\Http\Services\Admin\ComponentService;
+use App\Http\Requests\ComponentRequest;
 use Auth;
 
 
@@ -17,23 +18,15 @@ class ComponentController extends Controller
     }
     public function index()
     {
-        $components = Component::orderBy('id','desc')->paginate(10);
+        $components = Component::orderBy('id','desc')->with(['comCreatedBy'])->paginate();
         return view('admin.component.index', compact('components'));
     }
     public function create()
     {
        return view('admin.component.add');
     }
-    public function store(Request $request)
+    public function store(ComponentRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required'
-        ],
-        [
-            'name.required' => 'Tiêu đề không được để trống',
-            'detail.required' => 'Nội dung không được để trống'
-        ]);
         $attributes = $this->service->componentCreate($request);
         $component = Component::create($attributes);
         return redirect()->route('admin.component.index')->with('success', 'Tạo dữ liệu thành công !');
@@ -43,16 +36,8 @@ class ComponentController extends Controller
         $component = Component::findOrFail($id);
         return view('admin.component.edit', compact('component'));
     }
-    public function update(Request $request, $id)
+    public function update(ComponentRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required'
-        ],
-        [
-            'name.required' => 'Tiêu đề không được để trống',
-            'detail.required' => 'Nội dung không được để trống'
-        ]);
         $component = Component::findOrFail($id);
         $attributes = $this->service->componentEdit($request);
         $component->fill($attributes);

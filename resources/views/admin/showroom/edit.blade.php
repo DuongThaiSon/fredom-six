@@ -36,9 +36,9 @@
         <div class="col-12">
           <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
           <div class="form-group">
-            <label>Tên nội dung</label>
-            <input type="text" name="name" class="form-control" placeholder="Tên nội dung" value="{{ $showroom->name }}"/>
-            <small class="form-text">Đặt tên cho nội dung</small>
+            <label>Tên Showroom</label>
+            <input type="text" name="name" class="form-control" placeholder="Tên Showroom" value="{{ $showroom->name }}"/>
+            <small class="form-text">Đặt tên cho Showroom</small>
           </div>
           <div class="form-group">
             <label>Chi nhánh</label>
@@ -67,6 +67,11 @@
             <small class="form-text">Địa chỉ showroom</small>
           </div>
           <div class="form-group">
+            <label>Bản đồ</label>
+            <input type="text" name="map" class="form-control" placeholder="Link bản đồ showroom" value="{{ $showroom->map }}"/>
+            <small class="form-text">Bản đồ showroom</small>
+          </div>
+          <div class="form-group">
             <label class="control-label">Ảnh đại diện</label>
             <input
               type="file"
@@ -91,7 +96,7 @@
           </div>
 
           <!-- Button Toggle -->
-          <div class="mb-2">
+          {{-- <div class="mb-2">
             <label class="control-label">Trạng thái hiển thị</label>
             <input
               type="checkbox"
@@ -107,7 +112,7 @@
             <small class="form-text"
               >Khi tính năng được bật, danh mục này sẽ được hiển thị trên trang chủ hoặc các điểm chỉ định trên giao diện.</small
             >
-          </div>
+          </div> --}}
 
         </div>
         </div>

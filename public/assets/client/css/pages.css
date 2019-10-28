@@ -45,20 +45,20 @@ input:focus {
   margin-top: 57px;
   margin-bottom: 300px; }
   #about-detail .about-slide {
-    position: relative; }
-    #about-detail .about-slide #about-slide {
-      z-index: 2; }
+    position: relative;
+    margin-bottom: 100px; }
     #about-detail .about-slide .owl-dots {
       position: absolute;
       top: 5%;
       right: 5%; }
       #about-detail .about-slide .owl-dots .owl-dot.active span {
         background: #e36b00 !important; }
-    #about-detail .about-slide .about-content {
+     #about-detail .about-slide .about-content {
       position: absolute;
       z-index: 1;
-      margin: 0 166px;
-      margin-top: -206px;
+      max-width: 778px;
+      margin: 0 auto;
+      top: 50% !important;
       background: #ffffff;
       padding: 32px 52px;
       opacity: 0.9; }
@@ -66,7 +66,7 @@ input:focus {
         font-family: 'Times New Roman', Times, serif; }
       #about-detail .about-slide .about-content .under-line {
         width: 100%;
-        height: 0.5px;
+        height: 0.5px !important;
         background: #000000;
         margin-bottom: 40px; }
 
@@ -151,9 +151,7 @@ input:focus {
 
 #about-detail {
   margin-top: 200px;
-  margin-bottom: 300px;
-  width: 350px;
-  height: 104px; }
+  margin-bottom: 300px; }
   #about-detail .about-slide {
     position: relative; }
     #about-detail .about-slide #about-slide {
@@ -168,7 +166,7 @@ input:focus {
       position: absolute;
       z-index: 2;
       margin: 0 166px;
-      margin-top: -206px;
+      top: 30%;
       background: #ffffff;
       padding: 32px 52px;
       opacity: 0.9; }
@@ -176,7 +174,7 @@ input:focus {
         font-family: 'Times New Roman', Times, serif; }
       #about-detail .about-slide .about-content .under-line {
         width: 100%;
-        height: 0.5px;
+        height: 1px;
         background: #000000;
         margin-bottom: 40px; }
 
@@ -211,6 +209,13 @@ input:focus {
 #contact {
   margin-top: 250px;
   margin-bottom: 120px; }
+  #contact a {
+    color: unset; }
+    #contact a:hover {
+      text-decoration: none;
+      color: #e36b00 !important; }
+    #contact a.active {
+      color: #e36b00; }
   #contact .line-bold {
     height: .8px;
     background: #000000;
@@ -221,6 +226,9 @@ input:focus {
   #contact .showroom .showroom-img {
     width: 100%;
     height: 240px; }
+  #contact .showroom{
+    margin-top: 30px;
+  }
   #contact .showroom img {
     width: 100%;
     height: 240px; }
@@ -231,7 +239,7 @@ input:focus {
     margin-top: 30px;
     margin-bottom: 20px; }
   .showroom-detail-address{
-    height: 50px;
+    height: 48px;
   }
   #contact .showroom p {
     font-size: 24px; }
@@ -662,6 +670,41 @@ input[type=number]::-webkit-outer-spin-button {
   border-bottom: 1px solid rgba(0, 0, 0, 0.125); }
   #product-detail .product-detail-tab .product-img img {
     height: 200px; }
+#product-detail .single_product_thumb {
+  position: relative; }
+#product-detail .single_product_thumb .carousel-indicators li {
+  border: 1px solid #e3e6e9;
+  background-position: center center;
+  background-size: cover;
+  margin-bottom: 10px;
+  min-height: 110px;
+  min-width: 86px; }
+#product-detail .single_product_thumb .carousel-inner {
+  border: 1px solid #ddd;
+  margin: 0 3px;
+  width: calc(100% - 6px); }
+#product-detail .single_product_thumb .carousel-indicators {
+  height: 100%; }
+#product-detail .single_product_thumb .carousel-indicators li.active {
+  border: 1px solid #ddd; }
+#product-detail .single_product_thumb .product_badge {
+  top: 30px; }
+#product-detail .carousel-indicators {
+  top: 10px;
+  position: absolute; }
+#product-detail .carousel-indicators .thumbnail {
+  overflow-y: scroll; }
+#product-detail .carousel-indicators .thumbnail::-webkit-scrollbar {
+  display: none; }
+#product-detail .up-button,
+#product-detail .down-button {
+  border: none;
+  background: #ecf0f1;
+  width: 86px;
+  height: 20px;
+  cursor: pointer; }
+#product-detail button {
+  outline: none !important; }
 
 .more-product {
   margin-top: 35px; }
@@ -754,3 +797,33 @@ input[type=number]::-webkit-outer-spin-button {
       border-top-right-radius: .25rem !important; }
 
 /*# sourceMappingURL=pages.css.map */
+#map {
+  top: 150px !important; }
+
+.modal {
+  top: 50px !important; }
+
+.modal-dialog {
+  max-width: 841px; }
+
+.modal-content {
+  background: #000000;
+  color: #ffffff; }
+  .modal-content .modal-header {
+    border-bottom: 1px solid transparent !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important; }
+    .modal-content .modal-header .close-button {
+      font-size: 33px;
+      color: #ffffff; }
+
+.modal-body {
+  padding-left: 136px !important;
+  padding-right: 136px !important;
+  padding-bottom: 50px; }
+  .modal-body .label {
+    font-size: 14px !important; }
+  .modal-body .form-control {
+    border-radius: 5px !important; }
+  .modal-body .btn {
+    border-radius: 5px !important; }

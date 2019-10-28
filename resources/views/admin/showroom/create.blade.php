@@ -49,22 +49,22 @@
           <div class="form-group">
             <label>Email</label>
             <input type="text" name="email" class="form-control" placeholder="Email"/>
-            <small class="form-text"
-              >Email của liên hệ showroom</small>
+            <small class="form-text">Email của liên hệ showroom</small>
           </div>
           <div class="form-group">
             <label>Số điện thoại</label>
             <input type="text" name="phone" class="form-control" placeholder="Số điện thoại"/>
-            <small class="form-text"
-              >Số điện thoại của showroom</small
-            >
+            <small class="form-text">Số điện thoại của showroom</small>
           </div>
           <div class="form-group">
             <label>Địa chỉ</label>
             <input type="text" name="address" class="form-control" placeholder="Địa chỉ"/>
-            <small class="form-text"
-              >Địa chỉ showroom</small
-            >
+            <small class="form-text">Địa chỉ showroom</small>
+          <div class="form-group">
+            <label>Bản đồ</label>
+            <input type="text" name="map" class="form-control" placeholder="Link bản đồ showroom"/>
+            <small class="form-text">Bản đồ showroom</small>
+          </div>
           </div>
           <div class="form-group">
             <label class="control-label">Ảnh đại diện</label>
@@ -72,10 +72,8 @@
               type="file"
               class="form-control"
               name="avatar"
-              placeholder="Ảnh đại diện"
-            />
-            <small class="form-text"
-              >Ảnh đại diện showroom</small>
+              placeholder="Ảnh đại diện"/>
+            <small class="form-text">Ảnh đại diện showroom</small>
           </div>
 
           <div class="form-group">
@@ -87,28 +85,22 @@
               class="form-control"
               placeholder="Ngôn ngữ"
               value=""
-              readonly
-            />
+              readonly/>
             <small class="form-text">Ngôn ngữ của trang(Ví dụ:Tiếng Việt,Tiếng Anh)</small>
           </div>
 
           <!-- Button Toggle -->
-          <div class="mb-2">
+          {{-- <div class="mb-2">
             <label class="control-label">Trạng thái hiển thị</label>
             <input
               type="checkbox"
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              value=""
-            />
-            <label class="label-checkbox" for="public"
-              >Hiển thị</label
-            >
-            <small class="form-text"
-              >Khi tính năng được bật, danh mục này sẽ được hiển thị trên trang chủ hoặc các điểm chỉ định trên giao diện.</small
-            >
-          </div>
+              value=""/>
+            <label class="label-checkbox" for="public">Hiển thị</label>
+            <small class="form-text">Khi tính năng được bật, danh mục này sẽ được hiển thị trên trang chủ hoặc các điểm chỉ định trên giao diện.</small>
+          </div> --}}
 
         </div>
         </div>

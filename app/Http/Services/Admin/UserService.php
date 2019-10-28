@@ -14,10 +14,11 @@ class UserService
             $request->avatar->move(public_path($destinationDir), $fileName);
             $avatar = $destinationDir.$fileName;
             return $avatar;
-        }else{
-            $avatar = User::findOrFail($request->id)->avatar;
-            return $avatar;
         }
+        // else{
+        //     $avatar = User::findOrFail($request->id)->avatar;
+        //     return $avatar;
+        // }
         
     }
 
@@ -48,7 +49,7 @@ class UserService
         $userChange->profiles()->syncWithoutDetaching($syncData);
     }
 
-    public function createUser($request, $file, $destinationDir)
+    public function createUser($request, $destinationDir)
     {
         $avatar = $this->uploadAvatar($request, $destinationDir);
         $attributes = [

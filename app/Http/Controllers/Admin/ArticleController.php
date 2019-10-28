@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\ArticleRequest;
 use App\Http\Services\ArticleService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
@@ -26,7 +27,9 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate();
-        return view('admin.articles.index', compact('articles'));
+        $categories = $this->getSubCategories(0);
+        $users = User::all();
+        return view('admin.articles.index', compact('articles','categories', 'users'));
     }
 
     private function getSubCategories($parent_id, $ignore_id=null)
@@ -146,6 +149,23 @@ class ArticleController extends Controller
 
     }
 
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids)) {
+            return 0;
+        }else {
+            foreach ($ids as $id) {
+                Article::findOrFail($id)->delete();
+            }
+            return 1;
+        }
+        if (!$deleted) {
+            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
+
     public function sort(Request $request)
     {
         $this->service->SortData($request);
@@ -189,4 +209,46 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('COPPIED');
     }
 
+    public function search(Request $request)
+    {
+        // print_r($request->category_id);die;
+
+        $categories = $this->getSubCategories(0);
+        $users = User::all();
+
+
+        $articles = Article::query();
+
+        $fields = ['name', 'category_id', 'created_by'];
+        foreach($fields as $field){
+            if(!empty($request->$field)){
+                $articles->where($field, 'like', '%' .$request->$field.'%');
+            }
+        }
+        if (!empty($request->to_date) && !empty($request->from_date)) {
+            $articles->whereBetween('created_at', [$request->to_date, $request->from_date]);
+        }
+
+        $articles = $articles->paginate(5);
+
+        return view('admin.articles.index', compact('articles','categories','users'));
+    }
+
+    public function movetop(Article $article, Request $request){
+        $condition = [];
+        $condition[] = ['order', '>', $article->order];
+
+        $otherArticles = Article::where($condition)->orderBy('order', 'asc')->get();
+
+        foreach ($otherArticles as $otherArticle){
+            $oldorder = $article->order;
+            $article->order = $otherArticle->order;
+            $otherArticle->order = $oldorder;
+            $article->save();
+            Article::where('id', $otherArticle->id)->update(['order' => $oldorder]);
+        }
+        if ($request->ajax()) {
+            return 0;
+        }
+    }
 }

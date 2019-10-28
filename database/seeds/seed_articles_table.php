@@ -76,7 +76,8 @@ class seed_articles_table extends Seeder
                 'is_new' => '1',
                 'is_public' => '1',
                 'category_id' => '2',
-                'updated_at' => '2019-10-23 00:54:54'
+                'updated_at' => '2019-10-23 00:54:54',
+                'order' => '11'
             ]
         );
         DB::table('articles')->insert(
@@ -91,7 +92,8 @@ class seed_articles_table extends Seeder
                 
                 <p>Lu&ocirc;n nắm bắt v&agrave; dẫn đầu xu hướng, Moolez ti&ecirc;n phong tạo dựng phong c&aacute;ch, mang cả thế giới thời trang đến với người Việt.</p>',
                 'is_public' => '1',
-                'category_id' => '1'
+                'category_id' => '4',
+                'order' => '6'
             ]
         );
         DB::table('articles')->insert(

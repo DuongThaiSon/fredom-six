@@ -19,6 +19,7 @@ class seed_categories_table extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'type' => 'article',
+                'parent_id' => '0',
                 'order' => '2'
             ]
         );
@@ -31,17 +32,31 @@ class seed_categories_table extends Seeder
                 'is_public' => '1',
                 'is_new' => '1',
                 'is_highlight' => '1',
+                'parent_id' => '0',
                 'type' => 'article',
                 'order' => '1'
             ]
         );
         DB::table('categories')->insert(
             [
+                'id' => '4',
+                'name' => 'About Moolez',
+                'is_public' => '1',
+                'is_new' => '1',
+                'is_highlight' => '1',
+                'parent_id' => '1',
+                'type' => 'article',
+                'order' => '8'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
                 'id' => '7',
-                'name' => 'News - Images',
+                'name' => 'News - Slide',
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'gallery',
+                'parent_id' => '0',
                 'order' => '4'
             ]
         );
@@ -53,8 +68,20 @@ class seed_categories_table extends Seeder
                 'is_public' => '1',
                 'is_new' => '1',
                 'is_highlight' => '1',
+                'parent_id' => '1',
                 'type' => 'article',
                 'order' => '3'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '8',
+                'name' => 'intro',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'gallery',
+                'order' => '5',
+                'parent_id' => '0'
             ]
         );
     }

@@ -165,6 +165,28 @@ class ArticleCategoryController extends Controller
         });
         return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
     }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids)) {
+            return 0;
+        }else {
+            $categoryid = $this->getSubCategories($ids);
+            $this->foreachlong($categoryid);
+            Category::findOrFail($ids)->delete();
+            $categories = $this->getSubCategories(0,$ids);
+            $category = $categories->filter(function($value, $key) use ($ids){
+            return $value->id == $ids;
+        });
+            return 1;
+        }
+        if (!$deleted) {
+            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
+
     public function sortcat(Request $request){
         $cats = $request->sort;
 		$order = array();
@@ -191,5 +213,15 @@ class ArticleCategoryController extends Controller
                 $this->foreachlong($cat_child);
             }
         }
+    }
+
+    public function articles($id)
+    {
+        $categories = $this->getSubCategories(0);
+        // $user = User::all();
+        $articles = Article::where('category_id', $id)
+                    ->orderBy('order')
+                    ->paginate();
+        return view('admin.articles.index', compact('articles', 'categories', 'user'));
     }
 }

@@ -239,4 +239,22 @@ class GalleryController extends Controller
 
         return redirect()->route('admin.articles.index')->with('COPPIED');
     }
+
+    public function movetop(Gallery $gallery, Request $request){
+        $condition = [];
+        $condition[] = ['order', '>', $gallery->order];
+
+        $otherGallerys = Gallery::where($condition)->orderBy('order', 'asc')->get();
+
+        foreach ($otherGallerys as $otherGallery){
+            $oldorder = $gallery->order;
+            $gallery->order = $otherGallery->order;
+            $otherGallery->order = $oldorder;
+            $gallery->save();
+            Gallery::where('id', $otherGallery->id)->update(['order' => $oldorder]);
+        }
+        if ($request->ajax()) {
+            return 0;
+        }
+    }
 }

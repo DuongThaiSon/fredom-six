@@ -2,16 +2,17 @@
 
 <div class="navbar-top fixed-top bg-white">
     <div class="nav-search float-left align-middle">
-        <form class="form-inline md-form form-sm">
-        <i class="material-icons text-secondary">
-            search
-        </i>
-        <input class="form-control form-control-sm bg-white" type="text" placeholder="Search" aria-label="Search" />
-        <span class="input-group-append">
-            <button class="btn btn-white pt-1" data-toggle="collapse" type="button" href="#advancesearch">
-            <i class="material-icons text-secondary" title="Tìm kiếm nâng cao" data-toggle="tooltip">expand_more</i>
-            </button>
-        </span>
+        <form action="#" method="GET" class="form-inline md-form form-sm">
+            <a href="#" class="material-icons text-secondary">
+                search
+            </a>
+            <input class="form-control form-control-sm bg-white" name="search" type="text" placeholder="Search" aria-label="Search" />
+            <span class="input-group-append">
+                <button class="btn btn-white pt-1" data-toggle="collapse" type="button" href="#advancesearch">
+                    <i class="material-icons text-secondary" title="Tìm kiếm nâng cao" data-toggle="tooltip">expand_more</i>
+                </button>
+            </span>
+
         </form>
     </div>
 
@@ -22,7 +23,7 @@
                 <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
                     data-toggle="dropdown">
                     Tiêng Việt
-                </button>
+                </i>
                 <div class="dropdown-menu">
                     <a href="" class="dropdown-item">English</a>
                     <a href="" class="dropdown-item">Tiếng Việt</a>
@@ -32,12 +33,12 @@
         <div class="btn-group dropdown">
             <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
                 data-toggle="dropdown">
-                Leotive
+                {{ Auth::user()->name}}
             </button>
             <div class="dropdown-menu">
                 <a href="" class="dropdown-item">Thay đổi thông tin cá nhân</a>
                 <a href="{{ route('password.change') }}" class="dropdown-item">Đổi mật khẩu</a>
-                <a href="signin.html" class="btn btn-sm dropdown-item" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">Thoát</a>
+                <a href="signin.html" class="btn btn-sm dropdown-item" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">Thoát</form>
             </div>
             <a href="signin.html" class="btn btn-sm" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">
                 <i class="material-icons">

@@ -119,6 +119,5 @@
  @push('js')
  <script>
     CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
 </script>
 @endpush

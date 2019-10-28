@@ -17,15 +17,19 @@
     <div class="container">
       <div class="about-slide">
         <div id="about-slide" class="owl-carousel owl-theme">
+          @forelse ($slideAbout as $image)
           <div class="item">
             <a href="#">
-              <img src="/assets/client/img/datran.png" alt="">
+              <img src="{{ $image->name }}" alt="Slide">
             </a>
             <div class="banner-content position-absolute">
               <div class="banner-text"></div>
             </div>
           </div>
-          <div class="item">
+          @empty
+              
+          @endforelse
+          {{-- <div class="item">
             <a href="#">
               <img src="/assets/client/img/datran.png" alt="">
             </a>
@@ -40,17 +44,18 @@
             <div class="banner-content">
               <div class="banner-text"></div>
             </div>
-          </div>
+          </div> --}}
+          
         </div>
         <div class="about-content">
-          <h3 class="text-center">{!! $about->name !!}</h3>
+          <h3 class="text-center">{!! $about->name??'' !!}</h3>
           <div class="under-line"></div>
-          {!! $about->detail !!}
+          {!! $about->detail??'' !!}
           <div class="share mt-5">
             <span>Share: </span>
             <a class="mx-2" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=moolez.vn"><i class="fab fa-facebook-square fa-2x" style="color: #3b5998;"></i></a>
             <a class="mx-2" target="_blank" href="https://twitter.com/intent/tweet?url=https://moolez.vn/"><i class="fab fa-twitter fa-2x" style="color: #55acee;"></i></a>
-            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description=Init%20HTML%20%E2%80%93%20Kh%E1%BB%9Fi%20%C4%91%E1%BA%A7u%20d%E1%BB%B1%20%C3%A1n%20Web"><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
+            <a class="mx-2" target="_blank" href="https://www.pinterest.com/pin/create/button/?url=moolez.vn&media=https://www.inithtml.com/wp-content/themes/init-html-theme/screenshot.jpg&description="><i class="fab fa-pinterest fa-2x" style="color: #c71806;"></i></a>
           </div>
         </div>
       </div>
@@ -63,7 +68,7 @@
       <div class="row">
         <div class="col-lg-6 col-12">
           <div class="about-img">
-            <img src="/assets/client/img/ceo.png" class="img-fluid" alt="">
+            <img src="{{ $ceo->name??'' }}" class="img-fluid" alt="CEO">
             <div class="about-text">
               <p class="ceo-name text-center m-0">Mrs. Thái Hương Lan</p>
               <p class="text-center m-0 font-weight-bold text-dark" style="font-size: 13px;">CEO & Founder Moolez</p>

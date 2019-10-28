@@ -25,8 +25,8 @@ class ArticleController extends Controller
             ['imageable_id', '=', '3'],
             ['is_public', '=', '1']
         ])->orderBy('order', 'desc')->get();
-        $ourworks = Article::where('category_id', 3)->orderBy('id')->get();
-        $about = Article::where('category_id', 1)->first();
+        $ourworks = Article::where('category_id', 3)->orderBy('order')->get();
+        $about = Article::where('category_id', 4)->orderBy('order')->first();
         return view('client.introduce.introduce', compact('about', 'ourworks', 'ceo', 'slideAbout'));
     }
 

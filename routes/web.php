@@ -39,4 +39,9 @@ Route::group([
         'as' => 'client.showrooms.contact',
         'uses' => 'ContactController@contact'
     ]);
+    Route::get('products', 'ProductController@product');
+    Route::get('products/{id}', 'ProductController@detail');
+    Route::get('cart', 'CartController@index');
+    Route::post('cart/add', 'CartController@add');
+    Route::post('cart/update', 'CartController@update');
 });

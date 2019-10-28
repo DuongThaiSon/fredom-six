@@ -17,10 +17,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // video
-    Route::resource('videos', 'VideoController',[
-        'as' => 'admin',
-        'parameters' => ['videos' => 'id']
-    ])->except('destroy');
 
     Route::get('videos/{id}/delete', [
         'as' => 'admin.videos.delete',
@@ -47,16 +43,29 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'VideoController@changeIsNew'
     ]);
 
+    Route::delete('videos/delete',[
+        'as' => 'admin.videos.deleteAll',
+        'uses' => 'VideoController@deleteAll'
+    ]);
+
+    Route::get('videos/movetop/{video?}',[
+        'as' => 'admin.videos.movetop',
+        'uses' => 'VideoController@movetop',
+    ]);
+
+    Route::resource('videos', 'VideoController',[
+        'as' => 'admin',
+        'parameters' => ['videos' => 'id']
+    ])->except('destroy');
+
+
+
     // Route::get('videos/{id}/copy', [
     //     'as' => 'admin.videos.copy',
     //     'uses' => 'VideoController@CopyData'
     // ]);
 
     // video category
-    Route::resource('video-cats', 'VideoCategoryController', [
-        'as' => 'admin',
-        'parameters' => ['video-cats' => 'id']
-    ])->except('destroy');
 
     Route::get('video-cats/{id}/delete', [
         'as' => 'admin.video-cats.delete',
@@ -68,11 +77,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'VideoCategoryController@sortcat'
     ]);
 
-    // gallery
-    Route::resource('gallery','GalleryController',[
+    Route::resource('video-cats', 'VideoCategoryController', [
         'as' => 'admin',
-        'parameters' => ['gallery' => 'id']
+        'parameters' => ['video-cats' => 'id']
     ])->except('destroy');
+
+
+    // gallery
 
     Route::get('gallery/{id}/delete', [
         'as' => 'admin.gallery.delete',
@@ -99,11 +110,24 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'GalleryController@changeIsNew'
     ]);
 
-    // gallery category
-    Route::resource('gallery-cats', 'GalleryCategoryController',[
+
+    Route::get('gallery/movetop/{gallery?}',[
+        'as' => 'admin.gallery.movetop',
+        'uses' => 'GalleryController@movetop',
+    ]);
+
+    Route::delete('gallery/delete',[
+        'as' => 'admin.gallery.deleteAll',
+        'uses' => 'GalleryController@deleteAll'
+    ]);
+
+    Route::resource('gallery','GalleryController',[
         'as' => 'admin',
-        'parameters' => ['gallery-cats' => 'id']
+        'parameters' => ['gallery' => 'id']
     ])->except('destroy');
+
+
+    // gallery category
 
     Route::get('gallery-cats/{id}/delete', [
         'as' => 'admin.gallery-cats.delete',
@@ -115,15 +139,21 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'GalleryCategoryController@sortcat'
     ]);
 
-    // article
-    Route::resource('articles', 'ArticleController', [
+    Route::resource('gallery-cats', 'GalleryCategoryController',[
         'as' => 'admin',
-        'parameters' => ['articles' => 'id']
+        'parameters' => ['gallery-cats' => 'id']
     ])->except('destroy');
+
+
+    // article
 
     Route::get('articles/{id}/delete', [
         'as' => 'admin.articles.delete',
         'uses' => 'ArticleController@destroy'
+    ]);
+    Route::delete('articles/delete',[
+        'as' => 'admin.articles.deleteAll',
+        'uses' => 'ArticleController@deleteAll'
     ]);
 
 
@@ -147,15 +177,19 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ArticleController@changeIsNew'
     ]);
 
-    Route::get('articles/{id}/copy', [
-        'as' => 'admin.articles.copy',
-        'uses' => 'ArticleController@CopyData'
+    Route::get('articles/search', [
+        'as' => 'admin.articles.search',
+        'uses' => 'ArticleController@search'
     ]);
 
-    // article category
-    Route::resource('article-cats', 'ArticleCategoryController', [
+    Route::get('articles/movetop/{article?}',[
+        'as' => 'admin.articles.movetop',
+        'uses' => 'ArticleController@movetop',
+    ]);
+
+    Route::resource('articles', 'ArticleController', [
         'as' => 'admin',
-        'parameters' => ['article-cats' => 'id']
+        'parameters' => ['articles' => 'id']
     ])->except('destroy');
 
 
@@ -174,6 +208,16 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'admin.article-cats.sortcat',
         'uses' => 'ArticleCategoryController@sortcat'
     ]);
+
+    Route::delete('article-cats/delete',[
+        'as' => 'admin.article-cats.deleteAll',
+        'uses' => 'ArticleCategoryController@deleteAll'
+    ]);
+
+    Route::resource('article-cats', 'ArticleCategoryController', [
+        'as' => 'admin',
+        'parameters' => ['article-cats' => 'id']
+    ])->except('destroy');
 
     // image
 

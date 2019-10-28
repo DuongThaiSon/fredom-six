@@ -17,378 +17,306 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // video
-
-    Route::get('videos/{id}/delete', [
-        'as' => 'admin.videos.delete',
-        'uses' => 'VideoController@destroy'
-    ]);
-
-    Route::post('videos/sort', [
-        'as' => 'admin.videos.sort',
-        'uses' => 'VideoController@sort'
-    ]);
-
-    Route::post('videos/change-is-public', [
-        'as' => 'admin.videos.change-is-public',
-        'uses' => 'VideoController@changeIsPublic'
-    ]);
-
-    Route::post('videos/change-is-highlight', [
-        'as' => 'admin.videos.change-is-highlight',
-        'uses' => 'VideoController@changeIsHighlight'
-    ]);
-
-    Route::post('videos/change-is-new', [
-        'as' => 'admin.videos.change-is-new',
-        'uses' => 'VideoController@changeIsNew'
-    ]);
-
-    Route::delete('videos/delete',[
-        'as' => 'admin.videos.deleteAll',
-        'uses' => 'VideoController@deleteAll'
-    ]);
-
-    Route::get('videos/movetop/{video?}',[
-        'as' => 'admin.videos.movetop',
-        'uses' => 'VideoController@movetop',
-    ]);
-
+    Route::group(['prefix' => 'videos'], function() {
+        Route::post('sort', [
+            'as' => 'admin.videos.sort',
+            'uses' => 'VideoController@sort'
+        ]);
+        Route::post('change-is-public', [
+            'as' => 'admin.videos.change-is-public',
+            'uses' => 'VideoController@changeIsPublic'
+        ]);
+        Route::post('change-is-highlight', [
+            'as' => 'admin.videos.change-is-highlight',
+            'uses' => 'VideoController@changeIsHighlight'
+        ]);
+        Route::post('change-is-new', [
+            'as' => 'admin.videos.change-is-new',
+            'uses' => 'VideoController@changeIsNew'
+        ]);
+        Route::delete('delete',[
+            'as' => 'admin.videos.deleteAll',
+            'uses' => 'VideoController@deleteAll'
+        ]);
+        Route::get('movetop/{video?}',[
+            'as' => 'admin.videos.movetop',
+            'uses' => 'VideoController@movetop',
+        ]);
+    });
     Route::resource('videos', 'VideoController',[
         'as' => 'admin',
         'parameters' => ['videos' => 'id']
-    ])->except('destroy');
-
-
-
-    // Route::get('videos/{id}/copy', [
-    //     'as' => 'admin.videos.copy',
-    //     'uses' => 'VideoController@CopyData'
-    // ]);
+    ]);
 
     // video category
-
-    Route::get('video-cats/{id}/delete', [
-        'as' => 'admin.video-cats.delete',
-        'uses' => 'VideoCategoryController@destroy'
-    ]);
-
-    Route::post('video-cats/sortcat', [
-        'as' => 'admin.video-cats.sortcat',
-        'uses' => 'VideoCategoryController@sortcat'
-    ]);
-
-    // gallery
-    Route::group([
-        'prefix' => 'gallery/{gallery}'
-    ], function() {
-        Route::post('process', [
-            'as' => 'admin.images.processImage',
-            'uses' => 'GalleryController@processImage'
+    Route::group(['prefix' => 'video-cats'], function() {
+        Route::get('{id}/delete', [
+            'as' => 'admin.video-cats.delete',
+            'uses' => 'VideoCategoryController@destroy'
         ]);
-
-        Route::post('images', [
-            'as' => 'admin.images.store',
-            'uses' => 'GalleryController@imageStore'
-        ]);
-
-        Route::get('images-edit', [
-            'as' => 'admin.images.edit',
-            'uses' => 'GalleryController@imageEdit'
-        ]);
-
-        Route::post('images-update', [
-            'as' => 'admin.images.update',
-            'uses' => 'GalleryController@imageUpdate'
+        Route::post('sortcat', [
+            'as' => 'admin.video-cats.sortcat',
+            'uses' => 'VideoCategoryController@sortcat'
         ]);
     });
-
-    Route::resource('gallery','GalleryController',[
-        'as' => 'admin',
-        'parameters' => ['video-cats' => 'id']
-    ])->except('destroy');
-
+    Route::resource('video-cats', 'VideoCategoryController');
 
     // gallery
+    Route::group(['prefix' => 'galleries'], function() {
+        Route::post('{gallery}/process', [
+            'as' => 'admin.galleries.processImage',
+            'uses' => 'GalleryController@processImage'
+        ]);
+        Route::get('{id}/delete', [
+            'as' => 'admin.galleries.delete',
+            'uses' => 'GalleryController@destroy'
+        ]);
 
-    Route::get('gallery/{id}/delete', [
-        'as' => 'admin.gallery.delete',
-        'uses' => 'GalleryController@destroy'
-    ]);
+        Route::post('sort', [
+            'as' => 'admin.galleries.sort',
+            'uses' => 'GalleryController@sort'
+        ]);
 
-    Route::post('gallery/sort', [
-        'as' => 'admin.gallery.sort',
-        'uses' => 'GalleryController@sort'
-    ]);
+        Route::post('change-is-public', [
+            'as' => 'admin.galleries.change-is-public',
+            'uses' => 'GalleryController@changeIsPublic'
+        ]);
 
-    Route::post('gallery/change-is-public', [
-        'as' => 'admin.gallery.change-is-public',
-        'uses' => 'GalleryController@changeIsPublic'
-    ]);
+        Route::post('change-is-highlight', [
+            'as' => 'admin.galleries.change-is-highlight',
+            'uses' => 'GalleryController@changeIsHighlight'
+        ]);
 
-    Route::post('gallery/change-is-highlight', [
-        'as' => 'admin.gallery.change-is-highlight',
-        'uses' => 'GalleryController@changeIsHighlight'
-    ]);
-
-    Route::post('gallery/change-is-new', [
-        'as' => 'admin.gallery.change-is-new',
-        'uses' => 'GalleryController@changeIsNew'
-    ]);
+        Route::post('change-is-new', [
+            'as' => 'admin.galleries.change-is-new',
+            'uses' => 'GalleryController@changeIsNew'
+        ]);
 
 
-    Route::get('gallery/movetop/{gallery?}',[
-        'as' => 'admin.gallery.movetop',
-        'uses' => 'GalleryController@movetop',
-    ]);
+        Route::get('movetop/{gallery?}',[
+            'as' => 'admin.galleries.movetop',
+            'uses' => 'GalleryController@movetop',
+        ]);
 
-    Route::delete('gallery/delete',[
-        'as' => 'admin.gallery.deleteAll',
-        'uses' => 'GalleryController@deleteAll'
-    ]);
-
-    Route::resource('gallery','GalleryController',[
+        Route::delete('delete',[
+            'as' => 'admin.galleries.deleteAll',
+            'uses' => 'GalleryController@deleteAll'
+        ]);
+    });
+    Route::resource('galleries','GalleryController',[
         'as' => 'admin',
         'parameters' => ['gallery' => 'id']
-    ])->except('destroy');
-
+    ]);
 
     // gallery category
-
-    Route::get('gallery-cats/{id}/delete', [
-        'as' => 'admin.gallery-cats.delete',
-        'uses' => 'GalleryCategoryController@destroy'
-    ]);
-
-    Route::post('gallery-cats/sortcat', [
-        'as' => 'admin.gallery-cats.sortcat',
-        'uses' => 'GalleryCategoryController@sortcat'
-    ]);
-
+    Route::group(['prefix' => 'gallery-cats'], function () {
+        Route::get('{id}/delete', [
+            'as' => 'admin.gallery-cats.delete',
+            'uses' => 'GalleryCategoryController@destroy'
+        ]);
+        Route::post('sortcat', [
+            'as' => 'admin.gallery-cats.sortcat',
+            'uses' => 'GalleryCategoryController@sortcat'
+        ]);
+    });
     Route::resource('gallery-cats', 'GalleryCategoryController',[
         'as' => 'admin',
         'parameters' => ['gallery-cats' => 'id']
-    ])->except('destroy');
-
+    ]);
 
     // article
-
-    Route::get('articles/{id}/delete', [
-        'as' => 'admin.articles.delete',
-        'uses' => 'ArticleController@destroy'
-    ]);
-    Route::delete('articles/delete',[
-        'as' => 'admin.articles.deleteAll',
-        'uses' => 'ArticleController@deleteAll'
-    ]);
-
-
-    Route::post('articles/sort', [
-        'as' => 'admin.articles.sort',
-        'uses' => 'ArticleController@sort'
-    ]);
-
-    Route::post('articles/update-view-status', 'ArticleController@updateViewStatus');
-
-    Route::get('articles/search', [
-        'as' => 'admin.articles.search',
-        'uses' => 'ArticleController@search'
-    ]);
-
-    Route::get('articles/movetop/{article?}',[
-        'as' => 'admin.articles.movetop',
-        'uses' => 'ArticleController@movetop',
-    ]);
-
+    Route::group(['prefix' => 'articles'], function() {
+        Route::get('{id}/delete', [
+            'as' => 'admin.articles.delete',
+            'uses' => 'ArticleController@destroy'
+        ]);
+        Route::delete('delete',[
+            'as' => 'admin.articles.deleteAll',
+            'uses' => 'ArticleController@deleteAll'
+        ]);
+        Route::post('sort', [
+            'as' => 'admin.articles.sort',
+            'uses' => 'ArticleController@sort'
+        ]);
+        Route::post('update-view-status', 'ArticleController@updateViewStatus');
+        Route::get('search', [
+            'as' => 'admin.articles.search',
+            'uses' => 'ArticleController@search'
+        ]);
+        Route::get('movetop/{article?}',[
+            'as' => 'admin.articles.movetop',
+            'uses' => 'ArticleController@movetop',
+        ]);
+        Route::get('category/{id}',[
+            'as' => 'admin.article.cat',    // article theo category id
+            'uses' => 'ArticleCategoryController@articles'
+        ]);
+    });
     Route::resource('articles', 'ArticleController', [
         'as' => 'admin',
         'parameters' => ['articles' => 'id']
-    ])->except('destroy');
-
-
-    Route::get('articles/category/{id}',[
-        'as' => 'admin.article.cat',    // article theo category id
-        'uses' => 'ArticleCategoryController@articles'
     ]);
 
-    Route::get('article-cats/{id}/delete', [
-        'as' => 'admin.article-cats.delete',
-        'uses' => 'ArticleCategoryController@destroy'
-    ]);
-
-
-    Route::post('article-cats/sortcat', [
-        'as' => 'admin.article-cats.sortcat',
-        'uses' => 'ArticleCategoryController@sortcat'
-    ]);
-
-    Route::get('images/{id}/delete',[
-        'as' => 'admin.images.delete',
-        'uses' => 'GalleryController@imageDestroy'
-    ]);
-    Route::post('images/change-is-public', [
-        'as' => 'admin.images.change-is-public',
-        'uses' => 'GalleryController@changeIsPublicImage'
-    ]);
-
-    Route::group(['prefix' => 'settings'],
-    function(){
-        Route::get('/', [
-        'as' => 'admin.setting.infoSetting',
-        'uses' => 'SettingController@infoSetting'
+    Route::group(['prefix' => 'article-cats'], function() {
+        Route::get('{id}/delete', [
+            'as' => 'admin.article-cats.delete',
+            'uses' => 'ArticleCategoryController@destroy'
         ]);
-        Route::post('/post-info-setting', [
+        Route::post('sortcat', [
+            'as' => 'admin.article-cats.sortcat',
+            'uses' => 'ArticleCategoryController@sortcat'
+        ]);
+    });
+    Route::resource('article-cats', 'ArticleCategoryController');
+
+    Route::group(['prefix' => 'settings'], function(){
+        Route::get('', [
+            'as' => 'admin.setting.infoSetting',
+            'uses' => 'SettingController@infoSetting'
+        ]);
+        Route::post('post-info-setting', [
             'as' => 'admin.setting.postInfoSetting',
             'uses' => 'SettingController@postInfoSetting'
         ]);
-        Route::get('/send-mail', [
+        Route::get('send-mail', [
             'as' => 'admin.setting.sendMail',
             'uses' => 'SettingController@sendMail'
         ]);
-        Route::post('/send-mail', [
+        Route::post('send-mail', [
             'as' => 'admin.setting.postSendMail',
             'uses' => 'SettingController@postSendMail'
         ]);
-        Route::get('/seo', [
+        Route::get('seo', [
             'as' => 'admin.setting.seo',
             'uses' => 'SettingController@seo'
         ]);
-        Route::post('/seo', [
+        Route::post('seo', [
             'as' => 'admin.setting.postSeo',
             'uses' => 'SettingController@postSeo'
         ]);
-        Route::get('/email-content', [
+        Route::get('email-content', [
             'as' => 'admin.setting.emailContent',
             'uses' => 'SettingController@emailContent'
         ]);
-        Route::get('/email-content/add', [
+        Route::get('email-content/add', [
             'as' => 'admin.setting.addEmailContent',
             'uses' => 'SettingController@addEmailContent'
         ]);
-        Route::post('/email-content/add', [
+        Route::post('email-content/add', [
             'as' => 'admin.setting.postAddEmailContent',
             'uses' => 'SettingController@postAddEmailContent'
         ]);
-        Route::get('/email-content/edit/{id}', [
+        Route::get('email-content/edit/{id}', [
             'as' => 'admin.setting.editEmailContent',
             'uses' => 'SettingController@editEmailContent'
         ]);
-        Route::post('/email-content/edit{id}', [
+        Route::post('email-content/edit/{id}', [
             'as' => 'admin.setting.postEditEmailContent',
             'uses' => 'SettingController@postEditEmailContent'
         ]);
 
     });
 
-    Route::group(['prefix' => 'components'],
-    function (){
-        Route::get('/', [
-            'as' => 'admin.component.index',
+    Route::group(['prefix' => 'components'], function (){
+        Route::get('', [
+            'as' => 'admin.components.index',
             'uses' => 'ComponentController@index'
         ]);
-        Route::get('/add',[
-            'as' => 'admin.component.create',
+        Route::get('add',[
+            'as' => 'admin.components.create',
             'uses' => 'ComponentController@create'
         ]);
-        Route::post('/add', [
-            'as' => 'admin.component.store',
+        Route::post('add', [
+            'as' => 'admin.components.store',
             'uses' => 'ComponentController@store'
         ]);
-        Route::get('/edit/{id}', [
-            'as' => 'admin.component.show',
+        Route::get('edit/{id}', [
+            'as' => 'admin.components.show',
             'uses' => 'ComponentController@show'
         ]);
-        Route::post('/edit/{id}', [
-            'as' => 'admin.component.update',
+        Route::post('edit/{id}', [
+            'as' => 'admin.components.update',
             'uses' => 'ComponentController@update'
         ]);
-        Route::get('/public', [
-            'as' => 'admin.component.changePublic',
+        Route::get('public', [
+            'as' => 'admin.components.changePublic',
             'uses' => 'ComponentController@changePublic'
         ]);
-        Route::get('/delete/{id}', [
-            'as' => 'admin.component.delete',
+        Route::get('delete/{id}', [
+            'as' => 'admin.components.delete',
             'uses' => 'ComponentController@delete'
         ]);
     });
+
     Route::resource('showrooms', 'ShowroomController',[
         'as' => 'admin',
         'parameters' => ['showrooms' => 'id']
-    ])->except('destroy');
-    Route::get('showrooms/delete/{id}', [
-        'as' => 'admin.showrooms.delete',
-        'uses' => 'ShowroomController@destroy'
     ]);
-    // Route::get('showrooms/public', [
-    //     'as' => 'admin.showrooms.changePublic',
-    //     'uses' => 'ShowroomController@changePublic'
-    // ]);
 
-    Route::get('password/change',[
-        'as' => 'password.change',
-        'uses' => 'ChangePasswordController@getChangePassword'
-    ]);
-    Route::post('password/change',[
-        'as' => 'password.change',
-        'uses' => 'ChangePasswordController@postChangePassword'
-    ]);
-    Route::group(['prefix' => 'user'], function(){
-        Route::get('/info/{id}',[
-            'as' => 'user.info',
+    Route::group(['prefix' => 'password'], function() {
+        Route::get('',[
+            'as' => 'password.change',
+            'uses' => 'ChangePasswordController@getChangePassword'
+        ]);
+        Route::post('',[
+            'as' => 'password.change',
+            'uses' => 'ChangePasswordController@postChangePassword'
+        ]);
+    });
+
+    Route::group(['prefix' => 'users'], function(){
+        Route::get('info/{id}',[
+            'as' => 'admin.users.info',
             'uses' => 'UserController@info'
         ]);
-        Route::post('/info/change',[
+        Route::post('info/change',[
             'as' => 'info.change',
             'uses' => 'UserController@changeInfo'
         ]);
-        Route::get('/add',[
-            'as' => 'user.add',
+        Route::get('add',[
+            'as' => 'admin.users.add',
             'uses' => 'UserController@getAddUser'
         ]);
-        Route::post('/add',[
-            'as' => 'user.postadd',
+        Route::post('add',[
+            'as' => 'admin.users.postadd',
             'uses' => 'UserController@postAddUser'
         ]);
-        Route::get('/admin',[
-            'as' => 'user.admin',
+        Route::get('admin',[
+            'as' => 'admin.users.admin',
             'uses' => 'UserController@admin'
         ]);
-        Route::delete('/delete',[
-            'as' =>'user.delete',
+        Route::delete('delete',[
+            'as' =>'admin.users.delete',
             'uses' => 'UserController@delete'
         ]);
-        Route::delete('/deleteAll',[
-            'as' => 'user.deleteAll',
+        Route::delete('deleteAll',[
+            'as' => 'admin.users.deleteAll',
             'uses' => 'UserController@deleteAll'
         ]);
     });
 
-
-
-    Route::get('contact',[
-        'as' => 'contact',
-        'uses' => 'ContactController@index'
-    ]);
-    Route::get('contact/delete',[
-        'as' => 'contact.delete',
-        'uses' => 'ContactController@delete'
-    ]);
-    Route::delete('contact/delete',[
-        'as' => 'contact.deleteAll',
-        'uses' => 'ContactController@deleteAll'
-    ]);
-
-
+    Route::group(['prefix' => 'contacts'], function() {
+        Route::get('',[
+            'as' => 'admin.contacts.index',
+            'uses' => 'ContactController@index'
+        ]);
+        Route::get('delete',[
+            'as' => 'admin.contacts.delete',
+            'uses' => 'ContactController@delete'
+        ]);
+        Route::delete('delete',[
+            'as' => 'admin.contacts.deleteAll',
+            'uses' => 'ContactController@deleteAll'
+        ]);
+    });
 
     Route::post('check-user', 'UserController@check');
-
-    Route::post('/upload-image', 'MediaController@uploadImage');
+    Route::post('upload-image', 'MediaController@uploadImage');
 });
 
 
 // Guest routes
-Route::group([
-    'namespace' => 'Auth'
-], function() {
+Route::group(['namespace' => 'Auth'], function() {
     Route::get('login', [
         'as' => 'admin.login.showLoginForm',
         'uses' => 'LoginController@showLoginForm'

@@ -24,8 +24,7 @@ class GalleryController extends Controller
     public function index()
     {
         $galleries = Gallery::orderBy('order', 'desc')->with('Category')->paginate(self::PER_PAGE);
-        // print_r($galleries);die;
-        return view('admin.gallery.index',compact('galleries'));
+        return view('admin.galleries.index',compact('galleries'));
     }
 
     private function getSubCategories($parent_id, $ignore_id=null)
@@ -50,7 +49,7 @@ class GalleryController extends Controller
     public function create()
     {
         $categories = $this->getSubCategories(0);
-        return view('admin.gallery.create', compact('categories'));
+        return view('admin.galleries.create', compact('categories'));
     }
 
     /**
@@ -88,7 +87,7 @@ class GalleryController extends Controller
 
         $gallery = Gallery::create($attributes);
 
-        return redirect()->route('admin.gallery.edit', $gallery->id)->with('Success');
+        return redirect()->route('admin.galleries.edit', $gallery->id)->with('Success');
     }
 
     /**
@@ -113,7 +112,7 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $category = Category::find($gallery->category_id);
         $categories = $this->getSubCategories(0);
-        return view('admin.gallery.edit', compact('gallery','categories', 'category'));
+        return view('admin.galleries.edit', compact('gallery','categories', 'category'));
 
     }
 
@@ -148,7 +147,7 @@ class GalleryController extends Controller
         $galleries = Gallery::findOrFail($id);
         $gallery = $galleries->fill($attributes);
         $gallery->save();
-        return redirect()->route('admin.gallery.edit', $gallery->id)->with('Success');
+        return redirect()->route('admin.galleries.edit', $gallery->id)->with('Success');
     }
 
 
@@ -169,7 +168,7 @@ class GalleryController extends Controller
             unlink($folder);
         }
         $gallery->delete();
-        return redirect()->route('admin.gallery.index')->with('Delete Comple');
+        return redirect()->route('admin.galleries.index')->with('Delete Comple');
     }
 
 

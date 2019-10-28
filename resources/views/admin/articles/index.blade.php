@@ -4,7 +4,7 @@
     <!-- Search Group Button -->
     {{-- <form action="#" method="get"> --}}
         <div class="search-button-group">
-            <form action="{{ Route('admin.articles.search')}}" method="GET" class="">
+            <form action="{{ route('admin.articles.search')}}" method="GET" class="">
                 <button class="material-icons text-secondary">
                     search
                 </button>

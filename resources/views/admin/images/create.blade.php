@@ -9,7 +9,7 @@
                 class="bg-white p-4 pt-5">
                 @csrf
                 <div class="save-group-buttons">
-                    <a href="{{ Route('admin.gallery.edit', $gallery->id) }}" data-toggle="tooltip" title="Quay lại" class="btn btn-sm btn-dark" href="language.html">
+                    <a href="{{ route('admin.galleries.edit', $gallery->id) }}" data-toggle="tooltip" title="Quay lại" class="btn btn-sm btn-dark" href="language.html">
                         <i class="material-icons">
                             reply
                         </i>

@@ -4,7 +4,7 @@
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
               <h1 class="mt-3 pl-4">THÔNG TIN ALBUM ẢNH</h1>
-              <form action="{{route('admin.gallery.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+              <form action="{{route('admin.galleries.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
                 @csrf
                 @if ($errors->any())
                   <div class="alert bg-danger" role="alert">

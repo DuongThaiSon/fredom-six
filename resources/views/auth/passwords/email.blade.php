@@ -19,9 +19,9 @@
                         <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
                         </span>
-                    @endif                  
+                    @endif
                 </div>
-                    <a href="{{Route('admin.login.showLoginForm')}}" class=" float-right fg-lg">Đăng Nhập</a>
+                    <a href="{{route('admin.login.showLoginForm')}}" class=" float-right fg-lg">Đăng Nhập</a>
                     <button type="submit" class="send-mail text-center text-white font-weight-bold">Yêu Cầu Khôi Phục mật khẩu</button>
             </form>
         </div>

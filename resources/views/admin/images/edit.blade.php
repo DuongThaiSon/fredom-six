@@ -5,12 +5,12 @@
         <div id="content">
             <h1 class="mt-3 pl-4">UPLOAD ẢNH</h1>
             <!-- Form -->
-            <form action="{{ Route('admin.images.update', $gallery->id) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('admin.images.update', $gallery->id) }}" method="POST" enctype="multipart/form-data"
                 class="bg-white p-4 pt-5">
                 @csrf
                 {{-- @method('PUT') --}}
                 <div class="save-group-buttons">
-                    <a href="{{ Route('admin.gallery.edit', $gallery->id) }}" data-toggle="tooltip" title="Quay lại" class="btn btn-sm btn-dark" href="language.html">
+                    <a href="{{ route('admin.galleries.edit', $gallery->id) }}" data-toggle="tooltip" title="Quay lại" class="btn btn-sm btn-dark" href="language.html">
                         <i class="material-icons">
                             reply
                         </i>

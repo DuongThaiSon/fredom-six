@@ -208,6 +208,6 @@ class GalleryCategoryController extends Controller
         $galleries = Gallery::where('category_id', $id)
                     ->orderBy('order')
                     ->paginate();
-        return view('admin.gallery.index', compact('galleries'));
+        return view('admin.galleries.index', compact('galleries'));
     }
 }

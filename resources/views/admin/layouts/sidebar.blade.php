@@ -58,12 +58,12 @@
                     <li class="nav-item">
                         <a href="{{route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{route('admin.article-cats.create')}}" class="nav-link menu-articleCats">Thêm mới danh mục tin bài</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('admin.article-cats.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
-                    </li>
+                    </li> --}}
                     </ul>
                 </div>
             </li>
@@ -82,10 +82,10 @@
             <div class="sub collapse" id="gallerysubmenu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                        <a href="{{ route('admin.gallery.create') }}" class="nav-link menu-galleries"> Tạo album ảnh mới</a>
+                        <a href="{{ route('admin.galleries.create') }}" class="nav-link menu-galleries"> Tạo album ảnh mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.gallery.index')}}" class="nav-link"> Quản lý album ảnh</a>
+                    <a href="{{route('admin.galleries.index')}}" class="nav-link"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{route('admin.gallery-cats.create')}}" class="nav-link">
@@ -117,12 +117,12 @@
                     <li class="nav-item">
                     <a href="{{route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                     <a href="{{route('admin.video-cats.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{route('admin.video-cats.index')}}" class="nav-link">Quản lý danh mục video</a>
-                    </li>
+                    </li> --}}
                 </ul>
                 </div>
             </li>
@@ -142,14 +142,14 @@
 
             <!--Contact-->
             <li class="nav-item">
-            <a href="{{ route('contact')}}" class="nav-link" id="menu-contact">
+            <a href="{{ route('admin.contacts.index')}}" class="nav-link" id="menu-contact">
                 <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
             </a>
             </li>
 
             <!-- Component -->
             <li class="nav-item">
-            <a href="{{ route('admin.component.index')}}" class="nav-link" id="menu-component">
+            <a href="{{ route('admin.components.index')}}" class="nav-link" id="menu-component">
                 <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
             </a>
             </li>
@@ -191,10 +191,10 @@
             <div class="sub collapse" id="menu-admin-user">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="{{ route('user.add')}}" class="nav-link">Thêm mới quản trị viên & người dùng</a>
+                    <a href="{{ route('admin.users.add')}}" class="nav-link">Thêm mới quản trị viên & người dùng</a>
                 </li>
                 <li>
-                    <a href="{{ route('user.admin')}}" class="nav-link">Danh sách quản trị viên</a>
+                    <a href="{{ route('admin.users.admin')}}" class="nav-link">Danh sách quản trị viên</a>
                 </li>
                 <li>
                     <a href="#" class="nav-link">Danh sách người dùng</a>

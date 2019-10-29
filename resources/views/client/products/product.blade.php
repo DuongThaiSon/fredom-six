@@ -178,7 +178,7 @@
           <div class="product">
             <div class="card">
               <div class="product-img">
-                <a href="#"><img src="{{ asset('/media/products') }}/{{ $prod->avatar }}"
+                <a href="{{ route('client.products.detail', $prod->id) }}"><img src="{{ asset('/media/products') }}/{{ $prod->avatar }}"
                     class="mx-auto d-flex justify-content-center" alt=""></a>
                 <div class="product-colors justify-content-center d-flex">
                   <div class="product-color" style="background: #2d2d2d;"></div>

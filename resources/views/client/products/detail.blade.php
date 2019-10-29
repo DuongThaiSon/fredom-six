@@ -157,8 +157,8 @@
                   <select class="form-control pl-0" name="size" id="size" style="border-left: 0 !important;"
                     style="font-size: 14px;">
                     <option value="">Nhỏ (S)</option>
-                    <option value="">Nhỏ (S)</option>
-                    <option value="">Nhỏ (S)</option>
+                    <option value="">Vừa (M)</option>
+                    <option value="">Lớn (L)</option>
                   </select>
                 </div>
               </div>
@@ -182,10 +182,10 @@
               </div>
             </div>
             <div class="btn-group my-3">
-              <button type="submit" class="btn buy-button">
+              <a href="/cart" type="submit" class="btn buy-button">
                 <i class="fas fa-shopping-basket mr-2"></i>
                 <span class="font-weight-bold text-uppercase">mua ngay</span>
-              </button>
+              </a>
               <button class="btn like-button ml-2">
                 <i class="fas fa-heart"></i>
                 <span class="font-weight-bold text-uppercase">thích</span>
@@ -231,18 +231,28 @@
             <p>{{ $product->detail }}</p>
           </div>
           <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-            Chất lượng sản phẩm tốt
+            @forelse ($reviews as $review)
+            <div class="review-conten" >
+              <div style="font-weight: bold; font-size: 13px">{{ $review->email }}</div>
+              <div style="padding-left: 50px; font-size: 13px">{{ $review->detail }}</div>    
+              <hr>          
+            </div>
+            @empty
+                
+            @endforelse
           </div>
           <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
           <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...</div>
         </div>
       </div>
-        <form style="margin-top: 5px;" action="" method="" enctype="text/plain">
+        <form style="margin-top: 5px;" action="{{ route('client.review.review') }}" method="POST">@csrf
           <div class="form-group">
             <label for="comment">Comment:</label>
-            <textarea name="comment" class="form-control" rows="2" id="comment"></textarea>
+            <br>
+            <input class="email-review pl-2" style="margin-bottom:10px" type="email" name="email" placeholder="Nhập email">
+            <textarea name="detail" class="form-control" rows="2" id="comment" placeholder="Nhập bình luận"></textarea>
           </div>
-          <button class="btn btn-success">Send</button>
+          <button class="btn btn-success btn-review" type="submit">Send</button>
         </form>
 
 
@@ -512,7 +522,28 @@
     }
     $('.thumbnail li').click(function () {
       $(this).addClass("active")
-    })
+    });
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    //     });
+    // $('.btn-review').click(function(e){
+    //   e.preventDefault();
+    //   let _email = $('.email-review').text();
+    //   let _comment = $('#comment').text();
+    //   $.ajax({
+    //     url: 'products/review',
+    //     method: 'POST',
+    //     data: {
+    //       email: _email,
+    //       detail: _comment
+    //     }
+    //     success: function(a){
+
+    //     }
+    //   })
+    // })
   </script>
 </body>
 

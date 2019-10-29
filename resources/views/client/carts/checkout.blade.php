@@ -1,0 +1,168 @@
+@extends('client.layouts.main', ['title' => __('Checkout')])
+@section('content')
+<!-- checkout -->
+  <section id="checkout">
+    <div class="container">
+      <!-- steps  -->
+      <div class="steps">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="step-1 text-center">
+              <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
+              <p class="text-uppercase font-weight-bold">giỏ hàng</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="step-1 text-center">
+              <div class="orange-circle mx-auto text-white active"><span class="number">02</span></div>
+              <p class="text-uppercase font-weight-bold">xác nhận đơn hàng</p>
+              <div class="orange-underline mx-auto"></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="step-1 text-center">
+              <div class="orange-circle mx-auto text-white" style="background: #ffffff"><span class="number"
+                  style="color: #000000">03</span></div>
+              <p class="text-uppercase font-weight-bold">hóa đơn</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- form checkout -->
+      <div class="form-checkout">
+        <p>Cần phải đăng nhập để thanh toán? <a href="#" class="reg font-weight-bold">Nhấn vào đây để Đăng ký hoặc Đăng
+            nhập</a></p>
+        <form method="POST" action="/cart/store" id="form-checkout" enctype="multipart/form-data">
+            @csrf
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="checkout-info">
+                <p class="text-uppercase font-weight-bold">thông tin thanh toán</p>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="name" class="font-weight-bold">HỌ *</label>
+                      <input type="text" name="first_name" class="form-control form-control-block">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="name" class="font-weight-bold">TÊN *</label>
+                      <input type="text" name="last_name" class="form-control form-control-block">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="name" class="font-weight-bold">EMAIL *</label>
+                  <input type="email" name="email" class="form-control form-control-block">
+                </div>
+                <div class="form-group">
+                  <label for="name" class="font-weight-bold">ĐỊA CHỈ *</label>
+                  <input type="text" name="address" class="form-control form-control-block">
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="name" class="font-weight-bold">THÀNH PHỐ *</label>
+                      <input type="text" name="city" class="form-control form-control-block">
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="name" class="font-weight-bold">SỐ ĐIỆN THOẠI *</label>
+                      <input type="text" name="phone" class="form-control form-control-block">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group my-4">
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Sử dụng cùng một
+                      địa chỉ thanh toán ?</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <p class="text-uppercase font-weight-bold m-0">phương thức vận chuyển</p>
+              <div class="form-underline"></div>
+              <div class="form-group m-4">
+                <label class="checkbox-container">
+                  <input type="checkbox">
+                  <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Theo cước phí
+                    chuyển phát dự kiến - 50.000 vnđ</span>
+                </label>
+              </div>
+              <p class="text-uppercase font-weight-bold m-0">phương thức thanh toán</p>
+              <div class="form-underline"></div>
+              <div class="form-group m-4">
+                <label class="checkbox-container">
+                  <input type="checkbox">
+                  <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán khi nhận
+                    hàng - COD</span>
+                </label>
+              </div>
+              <div class="form-group m-4">
+                <label class="checkbox-container">
+                  <input type="checkbox">
+                  <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán trực
+                    tuyến - VNPay</span>
+                </label>
+              </div>
+              <button type="submit" class="btn checkout-button align-self-end text-uppercase font-weight-bold">thanh
+                toán</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- receipt -->
+      <div class="receipt">
+        <div class="row mb-4">
+          <div class="col-lg-10 mx-auto text-center">
+            <p class="text-uppercase font-weight-bold">đơn hàng của bạn</p>
+            <div class="orange-underline mx-auto"></div>
+          </div>
+        </div>
+        <div class="row justify-content-between p-2">
+          <p class="font-weight-bold text-uppercase ml-3 mb-0">sản phẩm</p>
+          <p class="font-weight-bold text-uppercase mr-3 mb-0">tổng tiền</p>
+        </div>
+        <div class="form-underline"></div>
+      </div>
+      <!-- product quantity -->
+      <div class="row p-2" style="margin-top: 25px;">
+            @forelse (Cart::getContent() as $item)
+        <div class="col-lg-6">
+          <div class="product-quantity d-flex flex-column">
+            <a href="#" class="text-capitalize mb-3">{{ $item->name }} <span
+                class="quantity text-uppercase ml-2"> x
+                {{ $item->quantity }}</span>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-right">
+          <p class="font-weight-bold">{{ number_format($item->quantity*$item->price) }}</p>
+        </div>
+            @empty
+
+            @endforelse
+      </div>
+      <div class="form-underline"></div>
+      <div class="d-flex justify-content-between p-2">
+        <p class="text-capitalize font-weight-bold m-0">thành tiền:</p>
+        <p class="orange-text m-0" style="font-size:20px;">{{ number_format(Cart::getSubTotal()) }}</p>
+      </div>
+      <div class="form-underline"></div>
+      <div class="d-flex justify-content-between p-2">
+        <p class="text-capitalize font-weight-bold m-0">khuyến mãi:</p>
+        <p class="font-weight-bold m-0">-500.000 vnđ</p>
+      </div>
+      <div class="form-underline"></div>
+      <!-- Total -->
+      <div class="d-flex justify-content-between mt-3 text-white p-2" style="background: #e36b00;">
+        <p class="text-capitalize font-weight-bold m-0">tổng tiền:</p>
+        <p class="font-weight-bold m-0">{{ number_format(Cart::getTotal()) }} vnđ</p>
+      </div>
+    </div>
+  </section>
+@endsection

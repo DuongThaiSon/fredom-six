@@ -61,11 +61,11 @@
               <td class="font-weight-bold text-center">{{ number_format($item->price) }}</td>
               <td class="text-center">
                 <div class="number-input ">
-                  <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                    class="my-auto ml-2"></button>
+                  {{-- <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                    class="my-auto ml-2"></button> --}}
                   <input class="number input-quantity" name="quantity" data-id="{{ $item->id }}" value="{{ $item->quantity }}" type="number" min="1"  />
-                  <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                    class="plus my-auto mr-2"></button>
+                  {{-- <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                    class="plus my-auto mr-2"></button> --}}
                 </div>
               </td>
               <td class="text-center"><span class="orange-text summed-price">{{ number_format($item->price*$item->quantity) }}</span></td>
@@ -92,7 +92,7 @@
             <!-- Total -->
             <div class="d-flex justify-content-between mt-3 text-white p-2" style="background: #e36b00;">
               <p class="text-capitalize font-weight-bold m-0">tổng tiền:</p>
-              <p class="font-weight-bold m-0">{{ number_format(Cart::getTotal()-500000) }} vnđ</p>
+              <p class="font-weight-bold m-0 total-price"  >{{ number_format(Cart::getTotal()) }} vnđ</p>
             </div>
           </div>
         </div>
@@ -109,9 +109,9 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <button type="submit"
+          <a href="/cart/checkout" type="submit"
             class="btn confirm text-uppercase orange-text orange-border font-weight-bold float-right">xác nhận đơn
-            hàng</button>
+            hàng</a>
         </div>
       </div>
 
@@ -373,7 +373,8 @@
             data: data,
             success: function(scs){
                 _this.parents('.product-cart').find('.summed-price').text(`${scs.summedPrice}`);
-                $('.sub-total').text(`${scs.subTotal}`)
+                $('.sub-total').text(`${scs.subTotal}`);
+                $('.total-price').text(`${scs.totalPrice}`);
             },
             error: function(){
 
@@ -395,12 +396,9 @@
               },
               success: function() {
                 _this.parents('.product-cart').remove();
-                _this.parents('.product-cart').find('.summed-price').text(`${scs.summedPrice}`);
-                $('.sub-total').text(`${scs.subTotal}`)
+                location.reload()
               },
-              error: function(){
-
-              }
+              
             });
           }
         });

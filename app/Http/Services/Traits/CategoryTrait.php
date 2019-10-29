@@ -2,6 +2,8 @@
 
 namespace App\Http\Services\Traits;
 
+use App\Models\Category;
+
 trait CategoryTrait
 {
     /**
@@ -26,7 +28,7 @@ trait CategoryTrait
         if ($process_id !== null) {
             $condition[] = ['id', '<>', $process_id];
         }
-        $cat = $this->model->where($condition)->orderBy('order','desc')->get();
+        $cat = Category::where($condition)->orderBy('order','desc')->get();
         if ($shoud_load_updater) {
             $cat->load('updater:id,name');
         }
@@ -55,23 +57,6 @@ trait CategoryTrait
     }
 
     /**
-     * Find data by id
-     *
-     * @param       $id
-     *
-     * @return mixed
-     */
-    public function find($id)
-    {
-        $model = $this->model
-            ->where('id', $id)
-            ->where('type', $this->categoryType)
-            ->firstOrFail();
-
-        return $model;
-    }
-
-    /**
      * Delete a category
      *
      * @param $id
@@ -79,7 +64,7 @@ trait CategoryTrait
      * @return boolean
      */
     public function didDeleteCategory($id) {
-        $category = $this->model->find($id);
+        $category = Category::find($id);
 
         if (!$this->canDeleteCategory($id, [$id])) {
             return 0;
@@ -101,7 +86,7 @@ trait CategoryTrait
      * @return boolean
      */
     public function didDeleteCategories(array $ids) {
-        $categories = $this->model->find($ids);
+        $categories = Category::find($ids);
 
         foreach($categories as $key=>$value) {
             if (!$this->canDeleteCategory($value->id, $ids)) {
@@ -131,7 +116,7 @@ trait CategoryTrait
      */
     private function canDeleteCategory($id, array $delete_list) {
         // Check existence of category
-        if (!$cat = $this->model->find($id)) {
+        if (!$cat = Category::find($id)) {
             return 0;
         }
         // Verify that category contains no item
@@ -139,7 +124,7 @@ trait CategoryTrait
         if ($cat->$relation->count() > 0) {
             return 0;
         }
-        $sub = $this->model->where('parent_id', $cat->id)->get();
+        $sub = Category::where('parent_id', $cat->id)->get();
         if ($sub->count() > 0) {
             foreach ($sub as $key=>$value) {
                 // Verify that child category is also in delete list
@@ -161,7 +146,7 @@ trait CategoryTrait
      * @param $id
      */
     public function deleteAvatar($id) {
-        $category = $this->model->find($id);
+        $category = Category::find($id);
         $folder = public_path('media/category/');
         $fileName = $category->avatar;
         if (file_exists($folder . $fileName)) {
@@ -180,11 +165,11 @@ trait CategoryTrait
 		$order = array();
 		foreach ($cats as $c) {
 			$id = str_replace('entry_', '', $c);
-			$order[] = $this->model->find($id)->order;
+			$order[] = Category::find($id)->order;
         }
         rsort($order);
 		foreach ($order as $k => $v) {
-            $this->model->where('id', str_replace('entry_', '', $cats[$k]))->update(['order' => $v]);
+            Category::where('id', str_replace('entry_', '', $cats[$k]))->update(['order' => $v]);
         }
 
     }

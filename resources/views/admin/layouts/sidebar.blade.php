@@ -32,7 +32,7 @@
                     <a href="productDetail.html" class="nav-link">Tạo mới sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="product.html" class="nav-link">Quản lý sản phẩm</a>
+                    <a href="{{ route('admin.products.index') }}" class="nav-link menu-products-index">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>

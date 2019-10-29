@@ -4,9 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Services\ProductService;
+use App\Models\Product;
+use App\Models\User;
 
 class ProductController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +27,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate();
+        $categories = $this->service->allWithSub();
+        $users = User::all();
+        return view('admin.products.index', compact('products','categories', 'users'));
     }
 
     /**

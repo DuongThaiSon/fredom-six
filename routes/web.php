@@ -40,10 +40,19 @@ Route::group([
         'uses' => 'ContactController@contact'
     ]);
     Route::get('products', 'ProductController@product');
-    Route::get('products/{id}', 'ProductController@detail');
+    Route::get('products/{id}',[
+        'as' => 'client.products.detail',
+        'uses' => 'ProductController@detail'
+    ]);
     Route::get('cart', 'CartController@index');
     Route::post('cart/add', 'CartController@add');
     Route::post('cart/update', 'CartController@update');
     Route::post('cart/destroy', 'CartController@destroy');
+    Route::get('cart/checkout', 'CartController@checkout');
+    Route::post('cart/store', 'CartController@store');
+    Route::post('products/review',[
+        'as' => 'client.review.review',
+        'uses' => 'ProductController@review'
+    ]);
 
 });

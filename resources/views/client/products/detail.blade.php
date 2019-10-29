@@ -8,8 +8,9 @@
             <ol class="breadcrumb m-0">
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item"><a href="#">Sản phẩm nữ</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Túi Flashligh da
-                trăn</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <a class="active" href="#">{{ $product->name }}</a>
+            </li>
             </ol>
         </nav>
         </div>
@@ -31,7 +32,7 @@
 
                     <ul class="thumbnail mr-3" style="height: 95%;">
                       <li data-target="#product_details_slider" data-slide-to="0"
-                        style="background-image: url({{ asset('media/products') }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                        style="background-image: url({{ asset('media/products') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
                       </li>
                     
                     </ul>
@@ -44,9 +45,9 @@
                 <div class="col-lg-9">
                   <div class="carousel-inner">
                     <div class="carousel-item active py-3" style="max-height: 600px;">
-                      <a class="gallery_img" href="/assets/client/img/products/product-1.png">
+                      <a class="gallery_img" href="{{ asset('media/products') }}/{{ $product->avatar }}">
                         <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                          src="/assets/client/img/products/product-1.png" alt="First slide">
+                          src="{{ asset('media/products') }}/{{ $product->avatar }}" alt="First slide">
                       </a>
                     </div>
                   </div>
@@ -227,19 +228,22 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-            <p>Ví Flashlight dáng bì thư được làm từ da bò bền đẹp, mang đến trải nghiệm tuyệt vời khi sử dụng.
-
-              Ví to bản được viền ánh kím lấp lánh, màu đen bóng mướt mắt, tạo điểm nhấn cho trang phục của nàng.
-
-              Ví có nhiều ngăn giúp nàng để thẻ, giấy tờ cá nhân và điện thoại. Đây sẽ là lựa chọn tuyệt vời cho những
-              chuyến đi và những cô nàng mang “cả thế giới” đi cùng. Item này phù hợp với hầu hết loại trang phục, tiện
-              lợi cho những cô nàng công sở.............</p>
+            <p>{{ $product->detail }}</p>
           </div>
-          <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">...</div>
+          <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+            Chất lượng sản phẩm tốt
+          </div>
           <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
           <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...</div>
         </div>
       </div>
+        <form style="margin-top: 5px;" action="" method="" enctype="text/plain">
+          <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea name="comment" class="form-control" rows="2" id="comment"></textarea>
+          </div>
+          <button class="btn btn-success">Send</button>
+        </form>
 
 
     </div>

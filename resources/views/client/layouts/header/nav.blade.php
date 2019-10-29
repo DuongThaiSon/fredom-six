@@ -33,7 +33,7 @@
             </ul>
             <div class="cart">
                 <div class="cart-icon">
-                <a href="#"> <i class="fas fa-shopping-basket"></i></a>
+                <a href="/cart"> <i class="fas fa-shopping-basket"></i></a>
                 <div class="cart-items">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</div>
                 </div>
             </div>

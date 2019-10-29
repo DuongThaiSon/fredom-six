@@ -18,6 +18,7 @@ class CartController extends Controller
     }
     public function add(Request $request)
     {
+        $products = Product::where('product_code', 'WABAG243-NBL-S')->get();
         $product = Product::findOrFail($request->id);
         Cart::add(array(
             'id' => $request->id,
@@ -25,7 +26,8 @@ class CartController extends Controller
             'price' => $product->price,
             'quantity' => $request->quantity,
             'attributes' => array(
-                'avatar' => $product->avatar
+                'avatar' => $product->avatar,
+                'product_code' => $product->product_code,
             )
         ));
 

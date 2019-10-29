@@ -46,21 +46,19 @@
             
             <tr class="product-cart">
               <th scope="row" style="vertical-align: middle !important;"><a href="#"><i
-                    class="fas fa-times-circle text-muted"></i></a></th>
+                    class="fas fa-times-circle text-muted btn-remove-product" data-id={{ $item->id }}></i></a></th>
               <td>
                 <div class="product d-flex align-items-center">
                   <div class="product-image">
-                    <img src="{{ $item->attributes->avatar }}" class="img-fluid" alt="">
+                    <img src="{{ asset('media/products') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                   </div>
                   <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
-                    class="font-weight-bold text-uppercase mb-0 ml-5">Túi
-                    xách da trăn
-                    nắp khóa
-                    SKU: WABAG243-NBL-S
+                    class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }} ,
+                    SKU: {{ $item->attributes->product_code }} , 
                     Đen - cỡ nhỏ</a>
                 </div>
               </td>
-              <td class="font-weight-bold text-center">{{ $item->price?number_format($item->price) : '' }}</td>
+              <td class="font-weight-bold text-center">{{ number_format($item->price) }}</td>
               <td class="text-center">
                 <div class="number-input ">
                   <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -73,7 +71,7 @@
               <td class="text-center"><span class="orange-text summed-price">{{ number_format($item->price*$item->quantity) }}</span></td>
             </tr>
             @empty
-                Giỏ hàng trống
+                <div class="alert alert-danger text-center">Giỏ hàng trống</div> 
             @endforelse
           </tbody>
         </table>
@@ -94,7 +92,7 @@
             <!-- Total -->
             <div class="d-flex justify-content-between mt-3 text-white p-2" style="background: #e36b00;">
               <p class="text-capitalize font-weight-bold m-0">tổng tiền:</p>
-              <p class="font-weight-bold m-0">{{ number_format(Cart::getTotal()) }} vnđ</p>
+              <p class="font-weight-bold m-0">{{ number_format(Cart::getTotal()-500000) }} vnđ</p>
             </div>
           </div>
         </div>
@@ -178,7 +176,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-3">
+              {{-- <div class="col-lg-3">
                 <div class="product">
                   <div class="card">
                     <div class="product-img">
@@ -345,7 +343,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> --}}
             </div>
           </div>
         </div>
@@ -380,8 +378,31 @@
             error: function(){
 
             }
-            
+          });
         });
+
+        $('.btn-remove-product').on('click', function(e) {
+          e.preventDefault();
+          let id = $(this).attr('data-id');
+          let _this = $(this);
+
+          if(confirm('Bạn có chắc chắn muốn xóa không?')) {
+            $.ajax({
+              url: '/cart/destroy',
+              method: 'POST',
+              data: {
+                id: id
+              },
+              success: function() {
+                _this.parents('.product-cart').remove();
+                _this.parents('.product-cart').find('.summed-price').text(`${scs.summedPrice}`);
+                $('.sub-total').text(`${scs.subTotal}`)
+              },
+              error: function(){
+
+              }
+            });
+          }
         });
 
     </script>

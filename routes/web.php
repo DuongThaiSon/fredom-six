@@ -44,4 +44,6 @@ Route::group([
     Route::get('cart', 'CartController@index');
     Route::post('cart/add', 'CartController@add');
     Route::post('cart/update', 'CartController@update');
+    Route::post('cart/destroy', 'CartController@destroy');
+
 });

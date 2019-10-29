@@ -83,7 +83,7 @@ class ArticleCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.article-cats.edit', $category->id)->with('SUCCESS');
+        return redirect()->route('admin.article-categories.edit', $category->id)->with('SUCCESS');
     }
 
     /**
@@ -145,7 +145,7 @@ class ArticleCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.article-cats.edit', $category->id)->with('UPDATED COMPLE');
+        return redirect()->route('admin.article-categories.edit', $category->id)->with('UPDATED COMPLE');
     }
 
     /**
@@ -163,7 +163,7 @@ class ArticleCategoryController extends Controller
         $category = $categories->filter(function($value, $key) use ($id){
             return $value->id == $id;
         });
-        return redirect()->route('admin.article-cats.index')->with('DETELED COMPLE');
+        return redirect()->route('admin.article-categories.index')->with('DETELED COMPLE');
     }
 
     public function deleteAll(Request $request)

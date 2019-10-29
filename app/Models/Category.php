@@ -27,9 +27,17 @@ class Category extends Model
     {
         return $this->hasMany('App\Models\Gallery');
     }
-    
+
     public function articles()
     {
         return $this->hasMany('App\Models\Article');
+    }
+
+    /**
+     * Get the admin that last edited the category.
+     */
+    public function updater()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
     }
 }

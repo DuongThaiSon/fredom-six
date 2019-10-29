@@ -8,21 +8,27 @@ use Auth;
 
 trait RequestDataCreate
 {
-    public function Create($request, $order, $destinationDir, $name)
+    public function appendCreateData($attributes)
     {
-        $attributes                 = $request->only($this->attributes);
-        $attributes['created_by']   = Auth::user()->id;
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public']    = isset($request->is_public)?1:0;
-        $attributes['is_new']       = isset($request->is_new)?1:0;
-        $attributes['order']        = $order ? ($order + 1) : 1;
-        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
-        $avatar                     = $this->UploadImage($destinationDir,$name);
-        if($request->hasFile('avatar')){
-            $attributes['avatar']        = $avatar;
+        $attributes = collect($attributes)->only($this->attributes)->toArray();
+        $attributes['created_by'] = $attributes['updated_by'] = $this->guard()->id();
+        $attributes['is_public'] = array_key_exists('is_public', $attributes)?'1':'0';
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes)?'1':'0';
+        $attributes['is_new'] = array_key_exists('is_new', $attributes)?'1':'0';
+        $attributes['order'] = $this->model->max('order') + 1;
+        if (!$attributes['slug']) {
+            $slug = Str::slug($attributes['name'], '-');
+            while ($this->model->where('slug', $slug)->get()->count() > 0) {
+                $slug .= '-'.rand(0, 9);
+            }
+            $attributes['slug'] = $slug;
         }
-        if($request->hasFile('image')) {
-            $attributes['image']        = $avatar;
+        if (isset($this->categoryType)) {
+            $attributes['type'] = $this->categoryType;
+        }
+        if (array_key_exists('avatar', $attributes)) {
+            $avatar = $this->uploadImage($attributes['avatar']);
+            $attributes['avatar'] = $avatar;
         }
 
         return $attributes;

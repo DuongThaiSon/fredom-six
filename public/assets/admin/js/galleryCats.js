@@ -8,7 +8,7 @@ $(document).ready(function(){
         console.log(sort);
         $.ajax({
             method: 'POST',
-            url: '/admin/gallery-cats/sortcat',
+            url: '/admin/gallery-categories/sortcat',
             data: {
                 sort: sort
             },
@@ -24,7 +24,7 @@ $(document).ready(function(){
                 if (confirm('Bạn có chắc chắn muốn xóa?')){
                     var delete_id = $(this).attr('delete-id');
                     $.ajax({
-                        url: '/admin/gallery-cats/' + delete_id,
+                        url: '/admin/gallery-categories/' + delete_id,
                         async: true,
                         method: 'DELETE',
                         success: function(){

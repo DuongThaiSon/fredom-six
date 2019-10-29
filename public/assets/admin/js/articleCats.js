@@ -8,7 +8,7 @@
        console.log(sort);
        $.ajax({
           method: 'POST',
-          url: '/admin/article-cats/sortcat',
+          url: '/admin/article-categories/sortcat',
           data: {
             sort: sort
           },
@@ -63,7 +63,7 @@
             console.log(ids);
           if (result.value) {
             $.ajax({
-                url: "/admin/article-cats/delete",
+                url: "/admin/article-categories/delete",
               type: "POST",
               data: {
                 _method: "DELETE",

@@ -76,7 +76,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $attributes = $this->service->Create($request, Article::max('order'), '/media/article/', $request->avatar);
+        $attributes = $this->service->create($request, Article::max('order'), '/media/article/', $request->avatar);
 
         $article = Article::create($attributes);
 

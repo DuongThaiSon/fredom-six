@@ -29,7 +29,7 @@
                 <div class="sub collapse" id="submenu1">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="productDetail.html" class="nav-link">Tạo mới sản phẩm</a>
+                    <a href="{{ route('admin.products.create') }}" class="nav-link menu-products-create">Tạo mới sản phẩm</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('admin.products.index') }}" class="nav-link menu-products-index">Quản lý sản phẩm</a>

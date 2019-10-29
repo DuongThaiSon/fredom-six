@@ -36,7 +36,7 @@
 
  @push('js')
  <script>
-    $(Document).ready(function() {
+    $(document).ready(function() {
       $('.pw').click(function() {
         var x = document.getElementById("pw");
         if (x.type === "password") {

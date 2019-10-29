@@ -33,8 +33,8 @@ $(document).ready(function() {
 
     // read filename on custom input file
     $('.custom-file-input').change(function() {
-        // let fileName = readUploadFileName(this);
-        // $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
+        let fileName = readUploadFileName(this);
+        $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
     })
 });
 

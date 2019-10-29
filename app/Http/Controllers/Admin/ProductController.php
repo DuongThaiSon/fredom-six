@@ -40,7 +40,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = $this->service->allWithSub();
+        return view('admin.products.create', compact('categories'));
     }
 
     /**

@@ -51,6 +51,7 @@ class ProductCategoryController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $attributes = $this->service->appendCreateData($request->all());
+        print_r($attributes);die;
         $productCategory = Category::create($attributes);
 
         $response = [

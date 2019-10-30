@@ -23,13 +23,13 @@
                             <td style="width: 120px;">{{$category->user()->first()->name?? ''}}</td>
                             <td style="width: 160px;">
                                 <div class="btn-group">
-                                    <a href="{{route('admin.'.$category->type.'-cats.create')}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
+                                    <a href="{{route('admin.'.$category->type.'-categories.create')}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
                                         <i class="material-icons">playlist_add</i>
                                     </a>
-                                    <a href="{{route('admin.'.$category->type.'-cats.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
+                                    <a href="{{route('admin.'.$category->type.'-categories.edit', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
-                                    <a href="{{route('admin.'.$category->type.'-cats.delete', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
+                                    <a href="{{route('admin.'.$category->type.'-categories.destroy', $category->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </div>

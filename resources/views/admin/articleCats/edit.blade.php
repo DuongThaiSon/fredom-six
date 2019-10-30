@@ -5,7 +5,7 @@
              <div id="content">
               <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC BÀI VIẾT</h1>
                 <!-- Save group button -->
-                <form action="{{ route('admin.article-cats.update', $category->id) }}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+                <form action="{{ route('admin.article-categories.update', $category->id) }}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
                 @csrf
                 @method('PUT')
                 @if ($errors->any())

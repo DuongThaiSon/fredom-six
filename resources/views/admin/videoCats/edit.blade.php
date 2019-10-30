@@ -10,7 +10,7 @@
                     </div>
                 @endif
 
-              <form action="{{route('admin.video-cats.update', $category->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+              <form action="{{route('admin.video-categories.update', $category->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
               @csrf
               @method('PUT')
               <div class="save-group-buttons">

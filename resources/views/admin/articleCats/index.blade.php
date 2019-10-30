@@ -47,7 +47,7 @@
               <h1 class="mt-3 pl-4">QUẢN LÝ DANH MỤC</h1>
               <!-- Save group button -->
               <div class="save-group-buttons">
-                <a href="{{route('admin.article-cats.create')}}" class="btn btn-sm btn-dark">
+                <a href="{{route('admin.article-categories.create')}}" class="btn btn-sm btn-dark">
                   <i class="material-icons"> note_add</i>
                 </a>
                 <button id="btn-del-all" data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark delete-all" href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing" target="_blank">

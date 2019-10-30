@@ -8,7 +8,7 @@ $(document).ready(function(){
         console.log(sort);
         $.ajax({
            method: 'POST',
-           url: '/admin/video-cats/sortcat',
+           url: '/admin/video-categories/sortcat',
            data: {
              sort: sort
            },

@@ -86,7 +86,7 @@ class GalleryCategoryController extends Controller
 
         $category = Category::create($attributes);
 
-        return redirect()->route('admin.gallery-cats.edit', $category->id)->with('SUCCESS');
+        return redirect()->route('admin.gallery-categories.edit', $category->id)->with('SUCCESS');
     }
 
     /**
@@ -152,7 +152,7 @@ class GalleryCategoryController extends Controller
         $category = $categories->fill($attributes);
         $category->save();
 
-        return redirect()->route('admin.gallery-cats.edit', $category->id)->with('update comple');
+        return redirect()->route('admin.gallery-categories.edit', $category->id)->with('update comple');
     }
 
     /**
@@ -171,7 +171,7 @@ class GalleryCategoryController extends Controller
             return $value->id == $id;
         });
 
-        return redirect()->route('admin.gallery-cats.index')->with('Delete Comple');
+        return redirect()->route('admin.gallery-categories.index')->with('Delete Comple');
 
     }
 

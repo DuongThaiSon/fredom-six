@@ -2,17 +2,18 @@
 
 namespace App\Http\Services\Traits;
 
-use Illuminate\Http\Request;
+use Optix\Media\MediaUploader;
 
 trait HandleUpload
 {
-    public function UploadImage($destinationDir, $name)
+    public function uploadImage($file)
     {
-        if($name) {
-            $file                 = uniqid('leotive').'.'.$name->extension();
-            $name->move(public_path($destinationDir), $file);
-            $avatar = $destinationDir.$file;
-            return $avatar;
+        if ($file->isValid()) {
+            $destinationPath = public_path($this->destinationUploadDir); // upload path
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $fileName = uniqid("leotive") . '.' . $extension; // renameing image
+            $file->move($destinationPath, $fileName); // uploading file to given path
+            return $fileName;
         }
     }
 }

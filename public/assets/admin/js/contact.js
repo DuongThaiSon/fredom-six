@@ -45,20 +45,23 @@ $(".toggle-icon").click(function() {
           console.log(ids);
         if (result.value) {
           $.ajax({
-            url: "contact/delete",
+            url: "contacts/delete",
             type: "post",
             data: {
               _method: "delete",
               ids: ids
+            },
+            success: function(){
+              Swal.fire(
+                'Đã xóa!',
+                'Dữ liệu xóa thành công.',
+                'success'
+                ).then((result)=>{
+                  location.reload();
+                });
             }
           });
-          Swal.fire(
-            'Đã xóa!',
-            'Dữ liệu xóa thành công.',
-            'success'
-            ).then((result)=>{
-              location.reload();
-            });
+          
             // .then((result)=>{$("#delete-all").submit();});
           }
         })
@@ -70,18 +73,21 @@ $(".toggle-icon").click(function() {
         e.preventDefault();
         let _id = $(this).attr('data-id');
         $.ajax({
-          url: "contact/delete",
-          data: { id : _id }
+          url: "contacts/delete",
+          data: { id : _id },
+          success: function(){
+            Swal.fire({
+              position: 'top-end',
+              type: 'success',
+              title: 'Dữ liệu xóa thành công',
+              showConfirmButton: false,
+              timer: 1500
+            }).then((result) => { 
+               location.reload();
+            });
+          }
         });
 
-        Swal.fire({
-          position: 'top-end',
-          type: 'success',
-          title: 'Dữ liệu xóa thành công',
-          showConfirmButton: false,
-          timer: 1500
-        }).then((result) => { 
-           location.reload();
-        });
+        
       });
   });

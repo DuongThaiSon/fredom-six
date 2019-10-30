@@ -48,15 +48,18 @@ $(document).ready(function() {
            data: {
              _method: "delete",
              ids: ids
+           },
+           success: function(){
+            Swal.fire(
+              'Đã xóa!',
+              'Dữ liệu xóa thành công.',
+              'success'
+              ).then((result)=>{
+                location.reload();
+              });
            }
          });
-         Swal.fire(
-           'Đã xóa!',
-           'Dữ liệu xóa thành công.',
-           'success'
-           ).then((result)=>{
-             location.reload();
-           });
+         
            // .then((result)=>{$("#delete-all").submit();});
          }
        })
@@ -73,16 +76,19 @@ $(document).ready(function() {
          data: {
            _method: "delete", 
            id : _id 
+         },
+         success: function(){
+          Swal.fire({
+            position: 'top-end',
+            type: 'success',
+            title: 'Dữ liệu xóa thành công',
+            showConfirmButton: false,
+            timer: 1500
+          }).then((result) => { 
+             location.reload();
+          });
          }
        });
-       Swal.fire({
-         position: 'top-end',
-         type: 'success',
-         title: 'Dữ liệu xóa thành công',
-         showConfirmButton: false,
-         timer: 1500
-       }).then((result) => { 
-          location.reload();
-       });
+       
      });
 });

@@ -1,6 +1,10 @@
 window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
 require('./ckEditor');
 window.core = require("./core");
+require('popper.js');
+require('bootstrap');
+require('bootstrap-select');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

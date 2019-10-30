@@ -14,7 +14,7 @@
             <div id="content">
               <h1 class="mt-3 pl-4">QUẢN LÝ NỘI DUNG LIÊN HỆ TỪ KHÁCH HÀNG</h1>
               <!-- Save group button -->
-              <form action="{{ route('contact.deleteAll')}}" method="POST" id="delete-all">
+              <form action="{{ route('admin.contacts.deleteAll')}}" method="POST" id="delete-all">
                 @csrf
                 {{-- @if(Session::has('fail'))
                 <div class="alert alert-danger">{{ Session::get('fail') }}</div>

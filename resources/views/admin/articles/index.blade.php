@@ -119,7 +119,7 @@
                                 <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name}}</a>
                             </td>
                             <td>
-                                <a href="{{route('admin.article-cats.edit', $article->category_id)}}">{{$article->category->name??''}}</a>
+                                <a href="{{route('admin.article-categories.edit', $article->category_id)}}">{{$article->category->name??''}}</a>
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_public?'Click để tắt':'Click để bật' }}"
@@ -191,7 +191,7 @@
                                     <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name}}</a>
                                 </td>
                                 <td>
-                                    <a href="{{route('admin.article-cats.edit', $article->category_id)}}">{{$article->category()->first()->name??''}}</a>
+                                    <a href="{{route('admin.article-categories.edit', $article->category_id)}}">{{$article->category()->first()->name??''}}</a>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$article->id}}" value="{{$article->is_public}}"  data-toggle="tooltip"  title="{{ $article->is_public==1?'Click để tắt':'Click để bật' }}">

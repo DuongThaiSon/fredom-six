@@ -60,6 +60,7 @@
                         <label>Nằm trong mục</label>
                         <select
                             multiple
+                            name="category[]"
                             data-selected-text-format="count > 2"
                             class="selectpicker form-control"
                             data-count-selected-text="{0} mục đã được chọn"
@@ -73,6 +74,87 @@
                             @include('admin.partials.options', ['level'=>0])
 
                         </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Giá sản phẩm</label>
+                      <input
+                        type="number"
+                        name="price"
+                        required
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->price ?? ''}}"
+                      />
+                      <small class="form-text">Giá của sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Discount</label>
+                      <input
+                        type="number"
+                        name="discount"
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->discount ?? ''}}"
+                      />
+                      <small class="form-text">Khuyến mãi của sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Discount start</label>
+                      <input
+                        type="datetime-local"
+                        name="discount_start"
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->discount_start ?? ''}}"
+                      />
+                      <small class="form-text">Thời gian bắt đầu khuyến mãi</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Discount end</label>
+                      <input
+                        type="datetime-local"
+                        name="discount_end"
+                        class="form-control"
+                        placeholder="The cat in the hat"
+                        value="{{$product->discount_end ?? ''}}"
+                      />
+                      <small class="form-text">Thời gian kết thúc khuyến mãi</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Unit</label>
+                      <input
+                        type="text"
+                        name="unit"
+                        required
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->unit ?? ''}}"
+                      />
+                      <small class="form-text">Đơn vị sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Product code</label>
+                      <input
+                        type="text"
+                        name="product_code"
+                        required
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->product_code ?? ''}}"
+                      />
+                      <small class="form-text">Mã sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Quantity</label>
+                      <input
+                        type="text"
+                        name="quantity"
+                        required
+                        class="form-control"
+                        placeholder="The cat in the hat"
+                        value="{{$product->quantity ?? ''}}"
+                      />
+                      <small class="form-text">Số lượng sản phẩm</small>
                     </div>
 
                     <!-- Button Toggle -->

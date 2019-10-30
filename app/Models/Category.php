@@ -40,4 +40,10 @@ class Category extends Model
     {
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Category', 'product_category')
+        ->withTimestamps();
+    }
 }

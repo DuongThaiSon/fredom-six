@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\ProductService;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Category;
+
 
 class ProductController extends Controller
 {
@@ -52,7 +54,11 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $this->service->productCreate($request->all());
+        $product = Product::create($attributes);
+        $product->categories()->attach($request->category);
+
+        return redirect()->back();
     }
 
     /**

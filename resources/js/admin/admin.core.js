@@ -2,26 +2,13 @@ export class productAttributeCore {
     constructor() {}
 
     submitData() {
+        let _this = this
         $(".btn-submit-data").on("click.submitData", function(e) {
             e.preventDefault();
-            if (!this.canPassValidateData()) {
+            if (!_this.canPassValidateData()) {
                 return;
             }
-
-            let attributeData = this.collectAttributeData();
-
-            $.ajax({
-                url: "/admin/product-attributes",
-                method: "POST",
-                data: {
-                    name: $("input[name=name]").val(),
-                    attribute_values: attributeData,
-                    can_select: $("input[name=can_select]").attr("checked"),
-                    allow_multiple: $("input[name=allow_multiple]").attr(
-                        "checked"
-                    )
-                }
-            });
+            $('.form-main').submit()
         });
     }
 
@@ -56,11 +43,12 @@ export class productAttributeCore {
     }
 
     generateSelectionItem(id = "", value = "") {
+        let index = Date.now()
         return `
         <div class="row form-group selection-item">
             <div class="col-10 input-group">
-                <input type="hidden" name="id[]" value="${id}" class="form-control selection-item-id"/>
-                <input type="text" name="value[]" value="${value}" class="form-control selection-item-value"/>
+                <input type="hidden" name="attribute_values[${index}][id]" value="${id}" class="form-control selection-item-id"/>
+                <input type="text" name="attribute_values[${index}][value]" value="${value}" class="form-control selection-item-value"/>
                 <div class="input-group-prepend">
                     <a href="#" class="text-decoration-none btn-remove-selection-item">
                         <div class="input-group-text bg-white">

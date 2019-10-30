@@ -5,7 +5,7 @@
         <div id="content">
             <h1 class="mt-3 pl-4 text-uppercase">thêm mới thuộc tính</h1>
             <!-- Save group button -->
-            <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+            <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-5">
                 @csrf
                 @if ($errors->any())
                 <div class="alert bg-danger" role="alert">
@@ -37,7 +37,7 @@
                     <div class="mb-2">
 
                         <label class="control-label">Giới hạn lựa chọn
-                            <input type="checkbox" class="checkbox-toggle" name="can_select" id="can_select" checked/>
+                            <input type="checkbox" value="checked" class="checkbox-toggle" name="can_select" id="can_select" checked/>
                             <label class="label-checkbox" for="can_select"> </label>
                         </label>
                     </div>
@@ -67,7 +67,7 @@
                     <legend>&nbsp;</legend>
                     <div class="mb-2">
                         <label class="control-label">Cho phép chọn nhiều
-                            <input type="checkbox" class="checkbox-toggle" name="allow_multiple" id="allow_multiple"/>
+                            <input type="checkbox" value="checked" class="checkbox-toggle" name="allow_multiple" id="allow_multiple"/>
                             <label class="label-checkbox" for="allow_multiple"> </label>
                         </label>
                     </div>

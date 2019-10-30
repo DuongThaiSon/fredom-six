@@ -52,12 +52,13 @@ class ProductAttributeController extends Controller
         ]);
 
         foreach ($request->attribute_values as $value) {
-            // print_r($value);die;
             $productAttribute->productAttributeValues()->create([
                 'value' => $value['value']
             ]);
         }
 
+        return redirect()->route('admin.product-attributes.edit', $productAttribute->id)
+            ->with('success', 'Tạo thuộc tính mới thành công');
     }
 
     /**

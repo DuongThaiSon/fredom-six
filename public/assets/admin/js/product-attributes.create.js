@@ -214,7 +214,13 @@ __webpack_require__.r(__webpack_exports__);
 $(document).ready(function () {
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productAttributeCore"]();
   guide.conditionToggleSelectZone();
-  guide.addSelectionItem();
+
+  if ($(".selection-item").length < 1) {
+    guide.addSelectionItem();
+  } else {
+    guide.removeSelectionItem();
+  }
+
   $("input[name=can_select]").on("change.conditionToggleSelectZone", function () {
     guide.conditionToggleSelectZone();
   });

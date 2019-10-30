@@ -51,9 +51,9 @@ class ProductAttributeController extends Controller
             'updated_by' => auth()->guard('admin')->id(),
         ]);
 
-        foreach ($request->attribute_values as $value) {
+        foreach ($request->attribute_values as $data) {
             $productAttribute->productAttributeValues()->create([
-                'value' => $value['value']
+                'value' => $data['value']
             ]);
         }
 
@@ -78,9 +78,9 @@ class ProductAttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProductAttribute $productAttribute)
     {
-        //
+        return view('admin.productAttributes.edit', compact('productAttribute'));
     }
 
     /**
@@ -90,9 +90,38 @@ class ProductAttributeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProductAttribute $productAttribute)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'attribute_values.*.value' => 'required'
+        ]);
+
+        $productAttribute = $productAttribute->fill([
+            'name' => $request->name,
+            'can_select' => $request->has('can_select')?'1':'0',
+            'allow_multiple' => $request->has('allow_multiple')?'1':'0',
+            'updated_by' => auth()->guard('admin')->id(),
+        ]);
+        $productAttribute->save();
+
+
+        $keepIds = collect($request->attribute_values)
+            ->reject(function($data) {
+                return empty($data['id']);
+            })
+            ->pluck('id')
+            ->toArray();
+
+        $productAttribute->productAttributeValues()->whereNotIn('id', $keepIds)->delete();
+        foreach ($request->attribute_values as $data) {
+            $productAttribute->productAttributeValues()->updateOrCreate(['id'=>$data['id']], [
+                'value' => $data['value']
+            ]);
+        }
+
+        return redirect()->route('admin.product-attributes.edit', $productAttribute->id)
+            ->with('success', 'Cập nhật thuộc tính mới thành công');
     }
 
     /**

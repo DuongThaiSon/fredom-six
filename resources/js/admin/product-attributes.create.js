@@ -3,7 +3,11 @@ import { productAttributeCore } from './admin.core';
 $(document).ready(function() {
     let guide = new productAttributeCore()
     guide.conditionToggleSelectZone()
-    guide.addSelectionItem()
+    if ($(".selection-item").length < 1) {
+        guide.addSelectionItem()
+    } else {
+        guide.removeSelectionItem()
+    }
     $("input[name=can_select]").on("change.conditionToggleSelectZone", function() {
         guide.conditionToggleSelectZone()
     })

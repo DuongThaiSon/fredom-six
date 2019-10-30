@@ -15,6 +15,8 @@
      <link rel="stylesheet" href="/assets/admin/css/filepond.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/filepond-plugin-image-preview.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/bootstrap-select.min.css" />
+     <link rel="stylesheet" href="/assets/admin/css/jasny-bootstrap.min.css" />
+     <link rel="stylesheet" href="/assets/admin/css/flatpickr.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/style.css" />
      <link rel="stylesheet" href="/assets/admin/css/main.css" />
      @stack('css')

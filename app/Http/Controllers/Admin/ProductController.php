@@ -75,12 +75,13 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = $this->service->allWithSub($product->id);
+        return view('admin.products.edit', compact('categories', 'product'));
     }
 
     /**

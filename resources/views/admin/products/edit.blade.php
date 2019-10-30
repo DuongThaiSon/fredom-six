@@ -1,12 +1,18 @@
-@extends('admin.layouts.main', ['activePage' => 'articles', 'title' => __('Articles Detail')])
+@extends('admin.layouts.main', ['activePage' => 'products', 'title' => __('Products Detail')])
 @section('content')
  <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
             <div id="content">
-              <h1 class="mt-3 pl-4">Thông tin bài viết</h1>
-               <form action="{{route('admin.articles.update', $article->id)}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 p-4 pt-5">
+              <h1 class="mt-3 pl-4">Thông tin sản phẩm</h1>
+               <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 p-4 pt-5">
               @csrf
-              @method('PUT')
+               @if ($errors->any())
+                    <div class="alert bg-danger" role="alert">
+                        <svg class="glyph stroked cancel">
+                            <use xlink:href="#stroked-cancel"></use>
+                        </svg>{{ $errors->first() }}<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                    </div>
+                  @endif
               <div class="save-group-buttons">
                   <button class="btn btn-sm btn-dark" data-toggle="tooltip" title="Lưu">
                     <i class="material-icons">
@@ -30,7 +36,7 @@
                     <legend>Thông tin cơ bản</legend>
                     <div class="form-group">
                       <label>ID</label>
-                      <input type="text" name="id" class="form-control" value="{{$article->id}}" />
+                      <input type="text" name="id" class="form-control" readonly="readonly" />
                       <small class="form-text"
                         >ID là mã của tin bài, đây là một thuộc tính duy
                         nhất</small
@@ -38,27 +44,121 @@
                     </div>
 
                     <div class="form-group">
-                      <label>Tiêu đề bài viết</label>
+                      <label>Tiêu đề sản phẩm</label>
                       <input
                         type="text"
                         name="name"
                         required
                         class="form-control"
                         placeholder="The cat in the hat"
-                        value="{{$article->name}}"
+                        value="{{$product->name ?? ''}}"
                       />
                       <small class="form-text">Tên của tin bài</small>
                     </div>
 
                     <div class="form-group">
-                      <label>Nằm trong mục</label>
-                      <select name="category_id" class="form-control">
-                        <option value="0"></option>
-                          @include('admin.partials.options', ['level'=>0])
-                      </select>
-                      <small class="form-text"
-                        >Chọn mục cho dữ liệu này, bạn không nên để trống</small
-                      >
+                        <label>Nằm trong mục</label>
+                        <select
+                            multiple
+                            name="category[]"
+                            data-selected-text-format="count > 2"
+                            class="selectpicker form-control"
+                            data-count-selected-text="{0} mục đã được chọn"
+                            data-style="btn btn-primary"
+                            title="Chọn mục sản phẩm"
+                            data-size="7"
+                            data-show-tick="true"
+                            id="product-category">
+
+                            <option value="0"></option>
+                            @include('admin.partials.options', ['level'=>0])
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Giá sản phẩm</label>
+                      <input
+                        type="text"
+                        name="price"
+                        required
+                        class="form-control price-format"
+                        placeholder=""
+                        value="{{$product->price ?? ''}}"
+                      />
+                      <small class="form-text">Giá của sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Discount</label>
+                      <input
+                        type="number"
+                        name="discount"
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->discount ?? ''}}"
+                      />
+                      <small class="form-text">Khuyến mãi của sản phẩm</small>
+                    </div>
+                    <div class="row">
+                        <div class="col-6"><div class="form-group">
+                            <label>Discount start</label>
+                            <input
+                                type="text"
+                                name="discount_start"
+                                class="form-control date-picker"
+                                placeholder=""
+                                value="{{$product->discount_start ?? ''}}"
+                            />
+                            <small class="form-text">Thời gian bắt đầu khuyến mãi</small>
+                            </div>
+                        </div>
+                        <div class="col-6"><div class="form-group">
+                            <label>Discount end</label>
+                            <input
+                                type="text"
+                                name="discount_end"
+                                class="form-control date-picker"
+                                value=""
+                            />
+                            <small class="form-text">Thời gian kết thúc khuyến mãi</small>
+                        </div></div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label>Unit</label>
+                      <input
+                        type="text"
+                        name="unit"
+                        required
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->unit ?? ''}}"
+                      />
+                      <small class="form-text">Đơn vị sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Product code</label>
+                      <input
+                        type="text"
+                        name="product_code"
+                        required
+                        class="form-control"
+                        placeholder=""
+                        value="{{$product->product_code ?? ''}}"
+                      />
+                      <small class="form-text">Mã sản phẩm</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Quantity</label>
+                      <input
+                        type="text"
+                        name="quantity"
+                        required
+                        class="form-control"
+                        placeholder="The cat in the hat"
+                        value="{{$product->quantity ?? ''}}"
+                      />
+                      <small class="form-text">Số lượng sản phẩm</small>
                     </div>
 
                     <!-- Button Toggle -->
@@ -69,13 +169,13 @@
                         class="checkbox-toggle"
                         name="is_public"
                         id="public"
-                        {{isset($article)&&$article->is_public==1?'checked':''}}
+                        {{ isset($product)&&$product->is_public==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="public"
                         >Hiển thị</label
                       >
                       <small class="form-text"
-                        >Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                        >Khi tính năng “Hiển thị” được bật, sản phẩm này có thể
                         hiện thị trên giao diện trang web</small
                       >
                     </div>
@@ -86,14 +186,14 @@
                         class="checkbox-toggle"
                         name="is_highlight"
                         id="highlight"
-                        {{isset($article)&&$article->is_highlight==1?'checked':''}}
+                        {{ isset($product)&&$product->is_highlight==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="highlight"
                         >Nổi bật</label
                       >
                     </div>
                     <small class="form-text"
-                      >Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
+                      >Khi tính năng “Nổi bật” được bật, sản phẩm này sẽ đc hiển
                       thị trên trang chủ hoặc các điểm chỉ định trên giao
                       diện.</small
                     >
@@ -104,12 +204,12 @@
                         class="checkbox-toggle"
                         name="is_new"
                         id="new"
-                        {{isset($article)&&$article->is_new==1?'checked':''}}
+                        {{ isset($product)&&$product->is_new==1?'checked':'' }}
                       />
                       <label class="label-checkbox" for="new">Mới </label>
                     </div>
                     <small class="form-text"
-                      >Khi tính năng “Mới” được bật, bài viết này sẽ đc hiển thị
+                      >Khi tính năng “Mới” được bật, sản phẩm này sẽ đc hiển thị
                       trên trang chủ hoặc các điểm chỉ định trên giao
                       diện.</small
                     >
@@ -126,7 +226,7 @@
                         class="form-control"
                         name="meta_title"
                         placeholder="Tiêu đề Browser (title)"
-                        value="{{$article->meta_title}}"
+                        value="{{$product->meta_title ?? ''}}"
                       />
                       <small class="form-text"
                         >Tiêu đề của trang chủ có tác dụng tốt nhất cho
@@ -141,7 +241,7 @@
                         class="form-control"
                         name="slug"
                         placeholder="Tối ưu URL"
-                        value="{{$article->slug}}"
+                        value="{{$product->slug ?? ''}}"
                       />
                       <small class="form-text"
                         >Tối ưu hóa đường dẫn URL dể tốt nhất cho SEO.</small
@@ -155,7 +255,7 @@
                           class="form-control"
                           name="meta_description"
                           placeholder="Thẻ Meta Description"
-                          value="{{$article->meta_description}}"
+                          value="{{$product->meta_description ?? ''}}"
                         />
                         <small class="form-text"
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
@@ -169,7 +269,7 @@
                             class="form-control"
                             name="meta_keyword"
                             placeholder="Thẻ Meta keywords"
-                            value="{{$article->meta_keyword}}"
+                            value="{{$product->meta_keyword ?? ''}}"
                           />
                           <small class="form-text"
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
@@ -183,7 +283,7 @@
                               class="form-control"
                               name="meta_page_topic"
                               placeholder="Thẻ Meta Page Topic"
-                              value="{{$article->meta_page_topic}}"
+                              value="{{$product->meta_page_topic ?? ''}}"
                             />
                             <small class="form-text"
                               >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của trang web đang có nội dung nói về chủ đề nào</small
@@ -192,16 +292,22 @@
 
                         <div class="form-group">
                           <label class="control-label">Ảnh đại diện</label>
-                          <input
-                            type="file"
-                            class="form-control"
-                            name="avatar"
-                            placeholder="Ảnh đại diện"
-                          />
-                          <small class="form-text"
-                            >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
-                            trang web đang có nội dung nói về chủ đề nào
-                          </small>
+                            {{-- <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="avatar">
+                                <label class="custom-file-label" for="">Choose file</label>
+                            </div> --}}
+                        </div>
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new img-thumbnail" style="width: 400px; height: 300px;">
+                                    <img src="/assets/admin/img/image_placeholder.jpg"  alt="...">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
+                                <div>
+                                    <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+                                    <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                   </div>
@@ -212,7 +318,7 @@
                       <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="description">{{$article->description}}</textarea>
+                          <textarea class="form-control ck-classic" name="description">{{$product->description?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -221,7 +327,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control" name="detail">{{$article->detail}}</textarea>
+                          <textarea class="form-control ck-classic" name="detail">{{$product->detail?? ''}}</textarea>
                         </div>
                       </div>
                     </div>
@@ -229,10 +335,11 @@
               </div>
             </div>
           </div>
-@endsection
-@push('js')
+  @endsection
+  @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
+
 </script>
 @endpush

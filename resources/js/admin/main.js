@@ -36,6 +36,12 @@ $(document).ready(function() {
         let fileName = readUploadFileName(this);
         $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
     })
+
+    // format input price
+    $(".price-format").simpleMoneyFormat();
+
+    // format datetime picker
+    $(".date-picker").flatpickr({});
 });
 
 function readUploadFileName(input) {

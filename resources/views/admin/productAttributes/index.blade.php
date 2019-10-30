@@ -60,7 +60,7 @@
                                 </button>
                             </td>
                             <td>{{$attribute->updated_at}}</td>
-                            <td>{{$attribute->updater->name}}</td>
+                            <td>{{$attribute->updater->name ?? ''}}</td>
                             <td>
                                 <div class="btn-group">
 

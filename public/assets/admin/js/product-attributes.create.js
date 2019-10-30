@@ -86,107 +86,151 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./resources/js/admin/admin.core.js":
+/*!******************************************!*\
+  !*** ./resources/js/admin/admin.core.js ***!
+  \******************************************/
+/*! exports provided: productAttributeCore */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productAttributeCore", function() { return productAttributeCore; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var productAttributeCore =
+/*#__PURE__*/
+function () {
+  function productAttributeCore() {
+    _classCallCheck(this, productAttributeCore);
+  }
+
+  _createClass(productAttributeCore, [{
+    key: "submitData",
+    value: function submitData() {
+      $(".btn-submit-data").on("click.submitData", function (e) {
+        e.preventDefault();
+
+        if (!this.canPassValidateData()) {
+          return;
+        }
+
+        var attributeData = this.collectAttributeData();
+        $.ajax({
+          url: "/admin/product-attributes",
+          method: "POST",
+          data: {
+            name: $("input[name=name]").val(),
+            attribute_values: attributeData,
+            can_select: $("input[name=can_select]").attr("checked"),
+            allow_multiple: $("input[name=allow_multiple]").attr("checked")
+          }
+        });
+      });
+    }
+  }, {
+    key: "canPassValidateData",
+    value: function canPassValidateData() {
+      var validated = true;
+
+      if (_.trim($("input[name=name]").val()).length < 1) {
+        validated = false;
+      }
+
+      $(".selection-item-value").each(function () {
+        if (_.trim($(this).val()) < 1) {
+          validated = false;
+        }
+      });
+      return validated;
+    }
+  }, {
+    key: "conditionToggleSelectZone",
+    value: function conditionToggleSelectZone() {
+      var checkAttr = $("input[name=can_select]");
+
+      if (checkAttr.attr("checked")) {
+        $(".select-zone").removeClass("d-none");
+      } else {
+        $(".select-zone").addClass("d-none");
+      }
+    }
+  }, {
+    key: "addSelectionItem",
+    value: function addSelectionItem() {
+      var element = this.generateSelectionItem();
+      $(".selection-list").append(element);
+      this.removeSelectionItem();
+    }
+  }, {
+    key: "generateSelectionItem",
+    value: function generateSelectionItem() {
+      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"id[]\" value=\"".concat(id, "\" class=\"form-control selection-item-id\"/>\n                <input type=\"text\" name=\"value[]\" value=\"").concat(value, "\" class=\"form-control selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
+    }
+  }, {
+    key: "removeSelectionItem",
+    value: function removeSelectionItem() {
+      $(".btn-remove-selection-item").off(".removeSelectionItem");
+      $(".btn-remove-selection-item").on("click.removeSelectionItem", function (e) {
+        e.preventDefault();
+        var items = $(".selection-item").length;
+
+        if (items < 2) {
+          return;
+        }
+
+        $(this).parents(".selection-item").remove();
+      });
+    }
+  }, {
+    key: "collectAttributeData",
+    value: function collectAttributeData() {
+      var data = [];
+      $(".selection-item").each(function () {
+        var rowData = {};
+        rowData.value = $(this).find(".selection-item-value").val();
+        rowData.id = $(this).find(".selection-item-id").val();
+        data.push(rowData);
+      });
+      return data;
+    }
+  }]);
+
+  return productAttributeCore;
+}();
+
+/***/ }),
+
 /***/ "./resources/js/admin/product-attributes.create.js":
 /*!*********************************************************!*\
   !*** ./resources/js/admin/product-attributes.create.js ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _admin_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin.core */ "./resources/js/admin/admin.core.js");
 
 $(document).ready(function () {
-  conditionToggleSelectZone();
-  addSelectionItem();
-  $("input[name=can_select]").on("change.conditionToggleSelectZone", conditionToggleSelectZone);
+  var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productAttributeCore"]();
+  guide.conditionToggleSelectZone();
+  guide.addSelectionItem();
+  $("input[name=can_select]").on("change.conditionToggleSelectZone", function () {
+    guide.conditionToggleSelectZone();
+  });
   $(".btn-add-selection-item").on("click.addSelectionItem", function (e) {
     e.preventDefault();
-    addSelectionItem();
+    guide.addSelectionItem();
   });
-  submitData();
+  guide.submitData();
 });
-
-function submitData() {
-  $(".btn-submit-data").on("click.submitData", function (e) {
-    e.preventDefault();
-
-    if (!canPassValidateData()) {
-      return;
-    }
-
-    var attributeData = collectAttributeData();
-    $.ajax({
-      url: '/admin/product-attributes',
-      method: 'POST',
-      data: {
-        name: $("input[name=name]").val(),
-        attribute_values: attributeData,
-        can_select: $("input[name=can_select]").attr('checked'),
-        allow_multiple: $("input[name=allow_multiple]").attr('checked')
-      }
-    });
-  });
-}
-
-function canPassValidateData() {
-  var validated = true;
-
-  if (_.trim($("input[name=name]").val()).length < 1) {
-    validated = false;
-  }
-
-  $(".selection-item-value").each(function () {
-    if (_.trim($(this).val()) < 1) {
-      validated = false;
-    }
-  });
-  return validated;
-}
-
-function conditionToggleSelectZone() {
-  var checkAttr = $("input[name=can_select]");
-
-  if (checkAttr.attr('checked')) {
-    $(".select-zone").removeClass("d-none");
-  } else {
-    $(".select-zone").addClass("d-none");
-  }
-}
-
-function addSelectionItem() {
-  var element = generateSelectionItem();
-  $(".selection-list").append(element);
-  removeSelectionItem();
-}
-
-function generateSelectionItem() {
-  var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return "\n    <div class=\"row form-group selection-item\">\n        <div class=\"col-10 input-group\">\n            <input type=\"hidden\" name=\"id[]\" value=\"".concat(id, "\" class=\"form-control selection-item-id\"/>\n            <input type=\"text\" name=\"value[]\" value=\"").concat(value, "\" class=\"form-control selection-item-value\"/>\n            <div class=\"input-group-prepend\">\n                <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                    <div class=\"input-group-text bg-white\">\n                        <i class=\"material-icons\">delete</i>\n                    </div>\n                </a>\n            </div>\n        </div>\n    </div>\n    ");
-}
-
-function removeSelectionItem() {
-  $(".btn-remove-selection-item").off(".removeSelectionItem");
-  $(".btn-remove-selection-item").on("click.removeSelectionItem", function (e) {
-    e.preventDefault();
-    var items = $(".selection-item").length;
-
-    if (items < 2) {
-      return;
-    }
-
-    $(this).parents(".selection-item").remove();
-  });
-}
-
-function collectAttributeData() {
-  var data = [];
-  $(".selection-item").each(function () {
-    var rowData = {};
-    rowData.value = $(this).find(".selection-item-value").val();
-    rowData.id = $(this).find(".selection-item-id").val();
-    data.push(rowData);
-  });
-  return data;
-}
 
 /***/ }),
 

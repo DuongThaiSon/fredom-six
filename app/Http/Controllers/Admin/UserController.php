@@ -24,7 +24,7 @@ class UserController extends Controller
             $name = $profile->name;
             $user->$name = $profile->pivot->value;
         }
-        return view('admin.user.info', compact('user'));
+        return view('admin.users.info', compact('user'));
     }
 
     public function changeInfo(Request $request)
@@ -202,7 +202,7 @@ class UserController extends Controller
 
     public function getAddUser()
     {
-        return view('admin.user.add');
+        return view('admin.users.add');
     }
     public function postAddUser(UserRequest $request)
     {
@@ -220,7 +220,7 @@ class UserController extends Controller
     public function admin()
     {
         $users = User::orderBy('id')->Paginate(self::PER_PAGE);
-        return view('admin.user.user', compact('users'));
+        return view('admin.users.user', compact('users'));
     }
 
     public function delete(Request $request)

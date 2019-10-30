@@ -6,14 +6,14 @@
             <div id="content">
               <h1 class="mt-3 pl-4">QUẢN LÝ THÀNH VIÊN</h1>
               <!-- Save group button -->
-              <form method="POST" action="{{ route('user.deleteAll') }}">
+              <form method="POST" action="{{ route('admin.users.deleteAll') }}">
                 @csrf
                   <div class="save-group-buttons">
                       <a
                         class="btn btn-sm btn-dark"
                         data-toggle="tooltip"
                         title="Thêm thành viên mới"
-                        href="{{ route('user.add')}}"
+                        href="{{ route('admin.users.add')}}"
                       >
                         <i class="material-icons">
                           note_add
@@ -77,7 +77,7 @@
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td class="text-center">
-                              <a href="{{ route('user.info',$user->id ) }}" data-toggle="tooltip" title="Sửa"
+                              <a href="{{ route('admin.users.info',$user->id ) }}" data-toggle="tooltip" title="Sửa"
                                 ><i class="material-icons">border_color</i></a
                               >
                               <a href="" @if(Auth::user()->id==$user->id)class=""@else class="btn-delete-user" @endif data-id="{{ $user->id }}" data-toggle="tooltip" title="Xóa"

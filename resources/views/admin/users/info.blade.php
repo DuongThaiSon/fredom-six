@@ -17,7 +17,7 @@
                   </i>
                 </a>
                 </div>
-              <form action="{{ route('info.change') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('admin.info.change') }}" class="mb-0 p-4 pt-5" id="user-info" method="POST" enctype="multipart/form-data">
                 @csrf
                       @if($errors->any())
                           <div class="alert alert-danger">{{ $errors->first() }}</div>

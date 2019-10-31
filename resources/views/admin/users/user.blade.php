@@ -73,7 +73,7 @@
                                 </label>
                             </td>
                             <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->name }}  {{$user->birthday}}</td>
                             <td>{{ $user->email }}</td>
                             <td></td>
                             <td class="text-center">

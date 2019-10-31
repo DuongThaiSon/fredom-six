@@ -15,7 +15,7 @@
 //     return view('welcome');
 // });
 Route::group([
-    'namespace' => 'client'
+    'namespace' => 'Client'
 ], function () {
     Route::get('introduces',[
         'as' => 'client.introduces.index',

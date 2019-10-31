@@ -132,31 +132,31 @@ $(document).ready(function () {
   });
 
   // validation
-  $("#form-checkout").validate({
-    rules: {
-      ho: "required",
-      ten: "required",
-      email: {
-        required: true
-      },
-      address: {
-        required: true
-      },
-      city: {
-        required: true
-      },
-      phone: {
-        required: true
-      }
-    },
-    messages: {
-      ho: "Vui lòng nhập họ",
-      ten: "Vui lòng nhập tên",
-      email: "Vui lòng nhập email",
-      address: "Vui lòng nhập dịa chỉ",
-      city: "Vui lòng nhập thành phố",
-      phone: "Vui lòng nhập số điện thoại",
-    }
-  })
+  // $("#form-checkout").validate({
+  //   rules: {
+  //     ho: "required",
+  //     ten: "required",
+  //     email: {
+  //       required: true
+  //     },
+  //     address: {
+  //       required: true
+  //     },
+  //     city: {
+  //       required: true
+  //     },
+  //     phone: {
+  //       required: true
+  //     }
+  //   },
+  //   messages: {
+  //     ho: "Vui lòng nhập họ",
+  //     ten: "Vui lòng nhập tên",
+  //     email: "Vui lòng nhập email",
+  //     address: "Vui lòng nhập dịa chỉ",
+  //     city: "Vui lòng nhập thành phố",
+  //     phone: "Vui lòng nhập số điện thoại",
+  //   }
+  // });
 });
 

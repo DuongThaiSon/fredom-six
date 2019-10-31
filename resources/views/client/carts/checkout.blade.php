@@ -88,7 +88,7 @@
               <div class="form-underline"></div>
               <div class="form-group m-4">
                 <label class="checkbox-container">
-                  <input type="checkbox">
+                  <input type="checkbox" value="-50.000 vnđ" name="ship">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Theo cước phí
                     chuyển phát dự kiến - 50.000 vnđ</span>
                 </label>
@@ -97,19 +97,19 @@
               <div class="form-underline"></div>
               <div class="form-group m-4">
                 <label class="checkbox-container">
-                  <input type="checkbox">
+                  <input type="checkbox" value="COD" name="payment_choice">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán khi nhận
                     hàng - COD</span>
                 </label>
               </div>
               <div class="form-group m-4">
                 <label class="checkbox-container">
-                  <input type="checkbox">
+                  <input type="checkbox" value="VNPay" name="payment_choice">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán trực
                     tuyến - VNPay</span>
                 </label>
               </div>
-              <button type="submit" class="btn checkout-button align-self-end text-uppercase font-weight-bold">thanh
+              <button type="submit" class="btn btn-checkout checkout-button align-self-end text-uppercase font-weight-bold">thanh
                 toán</button>
             </div>
           </div>
@@ -152,11 +152,11 @@
         <p class="text-capitalize font-weight-bold m-0">thành tiền:</p>
         <p class="orange-text m-0" style="font-size:20px;">{{ number_format(Cart::getSubTotal()) }}</p>
       </div>
-      <div class="form-underline"></div>
+      {{-- <div class="form-underline"></div>
       <div class="d-flex justify-content-between p-2">
         <p class="text-capitalize font-weight-bold m-0">khuyến mãi:</p>
         <p class="font-weight-bold m-0">-500.000 vnđ</p>
-      </div>
+      </div> --}}
       <div class="form-underline"></div>
       <!-- Total -->
       <div class="d-flex justify-content-between mt-3 text-white p-2" style="background: #e36b00;">

@@ -9,7 +9,7 @@
             <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
             <li class="breadcrumb-item"><a href="#">Sản phẩm nữ</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-              <a class="active" href="#">{{ $product->name }}</a>
+              <a class="active">{{ $product->name }}</a>
             </li>
             </ol>
         </nav>
@@ -64,8 +64,8 @@
           </div>
           <!-- price -->
           <div class="product-price">
-            <span class="new-price font-weight-bold">{{ number_format($product->price) }}</span>
-            <span class="old-price text-muted">{{ number_format($product->discount) }}</span>
+            <span class="new-price font-weight-bold">{{ number_format($product->discount) }}</span>
+            <span class="old-price text-muted">{{ number_format($product->price) }}</span>
           </div>
           <!-- review -->
           <div class="review d-flex mt-2">
@@ -93,8 +93,9 @@
               </label>
             </div>
             <span class="ml-2">(3 Đánh giá)</span>
-            <a href="#" class="ml-3 text-muted"><i class="fas fa-edit"></i> Viết đánh giá</a>
+            <a href="#review-tab" class="ml-3 text-muted"><i class="fas fa-edit"></i> Viết đánh giá</a>
           </div>
+
           <!-- detail -->
           <div class="details">
             <div class="row">
@@ -107,9 +108,9 @@
                 <p>* Kích thước : 24*4*14</p>
               </div>
               <div class="col-lg-12">
-                <p class="description">* Mô tả : Ví dài viền ánh kim <span id="dots">.</span><span id="more"
-                    style="display: none;">Lorem, ipsum
-                    dolor sit amet consectetur adipisicing elit. Libero, tenetur!</span>
+                <p class="description">* Mô tả : <span id="dots"></span>
+                  <span id="more"
+                    style="display: none;">{{ $product->description }}</span>
                 </p>
               </div>
             </div>
@@ -169,7 +170,7 @@
                 <div class="number-input ml-2">
                   <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
                     class="my-auto ml-2"></button>
-                  <input class="number" value="1" type="number" oninput="format(this)" min="1" max="24" step="1" />
+                  <input class="number detail-quantity" value="1" type="number" oninput="format(this)" min="1" max="24" step="1" />
                   <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
                     class="plus my-auto mr-2"></button>
                 </div>
@@ -182,7 +183,7 @@
               </div>
             </div>
             <div class="btn-group my-3">
-              <a href="/cart" type="submit" class="btn buy-button">
+              <a href="" data-id="{{ $product->id }}" type="submit" class="btn buy-button btn-buy-now">
                 <i class="fas fa-shopping-basket mr-2"></i>
                 <span class="font-weight-bold text-uppercase">mua ngay</span>
               </a>
@@ -235,7 +236,7 @@
             <div class="review-conten" >
               <div style="font-weight: bold; font-size: 13px">{{ $review->email }}</div>
               <div style="padding-left: 50px; font-size: 13px">{{ $review->detail }}</div>    
-              <hr>          
+                     <hr>
             </div>
             @empty
                 
@@ -245,12 +246,16 @@
           <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...</div>
         </div>
       </div>
-        <form style="margin-top: 5px;" action="{{ route('client.review.review') }}" method="POST">@csrf
+        <form id="" style="margin-top: 5px;" action="{{ route('client.review.review') }}" method="POST">
+          @csrf
           <div class="form-group">
-            <label for="comment">Comment:</label>
+            <label for="comment">Để lại bình luận của bạn tại đây:</label>
             <br>
-            <input class="email-review pl-2" style="margin-bottom:10px" type="email" name="email" placeholder="Nhập email">
-            <textarea name="detail" class="form-control" rows="2" id="comment" placeholder="Nhập bình luận"></textarea>
+            <label for="email">Email của bạn: </label>
+            <br/>
+              <input class="email-review pl-2" style="margin-bottom:10px;" type="email" name="email" placeholder="sale@moolez.com">
+              <br/>
+            <label for="message">Bình luận:</label><textarea name="detail" class="form-control w-50" rows="2" id="comment" placeholder="Nhập bình luận"></textarea>
           </div>
           <button class="btn btn-success btn-review" type="submit">Send</button>
         </form>
@@ -265,11 +270,14 @@
         <p class="text-capitalize" style="font-size: 34px; margin-bottom: 40px;">sản phẩm liên quan</p>
         <div class="container">
           <div class="row mb-4">
+            @forelse ($products as $item)
+                
+            
             <div class="col-lg-3">
               <div class="product">
                 <div class="card">
                   <div class="product-img">
-                    <a href="#"><img src="/assets/client/img/products/product-1.png"
+                    <a href="{{ route('client.products.detail', $item->id) }}"><img src="{{ asset('media/products') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
                       <div class="product-color" style="background: #2d2d2d;"></div>
@@ -279,7 +287,7 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <a href="#" class="product-name">Luxury Bag for Women</a>
+                    <a href="{{ route('client.products.detail', $item->id) }}" class="product-name">{{ $item->name }}</a>
                     <!-- rating -->
                     <div class="rating">
                       <!-- <input name="stars1" id="e1" type="radio"> -->
@@ -306,13 +314,13 @@
                     <div class="clear"></div>
                     <!-- price -->
                     <div class="product-price">
-                      <span class="old-price">8.000.000</span>
-                      <span class="new-price">4.000.000</span>
+                      <span class="old-price">{{ $item->price }}</span>
+                      <span class="new-price">{{ $item->discount }}</span>
                     </div>
                   </div>
                   <div class="list-group list-group-flush">
                     <div class="list-group-item">
-                      <a href="#" class="cart-link text-muted">
+                      <a href="" data-id="{{ $item->id }} "class="cart-link text-muted btn-add-cart">
                         <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
                         <span>Add to cart</span>
                       </a>
@@ -321,174 +329,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
-              <div class="product">
-                <div class="card">
-                  <div class="product-img">
-                    <a href="#"><img src="/assets/client/img/products/product-2.png"
-                        class="mx-auto d-flex justify-content-center" alt=""></a>
-                    <div class="product-colors justify-content-center d-flex">
-                      <div class="product-color" style="background: #2d2d2d;"></div>
-                      <div class="product-color" style="background: #ffffff;"></div>
-                      <div class="product-color" style="background: #f55678;"></div>
-                      <div class="product-color" style="background: #ffa733;"></div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <a href="#" class="product-name">Luxury Bag for Women</a>
-                    <!-- rating -->
-                    <div class="rating">
-                      <!-- <input name="stars1" id="e1" type="radio"> -->
-                      <label for="e1">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e2" type="radio"> -->
-                      <label for="e2">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e3" type="radio"> -->
-                      <label for="e3">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e4" type="radio"> -->
-                      <label for="e4">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e5" type="radio"> -->
-                      <label for="e5">
-                        <i class="fas fa-star"></i>
-                      </label>
-                    </div>
-                    <div class="clear"></div>
-                    <!-- price -->
-                    <div class="product-price">
-                      <span class="old-price">8.000.000</span>
-                      <span class="new-price"></span>
-                    </div>
-                  </div>
-                  <div class="list-group list-group-flush">
-                    <div class="list-group-item">
-                      <a href="#" class="cart-link text-muted">
-                        <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
-                        <span>Add to cart</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="product">
-                <div class="card">
-                  <div class="product-img">
-                    <a href="#"><img src="/assets/client/img/products/product-3.png"
-                        class="mx-auto d-flex justify-content-center" alt=""></a>
-                    <div class="product-colors justify-content-center d-flex">
-                      <div class="product-color" style="background: #2d2d2d;"></div>
-                      <div class="product-color" style="background: #ffffff;"></div>
-                      <div class="product-color" style="background: #f55678;"></div>
-                      <div class="product-color" style="background: #ffa733;"></div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <a href="#" class="product-name">Luxury Bag for Women</a>
-                    <!-- rating -->
-                    <div class="rating">
-                      <!-- <input name="stars1" id="e1" type="radio"> -->
-                      <label for="e1">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e2" type="radio"> -->
-                      <label for="e2">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e3" type="radio"> -->
-                      <label for="e3">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e4" type="radio"> -->
-                      <label for="e4">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e5" type="radio"> -->
-                      <label for="e5">
-                        <i class="fas fa-star"></i>
-                      </label>
-                    </div>
-                    <div class="clear"></div>
-                    <!-- price -->
-                    <div class="product-price">
-                      <span class="old-price">8.000.000</span>
-                      <span class="new-price"></span>
-                    </div>
-                  </div>
-                  <div class="list-group list-group-flush">
-                    <div class="list-group-item">
-                      <a href="#" class="cart-link text-muted">
-                        <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
-                        <span>Add to cart</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="product">
-                <div class="card">
-                  <div class="product-img">
-                    <a href="#"><img src="/assets/client/img/products/product-4.png"
-                        class="mx-auto d-flex justify-content-center" alt=""></a>
-                    <div class="product-colors justify-content-center d-flex">
-                      <div class="product-color" style="background: #2d2d2d;"></div>
-                      <div class="product-color" style="background: #ffffff;"></div>
-                      <div class="product-color" style="background: #f55678;"></div>
-                      <div class="product-color" style="background: #ffa733;"></div>
-                    </div>
-                  </div>
-                  <div class="card-body">
-                    <a href="#" class="product-name">Luxury Bag for Women</a>
-                    <!-- rating -->
-                    <div class="rating">
-                      <!-- <input name="stars1" id="e1" type="radio"> -->
-                      <label for="e1">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e2" type="radio"> -->
-                      <label for="e2">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e3" type="radio"> -->
-                      <label for="e3">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e4" type="radio"> -->
-                      <label for="e4">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e5" type="radio"> -->
-                      <label for="e5">
-                        <i class="fas fa-star"></i>
-                      </label>
-                    </div>
-                    <div class="clear"></div>
-                    <!-- price -->
-                    <div class="product-price">
-                      <span class="old-price">8.000.000</span>
-                      <span class="new-price"></span>
-                    </div>
-                  </div>
-                  <div class="list-group list-group-flush">
-                    <div class="list-group-item">
-                      <a href="#" class="cart-link text-muted">
-                        <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
-                        <span>Add to cart</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            @empty
+                
+            @endforelse
           </div>
         </div>
       </div>
@@ -496,55 +339,33 @@
   </div>
   <!-- showroom -->
 @endsection
+@push('js')
+<script src="{{ asset('assets/client') }}/js/carts.detail.js"></script>
+<script>
+  function myFunction() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
 
-  <script>
-    function myFunction() {
-      var dots = document.getElementById("dots");
-      var moreText = document.getElementById("more");
-      var btnText = document.getElementById("myBtn");
-
-      if (dots.style.display === "none") {
-        dots.style.display = "inline";
-        btnText.innerHTML = "Xem thêm";
-        moreText.style.display = "none";
-      } else {
-        dots.style.display = "none";
-        btnText.innerHTML = "Rút gọn";
-        moreText.style.display = "inline";
-      }
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Xem thêm";
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Rút gọn";
+      moreText.style.display = "inline";
     }
+  }
 
-    function scrollDown() {
-      document.querySelector('.thumbnail').scrollBy(0, 50);
-    }
-    function scrollUp() {
-      document.querySelector('.thumbnail').scrollBy(0, -100);
-    }
-    $('.thumbnail li').click(function () {
-      $(this).addClass("active")
-    });
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    //     });
-    // $('.btn-review').click(function(e){
-    //   e.preventDefault();
-    //   let _email = $('.email-review').text();
-    //   let _comment = $('#comment').text();
-    //   $.ajax({
-    //     url: 'products/review',
-    //     method: 'POST',
-    //     data: {
-    //       email: _email,
-    //       detail: _comment
-    //     }
-    //     success: function(a){
-
-    //     }
-    //   })
-    // })
-  </script>
-</body>
-
-</html>
+  function scrollDown() {
+    document.querySelector('.thumbnail').scrollBy(0, 50);
+  }
+  function scrollUp() {
+    document.querySelector('.thumbnail').scrollBy(0, -100);
+  }
+  $('.thumbnail li').click(function () {
+    $(this).addClass("active")
+  });
+</script>
+@endpush

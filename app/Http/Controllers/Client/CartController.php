@@ -13,6 +13,7 @@ class CartController extends Controller
     public function index()
     
     {
+        $product = Product::where('product_code', 'ABC')->simplePaginate(4);
         $condition = new \Darryldecode\Cart\CartCondition(array(
             'name' => 'Khuyến Mãi',
             'type' => 'number',
@@ -23,7 +24,7 @@ class CartController extends Controller
         $cartItems = Cart::getContent();
         // print_r($cartItems);die;
         // Cart::clear();
-        return view('client.carts.index', compact('cartItems'));
+        return view('client.carts.index', compact('cartItems', 'product'));
     }
     public function add(Request $request)
     {
@@ -36,6 +37,7 @@ class CartController extends Controller
             'attributes' => array(
                 'avatar' => $product->avatar,
                 'product_code' => $product->product_code,
+                'discount' => $product->discount,
             )
         ));
 
@@ -80,7 +82,7 @@ class CartController extends Controller
 
         ]);
         $attributes = $request->only([
-            'first_name', 'last_name', 'email', 'address', 'phone', 'city'
+            'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
         ]); 
         $order = Order::create($attributes);
         foreach (Cart::getContent() as $item) {

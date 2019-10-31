@@ -16,9 +16,11 @@ class ProductController extends Controller
     }
     Public function detail($id)
     {
+        // $review_count = Review::where('public', 1)->count();
+        $products = Product::where('product_code', 'DEF')->simplePaginate(4);
         $reviews = Review::where('is_public', 1)->orderBy('order')->paginate(10);
         $product = Product::findOrFail($id);
-        return view('client.products.detail', compact('product','reviews'));
+        return view('client.products.detail', compact('product','reviews', 'products'));
     }
     public function review(Request $request)
     {
@@ -29,6 +31,7 @@ class ProductController extends Controller
         $atrributes = $request->only([
             'email', 'detail'
         ]);
+        
         $review = new Review($atrributes);
         $review->fill($atrributes);
         $review->save();

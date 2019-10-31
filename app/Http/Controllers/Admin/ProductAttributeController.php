@@ -39,7 +39,7 @@ class ProductAttributeController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'attribute_values.*.value' => 'required'
+            'attribute_values.*.value' => 'required_with:can_select'
         ]);
 
         // print_r($request->can_select);die;

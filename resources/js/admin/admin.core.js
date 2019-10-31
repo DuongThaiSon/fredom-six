@@ -18,11 +18,15 @@ export class productAttributeCore {
             validated = false;
         }
 
-        $(".selection-item-value").each(function() {
-            if (_.trim($(this).val()) < 1) {
-                validated = false;
-            }
-        });
+        if ($("input[name=can_select]").attr("checked")) {
+            $(".selection-item-value").each(function() {
+                if (_.trim($(this).val()) < 1) {
+                    validated = false;
+                }
+            });
+        }
+
+        console.log(validated);
 
         return validated;
     }
@@ -91,5 +95,50 @@ export class productAttributeCore {
             data.push(rowData);
         });
         return data;
+    }
+}
+
+export class productCore {
+    constructor(productId = null) {
+        this.productId = productId
+        console.log(this.productId);
+
+    }
+
+    collectSelectedAttributeId() {
+        let _this = this
+        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
+            e.preventDefault()
+            let checked = []
+            $(".select-attribute-input:checked").each(function() {
+                checked.push($(this).val())
+            })
+            _this.renderSelectedAttribute(checked)
+            return
+        })
+    }
+
+    renderSelectedAttribute(checkedIds) {
+        $.ajax({
+            url: '/admin/products/fetch-option',
+            method: "POST",
+            data: {
+                checked_ids: checkedIds
+            },
+            success: function(scs) {
+                $(".product-attribute-option").html(scs)
+                $(".attribute-selectpicker").selectpicker()
+                $("#selectProductAttributeModal").modal("hide")
+            }
+        })
+    }
+
+    submitData() {
+        let _this = this
+        $(".btn-submit-data").on("click.submitData", function(e) {
+            e.preventDefault();
+            $("input[name=price]").val(accounting.unformat($(".price-input").val()))
+            $('.form-main').submit()
+        });
     }
 }

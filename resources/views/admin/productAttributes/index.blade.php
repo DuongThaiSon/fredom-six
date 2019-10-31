@@ -48,7 +48,7 @@
                             </td>
                             <td>{{$attribute->id}}</td>
                             <td class="editname">
-                                <a href="{{route('admin.products.edit', $attribute->id)}}">{{$attribute->name}}</a>
+                                <a href="{{route('admin.product-attributes.edit', $attribute->id)}}">{{$attribute->name}}</a>
                             </td>
                             <td>
                                 {{-- <a href="{{route('admin.product-categories.edit', $attribute->category_id)}}">{{$attribute->category()->first()->name??''}}</a> --}}
@@ -64,7 +64,7 @@
                             <td>
                                 <div class="btn-group">
 
-                                    <a href="{{route('admin.products.edit', $attribute->id)}}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
+                                    <a href="{{route('admin.product-attributes.edit', $attribute->id)}}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
                                         title="Sửa">
                                         <i class="material-icons">border_color</i>
                                     </a>

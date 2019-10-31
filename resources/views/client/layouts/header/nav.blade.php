@@ -1,7 +1,7 @@
 <div id="navbar">
         <nav class="navbar navbar-expand-md">
         <div class="container">
-            <a href="/" class="navbar-brand">
+            <a href="/products" class="navbar-brand">
             <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />
             </a>
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -16,10 +16,10 @@
                 <a href="{{ route('client.news.index')}}" class="nav-link text-uppercase">tin tức</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nữ</a>
+                <a href="/products" class="nav-link text-uppercase">nữ</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="#" class="nav-link text-uppercase">nam</a>
+                <a href="/products" class="nav-link text-uppercase">nam</a>
                 </li>
                 <li class="nav-item pl-lg-5">
                 <a href="#" class="nav-link text-uppercase">monoco</a>

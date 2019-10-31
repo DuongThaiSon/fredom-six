@@ -37,17 +37,17 @@
                 <!-- styles -->
                 <div class="style-options d-flex flex-column">
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Office">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Office</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value=">Street Style">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Street Style</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Evening">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Evening</span>
                   </label>
                 </div>
@@ -73,91 +73,91 @@
                 <!-- sizes -->
                 <div class="size-options">
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="34">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">34</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="35">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">35</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="36">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">36</span>
                   </label>
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="37">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">37</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="38">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">38</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="39">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">39</span>
                   </label>
                 </div>
                 <!-- height -->
                 <div class="height-options">
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Bệt">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Bệt</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="3cm">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">3cm</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="5cm">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">5cm</span>
                   </label>
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="7cm">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">7cm</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="9cm">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">9cm</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="11cm">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">11cm</span>
                   </label>
                 </div>
                 <!-- special-option -->
                 <div class="special-options" style="margin-right: 40px;">
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Gót vuông">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Gót vuông</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Gót nhọn">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Gót nhọn</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Đế xuồng">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Đế xuồng</span>
                   </label>
                 </div>
                 <!-- special-option -->
                 <div class="special-options">
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Mũi nhọn">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Mũi nhọn</span>
                   </label>
 
                   <label class="checkbox-container">
-                    <input type="checkbox">
+                    <input type="checkbox" value="Mũi tròn">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Mũi tròn</span>
                   </label>
                 </div>
@@ -188,7 +188,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <a href="#" class="product-name">{{ $prod->name }}</a>
+                <a href="{{ route('client.products.detail', $prod->id) }}" class="product-name">{{ $prod->name }}</a>
                 <!-- rating -->
                 <div class="rating">
                   <!-- <input name="stars1" id="e1" type="radio"> -->
@@ -246,34 +246,5 @@
     })
 
   </script>
-  <script>
-   
-      $.ajaxSetup({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-      });
-
-      $('.btn-add-cart').click(function(e)
-      {
-        e.preventDefault();
-        let data = {
-          id: $(this).attr('data-id'),
-          quantity: 1,
-        }
-        $.ajax({
-          url: '/cart/add',
-          method: 'POST',
-          data: data,
-          success: function(scs){
-            $('.cart-items').text(scs.quantity);
-          },
-          error: function(){
-
-          }
-          
-        });
-      });
-
-  </script>
+  <script src="{{ asset('assets/client') }}/js/products.js"></script>
 @endpush

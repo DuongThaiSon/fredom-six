@@ -32,7 +32,7 @@
 
                     <ul class="thumbnail mr-3" style="height: 95%;">
                       <li data-target="#product_details_slider" data-slide-to="0"
-                        style="background-image: url({{ asset('media/products') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                        style="background-image: url({{ asset('media/product') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
                       </li>
                     
                     </ul>
@@ -45,9 +45,9 @@
                 <div class="col-lg-9">
                   <div class="carousel-inner">
                     <div class="carousel-item active py-3" style="max-height: 600px;">
-                      <a class="gallery_img" href="{{ asset('media/products') }}/{{ $product->avatar }}">
+                      <a class="gallery_img" href="{{ asset('media/product') }}/{{ $product->avatar }}">
                         <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                          src="{{ asset('media/products') }}/{{ $product->avatar }}" alt="First slide">
+                          src="{{ asset('media/product') }}/{{ $product->avatar }}" alt="First slide">
                       </a>
                     </div>
                   </div>
@@ -277,7 +277,7 @@
               <div class="product">
                 <div class="card">
                   <div class="product-img">
-                    <a href="{{ route('client.products.detail', $item->id) }}"><img src="{{ asset('media/products') }}/{{ $item->avatar }}"
+                    <a href="{{ route('client.products.detail', $item->id) }}"><img src="{{ asset('media/product') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
                       <div class="product-color" style="background: #2d2d2d;"></div>

@@ -12,7 +12,7 @@
     @else
 
     @php
-        $selectedAttribute = $product->productAttributeValues->pluck('id')->toArray();
+        $selectedAttribute = isset($product)?$product->productAttributeValues->pluck('id')->toArray():[];
     @endphp
     <div class="form-group">
         <label>{{ $attribute->name }}</label>

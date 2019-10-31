@@ -51,7 +51,7 @@ class ProductCategoryController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $attributes = $this->service->appendCreateData($request->all());
-        print_r($attributes);die;
+        // print_r($attributes);die;
         $productCategory = Category::create($attributes);
 
         $response = [
@@ -64,7 +64,8 @@ class ProductCategoryController extends Controller
             return response()->json($response);
         }
 
-        return redirect()->route('admin.product-categories.edit', $productCategory->id)->with('message', $response['message']);
+        return redirect()->route('admin.product-categories.index');
+        // return redirect()->route('admin.product-categories.edit', $productCategory->id)->with('message', $response['message']);
     }
 
     /**

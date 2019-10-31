@@ -1,5 +1,5 @@
-@extends('admin.auth.layouts.main')
-@section('content')
+{{-- @extends('admin.auth.layouts.main')
+@section('content') --}}
         <div id="confirm-email">
             <img class="logo-icon-login" src="/assets/admin/img/icon/logo-login.png" alt="">
             <img class="leotive" src="/assets/admin/img/icon/leotive.png" alt="">
@@ -42,4 +42,4 @@
                     <button type="submit" class="change-pass text-center text-white font-weight-bold">Đổi mật khẩu</button>
             </form>
         </div>
-@endsection
+{{-- @endsection --}}

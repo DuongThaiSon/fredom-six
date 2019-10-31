@@ -1,5 +1,5 @@
-@extends('admin.auth.layouts.main')
-@section('content')
+{{-- @extends('admin.auth.layouts.main')
+@section('content') --}}
         <div id="login">
             <img class="logo-icon-login" src="/assets/admin/img/icon/logo-login.png" alt="">
             <img class="leotive" src="/assets/admin/img/icon/leotive.png" alt="">
@@ -9,7 +9,7 @@
                     {{ session('status')}}
                 </div>
             @endif
-            <form method="POST" action="{{ route('password.email')}}">
+            <form method="POST" action="{{ route('admin.password.email')}}">
             @csrf
                 <div class="form-group {{$errors->has('email') ? ' has-error' : ''}}" id="email">
                     <label for="exampleInputEmail1"><img src="img/icon/mail_outline_24px_rounded.svg" alt=""> Email address</label>
@@ -25,4 +25,4 @@
                     <button type="submit" class="send-mail text-center text-white font-weight-bold">Yêu Cầu Khôi Phục mật khẩu</button>
             </form>
         </div>
-   @endsection
+   {{-- @endsection --}}

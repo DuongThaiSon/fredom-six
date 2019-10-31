@@ -35,14 +35,14 @@
                     </div>
 
                     <!-- Button Toggle -->
-                    <div class="mb-2">
+                    <div class="mb-2 d-none">
 
                         <label class="control-label">Giới hạn lựa chọn
                             <input type="checkbox" value="checked" {{ $productAttribute->can_select?'checked':'' }} class="checkbox-toggle" name="can_select" id="can_select" checked/>
                             <label class="label-checkbox" for="can_select"> </label>
                         </label>
                     </div>
-                    <small class="form-text">
+                    <small class="form-text d-none">
                         Khi tính năng “Giới hạn lựa chọn” được bật, có thể tạo các lựa chọn cụ thể cho thuộc tính
                     </small>
 

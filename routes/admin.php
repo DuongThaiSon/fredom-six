@@ -307,7 +307,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     // product
     Route::group(['prefix' => 'products'], function() {
-
+        Route::post('fetch-option', [
+            'as' => 'products.fetchOption',
+            'uses' => 'ProductController@fetchOption'
+        ]);
     });
     Route::resource('products', 'ProductController');
 
@@ -316,6 +319,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
         //
     });
     Route::resource('product-categories', 'ProductCategoryController');
+
+    // product attribute
+    Route::group(['prefix' => 'product-attributes'], function() {
+
+    });
+    Route::resource('product-attributes', 'ProductAttributeController');
 
     Route::post('check-user', 'UserController@check');
     Route::post('upload-image', 'MediaController@uploadImage');

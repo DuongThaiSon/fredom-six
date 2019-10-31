@@ -36,6 +36,14 @@ $(document).ready(function() {
         let fileName = readUploadFileName(this);
         $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
     })
+
+    // format input price
+    $(".price-format").simpleMoneyFormat();
+
+    // format datetime picker
+    $(".date-picker").flatpickr({});
+
+    changeAttributeValueOnCheckboxToggle();
 });
 
 function readUploadFileName(input) {
@@ -44,4 +52,12 @@ function readUploadFileName(input) {
             'length': 38,
         });
     }
+}
+
+function changeAttributeValueOnCheckboxToggle() {
+    $(".checkbox-toggle").off(".checkboxToggle")
+    $(".checkbox-toggle").on("change.checkboxToggle", function() {
+        let checkbox = $(this);
+        checkbox.attr('checked', !checkbox.attr('checked'))
+    })
 }

@@ -111,7 +111,8 @@
                                 <a href="{{route('admin.products.edit', $product->id)}}">{{$product->name}}</a>
                             </td>
                             <td>
-                                <a href="{{route('admin.product-categories.edit', $product->category_id)}}">{{$product->category()->first()->name??''}}</a>
+                                {{-- <a href="{{route('admin.product-categories.edit', $product->category_id)}}">{{$product->category()->first()->name??''}}</a> --}}
+                                {{ implode(', ', $product->categories->pluck('name')->toArray()) }}
                             </td>
                             <td>
                                 <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$product->id}}" value="{{$product->is_public}}"  data-toggle="tooltip"  title="{{ $product->is_public==1?'Click để tắt':'Click để bật' }}">
@@ -128,8 +129,8 @@
                                     <i class="material-icons toggle-icon">{{isset($product)&&$product->is_new==1?'check_circle_outline':'close'}}</i>
                                 </button>
                             </td>
-                            <td>{{$product->created_at}}</td>
-                            <td>{{$product->user()->first()->name}}</td>
+                            <td>{{$product->updated_at}}</td>
+                            <td>{{$product->updater->name}}</td>
                             <td>
                                 <div class="btn-group">
 
@@ -144,7 +145,7 @@
                                     <a class="btn btn-sm p-1 move-top-button" product-id="{{$product->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                                         <i class="material-icons">call_made</i>
                                     </a>
-                                <a href="{{route('admin.products.delete', $product->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
+                                <a href="{{route('admin.products.destroy', $product->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </div>

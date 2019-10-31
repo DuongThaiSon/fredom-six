@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductAttributeValue extends Model
 {
-    //
+    protected $guarded = ['id'];
+
+    public function productAttribute()
+    {
+        return $this->belongsTo('App\Models\ProductAttribute');
+    }
 }

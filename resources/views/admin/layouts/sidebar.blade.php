@@ -29,16 +29,19 @@
                 <div class="sub collapse" id="submenu1">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="{{ route('admin.products.create') }}" class="nav-link menu-products-create">Tạo mới sản phẩm</a>
+                        <a href="{{ route('admin.products.create') }}" class="nav-link menu-products-create">Tạo mới sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.products.index') }}" class="nav-link menu-products-index">Quản lý sản phẩm</a>
+                        <a href="{{ route('admin.products.index') }}" class="nav-link menu-products-index">Quản lý sản phẩm</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>
+                        <a href="{{ route('admin.product-attributes.index') }}" class="nav-link menu-product-attributes-index">Quản lý thuộc tính</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.product-categories.index') }}" class="nav-link menu-product-categories-index">Quản lý danh mục sản phẩm</a>
+                        <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.product-categories.index') }}" class="nav-link menu-product-categories-index">Quản lý danh mục sản phẩm</a>
                     </li>
                 </ul>
                 </div>

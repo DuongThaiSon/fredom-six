@@ -5,6 +5,10 @@ window.core = require("./core");
 require('popper.js');
 require('bootstrap');
 require('bootstrap-select');
+require('jasny-bootstrap/dist/js/jasny-bootstrap');
+window.accounting = require('accounting/accounting');
+require('./simpleMoneyFormat');
+window.flatpickr = require("flatpickr");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

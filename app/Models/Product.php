@@ -13,6 +13,16 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Category', 'product_category')
         ->withTimestamps();
     }
+
+    public function updater()
+    {
+        return $this->belongsTo('App\Models\User', 'updated_by');
+    }
+
+    public function productAttributeValues()
+    {
+        return $this->belongsToMany('App\Models\ProductAttributeValue', 'product_attribute_value', 'product_id', 'product_attribute_value_id');
+    }
 }
 
 

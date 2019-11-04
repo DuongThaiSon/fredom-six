@@ -51,12 +51,11 @@ class ProductCategoryController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $attributes = $this->service->appendCreateData($request->all());
-        print_r($attributes);die;
-        $productCategory = Category::create($attributes);
+        $category = Category::create($attributes);
 
         $response = [
             'message' => 'Product Category created.',
-            'data'    => $productCategory->toArray(),
+            'data'    => $category->toArray(),
         ];
 
         if ($request->wantsJson()) {
@@ -64,7 +63,7 @@ class ProductCategoryController extends Controller
             return response()->json($response);
         }
 
-        return redirect()->route('admin.product-categories.edit', $productCategory->id)->with('message', $response['message']);
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
     }
 
     /**
@@ -84,9 +83,11 @@ class ProductCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        // print_r($category);die;
+        $categories = $this->service->allWithSub($category->id);
+        return view('admin.productCats.edit', compact('categories', 'category'));
     }
 
     /**
@@ -96,9 +97,24 @@ class ProductCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $attributes = $this->service->appendEditData($request->all());
+        $category->fill($attributes);
+        // print_r($category);die;
+        $category->save();
+
+        $response = [
+            'message' => 'Product Category updated.',
+            'data'    => $category->toArray(),
+        ];
+
+        if ($request->wantsJson()) {
+
+            return response()->json($response);
+        }
+
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
     }
 
     /**

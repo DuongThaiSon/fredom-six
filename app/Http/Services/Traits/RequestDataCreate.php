@@ -23,7 +23,7 @@ trait RequestDataCreate
             }
             $attributes['slug'] = $slug;
         }
-        if (isset($this->categoryType)) {
+        if ($this->isCategory) {
             $attributes['type'] = $this->categoryType;
         }
         if (array_key_exists('avatar', $attributes)) {

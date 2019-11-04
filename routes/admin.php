@@ -318,7 +318,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::group(['prefix' => 'product-categories'], function() {
         //
     });
-    Route::resource('product-categories', 'ProductCategoryController');
+    Route::resource('product-categories', 'ProductCategoryController', [
+        'parameters' => [
+            'product-categories' => 'category'
+        ]
+    ]);
 
     // product attribute
     Route::group(['prefix' => 'product-attributes'], function() {

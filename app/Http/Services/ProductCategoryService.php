@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Services\Base\BaseModel;
 use App\Http\Services\Traits\RequestDataCreate;
+use App\Http\Services\Traits\RequestDataEdit;
 use App\Http\Services\Traits\CategoryTrait;
 use App\Http\Services\Traits\HandleUpload;
 use App\Models\Category;
@@ -11,7 +12,7 @@ use Auth;
 
 class ProductCategoryService extends BaseModel
 {
-    use CategoryTrait, RequestDataCreate, HandleUpload;
+    use CategoryTrait, RequestDataCreate, RequestDataEdit, HandleUpload;
 
     /**
     * Specify Category type
@@ -27,6 +28,12 @@ class ProductCategoryService extends BaseModel
     {
         return Category::class;
     }
+
+    /**
+     * Determine resource type is category is not
+     */
+
+    protected $isCategory = true;
 
     /**
      * Specify input attributes

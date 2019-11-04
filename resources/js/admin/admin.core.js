@@ -142,3 +142,40 @@ export class productCore {
         });
     }
 }
+
+export class productCategoriesCore {
+    constructor() {}
+
+    collectSelectedAttribute() {
+        let _this = this
+        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
+            e.preventDefault()
+            let checked = []
+            $(".select-attribute-input:checked").each(function() {
+                checked.push({
+                    id: $(this).val(),
+                    value: $(this).attr('data-name')
+                })
+            })
+
+            _this.renderSelectedAttribute(checked)
+
+            return
+        })
+    }
+
+    renderSelectedAttribute(checkedIds) {
+        let template = "";
+        _.forEach(checkedIds, function(item) {
+            template += `
+            <div class="form-group">
+                <input type="hidden" name="product_attributes[]" class="form-control" value="${item.id}" readonly />
+                <input type="text" name="" class="form-control" value="${item.value}" readonly />
+            </div>
+            `
+        })
+
+        $(".product-attribute-option").html(template)
+        $("#selectProductAttributeModal").modal("hide")
+    }
+}

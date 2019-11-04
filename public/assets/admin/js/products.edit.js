@@ -90,13 +90,14 @@
 /*!******************************************!*\
   !*** ./resources/js/admin/admin.core.js ***!
   \******************************************/
-/*! exports provided: productAttributeCore, productCore */
+/*! exports provided: productAttributeCore, productCore, productCategoriesCore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productAttributeCore", function() { return productAttributeCore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCore", function() { return productCore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategoriesCore", function() { return productCategoriesCore; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -261,6 +262,49 @@ function () {
   }]);
 
   return productCore;
+}();
+var productCategoriesCore =
+/*#__PURE__*/
+function () {
+  function productCategoriesCore() {
+    _classCallCheck(this, productCategoriesCore);
+  }
+
+  _createClass(productCategoriesCore, [{
+    key: "collectSelectedAttribute",
+    value: function collectSelectedAttribute() {
+      var _this = this;
+
+      $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
+        e.preventDefault();
+        var checked = [];
+        $(".select-attribute-input:checked").each(function () {
+          checked.push({
+            id: $(this).val(),
+            value: $(this).attr('data-name')
+          });
+        });
+
+        _this.renderSelectedAttribute(checked);
+
+        return;
+      });
+    }
+  }, {
+    key: "renderSelectedAttribute",
+    value: function renderSelectedAttribute(checkedIds) {
+      var template = "";
+
+      _.forEach(checkedIds, function (item) {
+        template += "\n            <div class=\"form-group\">\n                <input type=\"hidden\" name=\"product_attributes[]\" class=\"form-control\" value=\"".concat(item.id, "\" readonly />\n                <input type=\"text\" name=\"\" class=\"form-control\" value=\"").concat(item.value, "\" readonly />\n            </div>\n            ");
+      });
+
+      $(".product-attribute-option").html(template);
+      $("#selectProductAttributeModal").modal("hide");
+    }
+  }]);
+
+  return productCategoriesCore;
 }();
 
 /***/ }),

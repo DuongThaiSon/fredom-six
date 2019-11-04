@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Category;
 use App\Http\Services\ProductCategoryService;
+use App\Models\ProductAttribute;
 
 class ProductCategoryController extends Controller
 {
@@ -85,9 +86,10 @@ class ProductCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // print_r($category);die;
+        $productAttributes = ProductAttribute::all();
         $categories = $this->service->allWithSub($category->id);
-        return view('admin.productCats.edit', compact('categories', 'category'));
+        $category->load(['productAttributes']);
+        return view('admin.productCats.edit', compact('categories', 'category', 'productAttributes'));
     }
 
     /**
@@ -99,10 +101,11 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        // TODO: create form request
         $attributes = $this->service->appendEditData($request->all());
         $category->fill($attributes);
-        // print_r($category);die;
         $category->save();
+        $category->productAttributes()->sync($request->product_attributes);
 
         $response = [
             'message' => 'Product Category updated.',

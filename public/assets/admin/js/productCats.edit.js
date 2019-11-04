@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -309,10 +309,10 @@ function () {
 
 /***/ }),
 
-/***/ "./resources/js/admin/product-attributes.create.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/admin/product-attributes.create.js ***!
-  \*********************************************************/
+/***/ "./resources/js/admin/productCats.edit.js":
+/*!************************************************!*\
+  !*** ./resources/js/admin/productCats.edit.js ***!
+  \************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -321,35 +321,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _admin_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admin.core */ "./resources/js/admin/admin.core.js");
 
 $(document).ready(function () {
-  var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productAttributeCore"]();
-  guide.conditionToggleSelectZone();
-
-  if ($(".selection-item").length < 1) {
-    guide.addSelectionItem();
-  } else {
-    guide.removeSelectionItem();
-  }
-
-  $("input[name=can_select]").on("change.conditionToggleSelectZone", function () {
-    guide.conditionToggleSelectZone();
-  });
-  $(".btn-add-selection-item").on("click.addSelectionItem", function (e) {
-    e.preventDefault();
-    guide.addSelectionItem();
-  });
-  guide.submitData();
+  var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCategoriesCore"]();
+  guide.collectSelectedAttribute();
 });
 
 /***/ }),
 
-/***/ 4:
-/*!***************************************************************!*\
-  !*** multi ./resources/js/admin/product-attributes.create.js ***!
-  \***************************************************************/
+/***/ 3:
+/*!******************************************************!*\
+  !*** multi ./resources/js/admin/productCats.edit.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/product-attributes.create.js */"./resources/js/admin/product-attributes.create.js");
+module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/productCats.edit.js */"./resources/js/admin/productCats.edit.js");
 
 
 /***/ })

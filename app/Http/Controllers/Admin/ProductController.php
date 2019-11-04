@@ -82,10 +82,10 @@ class ProductController extends Controller
     {
         $categories = $this->service->allWithSub($product->id);
         $productAttributes = ProductAttribute::all();
-        $product->load(['productAttributeValues.productAttribute']);
+        $product->load(['productAttributeValues.productAttribute', 'categories']);
         // print_r($product->toArray());die;
         $productAttributeSelected = collect($product);
-        $productAttributeSelected= collect($productAttributeSelected['product_attribute_values'])->pluck('product_attribute');
+        $productAttributeSelected = collect($productAttributeSelected['product_attribute_values'])->pluck('product_attribute');
         $productAttributeSelected = $productAttributeSelected->unique('name')->pluck('id');
         $productAttributeSelected = ProductAttribute::find($productAttributeSelected);
         return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'productAttributeSelected'));
@@ -117,6 +117,7 @@ class ProductController extends Controller
 
         }
         $product->productAttributeValues()->sync($syncData);
+        $product->categories()->sync($request->category);
         return redirect()->back()->with('success', 'Cập nhật sản phẩm thành công');
     }
 

@@ -64,7 +64,7 @@
           </div>
           <!-- price -->
           <div class="product-price">
-            <span class="new-price font-weight-bold">{{ number_format($product->discount) }}</span>
+            <span class="new-price font-weight-bold">{{ number_format($product->price-$product->discount*$product->price/100) }}</span>
             <span class="old-price text-muted">{{ number_format($product->price) }}</span>
           </div>
           <!-- review -->
@@ -100,17 +100,17 @@
           <div class="details">
             <div class="row">
               <div class="col-lg-5">
-                <p>* Chất liệu : da trăn</p>
-                <p>* Màu sắc : đen</p>
+                <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}</p>
+                <p>* Màu sắc :  {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}</p>
               </div>
               <div class="col-lg-7">
-                <p>* Xuất xứ : P.R.C</p>
-                <p>* Kích thước : 24*4*14</p>
+                <p>* Xuất xứ : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Xuất xứ')->value) ?? 'đang cập nhập' }}</p>
+                <p>* Kích thước : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value) ?? 'đang cập nhập' }}</p>
               </div>
               <div class="col-lg-12">
                 <p class="description">* Mô tả : <span id="dots"></span>
                   <span id="more"
-                    style="display: none;">{{ $product->description }}</span>
+                    style="display: none;">{!! $product->description !!}</span>
                 </p>
               </div>
             </div>
@@ -157,10 +157,8 @@
                   </div>
                   <select class="form-control pl-0" name="size" id="size" style="border-left: 0 !important;"
                     style="font-size: 14px;">
-                    <option value="">Nhỏ (S)</option>
-                    <option value="">Vừa (M)</option>
-                    <option value="">Lớn (L)</option>
-                  </select>
+                    <option value="">{{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value) ?? 'Đang cập nhập' }}</option>
+                    </select>
                 </div>
               </div>
             </div>
@@ -229,14 +227,14 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-            <p>{{ $product->detail }}</p>
+            <p>{!! $product->detail !!}</p>
           </div>
           <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
             @forelse ($reviews as $review)
             <div class="review-conten" >
               <div style="font-weight: bold; font-size: 13px">{{ $review->email }}</div>
               <div style="padding-left: 50px; font-size: 13px">{{ $review->detail }}</div>    
-                     <hr>
+                <hr>
             </div>
             @empty
                 

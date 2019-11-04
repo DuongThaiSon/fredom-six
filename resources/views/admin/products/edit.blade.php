@@ -57,6 +57,9 @@
                     <small class="form-text">Tên của tin bài</small>
                 </div>
 
+                @php
+                    $selectedCategories = $product->categories->pluck('id')->toArray();
+                @endphp
                 <div class="form-group">
                     <label>Nằm trong mục</label>
                     <select
@@ -72,7 +75,7 @@
                         id="product-category">
 
                         <option value="0"></option>
-                        @include('admin.partials.options', ['level'=>0])
+                        @include('admin.partials.productOptions', ['level'=>0])
 
                     </select>
                 </div>

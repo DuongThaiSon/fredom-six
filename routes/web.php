@@ -40,9 +40,21 @@ Route::group([
         'uses' => 'ContactController@contact'
     ]);
     Route::get('products', 'ProductController@product');
-    Route::get('products/{id}',[
+    Route::get('products/{slug_cat?}', [
+        'as' => 'products.category',
+        'uses' => 'ProductController@productCat'
+    ]);
+    Route::get('products/detail/{id}',[
         'as' => 'client.products.detail',
         'uses' => 'ProductController@detail'
+    ]);
+    Route::post('products/review',[
+        'as' => 'client.review.review',
+        'uses' => 'ProductController@review'
+    ]);
+    Route::get('products/search/key',[
+        'as' => 'client.products.search',
+        'uses' => 'ProductController@searchProduct'
     ]);
     Route::get('cart', 'CartController@index');
     Route::post('cart/add', 'CartController@add');
@@ -50,9 +62,5 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
-    Route::post('products/review',[
-        'as' => 'client.review.review',
-        'uses' => 'ProductController@review'
-    ]);
-
+  
 });

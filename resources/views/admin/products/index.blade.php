@@ -130,7 +130,7 @@
                                 </button>
                             </td>
                             <td>{{$product->updated_at}}</td>
-                            <td>{{$product->updater->name}}</td>
+                            <td>{{$product->updater->name ?? ''}}</td>
                             <td>
                                 <div class="btn-group">
 

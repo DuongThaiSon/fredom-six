@@ -139,6 +139,8 @@ class ProductController extends Controller
         $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeValues']);
         if ($request->has('product_id')) {
             $product = Product::findOrFail($request->product_id);
+        } else {
+            $product = new Product;
         }
         return view('admin.partials.productAttributeOptions', compact('product', 'productAttributes'));
     }

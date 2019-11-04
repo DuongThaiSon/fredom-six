@@ -1,4 +1,12 @@
 $(document).ready(function () {
+  
+  $('.checkbox-product').click(function() {
+    var text = "";
+    $('.checkbox-product:checked').each(function() {
+    text += $(this).val() + ' ' });
+    text = text.substring(0, text.length-1);
+    $('#tags').val(text);
+  });
     
     $.ajaxSetup({
         headers: {

@@ -96,13 +96,11 @@
               <p class="text-uppercase font-weight-bold m-0">phương thức thanh toán</p>
               <div class="form-underline"></div>
               <div class="form-group m-4">
-                <label class="checkbox-container">
+                <label class="checkbox-container mb-3">
                   <input type="checkbox" value="COD" name="payment_choice">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán khi nhận
                     hàng - COD</span>
                 </label>
-              </div>
-              <div class="form-group m-4">
                 <label class="checkbox-container">
                   <input type="checkbox" value="VNPay" name="payment_choice">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán trực
@@ -166,3 +164,17 @@
     </div>
   </section>
 @endsection
+@push('js')
+    <script>
+      $("input:checkbox").on('click', function() {
+        var $box = $(this);
+        if ($box.is(":checked")) {
+          var group = "input:checkbox[name='" + $box.attr("name") + "']";
+            $(group).prop("checked", false);
+            $box.prop("checked", true);
+        } else {
+          $box.prop("checked", false);
+        }
+      });
+    </script>
+@endpush  

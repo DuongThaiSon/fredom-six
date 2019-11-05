@@ -57,6 +57,9 @@
                     <small class="form-text">Tên của tin bài</small>
                 </div>
 
+                @php
+                    $selectedCategories = $product->categories->pluck('id')->toArray();
+                @endphp
                 <div class="form-group">
                     <label>Nằm trong mục</label>
                     <select

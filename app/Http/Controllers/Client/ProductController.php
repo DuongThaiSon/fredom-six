@@ -6,20 +6,24 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Category;
+use App\Models\ProductAttributeValue;
+use App\Models\ProductAttribute;
 
 class ProductController extends Controller
 {
     public function product(Request $request)
-    {
-        $product = Product::get();
-        return view('client.products.product', compact('product'));
+
+    {   $productAttr = ProductAttribute::get();
+        $product = Product::simplePaginate(8);
+        
+        return view('client.products.product', compact('product', 'productAttr'));
     }
     Public function detail($id)
     {
-        // $review_count = Review::where('public', 1)->count();
-        $products = Product::where('product_code', 'DEF')->simplePaginate(4);
+        $products = Product::where('product_code', 'like', '%'.'GN'.'%')->simplePaginate(4);
         $reviews = Review::where('is_public', 1)->orderBy('order')->paginate(10);
-        $product = Product::findOrFail($id);
+        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute'])->findOrFail($id);
         return view('client.products.detail', compact('product','reviews', 'products'));
     }
     public function review(Request $request)
@@ -36,5 +40,28 @@ class ProductController extends Controller
         $review->fill($atrributes);
         $review->save();
         return redirect()->back();
+    }
+    public function productCat($slug_cat)
+    {
+        $category = Category::where([
+            ['type', 'product'],
+            ['slug', $slug_cat]
+        ])->with(['products'])->first();
+        
+        return view('client.products.productCat', compact('category'));
+    }
+    public function searchProduct(Request $request)
+    {
+        if($request->key != ""){
+            $attrsResult = ProductAttributeValue::with('products')->where('value', 'like', '%'.$request->key.'%')->get();
+            return view('client.products.search')->with([
+                'attrs' => !empty($attrsResult) ? $attrsResult->pluck('products')->collapse() : []
+            ]);
+        }
+        else{
+            $product = Product::simplePaginate(8);
+            return view('client.products.product', compact('product'));
+        }
+        
     }
 }

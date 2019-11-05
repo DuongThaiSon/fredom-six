@@ -51,7 +51,7 @@
             <td>
               <div class="product d-flex align-items-center">
                 <div class="product-image">
-                  <img src="{{ asset('media/products') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
+                  <img src="{{ asset('media/product') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                 </div>
                 <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
                   class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }} ,
@@ -132,7 +132,7 @@
                 <div class="card">
                   <div class="product-img">
                     <a href="{{ route('client.products.detail', $item->id) }}"><img
-                        src="{{ asset('media/products') }}/{{ $item->avatar }}"
+                        src="{{ asset('media/product') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
                       <div class="product-color" style="background: #2d2d2d;"></div>

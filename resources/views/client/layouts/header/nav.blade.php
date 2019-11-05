@@ -16,10 +16,10 @@
                 <a href="{{ route('client.news.index')}}" class="nav-link text-uppercase">tin tức</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="/products" class="nav-link text-uppercase">nữ</a>
+                <a href="{{ route('products.category') }}/giay-nu" class="nav-link text-uppercase">nữ</a>
                 </li>
                 <li class="nav-item pl-lg-5">
-                <a href="/products" class="nav-link text-uppercase">nam</a>
+                <a href="{{ route('products.category') }}/giay-nam" class="nav-link text-uppercase">nam</a>
                 </li>
                 <li class="nav-item pl-lg-5">
                 <a href="#" class="nav-link text-uppercase">monoco</a>

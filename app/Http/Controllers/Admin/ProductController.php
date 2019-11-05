@@ -89,11 +89,7 @@ class ProductController extends Controller
         } else {
             $productAttributes = ProductAttribute::all();
         }
-        // $productAttributeSelected = collect($product);
-        // $productAttributeSelected= collect($productAttributeSelected['product_attribute_values'])->pluck('product_attribute');
-        // $productAttributeSelected = $productAttributeSelected->unique('name')->pluck('id');
-        // $productAttributeSelected = ProductAttribute::find($productAttributeSelected);
-        $selectedProductAttributes = $product->productAttributeValues->pluck('productAttribute');
+        $selectedProductAttributes = $product->productAttributeValues->pluck('productAttribute')->unique('id');
         return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes'));
     }
 

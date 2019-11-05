@@ -60,6 +60,7 @@
                 <div class="form-group">
                     <label>Nằm trong mục</label>
                     <select
+                        required
                         name="category[]"
                         data-selected-text-format="count > 2"
                         class="selectpicker form-control category-selectpicker"

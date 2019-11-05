@@ -16,4 +16,5 @@ $(document).ready(function() {
         guide.addSelectionItem()
     })
     guide.submitData()
+    guide.applyAttributeType()
 })

@@ -112,6 +112,14 @@ function () {
   }
 
   _createClass(productAttributeCore, [{
+    key: "applyAttributeType",
+    value: function applyAttributeType() {
+      $("input[name=type]").on("change.applyAttributeType", function () {
+        var type = $("input[name=type]:checked").val();
+        $(".selection-item-value").attr('type', type);
+      });
+    }
+  }, {
     key: "submitData",
     value: function submitData() {
       var _this = this;
@@ -143,7 +151,6 @@ function () {
         });
       }
 
-      console.log(validated);
       return validated;
     }
   }, {
@@ -160,17 +167,19 @@ function () {
   }, {
     key: "addSelectionItem",
     value: function addSelectionItem() {
-      var element = this.generateSelectionItem();
+      var type = $("input[name=type]:checked").val();
+      var element = this.generateSelectionItem(type);
       $(".selection-list").append(element);
       this.removeSelectionItem();
     }
   }, {
     key: "generateSelectionItem",
     value: function generateSelectionItem() {
-      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "text";
+      var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
       var index = Date.now();
-      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"form-control selection-item-id\"/>\n                <input type=\"text\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"form-control selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
+      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
     }
   }, {
     key: "removeSelectionItem",

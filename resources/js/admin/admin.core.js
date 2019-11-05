@@ -1,6 +1,13 @@
 export class productAttributeCore {
     constructor() {}
 
+    applyAttributeType() {
+        $("input[name=type]").on("change.applyAttributeType", function() {
+            let type = $("input[name=type]:checked").val()
+            $(".selection-item-value").attr('type', type)
+        })
+    }
+
     submitData() {
         let _this = this
         $(".btn-submit-data").on("click.submitData", function(e) {
@@ -26,8 +33,6 @@ export class productAttributeCore {
             });
         }
 
-        console.log(validated);
-
         return validated;
     }
 
@@ -41,18 +46,19 @@ export class productAttributeCore {
     }
 
     addSelectionItem() {
-        let element = this.generateSelectionItem();
+        let type = $("input[name=type]:checked").val()
+        let element = this.generateSelectionItem(type)
         $(".selection-list").append(element);
         this.removeSelectionItem();
     }
 
-    generateSelectionItem(id = "", value = "") {
+    generateSelectionItem(type = "text", id = "", value = "") {
         let index = Date.now()
         return `
         <div class="row form-group selection-item">
             <div class="col-10 input-group">
-                <input type="hidden" name="attribute_values[${index}][id]" value="${id}" class="form-control selection-item-id"/>
-                <input type="text" name="attribute_values[${index}][value]" value="${value}" class="form-control selection-item-value"/>
+                <input type="hidden" name="attribute_values[${index}][id]" value="${id}" class="selection-item-id"/>
+                <input type="${type}" name="attribute_values[${index}][value]" value="${value}" class="selection-item-value"/>
                 <div class="input-group-prepend">
                     <a href="#" class="text-decoration-none btn-remove-selection-item">
                         <div class="input-group-text bg-white">

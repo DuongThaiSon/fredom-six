@@ -99,6 +99,7 @@ class ProductAttributeController extends Controller
 
         $productAttribute = $productAttribute->fill([
             'name' => $request->name,
+            'type' => $request->type,
             'can_select' => $request->has('can_select')?'1':'0',
             'allow_multiple' => $request->has('allow_multiple')?'1':'0',
             'updated_by' => auth()->guard('admin')->id(),

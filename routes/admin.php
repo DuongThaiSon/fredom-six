@@ -307,6 +307,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     // product
     Route::group(['prefix' => 'products'], function() {
+        Route::post('fetch-attribute-option', [
+            'as' => 'products.fetchAttributeOption',
+            'uses' => 'ProductController@fetchAttributeOption'
+        ]);
         Route::post('fetch-option', [
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
@@ -318,7 +322,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::group(['prefix' => 'product-categories'], function() {
         //
     });
-    Route::resource('product-categories', 'ProductCategoryController');
+    Route::resource('product-categories', 'ProductCategoryController', [
+        'parameters' => [
+            'product-categories' => 'category'
+        ]
+    ]);
 
     // product attribute
     Route::group(['prefix' => 'product-attributes'], function() {

@@ -29,7 +29,12 @@
             data-show-tick="true"
             id="product-category">
             @forelse ($attribute->productAttributeValues as $item)
-                <option value="{{ $item->id }}" {{ in_array($item->id, $selectedAttribute)?'selected':'' }}>{{ $item->value }}</option>
+                <option
+                    value="{{ $item->id }}"
+                    {{ in_array($item->id, $selectedAttribute)?'selected':'' }}
+                    {{ $attribute->type==="color"?'style=background:'.$item->value:''}}>
+                        {{ $item->value }}
+                    </option>
             @empty
             @endforelse
         </select>

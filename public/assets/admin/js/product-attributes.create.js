@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -90,13 +90,14 @@
 /*!******************************************!*\
   !*** ./resources/js/admin/admin.core.js ***!
   \******************************************/
-/*! exports provided: productAttributeCore, productCore */
+/*! exports provided: productAttributeCore, productCore, productCategoriesCore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productAttributeCore", function() { return productAttributeCore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCore", function() { return productCore; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategoriesCore", function() { return productCategoriesCore; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -111,6 +112,14 @@ function () {
   }
 
   _createClass(productAttributeCore, [{
+    key: "applyAttributeType",
+    value: function applyAttributeType() {
+      $("input[name=type]").on("change.applyAttributeType", function () {
+        var type = $("input[name=type]:checked").val();
+        $(".selection-item-value").attr('type', type);
+      });
+    }
+  }, {
     key: "submitData",
     value: function submitData() {
       var _this = this;
@@ -142,7 +151,6 @@ function () {
         });
       }
 
-      console.log(validated);
       return validated;
     }
   }, {
@@ -159,17 +167,19 @@ function () {
   }, {
     key: "addSelectionItem",
     value: function addSelectionItem() {
-      var element = this.generateSelectionItem();
+      var type = $("input[name=type]:checked").val();
+      var element = this.generateSelectionItem(type);
       $(".selection-list").append(element);
       this.removeSelectionItem();
     }
   }, {
     key: "generateSelectionItem",
     value: function generateSelectionItem() {
-      var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-      var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "text";
+      var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
       var index = Date.now();
-      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"form-control selection-item-id\"/>\n                <input type=\"text\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"form-control selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
+      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
     }
   }, {
     key: "removeSelectionItem",
@@ -258,9 +268,78 @@ function () {
         $('.form-main').submit();
       });
     }
+  }, {
+    key: "selectCategory",
+    value: function selectCategory() {
+      var _this = this;
+
+      $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        console.log($(this).val());
+
+        _this.renderAttributeOptions($(this).val());
+      });
+    }
+  }, {
+    key: "renderAttributeOptions",
+    value: function renderAttributeOptions(categoryId) {
+      var url = '/admin/products/fetch-attribute-option';
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+          category_id: categoryId
+        },
+        success: function success(scs) {
+          $("#selectProductAttributeModal").find(".modal-body").html(scs);
+        }
+      });
+    }
   }]);
 
   return productCore;
+}();
+var productCategoriesCore =
+/*#__PURE__*/
+function () {
+  function productCategoriesCore() {
+    _classCallCheck(this, productCategoriesCore);
+  }
+
+  _createClass(productCategoriesCore, [{
+    key: "collectSelectedAttribute",
+    value: function collectSelectedAttribute() {
+      var _this = this;
+
+      $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
+        e.preventDefault();
+        var checked = [];
+        $(".select-attribute-input:checked").each(function () {
+          checked.push({
+            id: $(this).val(),
+            value: $(this).attr('data-name')
+          });
+        });
+
+        _this.renderSelectedAttribute(checked);
+
+        return;
+      });
+    }
+  }, {
+    key: "renderSelectedAttribute",
+    value: function renderSelectedAttribute(checkedIds) {
+      var template = "";
+
+      _.forEach(checkedIds, function (item) {
+        template += "\n            <div class=\"form-group\">\n                <input type=\"hidden\" name=\"product_attributes[]\" class=\"form-control\" value=\"".concat(item.id, "\" readonly />\n                <input type=\"text\" name=\"\" class=\"form-control\" value=\"").concat(item.value, "\" readonly />\n            </div>\n            ");
+      });
+
+      $(".product-attribute-option").html(template);
+      $("#selectProductAttributeModal").modal("hide");
+    }
+  }]);
+
+  return productCategoriesCore;
 }();
 
 /***/ }),
@@ -294,11 +373,12 @@ $(document).ready(function () {
     guide.addSelectionItem();
   });
   guide.submitData();
+  guide.applyAttributeType();
 });
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!***************************************************************!*\
   !*** multi ./resources/js/admin/product-attributes.create.js ***!
   \***************************************************************/

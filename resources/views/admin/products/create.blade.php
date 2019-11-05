@@ -59,7 +59,6 @@
                     <div class="form-group">
                         <label>Nằm trong mục</label>
                         <select
-                            multiple
                             name="category[]"
                             data-selected-text-format="count > 2"
                             class="selectpicker form-control"

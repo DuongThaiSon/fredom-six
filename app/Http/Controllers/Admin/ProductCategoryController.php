@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Category;
 use App\Http\Services\ProductCategoryService;
+use App\Models\ProductAttribute;
 
 class ProductCategoryController extends Controller
 {
@@ -51,12 +52,11 @@ class ProductCategoryController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $attributes = $this->service->appendCreateData($request->all());
-        // print_r($attributes);die;
-        $productCategory = Category::create($attributes);
+        $category = Category::create($attributes);
 
         $response = [
             'message' => 'Product Category created.',
-            'data'    => $productCategory->toArray(),
+            'data'    => $category->toArray(),
         ];
 
         if ($request->wantsJson()) {
@@ -64,8 +64,7 @@ class ProductCategoryController extends Controller
             return response()->json($response);
         }
 
-        return redirect()->route('admin.product-categories.index');
-        // return redirect()->route('admin.product-categories.edit', $productCategory->id)->with('message', $response['message']);
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
     }
 
     /**
@@ -85,9 +84,12 @@ class ProductCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        $productAttributes = ProductAttribute::all();
+        $categories = $this->service->allWithSub($category->id);
+        $category->load(['productAttributes']);
+        return view('admin.productCats.edit', compact('categories', 'category', 'productAttributes'));
     }
 
     /**
@@ -97,9 +99,25 @@ class ProductCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        // TODO: create form request
+        $attributes = $this->service->appendEditData($request->all());
+        $category->fill($attributes);
+        $category->save();
+        $category->productAttributes()->sync($request->product_attributes);
+
+        $response = [
+            'message' => 'Product Category updated.',
+            'data'    => $category->toArray(),
+        ];
+
+        if ($request->wantsJson()) {
+
+            return response()->json($response);
+        }
+
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
     }
 
     /**

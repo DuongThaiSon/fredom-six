@@ -243,6 +243,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ComponentController@delete'
         ]);
     });
+    Route::resource('orders', 'OrderController',[
+        'parameters' => ['orders' => 'id']
+    ]);
 
     Route::resource('showrooms', 'ShowroomController',[
         'parameters' => ['showrooms' => 'id']

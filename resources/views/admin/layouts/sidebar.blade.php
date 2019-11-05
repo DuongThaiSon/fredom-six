@@ -131,7 +131,7 @@
             </li>
             <!-- Order -->
             <li class="nav-item">
-                <a href="order.html" class="nav-link" id="menu-order">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link" id="menu-order">
                 <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
                 </a>
             </li>

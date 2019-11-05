@@ -141,6 +141,29 @@ export class productCore {
             $('.form-main').submit()
         });
     }
+
+    selectCategory() {
+        let _this = this
+        $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            console.log($(this).val());
+            _this.renderAttributeOptions($(this).val())
+        });
+
+    }
+
+    renderAttributeOptions(categoryId) {
+        let url = '/admin/products/fetch-attribute-option'
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                category_id: categoryId
+            },
+            success: function(scs) {
+                $("#selectProductAttributeModal").find(".modal-body").html(scs)
+            }
+        })
+    }
 }
 
 export class productCategoriesCore {

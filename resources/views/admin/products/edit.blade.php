@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'products', 'title' => __('Products Detail')])
+@extends('admin.layouts.main', ['activePage' => 'products-create', 'title' => __('Products Detail')])
 @section('content')
  <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">
@@ -62,16 +62,19 @@
                     <select
                         name="category[]"
                         data-selected-text-format="count > 2"
-                        class="selectpicker form-control"
+                        class="selectpicker form-control category-selectpicker"
                         data-count-selected-text="{0} mục đã được chọn"
-                        data-style="btn btn-primary"
+                        data-style="select-with-transition"
                         title="Chọn mục sản phẩm"
                         data-size="7"
                         data-show-tick="true"
                         id="product-category">
 
                         <option value="0"></option>
-                        @include('admin.partials.options', ['level'=>0])
+                        @php
+                            $selectedCategoryId = optional($product->categories()->first())->id;
+                        @endphp
+                        @include('admin.partials.productOptions', ['level' => 0, 'selectedCategoryId' => $selectedCategoryId])
 
                     </select>
                 </div>
@@ -316,13 +319,13 @@
                     <div class="col-12">
                         <legend>Thuộc tính sản phẩm</legend>
                         <a class="btn btn-secondary" data-toggle="modal" data-target="#selectProductAttributeModal">
-                            Thêm thuộc tính
+                            Chọn thuộc tính
                         </a>
                     </div>
                     <div class="col-12 product-attribute-option">
                         @include('admin.partials.productAttributeOptions', [
                             'product' => $product,
-                            'productAttributes' => $productAttributeSelected
+                            'productAttributes' => $selectedProductAttributes
                         ])
                     </div>
                 </div>
@@ -352,35 +355,7 @@
 </div>
 
 {{-- Modal select product attribute --}}
-<div class="modal fade" id="selectProductAttributeModal" tabindex="-1" role="dialog" aria-labelledby="selectProductAttributeModalTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="selectProductAttributeModalTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            @forelse ($productAttributes as $item)
-            <div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input select-attribute-input" type="checkbox" value="{{ $item->id }}" checked="">
-                    {{ $item->name }}
-                </label>
-            </div>
-            @empty
-            <p>Chưa có thuộc tính thêm nào cả.</p>
-            <p>Đi đến <a href="{{ route('admin.product-attributes.index') }}" target="_blank">Quản lý thuộc tính thêm</a>...</p>
-            @endforelse
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary btn-submit-select-product-attribute">Save changes</button>
-        </div>
-        </div>
-    </div>
-</div>
+@includeWhen(isset($productAttributes), 'admin.modals.productAttributeModal', ['selectedAttributes' => $selectedProductAttributes])
 
 @endsection
 @push('js')

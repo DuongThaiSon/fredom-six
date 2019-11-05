@@ -259,6 +259,32 @@ function () {
         $('.form-main').submit();
       });
     }
+  }, {
+    key: "selectCategory",
+    value: function selectCategory() {
+      var _this = this;
+
+      $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        console.log($(this).val());
+
+        _this.renderAttributeOptions($(this).val());
+      });
+    }
+  }, {
+    key: "renderAttributeOptions",
+    value: function renderAttributeOptions(categoryId) {
+      var url = '/admin/products/fetch-attribute-option';
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+          category_id: categoryId
+        },
+        success: function success(scs) {
+          $("#selectProductAttributeModal").find(".modal-body").html(scs);
+        }
+      });
+    }
   }]);
 
   return productCore;
@@ -324,6 +350,7 @@ $(document).ready(function () {
   var id = $("input[name=id]").val();
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCore"](id);
   guide.collectSelectedAttributeId();
+  guide.selectCategory();
   $(".attribute-selectpicker").selectpicker();
 });
 

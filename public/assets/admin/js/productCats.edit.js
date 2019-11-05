@@ -259,6 +259,32 @@ function () {
         $('.form-main').submit();
       });
     }
+  }, {
+    key: "selectCategory",
+    value: function selectCategory() {
+      var _this = this;
+
+      $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        console.log($(this).val());
+
+        _this.renderAttributeOptions($(this).val());
+      });
+    }
+  }, {
+    key: "renderAttributeOptions",
+    value: function renderAttributeOptions(categoryId) {
+      var url = '/admin/products/fetch-attribute-option';
+      $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+          category_id: categoryId
+        },
+        success: function success(scs) {
+          $("#selectProductAttributeModal").find(".modal-body").html(scs);
+        }
+      });
+    }
   }]);
 
   return productCore;

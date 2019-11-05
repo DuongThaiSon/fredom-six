@@ -8,6 +8,7 @@ use App\Http\Services\ProductService;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\User;
+use App\Models\Category;
 
 
 class ProductController extends Controller
@@ -81,14 +82,19 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = $this->service->allWithSub($product->id);
-        $productAttributes = ProductAttribute::all();
-        $product->load(['productAttributeValues.productAttribute']);
-        // print_r($product->toArray());die;
-        $productAttributeSelected = collect($product);
-        $productAttributeSelected= collect($productAttributeSelected['product_attribute_values'])->pluck('product_attribute');
-        $productAttributeSelected = $productAttributeSelected->unique('name')->pluck('id');
-        $productAttributeSelected = ProductAttribute::find($productAttributeSelected);
-        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'productAttributeSelected'));
+        $product->load(['productAttributeValues.productAttribute', 'categories.productAttributes']);
+        $selectedCategory = $product->categories->first();
+        if ($product->categories->count()) {
+            $productAttributes = $product->categories->first()->productAttributes;
+        } else {
+            $productAttributes = ProductAttribute::all();
+        }
+        // $productAttributeSelected = collect($product);
+        // $productAttributeSelected= collect($productAttributeSelected['product_attribute_values'])->pluck('product_attribute');
+        // $productAttributeSelected = $productAttributeSelected->unique('name')->pluck('id');
+        // $productAttributeSelected = ProductAttribute::find($productAttributeSelected);
+        $selectedProductAttributes = $product->productAttributeValues->pluck('productAttribute');
+        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes'));
     }
 
     /**
@@ -117,6 +123,7 @@ class ProductController extends Controller
 
         }
         $product->productAttributeValues()->sync($syncData);
+        $product->categories()->sync($request->category);
         return redirect()->back()->with('success', 'Cập nhật sản phẩm thành công');
     }
 
@@ -139,7 +146,19 @@ class ProductController extends Controller
         $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeValues']);
         if ($request->has('product_id')) {
             $product = Product::findOrFail($request->product_id);
+        } else {
+            $product = new Product;
         }
         return view('admin.partials.productAttributeOptions', compact('product', 'productAttributes'));
+    }
+
+    public function fetchAttributeOption(Request $request)
+    {
+        // print_r($request->all());die;
+        // $request->validate([
+        //     'checked_ids' => 'required'
+        // ]);
+        $productAttributes = Category::whereIdAndType($request->category_id, 'product')->firstOrFail()->productAttributes()->get();
+        return view('admin.partials.productAttributeModalOptions', compact('productAttributes'));
     }
 }

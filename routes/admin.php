@@ -307,6 +307,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     // product
     Route::group(['prefix' => 'products'], function() {
+        Route::post('fetch-attribute-option', [
+            'as' => 'products.fetchAttributeOption',
+            'uses' => 'ProductController@fetchAttributeOption'
+        ]);
         Route::post('fetch-option', [
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'

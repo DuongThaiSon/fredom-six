@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Detail Category')])
+@extends('admin.layouts.main', ['activePage' => 'product-categories-create', 'title' => __('Detail Category')])
 @section('content')
 <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">
@@ -145,8 +145,10 @@
     </div>
     </div>
 </div>
-
-@includeWhen(isset($productAttributes), 'admin.modals.productAttributeModal')
+@php
+    $selectedAttributes = $category->productAttributes;
+@endphp
+@includeWhen(isset($productAttributes), 'admin.modals.productAttributeModal', ['selectedAttributes' => $selectedAttributes])
 
 @endsection
 @push('js')

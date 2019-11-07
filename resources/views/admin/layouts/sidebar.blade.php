@@ -169,17 +169,17 @@
             <a
                 data-toggle="collapse"
                 data-target="#menusubmenu"
-                href="#menusubmenu"
+                href=""
                 class="nav-link collapsed"
                 ><i class="material-icons align-middle">menu</i><span>Menu</span></a
             >
             <div class="sub collapse" id="menusubmenu">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="menucatDetail.html" class="nav-link">Tạo menu mới</a>
+                    <a href="{{ route('admin.menu-categories.create') }}" class="nav-link">Tạo menu mới</a>
                 </li>
                 <li class="nav-item">
-                    <a href="menucat.html" class="nav-link">Quản lý menu</a>
+                    <a href="{{ route('admin.menu-categories.index') }}" class="nav-link">Quản lý menu</a>
                 </li>
                 </ul>
             </div>
@@ -227,19 +227,19 @@
                 <div class="sub collapse" id="setting-sub-menu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="{{ route('admin.setting.infoSetting') }}" class="nav-link">Thông tin</a>
+                    <a href="{{ route('admin.settings.infoSetting') }}" class="nav-link">Thông tin</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.setting.seo') }}" class="nav-link">Tối ưu SEO trang chủ</a>
+                    <a href="{{ route('admin.settings.seo') }}" class="nav-link">Tối ưu SEO trang chủ</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.setting.sendMail') }}" class="nav-link">Tài khoản gửi email</a>
+                    <a href="{{ route('admin.settings.sendMail') }}" class="nav-link">Tài khoản gửi email</a>
                     </li>
                     <li class="nav-item">
                     <a href="#" class="nav-link">Sao lưu & Phục hồi dữ liệu</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.setting.emailContent') }}" class="nav-link">Nội dung email gửi đi</a>
+                    <a href="{{ route('admin.settings.emailContent') }}" class="nav-link">Nội dung email gửi đi</a>
                     </li>
                 </ul>
                 </div>

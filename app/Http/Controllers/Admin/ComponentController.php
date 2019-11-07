@@ -19,22 +19,22 @@ class ComponentController extends Controller
     public function index()
     {
         $components = Component::orderBy('id','desc')->with(['comCreatedBy'])->paginate();
-        return view('admin.component.index', compact('components'));
+        return view('admin.components.index', compact('components'));
     }
     public function create()
     {
-       return view('admin.component.add');
+       return view('admin.components.add');
     }
     public function store(ComponentRequest $request)
     {
         $attributes = $this->service->componentCreate($request);
         $component = Component::create($attributes);
-        return redirect()->route('admin.component.index')->with('success', 'Tạo dữ liệu thành công !');
+        return redirect()->route('admin.components.index')->with('success', 'Tạo dữ liệu thành công !');
     }
     public function show($id)
     {
         $component = Component::findOrFail($id);
-        return view('admin.component.edit', compact('component'));
+        return view('admin.components.edit', compact('component'));
     }
     public function update(ComponentRequest $request, $id)
     {
@@ -54,6 +54,6 @@ class ComponentController extends Controller
     public function delete($id)
     {
         Component::findOrFail($id)->delete();
-        return redirect()->route('admin.component.index')->with('DELETEED COMPLE');
+        return redirect()->route('admin.components.index')->with('DELETEED COMPLE');
     }
 }

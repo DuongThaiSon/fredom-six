@@ -20,7 +20,7 @@ class SettingController extends Controller
     public function infoSetting()
     {
         $setting = Setting::first();
-        return view('admin.setting.infoSetting',compact('setting'));
+        return view('admin.settings.infoSetting',compact('setting'));
     }
 
     public function postInfoSetting(Request $request)
@@ -61,7 +61,7 @@ class SettingController extends Controller
     public function sendMail()
     {
         $setting = Setting::first();
-        return view('admin.setting.sendmail', compact('setting'));
+        return view('admin.settings.sendmail', compact('setting'));
     }
 
     public function postSendMail(Request $request)
@@ -92,7 +92,7 @@ class SettingController extends Controller
     public function seo()
     {
         $setting = Setting::first();
-        return view('admin.setting.seo', compact('setting'));
+        return view('admin.settings.seo', compact('setting'));
     }
 
     public function postSeo(Request $request)
@@ -114,12 +114,12 @@ class SettingController extends Controller
     public function emailContent()
     {
         $email_content = EmailContent::paginate(10);
-        return view('admin.setting.emailContent', compact('email_content'));
+        return view('admin.settings.emailContent', compact('email_content'));
     }
 
     public function addEmailContent()
     {
-        return view('admin.setting.addEmailContent');
+        return view('admin.settings.addEmailContent');
     }
 
     public function postAddEmailContent(Request $request)
@@ -136,13 +136,13 @@ class SettingController extends Controller
         ]);
         $attributes = $this->service->emailContent($request);
         $email_content = EmailContent::create($attributes);
-        return redirect()->route('admin.setting.emailContent')->with('success', 'Lưu dữ liệu thành công');
+        return redirect()->route('admin.settings.emailContent')->with('success', 'Lưu dữ liệu thành công');
     }
 
     public function editEmailContent($id)
     {
         $email_content = EmailContent::find($id);
-        return view('admin.setting.editEmailContent', compact('email_content'));
+        return view('admin.settings.editEmailContent', compact('email_content'));
     }
 
     public function postEditEmailContent(Request $request, $id)

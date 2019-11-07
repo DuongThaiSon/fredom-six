@@ -7,7 +7,7 @@
         <h1 class="mt-3 pl-4">QUẢN LÝ NỘI DUNG EMAIL GỬI TỪ HỆ THỐNG</h1>
         <!-- Save group button -->
         <div class="save-group-buttons">
-          <a href="{{ route('admin.setting.addEmailContent') }}"
+          <a href="{{ route('admin.settings.addEmailContent') }}"
             class="btn btn-sm btn-dark"
             data-toggle="tooltip"
             title="Tạo nội dung email mới"
@@ -40,7 +40,7 @@
                 <td class="text-center">
                   <div class="btn-group">
                     <a
-                      href="{{ route('admin.setting.editEmailContent', $eco->id) }}"
+                      href="{{ route('admin.settings.editEmailContent', $eco->id) }}"
                       class="btn btn-sm p-1"
                       data-toggle="tooltip"
                       title="Sửa"

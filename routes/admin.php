@@ -167,47 +167,47 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::group(['prefix' => 'settings'], function(){
         Route::get('', [
-            'as' => 'setting.infoSetting',
+            'as' => 'settings.infoSetting',
             'uses' => 'SettingController@infoSetting'
         ]);
         Route::post('post-info-setting', [
-            'as' => 'setting.postInfoSetting',
+            'as' => 'settings.postInfoSetting',
             'uses' => 'SettingController@postInfoSetting'
         ]);
         Route::get('send-mail', [
-            'as' => 'setting.sendMail',
+            'as' => 'settings.sendMail',
             'uses' => 'SettingController@sendMail'
         ]);
         Route::post('send-mail', [
-            'as' => 'setting.postSendMail',
+            'as' => 'settings.postSendMail',
             'uses' => 'SettingController@postSendMail'
         ]);
         Route::get('seo', [
-            'as' => 'setting.seo',
+            'as' => 'settings.seo',
             'uses' => 'SettingController@seo'
         ]);
         Route::post('seo', [
-            'as' => 'setting.postSeo',
+            'as' => 'settings.postSeo',
             'uses' => 'SettingController@postSeo'
         ]);
         Route::get('email-content', [
-            'as' => 'setting.emailContent',
+            'as' => 'settings.emailContent',
             'uses' => 'SettingController@emailContent'
         ]);
         Route::get('email-content/add', [
-            'as' => 'setting.addEmailContent',
+            'as' => 'settings.addEmailContent',
             'uses' => 'SettingController@addEmailContent'
         ]);
         Route::post('email-content/add', [
-            'as' => 'setting.postAddEmailContent',
+            'as' => 'settings.postAddEmailContent',
             'uses' => 'SettingController@postAddEmailContent'
         ]);
         Route::get('email-content/edit/{id}', [
-            'as' => 'setting.editEmailContent',
+            'as' => 'settings.editEmailContent',
             'uses' => 'SettingController@editEmailContent'
         ]);
         Route::post('email-content/edit/{id}', [
-            'as' => 'setting.postEditEmailContent',
+            'as' => 'settings.postEditEmailContent',
             'uses' => 'SettingController@postEditEmailContent'
         ]);
 
@@ -307,6 +307,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ContactController@deleteAll'
         ]);
     });
+    Route::resource('menu-categories', 'MenuCategoryController', [
+        'parameters' => ['menu-categories' => 'category']
+        ]);
+
+    Route::resource('menus', 'MenuController', [
+        'parameters' => ['menu' => 'menu']
+        ]);
 
     // product
     Route::group(['prefix' => 'products'], function() {

@@ -8,7 +8,7 @@
       <!-- Save group button -->
       <div class="save-group-buttons">
         <a
-          href="{{ route('admin.component.create') }}"
+          href="{{ route('admin.components.create') }}"
           class="btn btn-sm btn-dark"
           data-toggle="tooltip"
           title="Thêm mới"
@@ -60,7 +60,7 @@
               <td>{{ isset($comp->comCreatedBy)?$comp->comCreatedBy->name:'' }}</td>
               <td>{{ $comp->updated_at }}</td>
               <td class="text-center">
-                <a href="{{ route('admin.component.show', $comp->id) }}" data-toggle="tooltip" title="Sửa"
+                <a href="{{ route('admin.components.show', $comp->id) }}" data-toggle="tooltip" title="Sửa"
                   ><i class="material-icons">border_color</i></a
                 >
               </td>

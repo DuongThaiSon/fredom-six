@@ -23,7 +23,7 @@ class ShowroomController extends Controller
     public function index()
     {
         $showroom = Showroom::orderBy('order','asc')->paginate(10);
-        return view('admin.showroom.index', compact('showroom'));
+        return view('admin.showrooms.index', compact('showroom'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ShowroomController extends Controller
      */
     public function create()
     {
-        return view('admin.showroom.create');
+        return view('admin.showrooms.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class ShowroomController extends Controller
     public function edit($id)
     {
         $showroom = Showroom::findOrFail($id);
-        return view('admin.showroom.edit', compact('showroom'));
+        return view('admin.showrooms.edit', compact('showroom'));
     }
 
     /**

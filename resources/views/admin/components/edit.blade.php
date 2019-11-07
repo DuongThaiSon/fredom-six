@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.component.update', $component->id) }}" enctype="multipart/form-data">
+  <form method="POST" action="{{ route('admin.components.update', $component->id) }}" enctype="multipart/form-data">
 
     @csrf
   <div id="content">

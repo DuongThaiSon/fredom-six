@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
   <div class="container-fluid" style="background: #e5e5e5;">
-    <form method="POST" action="{{ route('admin.setting.postSeo') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.settings.postSeo') }}" enctype="multipart/form-data">
       @csrf
     <div id="content">
       <h1 class="mt-3 pl-4">

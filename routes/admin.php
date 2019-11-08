@@ -312,8 +312,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     Route::resource('menus', 'MenuController', [
-        'parameters' => ['menu' => 'menu']
+        'parameters' => ['menus' => 'menus']
         ]);
+    Route::get('menus/list-articles', 'MenuController@listArticle');
 
     // product
     Route::group(['prefix' => 'products'], function() {

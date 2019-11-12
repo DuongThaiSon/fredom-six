@@ -23,15 +23,20 @@
                             
                             <td style="width: 160px;">
                                 <div class="btn-group">
-                                    <a href="{{route('admin.menus.create')}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
+                                    <a href="{{route('admin.menus.create', $menu->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
                                         <i class="material-icons">playlist_add</i>
                                     </a>
                                     <a href="{{route('admin.menus.edit', $menu->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
-                                    <a href="{{route('admin.menus.destroy', $menu->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
-                                        <i class="material-icons">delete</i>
-                                    </a>
+                                    <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.menus.destroy', $menu->id)}}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+
+                                         <button class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

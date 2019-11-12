@@ -7,7 +7,7 @@
       <h1 class="mt-3 pl-4">QUẢN LÝ MENU</h1>
       <!-- Save group button -->
       <div class="save-group-buttons">
-        <a href="{{ route('admin.menus.create', ['cat' => $category_id]) }}"
+        <a href="{{ route('admin.menus.create', ['id' => $category_id]) }}"
           class="btn btn-sm btn-dark"
           data-toggle="tooltip"
           title="Thêm mới"

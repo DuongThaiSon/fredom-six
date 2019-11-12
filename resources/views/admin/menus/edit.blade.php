@@ -48,39 +48,31 @@
                       </select>
                       <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                     </div>
-                    {{-- <div class="form-group">
-                      <label>Loại menu</label>
-                      <select name="parent_id" class="form-control">
-                        <option value="0"></option>
-                          
-                      </select>
-                      <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
-                    </div> --}}
-
                     <div class="form-group">
                       <label>Loại Menu</label>
-                      <select name="" class="form-control">
-                        <option value="0"></option>
-                          {{--  @include('admin.partials.menu_cats', ['level'=>0])  --}}
+                      <select name="type" class="form-control" id="list-option">
+                        <option {{ $menus->type===0?'selected':'' }} value="0">Link tùy chọn</option>
+                        <option {{ $menus->type===1?'selected':'' }} value="1">[Bài viết] Link đến một mục bài viết</option>
+                        <option {{ $menus->type===2?'selected':'' }} value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menus->type===3?'selected':'' }} value="3">[Bài viết] Đồng bộ mục bài viết</option>
+                        <option {{ $menus->type===4?'selected':'' }} value="4">[Bài viết] Link đến bài viết chỉ định</option>
+                        <option {{ $menus->type===5?'selected':'' }} value="5">[Sản phẩm] Link đến một mục sản phẩm</option>
+                        <option {{ $menus->type===6?'selected':'' }} value="6">[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menus->type===7?'selected':'' }} value="7">[Sản phẩm] Đồng bộ mục sản phẩm</option>
+                        <option {{ $menus->type===8?'selected':'' }} value="8">[Sản phẩm] Link đến sản phẩm chỉ định</option>
                       </select>
                       <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                     </div>
                     <div class="form-group">
                       <label>URL</label>
-                      <input type="text" name="link" required class="form-control" placeholder="URL Link"/>
+                      <input type="text" name="link" value="{{ $menus->link }}" class="form-control" placeholder="URL Link"/>
                       <small class="form-text">Tên của menu</small>
                     </div>
-                    <!-- Button Toggle -->
-                    {{--  <div class="mb-2">
-                      <label class="control-label">Nổi bật</label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"/>
-                      <label class="label-checkbox" for="highlight">Nổi bật</label>
+                    <div class="form-group d-none">
+                      <label>Category_id</label>
+                      <input type="hidden" name="category_id" value="{{ $menus->category_id }}" class="form-control" placeholder="URL Link"/>
+                      <small class="form-text">Tên của menu</small>
                     </div>
-                    <small class="form-text">Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
-                      thị trên trang chủ hoặc các điểm chỉ định trên giao
-                      diện.
-                    </small>  --}}
-
                   </div>
 
                   <div class="col-lg-6" style="border: 1px solid gray">
@@ -94,6 +86,9 @@
                       <p>[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục: Hệ thống sẽ tự sinh ra các menu con là các mục con của mục đã chọn và mỗi menu con sẽ link đến trang list sản phẩm theo mục đã chọn</p>
                       <p>[Sản phẩm] Đồng bộ mục sản phẩm: Hệ thống tự sinh ra toàn bộ mục sản phẩm có trong cơ sở dữ liệu theo đúng cấu trúc mục cha, con đã định</p>
                       <p>[Sản phẩm] Link đến sản phẩm chỉ định: Khi click vào menu này sẽ chuyển hướng đến trang chi tiết của sản phẩm được chọn</p>
+                  </div>
+                  <hr>
+                  <div class="col-lg-12 filter-result">
                   </div>
                 </div>
                 </form>

@@ -310,11 +310,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('menu-categories', 'MenuCategoryController', [
         'parameters' => ['menu-categories' => 'category']
         ]);
+    
 
+    Route::get('menus/list-articles', 'MenuController@listArticle');
+    Route::get('menus/list-products', 'MenuController@listProduct');
+    Route::get('menus/get-article/{id}', 'MenuController@getArticle');
+    Route::get('menus/get-product/{id}', 'MenuController@getProduct');
     Route::resource('menus', 'MenuController', [
         'parameters' => ['menus' => 'menus']
         ]);
-    Route::get('menus/list-articles', 'MenuController@listArticle');
 
     // product
     Route::group(['prefix' => 'products'], function() {

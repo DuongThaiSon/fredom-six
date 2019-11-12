@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
-use App\Models\Category;
+use App\Models\Article;
+use App\Models\Product;
 use Auth;
 
 class MenuController extends Controller
@@ -24,6 +25,7 @@ class MenuController extends Controller
 
     private function getSubMenus($parent_id, $category_id, $ignore_id=null)
     {
+        // dd($category_id);
         $menuCats = Menu::where('category_id', $category_id)
             ->where('parent_id', $parent_id)
             ->where('id', '<>', $ignore_id)
@@ -41,7 +43,8 @@ class MenuController extends Controller
     {
         $menuCats = Menu::where('parent_id', $parent_id)
             ->where('id', '<>', $ignore_id)
-            ->with(['user'])
+            ->where('category_id', 15)
+            ->with(['user','categories'])
             ->get()
             ->map(function($query) use($ignore_id) {
                 $query->sub = $this->getSubCategories($query->id, $ignore_id);
@@ -58,10 +61,13 @@ class MenuController extends Controller
      */
     public function create(Request $request)
     {
-        if(empty($request->id))
+        if(!empty($request->id))
         {
-            $menuCats = $this->getSubCategories(0);
-            $category_id = $request->cat;
+            
+            $category_id = $request->id;
+            $menuCats = $this->getSubMenus(0, $category_id);
+
+           
             return view('admin.menus.create', compact('menuCats','category_id'));
         }
         
@@ -81,7 +87,7 @@ class MenuController extends Controller
             'category_id' => 'required'
         ]);
         $attributes = $request->only([
-            'name', 'parent_id', 'category_id'
+            'name', 'parent_id', 'category_id', 'link', 'type'
         ]) ;
         $attributes['created_by'] = Auth::user()->id;
        
@@ -109,13 +115,16 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         {
-            $menus = Menu::findOrFail($id);
+            $menus = Menu::where('id',$id)->first();
             $menu = Menu::find($menus->parent_id);
-            $menuCats = $this->getSubCategories(0, $id);
-            return view('admin.menus.edit', compact('menuCats', 'menus', 'menu'));
+            // $menu = json_decode($menus);
+            $category_id = $request->id;
+            $menuCats = $this->getSubCategories(0, $category_id, $id);
+            
+            return view('admin.menus.edit', compact('menuCats', 'menus', 'menu',));
         }
     }
 
@@ -130,10 +139,11 @@ class MenuController extends Controller
     {
         $request->validate([
             'parent_id' => 'numeric|min:0',
-            'name' => 'required'
+            'name' => 'required',
+            'category_id' => 'required'
         ]);
         $attributes = $request->only([
-            'name', 'parent_id', 
+            'name', 'parent_id', 'category_id', 'link', 'type'
         ]) ;
         $attributes['created_by'] = Auth::user()->id;
         $attributes['category_id'] = $request->category_id;
@@ -152,11 +162,31 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $menus = Menu::findOrFail($id);
+        $menus->delete();
+        return redirect()->back()->with('success', 'Xoá dữ liệu thành công');
     }
     public function listArticle()
     {
-        $articles = Article::simplePaginate(5);
+        $articles = Article::with('category')->simplePaginate(5);
         return view('admin.menus.list_articles', compact('articles'));
     }
+
+    public function listProduct()
+    {
+        $products = Product::with('categories')->simplePaginate(5);
+        // print_r($products->toArray());die;
+        return view('admin.menus.list_products', compact('products'));
+    }
+    public function getArticle($id)
+    {
+        $article = Article::with(['category'])->findOrFail($id)->toArray();
+        return response()->json(['article'=>$article]);
+    }
+    public function getProduct($id)
+    {
+        $product = Product::findOrFail($id)->toArray();
+        return response()->json(['product'=>$product]);
+    }
+   
 }

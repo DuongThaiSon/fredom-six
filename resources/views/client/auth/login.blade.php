@@ -19,7 +19,7 @@
         <div class="form form-login" >
             <h2 class="text-center mt-4 mb-3">Đăng nhập</h2>
             <!-- Form -->
-            <form class="mt-4 mb-0" action="{{ route('client.login.login') }}" method="POST">
+            <form class="mt-4 mb-0" action="{{ route('client.login') }}" method="POST">
                 @csrf
                 @if ($errors->any())
                 <div class="alert-danger">

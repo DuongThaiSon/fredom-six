@@ -62,4 +62,20 @@ Route::group([
   
     
     Route::get('home', 'HomeController@index');
+    Route::group([
+        'namespace' => 'Auth'
+    ], function() {
+        Route::get('login',[
+            'as' => 'client.loginform',
+            'uses' => 'LoginController@showLoginForm'
+        ]);
+        Route::post('login',[
+            'as' => 'client.login',
+            'uses' => 'LoginController@login'
+        ]);
+        Route::post('logout',[
+            'as' => 'client.logout',
+            'uses' => 'LoginController@logout'
+        ]);
+    });
 });

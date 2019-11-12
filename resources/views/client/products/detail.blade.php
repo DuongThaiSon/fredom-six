@@ -47,7 +47,7 @@
                     <div class="carousel-item active py-3" style="max-height: 600px;">
                       <a class="gallery_img" href="{{ asset('media/product') }}/{{ $product->avatar }}">
                         <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                          src="{{ asset('media/product') }}/{{ $product->avatar }}" alt="First slide">
+                          src="{{ asset('media/product') }}/{{ $product->avatar }}" alt="{{ $product->avatar }}">
                       </a>
                     </div>
                   </div>
@@ -99,22 +99,23 @@
           <!-- detail -->
           <div class="details">
             <div class="row">
-              <div class="col-lg-5">
-                <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}</p>
+              <div class="col-lg-12">
+                {!! $product->detail !!}
+                {{--  <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}</p>
                 <p>* Màu sắc :  {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}</p>
               </div>
               <div class="col-lg-7">
                 <p>* Xuất xứ : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Xuất xứ')->value) ?? 'đang cập nhập' }}</p>
-                <p>* Kích thước : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value) ?? 'đang cập nhập' }}</p>
+                <p>* Kích thước : {{ ($product->productAttributeValues->where('productAttribute.name', 'Kích cỡ')->pluck('value')->join(", ")) ?? 'đang cập nhập' }}</p>  --}}
               </div>
               <div class="col-lg-12">
-                <p class="description">* Mô tả : <span id="dots"></span>
+                {{--  <p class="description">* Mô tả : <span id="dots"></span>
                   <span id="more"
                     style="display: none;">{!! $product->description !!}</span>
-                </p>
+                </p>  --}}
               </div>
             </div>
-            <a class="font-weight-bold" onclick="myFunction()" id="myBtn">Xem thêm...</a>
+            {{--  <a class="font-weight-bold" onclick="myFunction()" id="myBtn">Xem thêm...</a>  --}}
           </div>
           <!-- policy -->
           <div class="policy">
@@ -157,7 +158,10 @@
                   </div>
                   <select class="form-control pl-0" name="size" id="size" style="border-left: 0 !important;"
                     style="font-size: 14px;">
-                    <option value="">{{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value) ?? 'Đang cập nhập' }}</option>
+                    @foreach ($product->productAttributeValues->where('productAttribute.name', 'Kích cỡ') as $item)
+                      <option value="{{ $item->value }}}">{{ $item->value ?? 'Đang cập nhập' }}</option>
+                    @endforeach
+                    
                     </select>
                 </div>
               </div>
@@ -227,7 +231,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
-            <p>{!! $product->detail !!}</p>
+            <p>{!! $product->description !!}</p>
           </div>
           <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
             @forelse ($reviews as $review)

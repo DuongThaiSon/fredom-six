@@ -7,7 +7,7 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb m-0">
           <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Sản phẩm nữ</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">{{ $category->name }}</a></li>
         </ol>
       </nav>
     </div>
@@ -21,44 +21,48 @@
   <section id="product-option">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-10">
-          <div class="options">
+        <div class="col-12">
+          <div class="options d-flex justify-content-center">
             <ul class="nav">
               <li class="text-muted">Bộ lọc</li>
-              <li class="options-list font-weight-bold">Phong cách <i class="fas fa-caret-down"></i></li>
-              <li class="options-list font-weight-bold">Màu sắc <i class="fas fa-caret-down"></i></li>
-              <li class="options-list font-weight-bold">Kích cỡ <i class="fas fa-caret-down"></i></li>
-              <li class="options-list font-weight-bold">Độ cao <i class="fas fa-caret-down"></i></li>
-              <li class="options-list font-weight-bold">Kiểu gót <i class="fas fa-caret-down"></i></li>
-              <li class="options-list font-weight-bold">Kiểu mũi <i class="fas fa-caret-down"></i></li>
+              @foreach ($category->productAttributes as $item)
+               <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i></li>
+              @endforeach
             </ul>
             <div class="checkbox-option p-3">
               <div class="all-options d-flex">
                 <!-- styles -->
-                <div class="style-options d-flex flex-column">
-                  <label class="checkbox-container">
-                    <input type="checkbox" value="Office">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Office</span>
+                @forelse ($category->productAttributes as $attribute)
+                <div class="style-options d-flex flex-wrap align-self-start" style="width: 80px">
+                  @forelse ($attribute->productAttributeValues as $attributeValue)
+                  
+                  <label class="checkbox-container" style="{{ $attribute->type==="color"?'margin: 0 18px 18px 0':''}}">
+                    <input type="checkbox" class="checkbox-product" value="{{ $attributeValue->id }}">
+                    <span class="checkmark" {{ $attribute->type==="color"?'style=background:'.$attributeValue->value:''}}></span>
+                    <span style="margin-left: 25px; {{ $attribute->type==="color"?'display: none':''}}">{{ $attributeValue->value }}</span>
                   </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" value=">Street Style">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Street Style</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" value="Evening">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Evening</span>
-                  </label>
-                </div>
+                  @empty
+                      
+                  @endforelse
+                 </div>
+                @empty
+                    
+                @endforelse
+                
                 <!-- colors -->
-                <div class="color-options">
+                 {{-- <div class="color-options">
                   <div class="row">
-                    <div class="color" style="background: #000000"></div>
+                    <input type="checkbox" id="color" class="">
+                    <label for="color" style="background: red; width: 30px; height: 30px;"></label>
                     <div class="color" style="background: #ffffff"></div>
                     <div class="color" style="background: #d2dae2"></div>
                     <div class="color" style="background: #f0dadc"></div>
                   </div>
+                  <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark" style="background: red"></span>
+                  </label>
+
                   <div class="row">
                     <div class="color" style="background: #02306b"></div>
                     <div class="color" style="background: #025246"></div>
@@ -69,8 +73,8 @@
                     <div class="color" style="background: #a36841"></div>
                     <div class="color" style="background: #ffa733"></div>
                   </div>
-                </div>
-                <!-- sizes -->
+                </div>  --}}
+                {{--  <!-- sizes -->
                 <div class="size-options">
                   <label class="checkbox-container">
                     <input type="checkbox" value="34">
@@ -160,9 +164,11 @@
                     <input type="checkbox" value="Mũi tròn">
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Mũi tròn</span>
                   </label>
-                </div>
+                </div>  --}}
               </div>
-                <input class="btn btn-primary" type="submit" value="Tìm kiếm">
+              <form action="{{ route('client.products.category', $category->slug) }}" method="GET" enctype="text/plain">
+                <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
+              <input type="hidden" id="tags" data-role="tagsinput" value="" name="term" placeholder="Tìm kiếm">
             </div>
           </div>
         </div>
@@ -174,7 +180,7 @@
   <section id="product-list">
     <div class="container">
       <div class="row mb-4">
-          @foreach ($category->products as $prod)
+          @forelse ($category->products as $prod)
         <div class="col-lg-3">
           <div class="product">
             <div class="card">
@@ -231,7 +237,9 @@
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+          <div class="alert alert-danger text-center m-auto w-100">Không có sản phẩm nào được tìm thấy</div>
+        @endforelse
      </div>
      {{-- {{ $product->links() }} --}}
         {{-- <p class="text-uppercase text-center mt-5">loading...</p> --}}

@@ -41,7 +41,7 @@ Route::group([
     ]);
     Route::get('products', 'ProductController@product');
     Route::get('products/{slug_cat?}', [
-        'as' => 'products.category',
+        'as' => 'client.products.category',
         'uses' => 'ProductController@productCat'
     ]);
     Route::get('products/detail/{id}',[
@@ -52,10 +52,7 @@ Route::group([
         'as' => 'client.review.review',
         'uses' => 'ProductController@review'
     ]);
-    Route::get('products/search/key',[
-        'as' => 'client.products.search',
-        'uses' => 'ProductController@searchProduct'
-    ]);
+    
     Route::get('cart', 'CartController@index');
     Route::post('cart/add', 'CartController@add');
     Route::post('cart/update', 'CartController@update');
@@ -63,4 +60,6 @@ Route::group([
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
   
+    
+    Route::get('home', 'HomeController@index');
 });

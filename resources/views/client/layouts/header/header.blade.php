@@ -23,13 +23,23 @@
                     <option value="">United States</option>
                     <option value="">England</option>
                 </select>
+                {{--  @guest('web')
                 </li>
                 <li class="nav-item">
-                <a href="#">Đăng ký</a>
+                <a href="">Đăng ký</a>
                 </li>
                 <li class="nav-item">
-                <a href="#">Đăng nhập</a>
+                <a href="">Đăng nhập</a>
                 </li>
+                @endguest  --}}
+                @auth('web')
+                </li>
+                 <li class="nav-item">
+                <a href="">Đăng xuất</a>
+                </li>
+                @endauth
+                
+               
                 <li class="nav-item p-0">
                 <button type="button" class="btn-search">
                     <i class="fas fa-search"></i>

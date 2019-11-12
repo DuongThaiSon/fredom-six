@@ -267,7 +267,6 @@ input:focus {
       position: absolute;
       z-index: 99;
       border: 1px solid #000000;
-      left: 6%;
       top: 140%;
       background: #ffffff; }
       #product-option .options .checkbox-option .color {
@@ -275,11 +274,12 @@ input:focus {
         height: 20px;
         margin: 2px; }
       #product-option .options .checkbox-option .style-options {
-        margin-right: 60px; }
-      #product-option .options .checkbox-option .color-options {
+       margin-right: 50px; }
+      #product-option .options .checkbox-option .size-options {
+ 
         margin-right: 24px; }
       #product-option .options .checkbox-option .size-options {
-        margin: 0 85px 0 43px; }
+        margin: 0 85px 0 60px; }
       #product-option .options .checkbox-option .height-options {
         margin-right: 55px; }
       #product-option .options .checkbox-option .checkbox-container {
@@ -827,3 +827,46 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 5px !important; }
   .modal-body .btn {
     border-radius: 5px !important; }
+.color-options {
+  /* The container */
+  /* Hide the browser's default checkbox */
+  /* Create a custom checkbox */ }
+  .color-options .checkbox-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 22px; }
+  .color-options .checkbox-container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0; }
+  .color-options .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 0 !important;
+    /* Create the checkmark/indicator (hidden when not checked) */
+    /* Show the checkmark when checked */
+    /* Style the checkmark/indicator */ }
+    .color-options .checkmark .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none; }
+    .color-options .checkmark .checkbox-container input:checked ~ .checkmark:after {
+      display: block; }
+    .color-options .checkmark .checkbox-container .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 3px;
+      height: 4px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg); }

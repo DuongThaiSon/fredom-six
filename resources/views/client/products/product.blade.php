@@ -5,10 +5,10 @@
   <div class="row" style="background: #ebebeb;">
     <div class="container">
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb m-0">
+        {{-- <ol class="breadcrumb m-0">
           <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
           <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">Sản phẩm nữ</a></li>
-        </ol>
+        </ol> --}}
       </nav>
     </div>
   </div>
@@ -17,159 +17,7 @@
 <div id="showcase" style="height: 645px; overflow: hidden;">
   <img src="/assets/client/img/contact-img/leatherBag.png" style="width: 100%; background-position: top;" alt="">
 </div>
-  <!-- product -->
-  <section id="product-option">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-10">
-          <div class="options">
-            <ul class="nav">
-              <li class="text-muted">Bộ lọc</li>
-              @foreach ($productAttr as $item)
-               <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i></li>
-              @endforeach
-            </ul>
-            <div class="checkbox-option p-3">
-              <div class="all-options d-flex">
-                <!-- styles -->
-                <div class="style-options d-flex flex-column">
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Văn phòng" />
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Văn phòng</span>
-                  </label>
 
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Đường phố">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Đường phố</span>
-                  </label>
-
-                  {{-- <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Evening">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Evening</span>
-                  </label> --}}
-                </div>
-                <!-- colors -->
-                <div class="color-options">
-                  <div class="row">
-                    <div class="color" style="background: #000000"></div>
-                    <div class="color" style="background: #ffffff"></div>
-                    <div class="color" style="background: #d2dae2"></div>
-                    <div class="color" style="background: #f0dadc"></div>
-                  </div>
-                  <div class="row">
-                    <div class="color" style="background: #02306b"></div>
-                    <div class="color" style="background: #025246"></div>
-                    <div class="color" style="background: #d40210"></div>
-                    <div class="color" style="background: #f55678"></div>
-                  </div>
-                  <div class="row">
-                    <div class="color" style="background: #a36841"></div>
-                    <div class="color" style="background: #ffa733"></div>
-                  </div>
-                </div>
-                <!-- sizes -->
-                <div class="size-options">
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="34">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">34</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="35">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">35</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="36">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">36</span>
-                  </label>
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="37">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">37</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="38">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">38</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="39">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">39</span>
-                  </label>
-                </div>
-                <!-- height -->
-                <div class="height-options">
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Bệt">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Bệt</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="3cm">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">3cm</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="5cm">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">5cm</span>
-                  </label>
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="7cm">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">7cm</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="9cm">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">9cm</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="11cm">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">11cm</span>
-                  </label>
-                </div>
-                <!-- special-option -->
-                <div class="special-options" style="margin-right: 40px;">
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Gót vuông">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Gót vuông</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Gót nhọn">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Gót nhọn</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Đế xuồng">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Đế xuồng</span>
-                  </label>
-                </div>
-                <!-- special-option -->
-                <div class="special-options">
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Mũi nhọn">
-                    <span class="checkmark align-self-center"></span> <span style="margin-left: 25px;">Mũi nhọn</span>
-                  </label>
-
-                  <label class="checkbox-container">
-                    <input type="checkbox" class="checkbox-product" value="Mũi tròn">
-                    <span class="checkmark"></span> <span style="margin-left: 25px;">Mũi tròn</span>
-                  </label>
-                </div>
-              </div>
-              <form action="{{ route('client.products.search') }}" method="GET" enctype="text/plain">
-                <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
-                <input type="text" id="tags" data-role="tagsinput" value="" name="key" placeholder="Tìm kiếm">
-                
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </section>
   <!-- product list-->
   <section id="product-list">
     <div class="container">

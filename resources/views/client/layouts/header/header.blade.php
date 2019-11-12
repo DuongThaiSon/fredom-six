@@ -23,23 +23,26 @@
                     <option value="">United States</option>
                     <option value="">England</option>
                 </select>
-                {{--  @guest('web')
-                </li>
-                <li class="nav-item">
-                <a href="">Đăng ký</a>
-                </li>
-                <li class="nav-item">
-                <a href="">Đăng nhập</a>
-                </li>
-                @endguest  --}}
+                @guest('web')
+                    </li>
+                    <li class="nav-item">
+                    <a href="">Đăng ký</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ route('client.loginform')}}">Đăng nhập</a>
+                    </li>
+                @endguest 
                 @auth('web')
-                </li>
-                 <li class="nav-item">
-                <a href="">Đăng xuất</a>
-                </li>
+                    </li>
+                    <li class="nav-item">
+                        <form action="{{ route('client.logout')}}" method="POST" >
+                            @csrf
+                    <button type="submit">Đăng xuất</button>
+                </form>
+                    </li>
                 @endauth
                 
-               
+            
                 <li class="nav-item p-0">
                 <button type="button" class="btn-search">
                     <i class="fas fa-search"></i>

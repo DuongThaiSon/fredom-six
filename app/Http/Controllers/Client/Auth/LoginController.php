@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -19,16 +19,18 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers;
-
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/home';
 
+    public function showLoginForm()
+    {
+        return view('client.auth.login');
+    }
     /**
      * Create a new controller instance.
      *
@@ -36,12 +38,31 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:web')->except('logout');
     }
-    public function showLoginForm()
+    public function login(Request $request)
     {
-        return view('admin.auth.login');
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required'
+        ],[
+            'email.required' => 'Please input email',
+            'password.requỉed' => 'please input password'
+        ]);
+        $credentials = array('email' => $request->email, 'password' => $request->password);
+        if(Auth::attempt($credentials)) {
+            return redirect('/home')->with('win', 'Login Successful');
+        }else {
+            return redirect()->back()->with('fail',"Username or password is incorrect or Your account is'n active yet");
+        }
     }
+
+    // public function logout()
+    // {
+    //     Auth::logout();
+    //     return redirect()->back();
+    // }
+
     /**
      * The user has logged out of the application.
      *
@@ -50,7 +71,7 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request)
     {
-        return redirect('/admin/login');
+        return redirect()->back();
     }
 
     /**
@@ -65,7 +86,7 @@ class LoginController extends Controller
 
         // $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/home');
     }
 
     /**
@@ -75,6 +96,7 @@ class LoginController extends Controller
      */
     protected function guard()
     {
-        return Auth::guard('admin');
+        return Auth::guard('web');
     }
+
 }

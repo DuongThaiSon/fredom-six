@@ -22,13 +22,13 @@
      @stack('css')
 </head>
 <body>
-    @auth
+    @auth('admin')
     {{-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
       @csrf
     </form> --}}
     @include('admin.layouts.templates.auth')
     @endauth
-    @guest
+    @guest('admin')
     @include('admin.layouts.templates.guest')
     @endguest
 

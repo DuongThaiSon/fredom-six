@@ -59,7 +59,7 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
-  
+
     
     Route::get('home', 'HomeController@index');
     Route::group([

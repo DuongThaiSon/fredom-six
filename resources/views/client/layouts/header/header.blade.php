@@ -36,7 +36,7 @@
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('client.logout')}}" method="POST" >
-                            @csrf
+                        @csrf
                     <button type="submit">Đăng xuất</button>
                 </form>
                     </li>

@@ -50,7 +50,7 @@
             html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
             html+= ` <tbody><tr><td>`+ resData.id + `</td>
                   <td><a target="_blank" href="/admin/products/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                  <th>product</th></tr></tbody></table>
+                  <th>` + resData.categories[0].name + `</th></tr></tbody></table>
                   <button class="btn btn-sm btn-info button-choose-product">Chọn bài viết khác</button></div>`;
           $('.filter-result').append(html);
           $('.button-choose-product').click(function(e) {

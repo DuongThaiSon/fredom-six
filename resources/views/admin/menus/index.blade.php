@@ -57,4 +57,11 @@
 @endsection
 @push('js')
 <script src="{{ asset('assets/admin') }}/js/articleCats.js"></script>
+<script>
+  $(document).ready(function () {
+      core.makeTableOrderable('/admin/articles/sort');
+      core.initCheckboxButton();
+      core.updateViewViewStatus('/admin/articles/update-view-status');
+  })
+</script>
 @endpush

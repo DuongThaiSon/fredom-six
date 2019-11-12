@@ -49,7 +49,7 @@
               html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
               html+= ` <tbody><tr><td>`+ resData.id + `</td>
                     <td><a target="_blank" href="/admin/articles/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                    <th>`+ resData +`</th></tr></tbody></table>
+                    <th>`+ resData.category.name +`</th></tr></tbody></table>
                     <button class="btn btn-sm btn-info button-choose-article">Chọn bài viết khác</button></div>`;
             $('.filter-result').append(html);
             $('.button-choose-article').click(function(e) {

@@ -16093,7 +16093,7 @@ function initFilePond(inputId, rootUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/gallery.edit.js */"./resources/js/admin/gallery.edit.js");
+module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\gallery.edit.js */"./resources/js/admin/gallery.edit.js");
 
 
 /***/ })

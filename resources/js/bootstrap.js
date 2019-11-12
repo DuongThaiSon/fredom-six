@@ -2,6 +2,7 @@ window._ = require('lodash');
 window.$ = window.jQuery = require('jquery');
 require('./ckEditor');
 window.core = require("./core");
+require('jquery-ui/ui/widgets/sortable.js')
 require('popper.js');
 require('bootstrap');
 require('bootstrap-select');

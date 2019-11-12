@@ -63,11 +63,8 @@ class MenuController extends Controller
     {
         if(!empty($request->id))
         {
-            
             $category_id = $request->id;
             $menuCats = $this->getSubMenus(0, $category_id);
-
-           
             return view('admin.menus.create', compact('menuCats','category_id'));
         }
         
@@ -90,10 +87,9 @@ class MenuController extends Controller
             'name', 'parent_id', 'category_id', 'link', 'type'
         ]) ;
         $attributes['created_by'] = Auth::user()->id;
+        $attributes['order'] = Menu::max('order') ? (Menu::max('order') + 1) : 1;
        
         $menus = Menu::create($attributes);
-        
-
         return redirect()->back()->with('success','Lưu dữ liệu thành công');
 
     }
@@ -118,11 +114,11 @@ class MenuController extends Controller
     public function edit(Request $request, $id)
     {
         {
-            $menus = Menu::where('id',$id)->first();
+            $menus = Menu::findOrFail($id);
             $menu = Menu::find($menus->parent_id);
             // $menu = json_decode($menus);
             $category_id = $request->id;
-            $menuCats = $this->getSubCategories(0, $category_id, $id);
+            $menuCats = $this->getSubCategories(0, $id, $category_id);
             
             return view('admin.menus.edit', compact('menuCats', 'menus', 'menu',));
         }
@@ -185,7 +181,7 @@ class MenuController extends Controller
     }
     public function getProduct($id)
     {
-        $product = Product::findOrFail($id)->toArray();
+        $product = Product::with(['categories'])->findOrFail($id)->toArray();
         return response()->json(['product'=>$product]);
     }
    

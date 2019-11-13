@@ -7,7 +7,7 @@
       <h1 class="mt-3 pl-4">QUẢN LÝ MENU</h1>
       <!-- Save group button -->
       <div class="save-group-buttons">
-        <a href="{{ route('admin.menus.create', ['id' => $category_id]) }}"
+        <a href="{{ route('admin.menus.create', ['category_id' => $category_id]) }}"
           class="btn btn-sm btn-dark"
           data-toggle="tooltip"
           title="Thêm mới"
@@ -24,18 +24,18 @@
             <table class="table-sm table-hover mb-2" width="100%">
                 <thead>
                     <tr class="text-muted">
-                        <th style="width: 34.5px;"></th>
-                        <th style="width: 34.5px;" class="text-center">
+                        <th style="width: 3%;"></th>
+                        <th style="width: 3%;" class="text-center">
                         <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                             <i class="material-icons text-muted">check_box_outline_blank</i>
                         </a>
                         </th>
-                        <th style="width: 40px;">ID</th>
-                        <th>TÊN MENU</th>
-                        <th>THUỘC DANH MỤC  </th>
-                        <th style="width: 120px;">Ngày tạo</th>
-                        <th style="width: 120px;">Người đăng</th>
-                        <th style="width: 160px;">Thao tác</th>
+                        <th style="width: 4%;">ID</th>
+                        <th style="width: 20%;">TÊN MENU</th>
+                        <th style="width: 20%">THUỘC DANH MỤC  </th>
+                        <th style="width: 15%;">Người đăng</th>
+                        <th style="width: 20%;">Ngày tạo</th>
+                        <th style="width: 15%">Thao tác</th>
                     </tr>
                 </thead>
             </table>
@@ -56,12 +56,11 @@
 </div>
 @endsection
 @push('js')
-<script src="{{ asset('assets/admin') }}/js/articleCats.js"></script>
+<script src="{{ asset('assets/admin') }}/js/menus.js"></script>
 <script>
   $(document).ready(function () {
-      core.makeTableOrderable('/admin/articles/sort');
+      core.makeTableOrderable('/admin/menus/sort');
       core.initCheckboxButton();
-      core.updateViewViewStatus('/admin/articles/update-view-status');
   })
 </script>
 @endpush

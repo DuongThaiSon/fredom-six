@@ -1,5 +1,5 @@
 @forelse ($menuCats as $menuValues)
-<option value="{{ $menuValues->id }}" {{ isset ($menu)&&$menuValues->id===$menu->id?'selected':'' }}>
+<option value="{{ $menuValues->id }}" {{ $menuValues->id==$parent_id?'selected':'' }}>
     @for ($i = 0; $i < $level; $i++)
         --|
     @endfor

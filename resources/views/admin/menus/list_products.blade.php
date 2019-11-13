@@ -18,7 +18,7 @@
           <td>
             <div class="btn-group">
                 <a class="btn-sm btn-success choose-record" href="#"  data-id="{{ $product->id }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Chọn" data-slug={{ $product->slug }}>
-                    <i class="material-icons">radio_button_checked</i>Chọn  
+                    <i class="material-icons">radio_button_checked</i>  Chọn  
                 </a>
             </div>
           </td>

@@ -38,14 +38,14 @@
               <input type="text" name="name" required class="form-control" placeholder="Tên menu"/>
               <small class="form-text">Tên của menu</small>
             </div>
-
+            
             <div class="form-group">
-              <label>Danh mục</label>
+              <label>Nằm trong danh mục</label>
               <select name="parent_id" class="form-control">
                 <option value="0"></option>
-                  @include('admin.partials.menu_cats', ['level'=>0])
+                  @include('admin.partials.menu_options', ['level' => 0, 'parent_id' => $parent_id])
               </select>
-              <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
+              <small class="form-text">Danh mục của menu</small>
             </div>
             
             <div class="form-group">
@@ -72,8 +72,8 @@
               <input type="hidden" name="category_id" value="{{ $category_id }}" class="form-control" placeholder="URL Link"/>
             </div>
           </div>
-          <input type="hidden" name="article_id" id="article_id" value="">
-          <input type="hidden" name="produc_id" id="produc_id" value="">
+          {{--  <input type="hidden" name="article_id" id="article_id" value="">
+          <input type="hidden" name="produc_id" id="produc_id" value="">  --}}
 
           <div class="col-lg-6" style="border: 1px solid gray">
               <p>Chú thích loại menu</p>

@@ -100,7 +100,8 @@
           <div class="details">
             <div class="row">
               <div class="col-lg-12">
-                {!! $product->detail !!}
+                <span class="more">{!! $product->detail !!}</span>
+                 
                 {{--  <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}</p>
                 <p>* Màu sắc :  {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}</p>
               </div>
@@ -341,8 +342,20 @@
   </div>
   <!-- showroom -->
 @endsection
+{{-- <script src="{{ asset('assets/client') }}/js/readMoreJS.min.js"></script>
+<script>
+  $readMoreJS.init({
+     target: '.dummy',           // Selector of the element the plugin applies to (any CSS selector, eg: '#', '.'). Default: ''
+     numOfWords: 100,               // Number of words to initially display (any number). Default: 50
+     toggle: true,                 // If true, user can toggle between 'read more' and 'read less'. Default: true
+     moreLink: 'read more ...',    // The text of 'Read more' link. Default: 'read more ...'
+     lessLink: 'read less'         // The text of 'Read less' link. Default: 'read less'
+  });
+  </script> --}}
 @push('js')
 <script src="{{ asset('assets/client') }}/js/carts.detail.js"></script>
+
+
 <script>
   function myFunction() {
     var dots = document.getElementById("dots");
@@ -369,5 +382,46 @@
   $('.thumbnail li').click(function () {
     $(this).addClass("active")
   });
+</script>
+
+<script>
+  $(document).ready(function() {
+    // Configure/customize these variables.
+    var showChar = 300;  // How many characters are shown by default
+    var ellipsestext = "...";
+    var moretext = "Show more >";
+    var lesstext = "Show less";
+    
+
+    $('.more').each(function() {
+        var content = $(this).html();
+ 
+        if(content.length > showChar) {
+ 
+            var c = content.substr(0, showChar);
+            var h = content.substr(showChar, content.length - showChar);
+ 
+            var html = c + `<span class="moreellipses">` + ellipsestext+ `&nbsp;</span>
+            <span class="morecontent"><span>` + h + `</span>&nbsp;&nbsp;
+            <a href="" class="morelink ">` + moretext + `</a></span>`;
+ 
+            $(this).html(html);
+        }
+ 
+    });
+ 
+    $(".morelink").click(function(){
+        if($(this).hasClass("less")) {
+            $(this).removeClass("less");
+            $(this).html(moretext);
+        } else {
+            $(this).addClass("less");
+            $(this).html(lesstext);
+        }
+        $(this).parent().prev().toggle();
+        $(this).prev().toggle();
+        return false;
+    });
+});
 </script>
 @endpush

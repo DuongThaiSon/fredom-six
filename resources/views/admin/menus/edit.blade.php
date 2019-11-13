@@ -5,7 +5,7 @@
            <div id="content">
               <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC MENU</h1>
                 <!-- Save group button -->
-                <form action="{{ route('admin.menus.update', $menus->id) }}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+                <form action="{{ route('admin.menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
                   @csrf
                   @method('PUT')
                   @if ($errors->any())
@@ -30,13 +30,13 @@
                     <legend>Thông tin cơ bản</legend>
                     <div class="form-group">
                       <label>ID</label>
-                      <input type="text" name="id" class="form-control" value="{{ $menus->id }}" readonly= />
+                      <input type="text" name="id" class="form-control" value="{{ $menu->id }}" readonly= />
                       <small class="form-text">ID là mã của tin bài, đây là một thuộc tính duy nhất</small>
                     </div>
 
                     <div class="form-group">
                       <label>Tên menu</label>
-                      <input type="text" name="name" value="{{ $menus->name }}" required class="form-control" placeholder="Tên menu"/>
+                      <input type="text" name="name" value="{{ $menu->name }}" required class="form-control" placeholder="Tên menu"/>
                       <small class="form-text">Tên của menu</small>
                     </div>
 
@@ -44,34 +44,34 @@
                       <label>Nằm trong danh mục</label>
                       <select name="parent_id" class="form-control">
                         <option value="0"></option>
-                          @include('admin.partials.menu_options', ['level'=>0])
+                          @include('admin.partials.menu_options', ['level' => 0, 'parent_id' => $menu->parent_id])
                       </select>
-                      <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
+                      <small class="form-text">Danh mục của menu</small>
                     </div>
                     <div class="form-group">
                       <label>Loại Menu</label>
                       <select name="type" class="form-control" id="list-option">
-                        <option {{ $menus->type===0?'selected':'' }} value="0">Link tùy chọn</option>
-                        <option {{ $menus->type===1?'selected':'' }} value="1">[Bài viết] Link đến một mục bài viết</option>
-                        <option {{ $menus->type===2?'selected':'' }} value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
-                        <option {{ $menus->type===3?'selected':'' }} value="3">[Bài viết] Đồng bộ mục bài viết</option>
-                        <option {{ $menus->type===4?'selected':'' }} value="4">[Bài viết] Link đến bài viết chỉ định</option>
-                        <option {{ $menus->type===5?'selected':'' }} value="5">[Sản phẩm] Link đến một mục sản phẩm</option>
-                        <option {{ $menus->type===6?'selected':'' }} value="6">[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục</option>
-                        <option {{ $menus->type===7?'selected':'' }} value="7">[Sản phẩm] Đồng bộ mục sản phẩm</option>
-                        <option {{ $menus->type===8?'selected':'' }} value="8">[Sản phẩm] Link đến sản phẩm chỉ định</option>
+                        <option {{ $menu->type===0?'selected':'' }} value="0">Link tùy chọn</option>
+                        <option {{ $menu->type===1?'selected':'' }} value="1">[Bài viết] Link đến một mục bài viết</option>
+                        <option {{ $menu->type===2?'selected':'' }} value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menu->type===3?'selected':'' }} value="3">[Bài viết] Đồng bộ mục bài viết</option>
+                        <option {{ $menu->type===4?'selected':'' }} value="4">[Bài viết] Link đến bài viết chỉ định</option>
+                        <option {{ $menu->type===5?'selected':'' }} value="5">[Sản phẩm] Link đến một mục sản phẩm</option>
+                        <option {{ $menu->type===6?'selected':'' }} value="6">[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menu->type===7?'selected':'' }} value="7">[Sản phẩm] Đồng bộ mục sản phẩm</option>
+                        <option {{ $menu->type===8?'selected':'' }} value="8">[Sản phẩm] Link đến sản phẩm chỉ định</option>
                       </select>
                       <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                     </div>
                     <div class="form-group">
                       <label>URL</label>
-                      <input type="text" name="link" value="{{ $menus->link }}" class="form-control" placeholder="URL Link"/>
-                      <small class="form-text">Tên của menu</small>
+                      <input type="text" name="link" value="{{ $menu->link }}" class="form-control" placeholder="URL Link"/>
+                      <small class="form-text">Khi click vào menu này sẽ chuyển hướng đến URL chỉ định</small>
                     </div>
                     <div class="form-group d-none">
                       <label>Category_id</label>
-                      <input type="hidden" name="category_id" value="{{ $menus->category_id }}" class="form-control" placeholder="URL Link"/>
-                      <small class="form-text">Tên của menu</small>
+                      <input type="hidden" name="category_id" value="{{ $menu->category_id }}" class="form-control" placeholder="URL Link"/>
+                      <small class="form-text">Category_id</small>
                     </div>
                   </div>
 

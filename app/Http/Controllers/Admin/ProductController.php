@@ -120,6 +120,10 @@ class ProductController extends Controller
         }
         $product->productAttributeValues()->sync($syncData);
         $product->categories()->sync($request->category);
+        $attributes = $this->service->appendEditData($request->all());
+        $product = Product::findOrFail($request->id);
+        $product = $product->fill($attributes);
+        $product->save();
         return redirect()->back()->with('success', 'Cập nhật sản phẩm thành công');
     }
 

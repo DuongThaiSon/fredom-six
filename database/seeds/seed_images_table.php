@@ -14,7 +14,7 @@ class seed_images_table extends Seeder
         DB::table('images')->insert(
             [
                 'id' => '3',
-                'name' => '/media/uploadImg/leotive5db0edaec781d.png',
+                'name' => 'leotive5db0edaec781d.png',
                 'is_public' => '1',
                 'order' => '1',
                 'imageable_id' => '2',
@@ -24,7 +24,7 @@ class seed_images_table extends Seeder
         DB::table('images')->insert(
             [
                 'id' => '4',
-                'name' => '/media/uploadImg/leotive5db0edb908622.png',
+                'name' => 'leotive5db0edb908622.png',
                 'is_public' => '1',
                 'order' => '2',
                 'imageable_id' => '2',
@@ -34,7 +34,7 @@ class seed_images_table extends Seeder
         DB::table('images')->insert(
             [
                 'id' => '5',
-                'name' => '/media/uploadImg/leotive5db0edc29593d.png',
+                'name' => 'leotive5db0edc29593d.png',
                 'is_public' => '1',
                 'order' => '3',
                 'imageable_id' => '2',
@@ -44,7 +44,7 @@ class seed_images_table extends Seeder
         DB::table('images')->insert(
             [
                 'id' => '6',
-                'name' => '/media/uploadImg/leotive5db0edce84ec9.png',
+                'name' => 'leotive5db0edce84ec9.png',
                 'is_public' => '1',
                 'order' => '4',
                 'imageable_id' => '2',

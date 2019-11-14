@@ -56,17 +56,17 @@
                 <div class="sub collapse" id="submenu2">
                     <ul class="flex-column nav">
                     <li class="nav-item">
-                        <a href="{{route('admin.articles.create')}}" class="nav-link menu-articles">Tạo bài mới</a>
+                        <a href="{{route('admin.articles.create')}}" class="nav-link menu-articles-create">Tạo bài mới</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('admin.articles.index')}}" class="nav-link">Quản lý tin bài</a>
-                    </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{route('admin.article-categories.create')}}" class="nav-link menu-articleCats">Thêm mới danh mục tin bài</a>
+                        <a href="{{route('admin.articles.index')}}" class="nav-link menu-articles">Quản lý tin bài</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('admin.article-categories.index')}}" class="nav-link">Quản lý danh mục tin bài</a>
-                    </li> --}}
+                        <a href="{{route('admin.article-categories.create')}}" class="nav-link menu-articleCats-create">Thêm mới danh mục tin bài</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('admin.article-categories.index')}}" class="nav-link menu-articleCats">Quản lý danh mục tin bài</a>
+                    </li>
                     </ul>
                 </div>
             </li>
@@ -120,12 +120,12 @@
                     <li class="nav-item">
                     <a href="{{route('admin.videos.index')}}" class="nav-link">Quản lý video</a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                     <a href="{{route('admin.video-categories.create')}}" class="nav-link">Thêm mới danh mục video</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{route('admin.video-categories.index')}}" class="nav-link">Quản lý danh mục video</a>
-                    </li> --}}
+                    </li>
                 </ul>
                 </div>
             </li>
@@ -176,10 +176,10 @@
             <div class="sub collapse" id="menusubmenu">
                 <ul class="flex-column nav">
                 <li class="nav-item">
-                    <a href="{{ route('admin.menu-categories.create') }}" class="nav-link">Tạo menu mới</a>
+                    <a href="{{ route('admin.menu-categories.create') }}" class="nav-link menu-menus-create">Tạo menu mới</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.menu-categories.index') }}" class="nav-link">Quản lý menu</a>
+                    <a href="{{ route('admin.menu-categories.index') }}" class="nav-link menu-menus-categories">Quản lý menu</a>
                 </li>
                 </ul>
             </div>

@@ -73,85 +73,7 @@
                 </button>
             </div>
 
-            <!-- TABLE -->
-            <div class="table-responsive bg-white mt-4" id="table">
-                @csrf
-                <table class="table-sm table-hover table mb-2" width="100%">
-                    <thead>
-                        <tr class="text-muted">
-                            <th></th>
-                            <th class="text-center">
-                                <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
-                                    <i class="material-icons text-muted">check_box_outline_blank</i>
-                                </a>
-                            </th>
-                            <th>ID</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Mục</th>
-                            <th style="width: 40px;">Hiển thị</th>
-                            <th style="width: 40px;">Nổi bật</th>
-                            <th style="width: 40px;">Mới</th>
-                            <th style="width: 120px;">Ngày tạo</th>
-                            <th style="width: 120px;">Người đăng</th>
-                            <th style="width: 160px;">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody class="sort">
-                        @foreach ($articles as $article )
-                        <tr id="item_{{$article->id}}" class="ui-state-default">
-                            <td class="text-muted connect" data-toggle="tooltip"
-                                title="Giữ icon này kéo thả để sắp xếp">
-                                <i class="material-icons">format_line_spacing</i>
-                            </td>
-                            <td class="text-center">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            data-id="{{ $article->id }}">
-                                        <span class="form-check-sign">
-                                            <span class="check"></span>
-                                        </span>
-                                    </label>
-                                </div>
-                            </td>
-                            <td>{{$article->id}}</td>
-                            <td class="editname">
-                                <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name}}</a>
-                            </td>
-                            <td>
-                                <a href="{{route('admin.article-categories.edit', $article->category_id)}}">{{$article->category->name??''}}</a>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_public?'Click để tắt':'Click để bật' }}"
-                                    data-id="{{ $article->id }}"
-                                    data-value="{{ $article->is_public }}"
-                                    data-field="is_public"
-                                    data-toggle="tooltip" >
-                                    <i class="material-icons {{ $article->is_public?'text-primary':'' }}">{{ $article->is_public?'check_circle_outline':'highlight_off' }}</i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_highlight?'Click để tắt':'Click để bật' }}"
-                                    data-id="{{ $article->id }}"
-                                    data-value="{{ $article->is_highlight }}"
-                                    data-field="is_highlight"
-                                    data-toggle="tooltip" >
-                                    <i class="material-icons {{ $article->is_highlight?'text-primary':'' }}">{{ $article->is_highlight?'check_circle_outline':'highlight_off' }}</i>
-                                </button>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-sm p-1 btn-update-view-status" title="{{ $article->is_new?'Click để tắt':'Click để bật' }}"
-                                    data-id="{{ $article->id }}"
-                                    data-value="{{ $article->is_new }}"
-                                    data-field="is_new"
-                                    data-toggle="tooltip" >
-                                    <i class="material-icons {{ $article->is_new?'text-primary':'' }}">{{ $article->is_new?'check_circle_outline':'highlight_off' }}</i>
-                                </button>
-                            </td>
-                            <td>{{$article->created_at}}</td>
-                            <td>{{$article->user->name ?? ''}}</td>
-                            <td>
-                                <div class="btn-group">
+
 
                 <!-- TABLE -->
                 <div class="table-responsive bg-white mt-4" id="cat_table">
@@ -188,7 +110,7 @@
                                 </td>
                                 <td>{{$article->id}}</td>
                                 <td class="editname">
-                                    <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name}}</a>
+                                    <a href="{{route('admin.articles.edit', $article->id)}}">{{$article->name??''}}</a>
                                 </td>
                                 <td>
                                     <a href="{{route('admin.article-categories.edit', $article->category_id)}}">{{$article->category()->first()->name??''}}</a>
@@ -209,7 +131,7 @@
                                     </button>
                                 </td>
                                 <td>{{$article->created_at}}</td>
-                                <td>{{$article->user()->first()->name}}</td>
+                                <td>{{$article->user()->first()->name??''}}</td>
                                 <td>
                                     <div class="btn-group">
 

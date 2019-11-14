@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Menu create')])
+@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu create')])
 @section('content')
 <div id="main-content">
   <div class="container-fluid" style="background: #e5e5e5;">
@@ -50,7 +50,7 @@
             
             <div class="form-group">
               <label>Loại Menu</label>
-              <select name="type" class="form-control">
+              <select name="type" class="form-control" id="list-option">
                 <option value="0"></option>
                 <option value="1">[Bài viết] Link đến một mục bài viết</option>
                 <option value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
@@ -72,9 +72,7 @@
               <input type="hidden" name="category_id" value="{{ $category_id }}" class="form-control" placeholder="URL Link"/>
             </div>
           </div>
-          {{--  <input type="hidden" name="article_id" id="article_id" value="">
-          <input type="hidden" name="produc_id" id="produc_id" value="">  --}}
-
+          
           <div class="col-lg-6" style="border: 1px solid gray">
               <p>Chú thích loại menu</p>
               <p>Link tùy chọn: Khi click vào menu này sẽ chuyển hướng đến URL chỉ định</p>
@@ -99,10 +97,6 @@
 @endsection
 @push('js')
 <script>
-  CKEDITOR.replace("description");
-  CKEDITOR.replace("detail");
-</script>
-<script>
   $(document).ready(function(){
     $("select[name=type]").on('change', function (e) {
       e.preventDefault();
@@ -124,8 +118,7 @@
         url: '/admin/menus/'+url,
         method: 'GET',
         success: function(scs){
-          $('.filter-result').html(scs)
-          $('input:[name=link]').remove();
+          $('.filter-result').html(scs);
         },
         error: function(e){
           console.log(e);

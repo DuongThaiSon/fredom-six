@@ -174,9 +174,11 @@ class MenuController extends Controller
     /**
      * 
      */
-    public function listArticle()
+    public function listArticle(Request $request)
     {
-        $articles = Article::with('category')->simplePaginate(5);
+        $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with('category')->simplePaginate(5);
+        // $articles = $articles->where('name', 'like', '%'.$request->keyword.'%');
+            
         return view('admin.menus.list_articles', compact('articles'));
     }
     /**
@@ -186,7 +188,6 @@ class MenuController extends Controller
     public function listProduct()
     {
         $products = Product::with('categories')->simplePaginate(5);
-        // print_r($products->toArray());die;
         return view('admin.menus.list_products', compact('products'));
     }
     /**

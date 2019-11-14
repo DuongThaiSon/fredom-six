@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Menu')])
+@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu')])
 @section('content')
 <!-- Content -->
 <div id="main-content">
@@ -24,13 +24,13 @@
             <table class="table-sm table-hover mb-2" width="100%">
                 <thead>
                     <tr class="text-muted">
-                        <th style="width: 3%;"></th>
-                        <th style="width: 3%;" class="text-center">
+                        <th style="width: 4%;"></th>
+                        {{-- <th style="width: 3%;" class="text-center">
                         <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                             <i class="material-icons text-muted">check_box_outline_blank</i>
                         </a>
-                        </th>
-                        <th style="width: 4%;">ID</th>
+                        </th> --}}
+                        <th style="width: 6%;">ID</th>
                         <th style="width: 20%;">TÊN MENU</th>
                         <th style="width: 20%">THUỘC DANH MỤC  </th>
                         <th style="width: 15%;">Người đăng</th>
@@ -60,7 +60,7 @@
 <script>
   $(document).ready(function () {
       core.makeTableOrderable('/admin/menus/sort');
-      core.initCheckboxButton();
+      // core.initCheckboxButton();
   })
 </script>
 @endpush

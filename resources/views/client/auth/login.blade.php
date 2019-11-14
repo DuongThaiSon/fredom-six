@@ -38,7 +38,7 @@
                     <label for="" class="mt-2">
                         <input type="checkbox" class="" value="">  Ghi nhớ
                     </label>
-                    <a href="reset-password.html" class="btn mb-3 float-right">Quên mật khẩu?</a>
+                    <a href="{{ route('client.password.request') }}" class="btn mb-3 float-right">Quên mật khẩu?</a>
                 </div>
                 
                 <button type="submit" class="btn btn-dark mb-3">Đăng Nhập</button>

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\ClientResetPasswordNotification;
+use App\Notifications\AdminResetPasswordNotification;
 
-class User extends Authenticatable
+class UserAdmin extends Authenticatable
 {
     use Notifiable;
 
@@ -45,14 +45,14 @@ class User extends Authenticatable
         ->withTimestamps();
     }
 
-     /**
-     * Send the password reset notification client.
+    /**
+     * Send the password reset notification admin.
      *
      * @param  string  $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ClientResetPasswordNotification($token));
+        $this->notify(new AdminResetPasswordNotification($token));
     }
 }

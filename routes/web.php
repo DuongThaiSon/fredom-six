@@ -77,5 +77,23 @@ Route::group([
             'as' => 'client.logout',
             'uses' => 'LoginController@logout'
         ]);
+        Route::get('password/reset', [
+            'as' => 'client.password.request',
+            'uses' => 'ForgotPasswordController@showLinkRequest'
+        ]);
+        Route::post('password/email', [
+            'as' => 'client.password.email',
+            'uses' => 'ForgotPasswordController@sendResetLinkEmail'
+        ]);
+        Route::post('password/reset', [
+            'as' => 'client.reset.password',
+            'uses' => 'ResetPasswordController@reset'
+        ]);
+    
+        Route::get('password/reset/{token}',[
+            'as' => 'client.password.reset',
+            'uses' => 'ResetPasswordController@showResetFormClient'
+        ]);
     });
+   
 });

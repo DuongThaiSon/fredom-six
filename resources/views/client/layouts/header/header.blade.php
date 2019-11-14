@@ -36,9 +36,13 @@
                     </li>
                     <li class="nav-item">
                         <form action="{{ route('client.logout')}}" method="POST" >
-                        @csrf
-                    <button type="submit">Đăng xuất</button>
-                </form>
+                            @csrf
+                            <button style="color: #a3a3a3;
+                            border: none;
+                            background: fixed;
+                            cursor: pointer;" 
+                            type="submit">Đăng xuất</button>
+                        </form>
                     </li>
                 @endauth
                 

@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Detail Menu')])
+@extends('admin.layouts.main', ['activePage' => 'menus-create', 'title' => __('Detail Menu')])
 @section('content')
         <div class="navbar-top fixed-top bg-white">
           <!-- Search Bar -->

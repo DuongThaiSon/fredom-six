@@ -1,5 +1,13 @@
 <div class="table-responsive bg-white mt-4" id="table">
   @csrf
+  <div class="row">
+    <div class="col-md-6">
+      <form action="{{ route('admin.menus.listArticle') }}" method="GET" enctype="multipart/form-data">
+        <input type="text" id="keyword" name="keyword" class="form-control search-input" placeholder="Tìm kiếm..." aria-label="Search for..." value="">
+        <button type="submit" class="btn btn-sm btn-primary">Tìm kiếm</button>
+      </form>
+    </div>
+  </div>
     <table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">
       <thead>
         <tr class="text-muted">

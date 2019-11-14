@@ -5,13 +5,13 @@
                 <table class="table table-hover table-sm" width="100%">
                     <tbody>
                         <tr class="text-muted">
-                            <td style="width: 3%;" class="text-muted connect" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
+                            <td style="width: 4%;" class="text-muted connect" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
                                 <i class="material-icons">format_line_spacing</i>
                             </td>
-                            <td style="width: 3%;" class="text-center">
+                            {{-- <td style="width: 3%;" class="text-center">
                                 <input type="checkbox" class="checkdel" name=id[] value="{{$menu->id}}" />
-                            </td>
-                            <td style="width: 3%;">{{ $menu->id }}</td>
+                            </td> --}}
+                            <td style="width: 6%;">{{ $menu->id }}</td>
                             <td style="width: 20%;" class="editname">
                                 @for ($i = 0; $i < $level; $i++)
                                     --|

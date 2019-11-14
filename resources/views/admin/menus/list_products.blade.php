@@ -1,5 +1,9 @@
 <div class="table-responsive bg-white mt-4" id="table">
   @csrf
+  <div class="row">
+      <div class="col-md-4">
+        <input type="text" id="keyword" name="keyword" class="form-control search-input" placeholder="Tìm kiếm..." aria-label="Search for..." value="">
+      </div>
     <table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">
       <thead>
         <tr class="text-muted">

@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Menu create')])
+@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu create')])
 @section('content')
             <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">

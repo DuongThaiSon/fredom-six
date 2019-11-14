@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'articleCats', 'title' => __('Menu Categories Edit')])
+@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu Categories Edit')])
 @section('content')
 
         <!-- Content -->

@@ -71,7 +71,7 @@ class MenuController extends Controller
         $parent_id = $request->has('parent_id')?$request->parent_id:'0';
         $menuCats = $this->getSubMenus(0, $category_id);
         return view('admin.menus.create', compact('menuCats','category_id', 'parent_id'));
-        
+
     }
 
     /**
@@ -92,7 +92,7 @@ class MenuController extends Controller
         ]) ;
         $attributes['created_by'] = Auth::user()->id;
         $attributes['order'] = Menu::max('order') ? (Menu::max('order') + 1) : 1;
-       
+
         $menus = Menu::create($attributes);
         return redirect()->back()->with('success','Lưu dữ liệu thành công');
 
@@ -121,7 +121,7 @@ class MenuController extends Controller
             // $menu = Menu::findOrFail($id); // find 1 sao lại số nhiều nhỉ
             // $menu = Menu::find($menus->parent_id); // ??
             $menuCats = $this->getSubMenus(0, $menu->category_id, $menu->id);
-            
+
             return view('admin.menus.edit', compact('menuCats', 'menu'));
         }
     }
@@ -172,17 +172,16 @@ class MenuController extends Controller
         $this->service->sortData($request->get('sort'));
     }
     /**
-     * 
+     *
      */
     public function listArticle(Request $request)
     {
-        $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with('category')->simplePaginate(5);
-        // $articles = $articles->where('name', 'like', '%'.$request->keyword.'%');
-            
-        return view('admin.menus.list_articles', compact('articles'));
+
+        $articles = Article::with('category')->simplePaginate(5);
+        return view('admin.menus.list_articles', compact('articles'))->render();
     }
     /**
-     * 
+     *
      */
 
     public function listProduct()
@@ -191,7 +190,7 @@ class MenuController extends Controller
         return view('admin.menus.list_products', compact('products'));
     }
     /**
-     * 
+     *
      */
 
     public function getArticle($id)
@@ -200,13 +199,25 @@ class MenuController extends Controller
         return response()->json(['article'=>$article]);
     }
     /**
-     * 
+     *
      */
 
     public function getProduct($id)
     {
         $product = Product::with(['categories'])->findOrFail($id)->toArray();
+        // print_r($product);die;
         return response()->json(['product'=>$product]);
     }
-   
+
+    public function searchArticles(Request $request)
+    {
+        $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with(['category'])->get();
+        return response()->json(compact('articles'), 200);
+    }
+
+    public function searchProducts(Request $request)
+    {
+        $products = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get();
+        return response()->json(compact('products'), 200);
+    }
 }

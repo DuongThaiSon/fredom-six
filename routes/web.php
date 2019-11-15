@@ -39,7 +39,10 @@ Route::group([
         'as' => 'client.showrooms.contact',
         'uses' => 'ContactController@contact'
     ]);
-    Route::get('products', 'ProductController@product');
+    Route::get('new-arrival', [
+        'as' => 'client.products.new',
+        'uses' => 'ProductController@newArrival'
+    ]);
     Route::get('products/{slug_cat?}', [
         'as' => 'client.products.category',
         'uses' => 'ProductController@productCat'

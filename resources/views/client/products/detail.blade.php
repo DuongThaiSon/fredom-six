@@ -346,22 +346,6 @@
 @push('js')
 <script src="{{ asset('assets/client') }}/js/carts.detail.js"></script>
 <script>
-  function myFunction() {
-    var dots = document.getElementById("dots");
-    var moreText = document.getElementById("more");
-    var btnText = document.getElementById("myBtn");
-
-    if (dots.style.display === "none") {
-      dots.style.display = "inline";
-      btnText.innerHTML = "Xem thêm";
-      moreText.style.display = "none";
-    } else {
-      dots.style.display = "none";
-      btnText.innerHTML = "Rút gọn";
-      moreText.style.display = "inline";
-    }
-  }
-
   function scrollDown() {
     document.querySelector('.thumbnail').scrollBy(0, 50);
   }

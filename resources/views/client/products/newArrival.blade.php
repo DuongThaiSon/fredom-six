@@ -1,4 +1,4 @@
-@extends('client.layouts.main', ['title' => __('Product')])
+@extends('client.layouts.main', ['title' => __('New Arrival')])
 @section('content')
 <!-- breadcrumb -->
 <div class="bread-crumb">
@@ -22,7 +22,7 @@
   <section id="product-list">
     <div class="container">
       <div class="row mb-4">
-          @foreach ($product as $prod)
+          @foreach ($productNew as $prod)
         <div class="col-lg-3">
           <div class="product">
             <div class="card">
@@ -81,7 +81,7 @@
         </div>
         @endforeach
      </div>
-     {{-- {{ $product->links() }}  --}}
+     {{ $productNew->links() }} 
         {{-- <p class="text-uppercase text-center mt-5">loading...</p> --}}
     </div>
   </section>

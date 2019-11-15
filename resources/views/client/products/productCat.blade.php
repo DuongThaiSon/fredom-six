@@ -169,6 +169,7 @@
               <form action="{{ route('client.products.category', $category->slug) }}" method="GET" enctype="text/plain">
                 <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
               <input type="hidden" id="tags" data-role="tagsinput" value="" name="term" placeholder="Tìm kiếm">
+              </form>
             </div>
           </div>
         </div>

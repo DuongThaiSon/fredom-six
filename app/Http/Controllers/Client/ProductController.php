@@ -11,13 +11,11 @@ use App\Models\ProductAttribute;
 
 class ProductController extends Controller
 {
-    public function product(Request $request)
+    public function newArrival(Request $request)
 
     {   
-        $productAttr = ProductAttribute::get();
-        $product = Product::simplePaginate(8);
-        
-        return view('client.products.product', compact('product', 'productAttr'));
+        $productNew = Product::where('is_new', 1)->simplePaginate(8);
+        return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($id)
     {

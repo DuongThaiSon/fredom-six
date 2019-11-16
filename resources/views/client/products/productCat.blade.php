@@ -183,7 +183,7 @@
       <div class="row mb-4">
           @forelse ($category->products as $prod)
         <div class="col-lg-3">
-          <div class="product">
+          <div class="product mb-3">
             <div class="card">
               <div class="product-img">
                 <a href="{{ route('client.products.detail', $prod->id) }}"><img src="{{ asset('/media/product') }}/{{ $prod->avatar }}"

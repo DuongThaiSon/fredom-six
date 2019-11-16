@@ -7,7 +7,7 @@
         <div class="row">
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
           <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
-            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">miền bắc</p>
+            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">{{ $showroommb->first()->regions }}</p>
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
@@ -47,7 +47,7 @@
         <div class="row">
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
           <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
-            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">miền trung</p>
+            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">{{ $showroommt->first()->regions??'' }}</p>
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
@@ -87,7 +87,7 @@
         <div class="row">
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
           <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
-            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">miền nam</p>
+            <p class="text-uppercase m-0 text-center" style="font-size: 24px;">{{ $showroommn->first()->regions??'' }}</p>
           </div>
           <div class="line-bold col-lg-5 col-md-3 col-2"></div>
         </div>
@@ -125,44 +125,44 @@
         </div>
       </div>
     </div>
-  </section>
-@endsection
-<div class="modal fade" id="formContact">
-  <div class="modal-dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span class="close-button" aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="font-weight-bold">Moolez Việt Nam</p>
-          <p>Địa chỉ: 18 Đoàn Trần Nghiệp, Hanoi, Vietnam</p>
-          <p>Email : sales@moolez.com.vn</p>
-          <p>Điện thoại : 1900292976</p>
-          <form action="{{ route('client.showrooms.contact') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-              <label for="name">Họ tên *</label>
-              <input name="name" type="text" class="form-control" required>
+    <div class="modal fade" id="formContact">
+      <div class="modal-dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span class="close-button" aria-hidden="true">&times;</span>
+              </button>
             </div>
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input name="email" type="email" class="form-control" required>
+            <div class="modal-body">
+              <p class="font-weight-bold">Moolez Việt Nam</p>
+              <p>Địa chỉ: 18 Đoàn Trần Nghiệp, Hanoi, Vietnam</p>
+              <p>Email : sales@moolez.com.vn</p>
+              <p>Điện thoại : 1900292976</p>
+              <form action="{{ route('client.showrooms.contact') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                  <label for="name">Họ tên *</label>
+                  <input name="name" type="text" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input name="email" type="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Số điện thoại *</label>
+                  <input name="phone" type="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="message">Tin nhắn *</label>
+                  <textarea class="form-control" required name="content" id=""></textarea>
+                </div>
+                <button type="submit" class="btn font-weight-bold">Gửi liên hệ</button>
+              </form>
             </div>
-            <div class="form-group">
-              <label for="phone">Số điện thoại *</label>
-              <input name="phone" type="phone" class="form-control" required>
-            </div>
-            <div class="form-group">
-              <label for="message">Tin nhắn *</label>
-              <textarea class="form-control" required name="content" id=""></textarea>
-            </div>
-            <button type="submit" class="btn font-weight-bold">Gửi liên hệ</button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+@endsection

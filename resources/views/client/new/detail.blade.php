@@ -23,42 +23,7 @@
           </div>
           <div class="detail-content">
             <h2 class="detail-title font-weight-bold">{{ $detail->name??'' }}</h2>
-            {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy
-              text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is
-              simply dummy text of the printing and typesetting industry.</p>
-            <div class="img-detail">
-              <img src="/assets/client/img/detail-img.png" alt="">
-              <div class="img-cap text-center">Caption Images</div>
-            </div>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the
-              printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is simply dummy
-              text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since. Lorem Ipsum is
-              simply dummy text of the printing and typesetting industry.</p>
-            <div class="img-detail">
-              <img src="/assets/client/img/detail-img.png" alt="">
-              <div class="img-cap text-center">Caption Images</div>
-            </div>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry’s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry.</p>
-            <div class="img-detail">
-              <img src="/assets/client/img/detail-img.png" alt="">
-              <div class="img-cap text-center">Caption Images</div>
-            </div> --}}
-
             {!! $detail->detail ??'' !!}
-
           </div>
           <div class="detail-bottom d-flex justify-content-between">
             <div class="tag">

@@ -62,12 +62,21 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
+    Route::get('footer', 'HomeController@footer');
 
     
     Route::get('home', 'HomeController@index');
     Route::group([
         'namespace' => 'Auth'
     ], function() {
+        Route::get('register',[
+            'as' => 'client.register',
+            'uses' => 'RegisterController@showRegistrationForm'
+        ]);
+        Route::post('register/create',[
+            'as' => 'client.register.create',
+            'uses' => 'RegisterController@create'
+        ]);
         Route::get('login',[
             'as' => 'client.loginform',
             'uses' => 'LoginController@showLoginForm'

@@ -9,10 +9,13 @@
             </button>
             <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item pl-lg-5">
-                <a href="{{ route('client.products.new')}}" class="nav-link text-uppercase">new arrival</a>
-                </li>
-                <li class="nav-item pl-lg-5">
+                @foreach ($menuTop as $item)
+                    <li class="nav-item pl-lg-5">
+                        <a href="{{ $item->link }}" class="nav-link text-uppercase">{{ $item->name }}</a>
+                    </li>
+                @endforeach
+                
+                {{-- <li class="nav-item pl-lg-5">
                 <a href="{{ route('client.news.index')}}" class="nav-link text-uppercase">tin tức</a>
                 </li>
                 <li class="nav-item pl-lg-5">
@@ -24,12 +27,12 @@
                 {{-- <li class="nav-item pl-lg-5">
                 <a href="#" class="nav-link text-uppercase">monoco</a>
                 </li> --}}
-                <li class="nav-item pl-lg-5">
+                {{-- <li class="nav-item pl-lg-5">
                 <a href="#" class="nav-link text-uppercase">gifts</a>
                 </li>
                 <li class="nav-item pl-lg-5">
                 <a href="{{ route('client.showrooms.index') }}" class="nav-link text-uppercase">showroom</a>
-                </li>
+                </li>  --}}
             </ul>
             <div class="cart">
                 <div class="cart-icon">

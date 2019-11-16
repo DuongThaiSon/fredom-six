@@ -122,11 +122,11 @@ class ArticleCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories'.$id,
+            'name' => 'required',
             'avatar' => 'nullable|sometimes|image'
         ]);
         $attributes = $request->only([
-            'parent_id', 'name', 'description', 'is_highlight', 'meta_title', 'slug', 'meta_keyword', 'meta_discription',
+            'parent_id', 'name', 'description', 'is_highlight', 'meta_title', 'slug', 'meta_keyword', 'meta_description',
             'meta_page_topic'
         ]);
 

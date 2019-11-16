@@ -5,7 +5,7 @@
             <div class="col-lg-7 float-right">
             <h2 class="showroom-title text-uppercase">showroom</h2>
             <p>Hiện tại Moolez đã có 16 cửa hàng tại Việt Nam được phân bố rộng rãi các vùng miền</p>
-            <a href="#" class="learn text-uppercase">learn more</a>
+            <a href="{{ route('client.showrooms.index') }}" class="learn text-uppercase">learn more</a>
             </div>
         </div>
 

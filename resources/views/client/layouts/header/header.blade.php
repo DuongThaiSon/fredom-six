@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-5">
             <p class="hotline text-uppercase m-0">
-                hotline: 1900292976
+                hotline: {{ $hotline->company_hotline }}
             </p>
             </div>
             <div class="col-lg-6 col-md-7">
@@ -26,7 +26,7 @@
                 @guest('web')
                     </li>
                     <li class="nav-item">
-                    <a href="">Đăng ký</a>
+                    <a href="{{ route('client.register') }}">Đăng ký</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('client.loginform')}}">Đăng nhập</a>
@@ -47,19 +47,47 @@
                 @endauth
                 
             
-                <li class="nav-item p-0">
+                {{-- <li class="nav-item p-0">
                 <button type="button" class="btn-search">
                     <i class="fas fa-search"></i>
                 </button>
                 <div class="search-header">
                     <input type="text" />
                 </div>
-                </li>
+                </li> --}}
             </ul>
             </div>
         </div>
         </div>
     </div>
     <!-- navbar -->
-    @include('client.layouts.header.nav')
+    {{-- @include('client.layouts.header.nav') --}}
+    <div id="navbar">
+        <nav class="navbar navbar-expand-md">
+        <div class="container">
+            <a href="/home" class="navbar-brand">
+            <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />
+            </a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <i class="fas fa-bars text-white fa-2x pr-2"></i>
+            </button>
+            <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
+            <ul class="navbar-nav ml-auto">
+                @foreach ($menuTop as $item)
+                    <li class="nav-item pl-lg-5">
+                        <a href="{{ $item->link }}" class="nav-link text-uppercase">{{ $item->name }}</a>
+                    </li>
+                @endforeach
+                
+            </ul>
+            <div class="cart">
+                <div class="cart-icon">
+                <a href="/cart"> <i class="fas fa-shopping-basket"></i></a>
+                <div class="cart-items">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </nav>
+    </div>
 </section>

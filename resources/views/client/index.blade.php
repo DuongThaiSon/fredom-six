@@ -31,7 +31,7 @@
                     customers. Describe a product, share annoucement, or welcome
                     customers to your store
                   </p>
-                  <a href="#" class="btn text-uppercase">news arrivals</a>
+                  <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a>
                 </div>
               </div>
             </div>
@@ -48,9 +48,9 @@
     <div class="container">
       <div class="row py-5">
         <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
-          <h3 class="text-uppercase">{{ $articleIntro->name }}</h3>
-          <h1 class="text-uppercase display-4">{!! $articleIntro->description !!}</h1>
-          <p class="mb-5">{!! $articleIntro->detail !!}</p>
+          <h3 class="text-uppercase">{{ $articleIntro->articles[0]->name }}</h3>
+          <h1 class="text-uppercase display-4">{!! $articleIntro->articles[0]->description !!}</h1>
+          <p class="mb-5">{!! $articleIntro->articles[0]->detail !!}</p>
         </div>
         <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
           <img src="{{ asset('assets/client') }}/img/bags.png" class="pl-5 mt-5" alt="" />
@@ -62,10 +62,7 @@
       <div class="col-lg-8 col-md-12" style="background: #ebebeb">
         <div class="about-text py-5">
           <p class="m-0">
-            Moolez không chỉ tạo nên giày, dép, túi xách, phụ kiện… mà tạo nên “nghệ
-            thuật”. Phong cách Moolez khác biệt ở chỗ, trở thành một hướng đạo sinh
-            cho khách hàng đi tìm bản ngã của cuộc sống, sự tự tin trong tâm hồn và
-            đặt điểm mốc nổi bật cho cá tính riêng biệt.
+              {!! $articleIntro->articles[1]->detail !!}
           </p>
         </div>
       </div>
@@ -149,12 +146,12 @@
   </section>
   <!-- mix & match -->
   <section id="mix-match" class="mb-4 d-none d-lg-block">
-    <h1 class="text-center display-3 text-uppercase">mix & match</h1>
+    <h1 class="text-center display-3 text-uppercase">{{ $products->name }}</h1>
     <div id="match" class="owl-carousel owl-theme">
       <div class="item">
         <div class="row" style="height: 578px">
           <div class="col-lg-3 full-set">
-            <img src="{{ asset('assets/client') }}/img/shortJean.png" alt="">
+            <img src="{{ asset('media/product') }}/{{ $products->avatar }}" alt="">
           </div>
           <div class="col-lg-3">
             @foreach ($products->products->take(2) as $item)
@@ -259,12 +256,12 @@
   <!-- customer -->
   <section id="customer">
     <h2 class="cus-title display-4 text-uppercase text-center">
-      customer reviews
+        {{ $articleReview->name }}
     </h2>
     <div class="container">
       <!-- customer slide -->
       <div id="cus-slide" class="owl-carousel owl-theme">
-        @foreach ($articleReview as $item)
+        @foreach ($articleReview->articles as $item)
         <div class="item">
           <div class="card-customer card border-0 mx-auto">
             <img src="{{ asset('/media/articles') }}/{{ $item->avatar }}" class="card-img" alt="">

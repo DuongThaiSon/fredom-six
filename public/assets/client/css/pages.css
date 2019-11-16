@@ -148,7 +148,9 @@ input:focus {
 
 #showroom {
   margin-top: 50px; }
-
+.modal-content iframe{
+  width: 100%;
+}
 #about-detail {
   margin-top: 200px;
   margin-bottom: 300px; }

@@ -343,6 +343,11 @@ input:focus {
       height: 200px; }
   #product-list .card-body {
     padding: 1rem !important; }
+  #product-list .product:hover{
+    box-shadow: 0 5px 10px #ccc;
+    transform: translateY(-5px);
+    transition: 0.5s;
+  }
   #product-list .product-colors {
     margin: 10px 0; }
     #product-list .product-colors .product-color {

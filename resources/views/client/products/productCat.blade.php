@@ -251,9 +251,9 @@
   <script>
     $(".options-list").click(function () {
       if ($('.checkbox-option:visible').length)
-        $('.checkbox-option').hide();
+        $('.checkbox-option').slideToggle();
       else
-        $('.checkbox-option').show();
+        $('.checkbox-option').slideToggle();
     })
 
   </script>

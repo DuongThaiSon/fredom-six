@@ -90,7 +90,7 @@
           <div class="form-underline"></div>
           <div class="d-flex justify-content-between p-2">
             <p class="text-capitalize font-weight-bold m-0">khuyến mãi:</p>
-            <p class="font-weight-bold m-0">-500.000 vnđ</p>
+            <p class="font-weight-bold m-0"></p>
           </div>
           <div class="form-underline"></div>
           <!-- Total -->

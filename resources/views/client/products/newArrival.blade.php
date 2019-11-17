@@ -22,9 +22,9 @@
   <section id="product-list">
     <div class="container">
       <div class="row mb-4">
-          @foreach ($productNew as $prod)
+          @forelse ($productNew as $prod)
         <div class="col-lg-3">
-          <div class="product">
+          <div class="product mb-3">
             <div class="card">
               <div class="product-img">
                 <a href="{{ route('client.products.detail', $prod->id) }}"><img src="{{ asset('/media/product') }}/{{ $prod->avatar }}"
@@ -64,8 +64,8 @@
                 <div class="clear"></div>
                 <!-- price -->
                 <div class="product-price">
-                  <span class="old-price">{{ number_format($prod->price) }}</span>
-                  <span class="new-price">{{ number_format($prod->price-$prod->price*$prod->discount/100) ?? '' }}</span>
+                  <span class="{{ ($prod->discount > 0)?'old-price':'new-price' }}">{{ number_format($prod->price) }}</span>
+                  <span class="new-price">{{ (($prod->discount > 0)?number_format($prod->price-$prod->price*$prod->discount/100):'') }}</span>
                 </div>
               </div>
               <div class="list-group list-group-flush">
@@ -79,7 +79,9 @@
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+        <div class="alert alert-danger text-center m-auto w-100">Không có sản phẩm nào được tìm thấy</div>
+        @endforelse
      </div>
      {{ $productNew->links() }} 
         {{-- <p class="text-uppercase text-center mt-5">loading...</p> --}}

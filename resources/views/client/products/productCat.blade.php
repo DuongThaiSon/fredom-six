@@ -223,8 +223,8 @@
                 <div class="clear"></div>
                 <!-- price -->
                 <div class="product-price">
-                  <span class="old-price">{{ number_format($prod->price) }}</span>
-                  <span class="new-price">{{ number_format($prod->price-$prod->price*$prod->discount/100) ?? '' }}</span>
+                  <span class="{{ ($prod->discount > 0)?'old-price':'new-price' }}">{{ number_format($prod->price) }}</span>
+                  <span class="new-price">{{ (($prod->discount > 0)?number_format($prod->price-$prod->price*$prod->discount/100):'') }}</span>
                 </div>
               </div>
               <div class="list-group list-group-flush">

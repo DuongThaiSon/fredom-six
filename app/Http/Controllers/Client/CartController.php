@@ -13,7 +13,7 @@ class CartController extends Controller
     public function index()
     
     {
-        $product = Product::where('product_code', 'ABC')->simplePaginate(4);
+        $product = Product::where('product_code', 'GN')->simplePaginate(4);
         // $condition = new \Darryldecode\Cart\CartCondition(array(
         //     'name' => 'Khuyến Mãi',
         //     'type' => 'number',
@@ -32,7 +32,7 @@ class CartController extends Controller
         Cart::add(array(
             'id' => $request->id,
             'name' => $product->name,
-            'price' => $product->price,
+            'price' => $product->discount>0?($product->price-$product->discount*$product->price/100):$product->price,
             'quantity' => $request->quantity,
             'attributes' => array(
                 'avatar' => $product->avatar,

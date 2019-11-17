@@ -64,8 +64,8 @@
           </div>
           <!-- price -->
           <div class="product-price">
-            <span class="new-price font-weight-bold">{{ number_format($product->price-$product->discount*$product->price/100) }}</span>
-            <span class="old-price text-muted">{{ number_format($product->price) }}</span>
+            <span class="new-price font-weight-bold">{{ (($product->discount > 0)?number_format($product->price-$product->price*$product->discount/100):'') }}</span>
+            <span class="{{ ($product->discount > 0)?'old-price text-muted':'new-price font-weight-bold' }}">{{ number_format($product->price) }}</span>
           </div>
           <!-- review -->
           <div class="review d-flex mt-2">
@@ -317,8 +317,8 @@
                     <div class="clear"></div>
                     <!-- price -->
                     <div class="product-price">
-                      <span class="old-price">{{ $item->price }}</span>
-                      <span class="new-price">{{ $item->discount }}</span>
+                      <span class="{{ ($item->discount > 0)?'old-price':'new-price' }}">{{ number_format($item->price) }}</span>
+                      <span class="new-price">{{ (($item->discount > 0)?number_format($item->price-$item->price*$item->discount/100):'') }}</span>
                     </div>
                   </div>
                   <div class="list-group list-group-flush">

@@ -13,10 +13,10 @@ class ProductController extends Controller
 {
     public function product(Request $request)
 
-    {   
+    {
         $productAttr = ProductAttribute::get();
         $product = Product::simplePaginate(8);
-        
+
         return view('client.products.product', compact('product', 'productAttr'));
     }
     Public function detail($id)
@@ -36,7 +36,7 @@ class ProductController extends Controller
         $atrributes = $request->only([
             'email', 'detail'
         ]);
-        
+
         $review = new Review($atrributes);
         $review->fill($atrributes);
         $review->save();
@@ -61,8 +61,8 @@ class ProductController extends Controller
         {
             $category = $category->with(['products', 'productAttributes.productAttributeValues']);
         }
-        $category = $category->first();
-        
+        $category = $category->firstOrFail();
+
         return view('client.products.productCat', compact('category'));
     }
 }

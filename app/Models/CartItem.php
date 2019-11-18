@@ -11,4 +11,9 @@ class CartItem extends Model
     {
         return $this->belongsTo('App\Models\Cart');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product', 'product_id');
+    }
 }

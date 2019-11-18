@@ -36,10 +36,10 @@
               </div>
             </div>
           </div>
-        </div>            
+        </div>
       @empty
       @endforelse
-      
+
     </div>
   </div>
 </div>
@@ -53,7 +53,7 @@
           <p class="mb-5">{!! $articleIntro->articles[0]->detail !!}</p>
         </div>
         <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
-          <img src="{{ asset('media/articles') }}/{{ $articleIntro->articles[0]->avatar }}" class="pl-5 mt-5" alt="" />
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $articleIntro->articles[0]->avatar }}" class="pl-5 mt-5" alt="" />
         </div>
       </div>
     </div>
@@ -151,19 +151,19 @@
       <div class="item">
         <div class="row" style="height: 578px">
           <div class="col-lg-3 full-set">
-            <img src="{{ asset('media/product') }}/{{ $products->avatar }}" alt="">
+            <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $products->avatar }}" alt="">
           </div>
           <div class="col-lg-3">
             @foreach ($products->products->take(2) as $item)
             <div class="{{ $loop->iteration === 1?'clothe':'short' }}">
-                <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+                <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
                 <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                   <p class="mb-0">{{ $item->name }}</p>
                   <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
                 </div>
               </div>
             @endforeach
-            
+
             {{-- <div class="short">
               <img src="{{ asset('assets/client') }}/img/short.png" alt="">
               <div class="short-name">
@@ -175,20 +175,20 @@
           <div class="col-lg-3">
               @foreach ($products->products->skip(2)->take(3) as $item)
             <div class="earing">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="earing-name">
                 <p class="mb-0">{{ $item->name }}</p>
                 <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
-           
+
           </div>
-          
+
           <div class="col-lg-3">
               @foreach ($products->products->skip(5)->take(2) as $item)
             <div class="shoes">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="shoes-name">
                 <p class="mb-0">{{ $item->name }}</p>
                 <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
@@ -260,7 +260,7 @@
         @foreach ($articleReview->articles as $item)
         <div class="item">
           <div class="card-customer card border-0 mx-auto">
-            <img src="{{ asset('/media/articles') }}/{{ $item->avatar }}" class="card-img" alt="">
+            <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar }}" class="card-img" alt="">
             <div class="card-body">
               <div class="card-name text-capitalize text-center">{{ $item->name }}</div>
               <div class="card-job text-capitalize text-center">{!! $item->description !!}</div>
@@ -269,7 +269,7 @@
           </div>
         </div>
         @endforeach
-        
+
       </div>
       <!-- quote -->
       <div class="quote">
@@ -278,7 +278,7 @@
       </div>
       <div class="cmt text-center">
         <div class="ava-cmt">
-          <img src="{{ asset('media/articles') }}/{{ $quote->avatar }}" alt="">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $quote->avatar }}" alt="">
         </div>
         <div class="cmt-name">
           <p class="text-capitalize font-weight-bold">{{ $quote->name }}</p>
@@ -360,7 +360,7 @@
       <div id="new-slide" class="owl-carousel owl-theme">
         @foreach ($articles as $item)
         <div class="card-news card-border-0 news-item">
-          <img src="{{ asset('media/articles') }}/{{ $item->avatar}}" alt="" class="card-img-top">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar}}" alt="" class="card-img-top">
           <div class="card-body">
             <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
             <div class="card-text more">{!! $item->description !!}</div>
@@ -368,7 +368,7 @@
           </div>
         </div>
         @endforeach
-        
+
       </div>
     </div>
   </section>
@@ -384,7 +384,7 @@
             $(this).parents('.news-item').find(".more").text(content);
         }
       });
-      
+
  </script>
-      
+
   @endpush

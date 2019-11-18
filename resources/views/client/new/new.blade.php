@@ -35,10 +35,10 @@
                 </div>
               </div>
             </div>
-          </div>            
+          </div>
         @empty
         @endforelse
-       
+
       </div>
     </div>
   </div>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="news-img">
-            <img src="{{ asset('media/articles') }}/{{ $new->avatar }}" alt="{!! $new->name !!}">
+            <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $new->avatar }}" alt="{!! $new->name !!}">
           </div>
         </div>
         <div class="col-12 col-md-6">
@@ -65,14 +65,14 @@
           </div>
         </div>
       </div>
-          
+
       @empty
           Không có tin tức nào.
       @endforelse
-    
+
       <!-- pagination -->
       <div class="row mb-0 justify-content-end">
-       
+
         {{ $news->links() }}
       </div>
     </div>

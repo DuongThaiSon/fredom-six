@@ -307,7 +307,7 @@
                     <div class="form-group">
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new img-thumbnail" style="width: 400px; height: 300px;">
-                                <img src="{{ asset('media/product') }}/{{ $product->avatar }}"  alt="...">
+                                <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}"  alt="...">
                             </div>
                             <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
                             <div>

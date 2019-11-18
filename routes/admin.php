@@ -66,6 +66,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'galleries.processImage',
             'uses' => 'GalleryController@processImage'
         ]);
+        Route::delete('{gallery}/revert/{image}', [
+            'as' => 'galleries.revertImage',
+            'uses' => 'GalleryController@revertImage'
+        ]);
         Route::get('{id}/delete', [
             'as' => 'galleries.delete',
             'uses' => 'GalleryController@destroy'
@@ -365,6 +369,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::post('check-user', 'UserController@check');
     Route::post('upload-image', 'MediaController@uploadImage');
+
+    Route::get('files', [
+        'as' => 'files',
+        'uses' => 'FileController'
+    ]);
 });
 
 

@@ -6,6 +6,7 @@ use App\Http\Services\Base\BaseModel;
 use App\Http\Services\Traits\RequestDataCreate;
 use App\Http\Services\Traits\RequestDataEdit;
 use App\Http\Services\Traits\CategoryTrait;
+use App\Http\Services\Traits\GetUploadPathTrait;
 use App\Http\Services\Traits\HandleUpload;
 use App\Models\Category;
 use Auth;
@@ -13,6 +14,7 @@ use Auth;
 class ProductCategoryService extends BaseModel
 {
     use CategoryTrait, RequestDataCreate, RequestDataEdit, HandleUpload;
+    use GetUploadPathTrait;
 
     /**
     * Specify Category type
@@ -55,7 +57,10 @@ class ProductCategoryService extends BaseModel
     /**
      * Specify media upload directory
      */
-    protected $destinationUploadDir = 'media/product';
+    protected function destinationUploadDir()
+    {
+        return env('UPLOAD_DIR_PRODUCT', 'media/images/products');
+    }
 
     /**
      * Get the guard to be used during authentication.

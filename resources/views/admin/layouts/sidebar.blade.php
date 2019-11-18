@@ -208,7 +208,7 @@
 
             <!-- File -->
             <li class="nav-item">
-            <a href="file.html" class="nav-link" id="menu-dashboard">
+            <a href="{{ route('admin.files') }}" class="nav-link menu-files" id="menu-files">
                 <i class="material-icons align-middle"
                 >settings_system_daydream</i
                 ><span>Quản lý file</span>

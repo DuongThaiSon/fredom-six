@@ -16,8 +16,9 @@
           <div class="col-lg-10">
           <h2 class="letter-title text-uppercase">sign up for newsletter</h2>
           <div class="position-relative">
-            <form action="" method="POST" enctype="multipart/form-data" >
-              <input type="email" name="" id="" placeholder="Your email address">
+            <form action="{{ route('client.subscribe') }}" method="POST" enctype="multipart/form-data" >
+              @csrf
+              <input type="email" name="email" id="" placeholder="Your email address">
               <button type="submit" class="btn-sub text-uppercase">subscribe</button>
             </form>
           </div>

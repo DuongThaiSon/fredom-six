@@ -36,11 +36,11 @@
                     <label for="">Mật khẩu *</label>
                     <input id="password-field" type="password" class="form-control border-secondary" required name="password" />
                 </div>
-                <div>
+                {{-- <div>
                 <label for="" class="mt-2">
                     <input type="checkbox" class="" value=""> Nhận thông tin mới qua email
                 </label>
-                </div>
+                </div> --}}
                 
                 <button type="submit" class="btn btn-dark mb-3">Đăng ký</button>
                 <div class="clear"></div>

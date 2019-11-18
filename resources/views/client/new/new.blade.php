@@ -30,7 +30,7 @@
                       customers. Describe a product, share annoucement, or welcome
                       customers to your store
                     </p>
-                    <a href="#" class="btn text-uppercase">news arrivals</a>
+                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="news-img">
-            <img src="{{ $new->avatar }}" alt="{!! $new->name !!}">
+            <img src="{{ asset('media/articles') }}/{{ $new->avatar }}" alt="{!! $new->name !!}">
           </div>
         </div>
         <div class="col-12 col-md-6">

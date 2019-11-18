@@ -19,7 +19,7 @@ class HeaderComposer
     public function compose(View $view)
     {
         $hotline = Setting::firstOrFail();
-        $menuTop = Menu::with('categories')->where('category_id', 22)->get();
+        $menuTop = Menu::with('categories')->where([['category_id', 11], ['parent_id', 0]])->get();
         $view->with(compact('menuTop', 'hotline'));
     }
 }

@@ -159,7 +159,7 @@
                 <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
                 <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                   <p class="mb-0">{{ $item->name }}</p>
-                  <a href="#" class="item-link">Xem sản phẩm</a>
+                  <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
                 </div>
               </div>
             @endforeach
@@ -178,7 +178,7 @@
               <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
               <div class="earing-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
@@ -191,7 +191,7 @@
               <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
               <div class="shoes-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
@@ -213,12 +213,10 @@
       <div class="col-md-6 p-0">
         <div class="col-lg-9 mx-auto">
           <div class="lookbook-content">
-            <h3 class="text-uppercase">weekend lookbook</h3>
-            <h2 class="text-uppercase display-4">business woman</h2>
+            <h3 class="text-uppercase">{{ $lookbook->articles[0]->name }}</h3>
+            <h2 class="text-uppercase display-4">{!! $lookbook->articles[0]->description !!}</h2>
             <div class="line"></div>
-            <p> Use this text to share information about your brand with your customers.
-              Describe a product, share announcements, or welcome customers to your
-              store.</p>
+            <div>{!! $lookbook->articles[0]->detail !!}</div> 
             <div class="learn">
               <a href="" class="text-uppercase">learn more</a>
             </div>
@@ -227,24 +225,22 @@
       </div>
       <div class="col-md-6 p-0">
         <div class="lookbook-img">
-          <img src="{{ asset('assets/client') }}/img/business-woman.png" alt="">
+          <img src="{{ asset('media/articles') }}/{{ $lookbook->articles[0]->avatar }}" alt="">
         </div>
       </div>
 
       <div class="col-md-6 p-0">
         <div class="lookbook-img">
-          <img src="{{ asset('assets/client') }}/img/men-style.png" alt="">
+          <img src="{{ asset('media/articles') }}/{{ $lookbook->articles[1]->avatar }}" alt="">
         </div>
       </div>
       <div class="col-lg-6 col-md-6 p-0">
         <div class="col-lg-9 mx-auto">
           <div class="lookbook-content">
-            <h3 class="text-uppercase">travel in style</h3>
-            <h2 class="text-uppercase display-4">men styled outfits</h2>
+            <h3 class="text-uppercase">{{ $lookbook->articles[1]->name }}</h3>
+            <h2 class="text-uppercase display-4">{!! $lookbook->articles[1]->description !!}</h2>
             <div class="line"></div>
-            <p>Use this text to share information about your brand with your customers.
-              Describe a product, share announcements, or welcome customers to your
-              store.</p>
+            <div class="">{!! $lookbook->articles[1]->detail !!}</div>
             <div class="learn">
               <a href="" class="text-uppercase">learn more</a>
             </div>
@@ -268,7 +264,7 @@
             <div class="card-body">
               <div class="card-name text-capitalize text-center">{{ $item->name }}</div>
               <div class="card-job text-capitalize text-center">{!! $item->description !!}</div>
-              <p class="card-text">{!! $item->detail !!}</p>
+              <div class="card-text">{!! $item->detail !!}</div>
             </div>
           </div>
         </div>

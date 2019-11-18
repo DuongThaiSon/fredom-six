@@ -25,8 +25,9 @@ class HomeController extends Controller
         $articleReview = Category::with('articles')->where('id', 13)->firstOrFail();
         $quote = Article::where('category_id', 14)->firstOrFail();
         $products = Category::with('products')->where('id', 15)->firstOrFail();
+        $lookbook = Category::with('articles')->where('id', 16)->firstOrFail();
         // print_r($products->toArray());die;
-        return view('client.index', compact('articles','articleReview', 'slide', 'articleIntro', 'quote', 'products'));
+        return view('client.index', compact('articles','articleReview', 'slide', 'articleIntro', 'quote', 'products', 'lookbook'));
     }
     // public function __construct($layout)
     // {

@@ -189,5 +189,19 @@ class seed_categories_table extends Seeder
                 'created_by' => '1'
             ]
         );
+        DB::table('categories')->insert(
+            [
+                'id' => '16',
+                'name' => 'Lookbook',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'article',
+                'order' => '16',
+                'slug' => 'lookbook',
+                'parent_id' => '0',
+                'created_by' => '1'
+            ]
+        );
     }
 }

@@ -234,7 +234,7 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'slug' => 'huyen-anh',
                 'order' => '16',
-                'category_id' => '13',
+                'category_id' => '14',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'
             ]
@@ -252,7 +252,7 @@ class seed_articles_table extends Seeder
                 'is_highlight' => '1',
                 'is_public' => '1',
                 'slug' => 'gioi-thieu',
-                'order' => '12',
+                'order' => '17',
                 'category_id' => '1',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'
@@ -269,8 +269,42 @@ class seed_articles_table extends Seeder
                 'is_highlight' => '1',
                 'is_public' => '1',
                 'slug' => 'about-text',
-                'order' => '12',
+                'order' => '18',
                 'category_id' => '1',
+                'updated_at' => '2019-11-18 00:54:54',
+                'created_by' => '1'
+            ]
+        );
+        DB::table('articles')->insert(
+            [
+                'id' => '19',
+                'name' => 'Weekend Lookbook',
+                'avatar' => 'business-woman.png',
+                'description' => '<p>bussiness women</p>',
+                'detail' => '<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>',
+                'is_new' => '1',
+                'is_highlight' => '1',
+                'is_public' => '1',
+                'slug' => 'weekend-lookbook',
+                'order' => '19',
+                'category_id' => '16',
+                'updated_at' => '2019-11-18 00:54:54',
+                'created_by' => '1'
+            ]
+        );
+        DB::table('articles')->insert(
+            [
+                'id' => '20',
+                'name' => 'travel in style',
+                'avatar' => 'men-style.png',
+                'description' => '<p>travel in style</p>',
+                'detail' => '<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>',
+                'is_new' => '1',
+                'is_highlight' => '1',
+                'is_public' => '1',
+                'slug' => 'travel-in-style',
+                'order' => '20',
+                'category_id' => '16',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'
             ]

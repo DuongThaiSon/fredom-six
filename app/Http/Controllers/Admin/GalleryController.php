@@ -196,7 +196,12 @@ class GalleryController extends Controller
         ]);
 
         $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/galleries')); // upload path
-        if (!file_exists($destinationPath)) mkdir($destinationPath, 0777, true);
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+            $gitignore = '.gitignore';
+            $text = "*\n!.gitignore\n";
+            file_put_contents($destinationPath.'/'.$gitignore, $text);
+        }
 
         $file = $request->file('uploadImage');
         $extension = $file->getClientOriginalExtension(); // getting image extension

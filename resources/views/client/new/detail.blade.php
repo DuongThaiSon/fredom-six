@@ -48,13 +48,13 @@
           <div class="more-news">
             <a href="{{ route('client.news.detail', $newest->id )}}">
               <div class="news-img">
-                <img src="{{ asset('media/articles') }}/{{ $newest->avatar }}" alt="">
+                <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $newest->avatar }}" alt="">
               </div>
               <p class="news-title font-weight-bold">{{ $newest->name }}</p>
             </a>
           </div>
           @empty
-              
+
           @endforelse
           <!-- single news -->
           {{-- <div class="more-news">

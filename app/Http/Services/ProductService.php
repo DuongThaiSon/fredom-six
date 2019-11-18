@@ -56,7 +56,10 @@ class ProductService extends BaseModel
     /**
      * Specify media upload directory
      */
-    protected $destinationUploadDir = 'media/product';
+    protected function destinationUploadDir()
+    {
+        return env('UPLOAD_DIR_ARTICLE', 'media/images/products');
+    }
 
     /**
      * Specify Model class name

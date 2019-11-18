@@ -55,7 +55,10 @@ class ProductCategoryService extends BaseModel
     /**
      * Specify media upload directory
      */
-    protected $destinationUploadDir = 'media/product';
+    protected function destinationUploadDir()
+    {
+        return env('UPLOAD_DIR_ARTICLE', 'media/images/products');
+    }
 
     /**
      * Get the guard to be used during authentication.

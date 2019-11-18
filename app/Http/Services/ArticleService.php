@@ -8,6 +8,7 @@ use App\Http\Services\Traits\RequestDataEdit;
 use App\Http\Services\Traits\HandleUpload;
 use App\Http\Services\Traits\CategoryTrait;
 use App\Http\Services\Base\BaseModel;
+use App\Http\Services\Traits\GetUploadPathTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Article;
@@ -19,6 +20,7 @@ class ArticleService extends BaseModel
     use RequestDataCreate;
     use RequestDataEdit;
     use HandleUpload;
+    use GetUploadPathTrait;
 
     /**
     * Specify Category type
@@ -43,7 +45,10 @@ class ArticleService extends BaseModel
         'is_highlight'
     ];
 
-    protected $destinationUploadDir = 'media/articles';
+    protected function destinationUploadDir()
+    {
+        return env('UPLOAD_DIR_ARTICLE', 'media/images/articles');
+    }
 
     /**
      * Specify Model class name

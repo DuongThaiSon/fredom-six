@@ -75,10 +75,16 @@ class ArticleCategoryController extends Controller
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if($request->hasFile('avatar')){
-            $destinationDir = public_path('media/articleCategories');
+            $destinationDir = env('UPLOAD_DIR_ARTICLE', '/media/images/articles');
+            if (!file_exists($destinationDir)) {
+                mkdir($destinationDir, 0777, true);
+                $gitignore = '.gitignore';
+                $text = "*\n!.gitignore\n";
+                file_put_contents($destinationDir.'/'.$gitignore, $text);
+            }
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/articleCategories/'.$filename;
+            $attributes['avatar'] = $filename;
         }
 
         $category = Category::create($attributes);
@@ -122,7 +128,7 @@ class ArticleCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required',
+            'name' => 'required|unique:categories,name,'.$id,
             'avatar' => 'nullable|sometimes|image'
         ]);
         $attributes = $request->only([
@@ -135,10 +141,16 @@ class ArticleCategoryController extends Controller
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if($request->hasFile('avatar')){
-            $destinationDir = public_path('media/articleCategories');
+            $destinationDir = env('UPLOAD_DIR_ARTICLE', '/media/images/articles');
+            if (!file_exists($destinationDir)) {
+                mkdir($destinationDir, 0777, true);
+                $gitignore = '.gitignore';
+                $text = "*\n!.gitignore\n";
+                file_put_contents($destinationDir.'/'.$gitignore, $text);
+            }
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/articleCategories/'.$filename;
+            $attributes['avatar'] = $filename;
         }
 
         $categories = Category::findOrFail($id);
@@ -171,20 +183,17 @@ class ArticleCategoryController extends Controller
         $ids = $request->ids;
         if(empty($ids)) {
             return 0;
-        }else {
+        } else {
             $categoryid = $this->getSubCategories($ids);
             $this->foreachlong($categoryid);
             Category::findOrFail($ids)->delete();
             $categories = $this->getSubCategories(0,$ids);
             $category = $categories->filter(function($value, $key) use ($ids){
-            return $value->id == $ids;
-        });
+                return $value->id == $ids;
+            });
             return 1;
         }
-        if (!$deleted) {
-            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
-        }
-        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+        // return redirect()->back()->with('win','Xóa dữ liệu thành công.');
     }
 
     public function sortcat(Request $request){

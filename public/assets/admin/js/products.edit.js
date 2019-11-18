@@ -372,7 +372,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\products.edit.js */"./resources/js/admin/products.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/products.edit.js */"./resources/js/admin/products.edit.js");
 
 
 /***/ })

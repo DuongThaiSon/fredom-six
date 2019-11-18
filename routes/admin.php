@@ -369,6 +369,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::post('check-user', 'UserController@check');
     Route::post('upload-image', 'MediaController@uploadImage');
+
+    Route::get('files', [
+        'as' => 'files',
+        'uses' => 'FileController'
+    ]);
 });
 
 

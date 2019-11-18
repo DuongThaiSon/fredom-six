@@ -51,5 +51,45 @@ class seed_images_table extends Seeder
                 'imageable_type' => 'App\Models\Gallery'
             ]
         );
+        DB::table('images')->insert(
+            [
+                'id' => '7',
+                'name' => 'ceo.png',
+                'is_public' => '1',
+                'order' => '5',
+                'imageable_id' => '1',
+                'imageable_type' => 'App\Models\Gallery'
+            ]
+        );
+        DB::table('images')->insert(
+            [
+                'id' => '8',
+                'name' => 'datran.png',
+                'is_public' => '1',
+                'order' => '6',
+                'imageable_id' => '3',
+                'imageable_type' => 'App\Models\Gallery'
+            ]
+        );
+        DB::table('images')->insert(
+            [
+                'id' => '9',
+                'name' => 'datran1.png',
+                'is_public' => '1',
+                'order' => '7',
+                'imageable_id' => '3',
+                'imageable_type' => 'App\Models\Gallery'
+            ]
+        );
+        DB::table('images')->insert(
+            [
+                'id' => '10',
+                'name' => 'datran2.png',
+                'is_public' => '1',
+                'order' => '8',
+                'imageable_id' => '3',
+                'imageable_type' => 'App\Models\Gallery'
+            ]
+        );
     }
 }

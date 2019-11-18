@@ -151,12 +151,12 @@
       <div class="item">
         <div class="row" style="height: 578px">
           <div class="col-lg-3 full-set">
-            <img src="{{ asset('media/product') }}/{{ $products->avatar }}" alt="">
+            <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $products->avatar }}" alt="">
           </div>
           <div class="col-lg-3">
             @foreach ($products->products->take(2) as $item)
             <div class="{{ $loop->iteration === 1?'clothe':'short' }}">
-                <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+                <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
                 <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                   <p class="mb-0">{{ $item->name }}</p>
                   <a href="#" class="item-link">Xem sản phẩm</a>
@@ -175,7 +175,7 @@
           <div class="col-lg-3">
               @foreach ($products->products->skip(2)->take(3) as $item)
             <div class="earing">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="earing-name">
                 <p class="mb-0">{{ $item->name }}</p>
                 <a href="#" class="item-link">Xem sản phẩm</a>
@@ -188,7 +188,7 @@
           <div class="col-lg-3">
               @foreach ($products->products->skip(5)->take(2) as $item)
             <div class="shoes">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="shoes-name">
                 <p class="mb-0">{{ $item->name }}</p>
                 <a href="#" class="item-link">Xem sản phẩm</a>

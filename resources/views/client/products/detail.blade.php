@@ -32,9 +32,9 @@
 
                     <ul class="thumbnail mr-3" style="height: 95%;">
                       <li data-target="#product_details_slider" data-slide-to="0"
-                        style="background-image: url({{ asset('media/product') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                        style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
                       </li>
-                    
+
                     </ul>
 
                   </ol>
@@ -45,9 +45,9 @@
                 <div class="col-lg-9">
                   <div class="carousel-inner">
                     <div class="carousel-item active py-3" style="max-height: 600px;">
-                      <a class="gallery_img" href="{{ asset('media/product') }}/{{ $product->avatar }}">
+                      <a class="gallery_img" href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
                         <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                          src="{{ asset('media/product') }}/{{ $product->avatar }}" alt="{{ $product->avatar }}">
+                          src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}" alt="{{ $product->avatar }}">
                       </a>
                     </div>
                   </div>
@@ -101,7 +101,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <span class="more">{!! $product->detail !!}</span>
-                 
+
                  {{-- <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}</p>
                 <p>* Màu sắc :  {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}</p>
               </div>
@@ -162,7 +162,7 @@
                     @foreach ($product->productAttributeValues->where('productAttribute.name', 'Kích cỡ') as $item)
                       <option value="{{ $item->value }}}">{{ $item->value ?? 'Đang cập nhập' }}</option>
                     @endforeach
-                    
+
                     </select>
                 </div>
               </div>
@@ -238,11 +238,11 @@
             @forelse ($reviews as $review)
             <div class="review-conten" >
               <div style="font-weight: bold; font-size: 13px">{{ $review->email }}</div>
-              <div style="padding-left: 50px; font-size: 13px">{{ $review->detail }}</div>    
+              <div style="padding-left: 50px; font-size: 13px">{{ $review->detail }}</div>
                 <hr>
             </div>
             @empty
-                
+
             @endforelse
           </div>
           <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
@@ -274,13 +274,13 @@
         <div class="container">
           <div class="row mb-4">
             @forelse ($products as $item)
-                
-            
+
+
             <div class="col-lg-3">
               <div class="product">
                 <div class="card">
                   <div class="product-img">
-                    <a href="{{ route('client.products.detail', $item->id) }}"><img src="{{ asset('media/product') }}/{{ $item->avatar }}"
+                    <a href="{{ route('client.products.detail', $item->id) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
                       <div class="product-color" style="background: #2d2d2d;"></div>
@@ -333,7 +333,7 @@
               </div>
             </div>
             @empty
-                
+
             @endforelse
           </div>
         </div>
@@ -358,7 +358,7 @@
 </script>
 <script>
       var content = $(".details").find(".more").html();
-      
+
       var lessText = content.substr(0, 200);
       var showText = content.substr(200, content.length - 200);
       if(content.length > 200) {
@@ -366,7 +366,7 @@
       } else {
           $(".details").find(".more").html(content);
       }
-      
+
       $("body").on("click", ".read-more-link", function(e) {
           e.preventDefault();
           $(".details").find(".more").html(content).append("<a href='' class='show-less-link'>Rút gọn</a>");
@@ -374,7 +374,7 @@
       $("body").on("click", ".show-less-link", function(e) {
           e.preventDefault();
           $(".details").find(".more").html(lessText).append("<a href='' class='read-more-link'> ...Xem thêm</a>");
-  }); 
+  });
   </script>
 
 @endpush

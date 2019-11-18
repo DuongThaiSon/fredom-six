@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Services\Base\BaseModel;
 use App\Http\Services\Traits\CategoryTrait;
+use App\Http\Services\Traits\GetUploadPathTrait;
 use App\Http\Services\Traits\HandleButtonDisplay;
 use App\Http\Services\Traits\RequestDataCreate;
 use App\Http\Services\Traits\RequestDataEdit;
@@ -17,6 +18,7 @@ use Auth;
 class ProductService extends BaseModel
 {
     use CategoryTrait, RequestDataCreate, HandleUpload, RequestDataEdit;
+    use GetUploadPathTrait;
 
     /**
     * Specify Category type
@@ -58,7 +60,7 @@ class ProductService extends BaseModel
      */
     protected function destinationUploadDir()
     {
-        return env('UPLOAD_DIR_ARTICLE', 'media/images/products');
+        return env('UPLOAD_DIR_PRODUCT', 'media/images/products');
     }
 
     /**

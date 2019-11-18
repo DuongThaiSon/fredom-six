@@ -17,14 +17,21 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::simplePaginate(10);
-        foreach($orders as $key => $order) {
-            $carts = CartItem::where('cart_id', $order->id)->get();
-            $order->total_quantity = $carts->sum('quantity');
-            $order->total_price = $carts->sum('price');
-        }
+        $orders = Order::with(['cartItems'])->simplePaginate(5);
+        $orders->map(function($q){
+            $q->total_quantity = $q->cartItems->sum('quantity');
+            $q->total_price = $q->cartItems->sum('price');
+            return $q;
+        });
+        // $orders = $orders->paginate();
+        // print_r($orders->toArray());die;
+        // foreach($orders as $key => $order) {
+        //     $carts = CartItem::where('cart_id', $order->id)->get();
+        //     $order->total_quantity = $carts->sum('quantity');
+        //     $order->total_price = $carts->sum('price');
+        // }
         return view('admin.orders.index', compact('orders'));
-        
+
     }
     /**
      * Show the form for creating a new resource.
@@ -66,8 +73,9 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $orders = Order::findOrFail($id);
-        return view('admin.orders.edit', compact('orders'));
+        $order = Order::with(['cartItems', 'cartItems.product'])->findOrFail($id);
+        // print_r($order->toArray());die;
+        return view('admin.orders.edit', compact('order'));
     }
 
     /**

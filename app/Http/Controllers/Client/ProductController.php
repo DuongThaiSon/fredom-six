@@ -34,7 +34,7 @@ class ProductController extends Controller
         $atrributes = $request->only([
             'email', 'detail'
         ]);
-        
+
         $review = new Review($atrributes);
         $review->fill($atrributes);
         $review->save();
@@ -59,8 +59,8 @@ class ProductController extends Controller
         {
             $category = $category->with(['products', 'productAttributes.productAttributeValues']);
         }
-        $category = $category->first();
-        
+        $category = $category->firstOrFail();
+
         return view('client.products.productCat', compact('category'));
     }
 }

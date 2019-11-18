@@ -37,22 +37,20 @@
                 <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
                     <div class="form-group">
                         <label>Tên khách hàng</label>
-                        <input type="text" name="name" class="form-control" placeholder="Tên khách hàng" value=""/>
+                        <input type="text" name="name" class="form-control" placeholder="Tên khách hàng" value="{{ $order->first_name ??'' }} {{ $order->last_name }}"/>
                         <small class="form-text">Tên người mua hàng</small>
                     </div>
                     <div class="form-group">
                         <label>Trạng thái</label>
-                        {{-- <input type="text" name="email" class="form-control" placeholder="Chi nhánh"/> --}}
                         <select name="regions" class="form-control" id="sel1">
-                            <option value="">Đặt hàng</option>
-                            <option value="">Đang giao hàng</option>
-                            <option value="">Hoàn thành</option>
+                            <option value="" {{ $order->payment_status == 'wait' ? 'selected' : '' }}>Đặt hàng</option>
+                            <option value="" {{ $order->payment_status == 'shipping' ? 'selected' : '' }}>Đang giao hàng</option>
+                            <option value="" {{ $order->payment_status == 'done' ? 'selected' : '' }}>Hoàn thành</option>
                         </select>
                         <small class="form-text">Trạng thái </small>
                     </div>
                     <div class="form-group">
                         <label>Giỏ hàng</label>
-                        {{--  <input type="text" name="name" class="form-control" placeholder="Giỏ hàng" value=""/>  --}}
                         <table class="w-100 table-sm table-hover table mb-2">
                             <thead>
                                 <tr class="text-muted">
@@ -63,24 +61,22 @@
                                 </tr>
                             </thead>
                             <tbody class="sort">
-                                <tr>
-                                    <td>Áo Quần</td>
-                                    <td>10</td>
-                                    <td>10.000.000</td>
-                                    <td>100.000.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Áo QUần</td>
-                                    <td>10</td>
-                                    <td>10.000.000</td>
-                                    <td>100.000.000</td>
-                                </tr>
-                                <tr>
-                                    <td>Tổng cộng</td>
-                                    <td>20</td>
-                                    <td></td>
-                                    <td>200.000.000</td>
-                                </tr>
+                                @forelse ($order->cartItems as $cartItem)
+                                    <tr>
+                                        <td>{{ $cartItem->product->name ??'' }}</td>
+                                        <td>{{ $cartItem->quantity }}</td>
+                                        <td>{{ number_format($cartItem->price) }}</td>
+                                        <td>
+                                            {{ number_format($cartItem->quantity * $cartItem->price) }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="100%">
+                                            Không có dữ liệu!
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         <small class="form-text">Các sản phẩm có trong giỏ hàng</small>
@@ -89,7 +85,7 @@
             </div>
 
         <!-- CK Editor -->
-        
+
         </div>
       </form>
     </div>

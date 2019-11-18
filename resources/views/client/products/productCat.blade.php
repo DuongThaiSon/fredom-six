@@ -2,55 +2,60 @@
 @section('content')
 <!-- breadcrumb -->
 <div class="bread-crumb">
-  <div class="row" style="background: #ebebeb;">
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb m-0">
-          <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><a class="active" href="#">{{ $category->name }}</a></li>
-        </ol>
-      </nav>
+    <div class="row" style="background: #ebebeb;">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a class="active"
+                            href="#">{{ $category->name ??''}}</a></li>
+                </ol>
+            </nav>
+        </div>
     </div>
-  </div>
 </div>
 <!-- showcase -->
 <div id="showcase" style="height: 645px; overflow: hidden;">
-  <img src="/assets/client/img/contact-img/leatherBag.png" style="width: 100%; background-position: top;" alt="">
+    <img src="/assets/client/img/contact-img/leatherBag.png" style="width: 100%; background-position: top;" alt="">
 </div>
-  <!-- product -->
-  <section id="product-option">
+<!-- product -->
+<section id="product-option">
     <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12">
-          <div class="options d-flex justify-content-center">
-            <ul class="nav">
-              <li class="text-muted">Bộ lọc</li>
-              @foreach ($category->productAttributes as $item)
-               <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i></li>
-              @endforeach
-            </ul>
-            <div class="checkbox-option p-3">
-              <div class="all-options d-flex">
-                <!-- styles -->
-                @forelse ($category->productAttributes as $attribute)
-                <div class="style-options d-flex flex-wrap align-self-start" style="width: 80px">
-                  @forelse ($attribute->productAttributeValues as $attributeValue)
-                  
-                  <label class="checkbox-container" style="{{ $attribute->type==="color"?'margin: 0 18px 18px 0':''}}">
-                    <input type="checkbox" class="checkbox-product" value="{{ $attributeValue->id }}">
-                    <span class="checkmark" {{ $attribute->type==="color"?'style=background:'.$attributeValue->value:''}}></span>
-                    <span style="margin-left: 25px; {{ $attribute->type==="color"?'display: none':''}}">{{ $attributeValue->value }}</span>
-                  </label>
-                  @empty
-                      
-                  @endforelse
-                 </div>
-                @empty
-                    
-                @endforelse
-                
-                <!-- colors -->
-                 {{-- <div class="color-options">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="options d-flex justify-content-center">
+                    <ul class="nav">
+                        <li class="text-muted">Bộ lọc</li>
+                        @foreach ($category->productAttributes as $item)
+                        <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <div class="checkbox-option p-3">
+                        <div class="all-options d-flex">
+                            <!-- styles -->
+                            @forelse ($category->productAttributes as $attribute)
+                            <div class="style-options d-flex flex-wrap align-self-start" style="width: 80px">
+                                @forelse ($attribute->productAttributeValues as $attributeValue)
+
+                                <label class="checkbox-container"
+                                    style="{{ $attribute->type==="color"?'margin: 0 18px 18px 0':''}}">
+                                    <input type="checkbox" class="checkbox-product" value="{{ $attributeValue->id }}">
+                                    <span class="checkmark"
+                                        {{ $attribute->type==="color"?'style=background:'.$attributeValue->value:''}}></span>
+                                    <span
+                                        style="margin-left: 25px; {{ $attribute->type==="color"?'display: none':''}}">{{ $attributeValue->value }}</span>
+                                </label>
+                                @empty
+
+                                @endforelse
+                            </div>
+                            @empty
+
+                            @endforelse
+
+                            <!-- colors -->
+                            {{-- <div class="color-options">
                   <div class="row">
                     <input type="checkbox" id="color" class="">
                     <label for="color" style="background: red; width: 30px; height: 30px;"></label>
@@ -74,7 +79,7 @@
                     <div class="color" style="background: #ffa733"></div>
                   </div>
                 </div>  --}}
-                {{--  <!-- sizes -->
+                            {{--  <!-- sizes -->
                 <div class="size-options">
                   <label class="checkbox-container">
                     <input type="checkbox" value="34">
@@ -171,14 +176,12 @@
               <input type="hidden" id="tags" data-role="tagsinput" value="" name="term" placeholder="Tìm kiếm">
               </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     </div>
-  </section>
-  <!-- product list-->
-  <section id="product-list">
+</section>
+<!-- product list-->
+<section id="product-list">
     <div class="container">
       <div class="row mb-4">
           @forelse ($category->products as $prod)
@@ -234,21 +237,18 @@
                     <span>Add to cart</span>
                   </a>
                 </div>
-              </div>
             </div>
-          </div>
+            @empty
+            <div class="alert alert-danger text-center m-auto w-100">Không có sản phẩm nào được tìm thấy</div>
+            @endforelse
         </div>
-        @empty
-          <div class="alert alert-danger text-center m-auto w-100">Không có sản phẩm nào được tìm thấy</div>
-        @endforelse
-     </div>
-     {{-- {{ $product->links() }} --}}
+        {{-- {{ $product->links() }} --}}
         {{-- <p class="text-uppercase text-center mt-5">loading...</p> --}}
     </div>
-  </section>
+</section>
 @endsection
 @push('js')
-  <script>
+<script>
     $(".options-list").click(function () {
       if ($('.checkbox-option:visible').length)
         $('.checkbox-option').slideToggle();
@@ -256,6 +256,6 @@
         $('.checkbox-option').slideToggle();
     })
 
-  </script>
-  <script src="{{ asset('assets/client') }}/js/products.js"></script>
+</script>
+<script src="{{ asset('assets/client') }}/js/products.js"></script>
 @endpush

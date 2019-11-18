@@ -86,25 +86,65 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/admin/gallery.edit.js":
-/*!********************************************!*\
-  !*** ./resources/js/admin/gallery.edit.js ***!
-  \********************************************/
+/***/ "./resources/js/admin/galleries.edit.js":
+/*!**********************************************!*\
+  !*** ./resources/js/admin/galleries.edit.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/gallery.edit.js'");
+// filePond = require("../filepond");
+$(document).ready(function () {
+  // console.log('lleh');
+  var galleryId = $('input[name=id]').val(); // filePond.initFilePond('gallery-images', `/admin/gallery/${galleryId}`);
+
+  initBtnDestroyImage();
+  $(".upload-variant-image").on("change.uploadVariantImage", function (e) {
+    e.preventDefault();
+    var formData = new FormData();
+    formData.append("uploadImage", $(this)[0].files[0]);
+    $.ajax({
+      url: "/admin/galleries/".concat(galleryId, "/process"),
+      data: formData,
+      method: "POST",
+      contentType: false,
+      processData: false,
+      success: function success(scs) {
+        $(".image-showcase").html(scs);
+        initBtnDestroyImage();
+      }
+    });
+  });
+});
+
+function initBtnDestroyImage() {
+  $(".btn-destroy-image").off("click.initBtnDestroyImage");
+  $(".btn-destroy-image").on("click.initBtnDestroyImage", function (e) {
+    e.preventDefault();
+    $.ajax({
+      url: $(this).attr('data-href'),
+      method: "POST",
+      data: {
+        _method: 'DELETE'
+      },
+      success: function success(scs) {
+        $(".image-showcase").html(scs);
+        initBtnDestroyImage();
+      }
+    });
+  });
+}
 
 /***/ }),
 
 /***/ 1:
-/*!**************************************************!*\
-  !*** multi ./resources/js/admin/gallery.edit.js ***!
-  \**************************************************/
+/*!****************************************************!*\
+  !*** multi ./resources/js/admin/galleries.edit.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/gallery.edit.js */"./resources/js/admin/gallery.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/galleries.edit.js */"./resources/js/admin/galleries.edit.js");
 
 
 /***/ })

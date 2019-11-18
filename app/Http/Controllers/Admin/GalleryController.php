@@ -107,9 +107,8 @@ class GalleryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Gallery $gallery)
     {
-        $gallery = Gallery::findOrFail($id);
         $category = Category::find($gallery->category_id);
         $categories = $this->getSubCategories(0);
         return view('admin.galleries.edit', compact('gallery','categories', 'category'));
@@ -126,9 +125,19 @@ class GalleryController extends Controller
     public function update(Request $request, $id)
     {
         $attributes = $request->only([
-            'category_id', 'name', 'link_to', 'description', 'detail', 'slug', 'meta_title',
-            'meta_discription', 'meta_keyword', 'meta_page_topic',
-            'is_highlight', 'is_public', 'is_new'
+            'category_id',
+            'name',
+            'link_to',
+            'description',
+            'detail',
+            'slug',
+            'meta_title',
+            'meta_discription',
+            'meta_keyword',
+            'meta_page_topic',
+            'is_highlight',
+            'is_public',
+            'is_new',
         ]);
         $user = Auth::user();
         $attributes['updated_by']   = $user->id;
@@ -147,6 +156,14 @@ class GalleryController extends Controller
         $galleries = Gallery::findOrFail($id);
         $gallery = $galleries->fill($attributes);
         $gallery->save();
+        if ($request->has('image_captions')) {
+            $image_captions = $request->image_captions;
+            foreach ($gallery->images()->get() as $item) {
+                $item->caption = $image_captions[$item->id];
+                $item->save();
+            }
+        }
+
         return redirect()->route('admin.galleries.edit', $gallery->id)->with('Success');
     }
 
@@ -175,20 +192,40 @@ class GalleryController extends Controller
     public function processImage(Request $request, Gallery $gallery)
     {
         $request->validate([
-            'gallery_images' => 'required|image'
+            'uploadImage' => 'required|image'
         ]);
 
-        $extension = $request->file('gallery_images')->getClientOriginalExtension();
-        $fileName = uniqid(date('d.m.Y')) . '.' .$extension;
+        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/galleries')); // upload path
+        if (!file_exists($destinationPath)) mkdir($destinationPath, 0777, true);
 
-        $media = MediaUploader::fromFile($request->gallery_images)
-            ->useFileName($fileName) //tên file sau khi được upload lên
-            ->useName($fileName)  //tên record được lưu trong DB
-            ->upload();
+        $file = $request->file('uploadImage');
+        $extension = $file->getClientOriginalExtension(); // getting image extension
+        $fileName = uniqid(date('d.m.Y')) . '.' . $extension; // renameing image
+        // $file->move($destinationPath, $fileName); // upload origin file to given path
+        $uploadImage = \Image::make($file); //
+        $uploadImage->save($destinationPath.'/'.$fileName); // upload file with reduce quality
+        $currentOrder = \App\Models\Image::max('order');
+        $gallery->images()->create([
+            'name' => $fileName,
+            'size' => $file->getClientSize(),
+            'mime' => $file->getClientMimeType(),
+            'order' => $currentOrder?$currentOrder+1:1,
+            'created_by' => auth()->guard('admin')->id(),
+            'updated_by' => auth()->guard('admin')->id()
+        ]);
 
-        $gallery->attachMedia($media, 'images');
+        return view('admin.galleries.imageShowcase', compact('gallery'));
+    }
 
-        return response()->json($gallery->getMedia('images'), 201);
+    public function revertImage(Gallery $gallery, Image $image)
+    {
+        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/galleries'));
+        $fileName = $image->name;
+        if (file_exists($destinationPath.'/'.$fileName)) {
+            unlink($destinationPath.'/'.$fileName);
+        }
+        $image->delete();
+        return view('admin.galleries.imageShowcase', compact('gallery'));
     }
 
     public function sort(Request $request)

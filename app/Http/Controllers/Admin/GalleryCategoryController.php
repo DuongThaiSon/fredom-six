@@ -78,10 +78,16 @@ class GalleryCategoryController extends Controller
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
-            $destinationDir = public_path('media/galleryCategories');
+            $destinationDir = env('UPLOAD_DIR_GALLERY', '/media/images/galleries');
+            if (!file_exists($destinationDir)) {
+                mkdir($destinationDir, 0777, true);
+                $gitignore = '.gitignore';
+                $text = "*\n!.gitignore\n";
+                file_put_contents($destinationDir.'/'.$gitignore, $text);
+            }
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/galleryCategories/'. $filename;
+            $attributes['avatar'] = $filename;
         }
 
         $category = Category::create($attributes);
@@ -141,10 +147,16 @@ class GalleryCategoryController extends Controller
         $attributes['slug']         = Str::slug($request->name,'-').$request->id;
 
         if ($request->hasFile('avatar')) {
-            $destinationDir = public_path('media/galleryCategories');
+            $destinationDir = env('UPLOAD_DIR_GALLERY', '/media/images/galleries');
+            if (!file_exists($destinationDir)) {
+                mkdir($destinationDir, 0777, true);
+                $gitignore = '.gitignore';
+                $text = "*\n!.gitignore\n";
+                file_put_contents($destinationDir.'/'.$gitignore, $text);
+            }
             $filename = uniqid('leotive').'.'.$request->avatar->extension();
             $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/galleryCategories/'. $filename;
+            $attributes['avatar'] = $filename;
         }
 
         $categories = Category::findOrFail($id);

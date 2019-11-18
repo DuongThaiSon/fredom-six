@@ -234,7 +234,7 @@ class seed_articles_table extends Seeder
                 'is_public' => '1',
                 'slug' => 'huyen-anh',
                 'order' => '16',
-                'category_id' => '13',
+                'category_id' => '14',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'
             ]
@@ -252,7 +252,7 @@ class seed_articles_table extends Seeder
                 'is_highlight' => '1',
                 'is_public' => '1',
                 'slug' => 'gioi-thieu',
-                'order' => '12',
+                'order' => '17',
                 'category_id' => '1',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'
@@ -269,7 +269,7 @@ class seed_articles_table extends Seeder
                 'is_highlight' => '1',
                 'is_public' => '1',
                 'slug' => 'about-text',
-                'order' => '12',
+                'order' => '18',
                 'category_id' => '1',
                 'updated_at' => '2019-11-18 00:54:54',
                 'created_by' => '1'

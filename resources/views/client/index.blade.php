@@ -159,7 +159,7 @@
                 <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
                 <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                   <p class="mb-0">{{ $item->name }}</p>
-                  <a href="#" class="item-link">Xem sản phẩm</a>
+                  <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
                 </div>
               </div>
             @endforeach
@@ -178,7 +178,7 @@
               <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
               <div class="earing-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
@@ -191,7 +191,7 @@
               <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
               <div class="shoes-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach

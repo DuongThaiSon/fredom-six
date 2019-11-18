@@ -39,6 +39,10 @@ Route::group([
         'as' => 'client.showrooms.contact',
         'uses' => 'ContactController@contact'
     ]);
+    Route::post('subscribe', [
+        'as' => 'client.subscribe',
+        'uses' => 'ContactController@subscribe'
+    ]);
     Route::get('new-arrival', [
         'as' => 'client.products.new',
         'uses' => 'ProductController@newArrival'

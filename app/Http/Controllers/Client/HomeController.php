@@ -22,9 +22,9 @@ class HomeController extends Controller
         ])->orderBy('order', 'desc')->get();
         $articles = Article::where('category_id', 2)->get();
         $articleIntro = Category::with('articles')->where('id', 1)->firstOrFail();
-        $articleReview = Category::with('articles')->where('id', 25)->firstOrFail();
-        $quote = Article::where('category_id', 26)->firstOrFail();
-        $products = Category::with('products')->where('id', 27)->firstOrFail();
+        $articleReview = Category::with('articles')->where('id', 13)->firstOrFail();
+        $quote = Article::where('category_id', 14)->firstOrFail();
+        $products = Category::with('products')->where('id', 15)->firstOrFail();
         // print_r($products->toArray());die;
         return view('client.index', compact('articles','articleReview', 'slide', 'articleIntro', 'quote', 'products'));
     }

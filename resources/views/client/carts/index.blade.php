@@ -59,7 +59,7 @@
                   Đen - cỡ nhỏ</a>
               </div>
             </td>
-            <td class="font-weight-bold text-center">{{ number_format($item->price) }}</td>
+            <td class="font-weight-bold text-center">{{ number_format($item->price)}}</td>
             <td class="text-center">
               <div class="number-input ">
                 <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
@@ -71,7 +71,7 @@
               </div>
             </td>
             <td class="text-center"><span
-                class="orange-text summed-price">{{ number_format($item->price*$item->quantity) }}</span></td>
+                class="orange-text summed-price">{{ number_format($item->price * $item->quantity) }}</span></td>
           </tr>
           @empty
           <div class="alert alert-danger text-center">Giỏ hàng trống</div>
@@ -90,7 +90,7 @@
           <div class="form-underline"></div>
           <div class="d-flex justify-content-between p-2">
             <p class="text-capitalize font-weight-bold m-0">khuyến mãi:</p>
-            <p class="font-weight-bold m-0">-500.000 vnđ</p>
+            <p class="font-weight-bold m-0"></p>
           </div>
           <div class="form-underline"></div>
           <!-- Total -->
@@ -171,7 +171,7 @@
                     <!-- price -->
                     <div class="product-price">
                       <span class="old-price">{{ $item->price }}</span>
-                      <span class="new-price">{{ $item->discount }}</span>
+                      <span class="new-price">{{ number_format($item->price-$item->discount*$item->price/100) }}</span>
                     </div>
                   </div>
                   <div class="list-group list-group-flush">

@@ -139,7 +139,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="meta_discription"
+                          name="meta_description"
                           placeholder="Thẻ Meta Description"
                         />
                         <small class="form-text"

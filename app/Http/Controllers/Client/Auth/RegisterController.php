@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return redirect()->route('login.showLoginForm');
+        return redirect()->route('client.loginform')->with('success', 'You have successfully signed up');
     }
     /**
      * Get a validator for an incoming registration request.

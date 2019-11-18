@@ -26,7 +26,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate();
+        $articles = Article::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate(10);
         $categories = $this->getSubCategories(0);
         $users = User::all();
         return view('admin.articles.index', compact('articles','categories', 'users'));
@@ -76,7 +76,7 @@ class ArticleController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-        $attributes = $this->service->create($request, Article::max('order'), '/media/article/', $request->avatar);
+        $attributes = $this->service->appendCreateData($request->all());
 
         $article = Article::create($attributes);
 
@@ -118,7 +118,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-       $attributes = $this->service->Edit($request, '/media/article/', $request->avatar);
+       $attributes = $this->service->appendEditData($request, '/media/article/', $request->avatar);
 
         $articles = Article::findOrFail($id);
         $article  = $articles->fill($attributes);

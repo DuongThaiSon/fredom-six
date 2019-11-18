@@ -19,6 +19,9 @@
         <div class="form form-login" >
             <h2 class="text-center mt-4 mb-3">Đăng nhập</h2>
             <!-- Form -->
+            @if(Session::has('success'))
+                <div class="alert alert-success text-center">{{ Session::get('success') }}</div>
+                @endif
             <form class="mt-4 mb-0" action="{{ route('client.login') }}" method="POST">
                 @csrf
                 @if ($errors->any())

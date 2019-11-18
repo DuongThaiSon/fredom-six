@@ -170,14 +170,11 @@
                     <span class="checkmark"></span> <span style="margin-left: 25px;">Mũi tròn</span>
                   </label>
                 </div>  --}}
-                        </div>
-                        <form action="{{ route('client.products.category', $category->slug) }}" method="GET"
-                            enctype="text/plain">
-                            <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
-                            <input type="hidden" id="tags" data-role="tagsinput" value="" name="term"
-                                placeholder="Tìm kiếm">
-                    </div>
-                </div>
+              </div>
+              <form action="{{ route('client.products.category', $category->slug) }}" method="GET" enctype="text/plain">
+                <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
+              <input type="hidden" id="tags" data-role="tagsinput" value="" name="term" placeholder="Tìm kiếm">
+              </form>
             </div>
         </div>
     </div>
@@ -186,65 +183,59 @@
 <!-- product list-->
 <section id="product-list">
     <div class="container">
-        <div class="row mb-4">
-            @forelse ($category->products as $prod)
-            <div class="col-lg-3">
-                <div class="product">
-                    <div class="card">
-                        <div class="product-img">
-                            <a href="{{ route('client.products.detail', $prod->id) }}"><img
-                                    src="{{ asset('/media/product') }}/{{ $prod->avatar }}"
-                                    class="mx-auto d-flex justify-content-center" alt=""></a>
-                            <div class="product-colors justify-content-center d-flex">
-                                <div class="product-color" style="background: #2d2d2d;"></div>
-                                <div class="product-color" style="background: #ffffff;"></div>
-                                <div class="product-color" style="background: #f55678;"></div>
-                                <div class="product-color" style="background: #ffa733;"></div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <a href="{{ route('client.products.detail', $prod->id) }}"
-                                class="product-name">{{ $prod->name }}</a>
-                            <!-- rating -->
-                            <div class="rating">
-                                <!-- <input name="stars1" id="e1" type="radio"> -->
-                                <label for="e1">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e2" type="radio"> -->
-                                <label for="e2">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e3" type="radio"> -->
-                                <label for="e3">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e4" type="radio"> -->
-                                <label for="e4">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e5" type="radio"> -->
-                                <label for="e5">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                            </div>
-                            <div class="clear"></div>
-                            <!-- price -->
-                            <div class="product-price">
-                                <span class="old-price">{{ number_format($prod->price) }}</span>
-                                <span
-                                    class="new-price">{{ number_format($prod->price-$prod->price*$prod->discount/100) ?? '' }}</span>
-                            </div>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item">
-                                <a href="" data-id="{{ $prod->id }}" class="btn-add-cart cart-link text-muted ">
-                                    <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
-                                    <span>Add to cart</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+      <div class="row mb-4">
+          @forelse ($category->products as $prod)
+        <div class="col-lg-3">
+          <div class="product mb-3">
+            <div class="card">
+              <div class="product-img">
+                <a href="{{ route('client.products.detail', $prod->id) }}"><img src="{{ asset('/media/product') }}/{{ $prod->avatar }}"
+                    class="mx-auto d-flex justify-content-center" alt=""></a>
+                <div class="product-colors justify-content-center d-flex">
+                  <div class="product-color" style="background: #2d2d2d;"></div>
+                  <div class="product-color" style="background: #ffffff;"></div>
+                  <div class="product-color" style="background: #f55678;"></div>
+                  <div class="product-color" style="background: #ffa733;"></div>
+                </div>
+              </div>
+              <div class="card-body">
+                <a href="{{ route('client.products.detail', $prod->id) }}" class="product-name">{{ $prod->name }}</a>
+                <!-- rating -->
+                <div class="rating">
+                  <!-- <input name="stars1" id="e1" type="radio"> -->
+                  <label for="e1">
+                    <i class="fas fa-star"></i>
+                  </label>
+                  <!-- <input name="stars1" id="e2" type="radio"> -->
+                  <label for="e2">
+                    <i class="fas fa-star"></i>
+                  </label>
+                  <!-- <input name="stars1" id="e3" type="radio"> -->
+                  <label for="e3">
+                    <i class="fas fa-star"></i>
+                  </label>
+                  <!-- <input name="stars1" id="e4" type="radio"> -->
+                  <label for="e4">
+                    <i class="fas fa-star"></i>
+                  </label>
+                  <!-- <input name="stars1" id="e5" type="radio"> -->
+                  <label for="e5">
+                    <i class="fas fa-star"></i>
+                  </label>
+                </div>
+                <div class="clear"></div>
+                <!-- price -->
+                <div class="product-price">
+                  <span class="{{ ($prod->discount > 0)?'old-price':'new-price' }}">{{ number_format($prod->price) }}</span>
+                  <span class="new-price">{{ (($prod->discount > 0)?number_format($prod->price-$prod->price*$prod->discount/100):'') }}</span>
+                </div>
+              </div>
+              <div class="list-group list-group-flush">
+                <div class="list-group-item">
+                  <a href="" data-id="{{ $prod->id }}" class="btn-add-cart cart-link text-muted ">
+                    <i class="fas fa-shopping-basket" style="margin-right: 9px;"></i>
+                    <span>Add to cart</span>
+                  </a>
                 </div>
             </div>
             @empty
@@ -260,9 +251,9 @@
 <script>
     $(".options-list").click(function () {
       if ($('.checkbox-option:visible').length)
-        $('.checkbox-option').hide();
+        $('.checkbox-option').slideToggle();
       else
-        $('.checkbox-option').show();
+        $('.checkbox-option').slideToggle();
     })
 
 </script>

@@ -16,13 +16,20 @@ use Auth;
 
 class ProductService extends BaseModel
 {
-    use CategoryTrait, RequestDataCreate, HandleUpload;
+    use CategoryTrait, RequestDataCreate, HandleUpload, RequestDataEdit;
 
     /**
     * Specify Category type
     */
     protected $categoryType = 'product';
+     /**
+     * Determine resource type is category is not
+     */
 
+    protected $isCategory = false;
+     /**
+     * Specify input attributes
+     */
     private $attributes = [
         'name',
         'category_id',

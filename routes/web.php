@@ -39,7 +39,10 @@ Route::group([
         'as' => 'client.showrooms.contact',
         'uses' => 'ContactController@contact'
     ]);
-    Route::get('products', 'ProductController@product');
+    Route::get('new-arrival', [
+        'as' => 'client.products.new',
+        'uses' => 'ProductController@newArrival'
+    ]);
     Route::get('products/{slug_cat?}', [
         'as' => 'client.products.category',
         'uses' => 'ProductController@productCat'
@@ -59,12 +62,21 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
+    Route::get('footer', 'HomeController@footer');
 
     
     Route::get('home', 'HomeController@index');
     Route::group([
         'namespace' => 'Auth'
     ], function() {
+        Route::get('register',[
+            'as' => 'client.register',
+            'uses' => 'RegisterController@showRegistrationForm'
+        ]);
+        Route::post('register/create',[
+            'as' => 'client.register.create',
+            'uses' => 'RegisterController@create'
+        ]);
         Route::get('login',[
             'as' => 'client.loginform',
             'uses' => 'LoginController@showLoginForm'

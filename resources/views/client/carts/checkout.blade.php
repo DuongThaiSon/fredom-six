@@ -30,8 +30,11 @@
       </div>
       <!-- form checkout -->
       <div class="form-checkout">
-        <p>Cần phải đăng nhập để thanh toán? <a href="#" class="reg font-weight-bold">Nhấn vào đây để Đăng ký hoặc Đăng
+          @guest('web')
+        <p>Cần phải đăng nhập để thanh toán? <a href="{{ route('client.loginform')}}" class="reg font-weight-bold">Nhấn vào đây để Đăng ký hoặc Đăng
             nhập</a></p>
+          @endguest 
+          @auth('web')
         <form method="POST" action="/cart/store" id="form-checkout" enctype="multipart/form-data">
             @csrf
           <div class="row">
@@ -112,6 +115,7 @@
             </div>
           </div>
         </form>
+          @endauth
       </div>
       <!-- receipt -->
       <div class="receipt">

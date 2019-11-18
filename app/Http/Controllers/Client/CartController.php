@@ -13,14 +13,14 @@ class CartController extends Controller
     public function index()
     
     {
-        $product = Product::where('product_code', 'ABC')->simplePaginate(4);
-        $condition = new \Darryldecode\Cart\CartCondition(array(
-            'name' => 'Khuyến Mãi',
-            'type' => 'number',
-            'target' => 'total', // this condition will be applied to cart's subtotal when getSubTotal() is called.
-            'value' => '-500000',
-        ));
-        Cart::condition($condition);
+        $product = Product::where('product_code', 'GN')->simplePaginate(4);
+        // $condition = new \Darryldecode\Cart\CartCondition(array(
+        //     'name' => 'Khuyến Mãi',
+        //     'type' => 'number',
+        //     'target' => 'total', // this condition will be applied to cart's subtotal when getSubTotal() is called.
+        //     'value' => '-500000',
+        // ));
+        // Cart::condition($condition);
         $cartItems = Cart::getContent();
         // print_r($cartItems);die;
         // Cart::clear();
@@ -32,7 +32,7 @@ class CartController extends Controller
         Cart::add(array(
             'id' => $request->id,
             'name' => $product->name,
-            'price' => $product->price,
+            'price' => $product->discount>0?($product->price-$product->discount*$product->price/100):$product->price,
             'quantity' => $request->quantity,
             'attributes' => array(
                 'avatar' => $product->avatar,

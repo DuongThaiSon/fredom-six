@@ -114,4 +114,24 @@ class BackupController extends Controller
     {
         //
     }
+
+    /**
+     * Downloads a backup zip file.
+     */
+    public function download(Request $request)
+    {
+        $disk = Storage::disk($request->input('disk'));
+        $file_name = urldecode($request->input('file_name'));
+        $adapter = $disk->getDriver()->getAdapter();
+        if ($adapter instanceof Local) {
+            $storage_path = $disk->getDriver()->getAdapter()->getPathPrefix();
+            if ($disk->exists($file_name)) {
+                return response()->download($storage_path.$file_name);
+            } else {
+                abort(404, __('Tệp sao lưu không tồn tại'));
+            }
+        } else {
+            abort(404, __('Chỉ hỗ trợ download đối với tệp tin lưu nội bộ'));
+        }
+    }
 }

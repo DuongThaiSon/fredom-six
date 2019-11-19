@@ -380,6 +380,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'FileController'
     ]);
 
+    Route::group(['prefix' => 'backups'], function () {
+        Route::get('download', [
+            'as' => 'backups.download',
+            'uses' =>'BackupController@download'
+        ]);
+    });
     Route::resource('backups', 'BackupController');
 });
 

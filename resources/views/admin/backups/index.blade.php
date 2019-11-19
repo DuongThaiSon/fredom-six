@@ -22,7 +22,7 @@
 
             <div class="table-responsive bg-white mt-4" id="cat_table">
                 @csrf
-                <table class="table-sm table-hover table mb-2" width="100%">
+                <table class="table-sm table-striped mb-2" width="100%">
                     <thead>
                         <tr class="text-muted">
                             <th width="10px">ID</th>
@@ -43,14 +43,18 @@
                             </td>
                             <td class="text-left">
                                 @if ($item['download'])
-                                <button class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Tải xuống">
+                                <a href="{{ route('admin.backups.download', [
+                                    'disk' => $item['disk'],
+                                    'path' => urlencode($item['file_path']),
+                                    'file_name' => urlencode($item['file_name'])
+                                    ]) }}" class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Tải xuống">
                                     <i class="material-icons">cloud_download</i>
-                                </button>
+                                </a>
                                 @endif
 
-                                <button class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Xóa">
+                                <a class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Xóa">
                                     <i class="material-icons">delete_forever</i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                         @empty

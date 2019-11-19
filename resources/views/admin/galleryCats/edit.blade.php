@@ -144,9 +144,9 @@
                         <input
                           type="text"
                           class="form-control"
-                          name="meta_discription"
+                          name="meta_description"
                           placeholder="Thẻ Meta Description"
-                          value="{{$category->meta_discription}}"
+                          value="{{$category->meta_description}}"
                         />
                         <small class="form-text"
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
@@ -182,17 +182,27 @@
                         </div>
 
                         <div class="form-group">
-                          <label class="control-label">Ảnh đại diện</label>
-                          <input
-                            type="file"
-                            class="form-control"
-                            name="avatar"
-                            placeholder="Ảnh đại diện"
-                          />
-                          <small class="form-text"
-                            >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của
-                            trang web đang có nội dung nói về chủ đề nào
-                          </small>
+                            <label class="control-label">Ảnh đại diện</label>
+                            {{-- <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="avatar">
+                                <label class="custom-file-label" for="">Choose file</label>
+                            </div> --}}
+                        </div>
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new img-thumbnail" style="width: 400px; height: 230px;">
+                                    <img src="/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $category->avatar }}"  alt="{{ $category->avatar }}">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
+                                <div>
+                                    <span class="btn btn-outline-secondary btn-file">
+                                        <span class="fileinput-new">Select image</span>
+                                        <span class="fileinput-exists">Change</span>
+                                        <input type="file" name="avatar">
+                                    </span>
+                                    <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                </div>
+                            </div>
                         </div>
                   </div>
                 </div>
@@ -201,7 +211,7 @@
                   <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="decription">{{$category->description}}</textarea>
+                      <textarea class="form-control ck-classic" name="decription">{{$category->description}}</textarea>
                     </div>
                   </div>
                 </div>

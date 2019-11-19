@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Artisan;
+use Exception;
+use League\Flysystem\Adapter\Local;
+use Log;
+use Storage;
 
 class BackupController extends Controller
 {
@@ -14,7 +19,34 @@ class BackupController extends Controller
      */
     public function index()
     {
-        return view('admin.backups.index');
+        if (!count(config('backup.backup.destination.disks'))) {
+            dd('Chưa config ổ đĩa lưu backup');
+        }
+
+        $backups = [];
+        foreach (config('backup.backup.destination.disks') as $disk_name) {
+            $disk = Storage::disk($disk_name);
+            $adapter = $disk->getDriver()->getAdapter();
+            $files = $disk->allFiles();
+            // make an array of backup files, with their filesize and creation date
+            foreach ($files as $k => $f) {
+                // only take the zip files into account
+                if (substr($f, -4) == '.zip' && $disk->exists($f)) {
+                    $backups[] = [
+                        'file_path'     => $f,
+                        'file_name'     => str_replace('backups/', '', $f),
+                        'file_size'     => $disk->size($f),
+                        'last_modified' => $disk->lastModified($f),
+                        'disk'          => $disk_name,
+                        'download'      => ($adapter instanceof Local) ? true : false,
+                        ];
+                }
+            }
+        }
+        // reverse the backups, so the newest one would be on top
+        $backups = array_reverse($backups);
+        $backups = collect($backups)->paginate(15);
+        return view('admin.backups.index', compact('backups'));
     }
 
     /**

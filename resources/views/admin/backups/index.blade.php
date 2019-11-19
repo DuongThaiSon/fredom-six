@@ -25,34 +25,40 @@
                 <table class="table-sm table-hover table mb-2" width="100%">
                     <thead>
                         <tr class="text-muted">
-                            <th width="5%">ID</th>
-                            <th width="20%">Thời điểm tạo</th>
-                            <th width="10%">Kích thước</th>
+                            <th width="10px">ID</th>
+                            <th width="240px">Thời điểm tạo</th>
+                            <th width="130px">Kích thước</th>
                             <th class="text-left" width="0">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody class="sort">
-
+                        @forelse ($backups as $key => $item)
                         <tr id="item_" class="ui-state-default">
-                            <td>11</td>
+                            <td>{{ $key+1 }}</td>
                             <td class="">
-                                <a href="#">19 Nov 2019, 18:49</a>
+                                <a href="#">{{ \Carbon\Carbon::createFromTimeStamp($item['last_modified'])->formatLocalized('%d %B %Y, %H:%M') }}</a>
                             </td>
                             <td>
-                                <a href="#">25.47 MB</a>
+                                <a href="#">{{ round((int)$item['file_size']/1048576, 2) }} MB</a>
                             </td>
                             <td class="text-left">
+                                @if ($item['download'])
                                 <button class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Tải xuống">
                                     <i class="material-icons">cloud_download</i>
                                 </button>
+                                @endif
+
                                 <button class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Xóa">
                                     <i class="material-icons">delete_forever</i>
                                 </button>
                             </td>
                         </tr>
+                        @empty
+                        Chưa có phiên bản sao lưu nào
+                        @endforelse
                     </tbody>
                 </table>
-
+                {{ $backups->links() }}
             </div>
         </div>
     </div>

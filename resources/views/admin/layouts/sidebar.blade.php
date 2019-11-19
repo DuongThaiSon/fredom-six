@@ -236,7 +236,7 @@
                     <a href="{{ route('admin.settings.sendMail') }}" class="nav-link">Tài khoản gửi email</a>
                     </li>
                     <li class="nav-item">
-                    <a href="#" class="nav-link">Sao lưu & Phục hồi dữ liệu</a>
+                    <a href="{{ route('admin.backups.index') }}" class="nav-link menu-backup">Sao lưu & Phục hồi dữ liệu</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('admin.settings.emailContent') }}" class="nav-link">Nội dung email gửi đi</a>

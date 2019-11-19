@@ -379,6 +379,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'files',
         'uses' => 'FileController'
     ]);
+
+    Route::resource('backups', 'BackupController');
 });
 
 

@@ -103,13 +103,13 @@ class seed_articles_table extends Seeder
                 'description' => '<p>Đ&aacute;nh bay cơn n&oacute;ng m&ugrave;a h&egrave; với ƯU Đ&Atilde;I tới 50%++ từ MOOLEZ, &aacute;p dụng DUY NHẤT tại​Showroom Trần Duy Hưng v&agrave; Nha Trang.​&nbsp;</p>',
                 'detail' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
-                <p style="text-align:center"><img alt="" src="https://nexus.leagueoflegends.com/wp-content/uploads/2017/07/LOL_CMS_107_Social_1200.jpg" style="height:630px; width:1200px" /></p>
+                <p style="text-align:center"><img alt="" src="https://moolez.vn/uploads/news/_large/Untitled0638-compressed.jpg" /></p>
                 
                 <p style="text-align:center">caption</p>
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                 
-                <p style="text-align:center"><img alt="" src="https://nexus.leagueoflegends.com/wp-content/uploads/2017/07/LOL_CMS_107_Social_1200.jpg" style="height:630px; width:1200px" /></p>
+                <p style="text-align:center"><img alt="" src="https://moolez.vn/uploads/news/_large/Untitled0638-compressed.jpg" /></p>
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>',
                 'is_new' => '1',
@@ -160,7 +160,7 @@ class seed_articles_table extends Seeder
                 'name' => 'Adam Smith',
                 'avatar' => 'business.png',
                 'description' => '<p>english&nbsp;teacher</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -177,7 +177,7 @@ class seed_articles_table extends Seeder
                 'name' => 'jennifer lopez',
                 'avatar' => 'customer2.png',
                 'description' => '<p>official</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -194,7 +194,7 @@ class seed_articles_table extends Seeder
                 'name' => 'Quỳnh nguyễn',
                 'avatar' => 'customer5.png',
                 'description' => '<p>blogger</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -211,7 +211,7 @@ class seed_articles_table extends Seeder
                 'name' => 'John smith',
                 'avatar' => 'customer4.png',
                 'description' => '<p>ceo</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',

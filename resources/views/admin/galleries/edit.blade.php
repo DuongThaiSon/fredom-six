@@ -48,7 +48,7 @@
 
                                 <div class="form-group">
                                     <label>URL gallery</label>
-                                    <input type="text" name="link_to" required class="form-control" placeholder="URL gallery" value={{$gallery->link_to}}/>
+                                    <input type="text" name="link_to" class="form-control" placeholder="URL gallery" value={{$gallery->link_to}}/>
                                     <small class="form-text">Dán đoạn link url đã copy từ youtube vào.</small>
                                 </div>
 

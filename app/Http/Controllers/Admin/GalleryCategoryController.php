@@ -65,7 +65,7 @@ class GalleryCategoryController extends Controller
 
         $attributes = $request->only([
             'parent_id','name','description', 'detail', 'slug',
-            'meta_title', 'meta_discription', 'meta_keyword','meta_page_topic',
+            'meta_title', 'meta_description', 'meta_keyword','meta_page_topic',
             'is_highlight', 'is_public'
         ]);
 
@@ -130,7 +130,7 @@ class GalleryCategoryController extends Controller
     {
         $request->validate([
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',$id,
+            'name' => 'required|unique:categories,name,'.$id,
             'avatar' => 'nullable|sometimes|image'
         ]);
 

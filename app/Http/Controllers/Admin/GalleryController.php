@@ -259,6 +259,20 @@ class GalleryController extends Controller
         }
     }
 
+    public function sortImage(Request $request)
+    {
+        $items = $request->sort;
+		$order = array();
+		foreach ($items as $c) {
+			$id      = str_replace('item_', '', $c);
+			$order[] = Image::findOrFail($id)->order;
+		}
+		rsort($order);
+		foreach ($order as $k => $v) {
+            Image::where('id', str_replace('item_', '', $items[$k]))->update(['order' => $v]);
+        }
+    }
+
     public function changeIsPublic(Request $request) {
         $id = $request->id;
         $gallery =  Gallery::findOrFail($id);

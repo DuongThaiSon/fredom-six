@@ -158,7 +158,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="image-showcase">
+                                <div class="image-showcase sort">
                                     @include('admin.galleries.imageShowcase')
                                 </div>
                             </div>

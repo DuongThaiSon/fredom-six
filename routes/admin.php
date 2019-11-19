@@ -80,6 +80,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'GalleryController@sort'
         ]);
 
+        Route::post('sort-image', [
+            'as' => 'galleries.sortImage',
+            'uses' => 'GalleryController@sortImage'
+        ]);
+
         Route::post('change-is-public', [
             'as' => 'galleries.change-is-public',
             'uses' => 'GalleryController@changeIsPublic'

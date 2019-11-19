@@ -1,4 +1,5 @@
 // filePond = require("../filepond");
+import { makeTableOrderable } from "../core"
 
 $(document).ready(function() {
     // console.log('lleh');
@@ -22,6 +23,8 @@ $(document).ready(function() {
             }
         })
     })
+
+    makeTableOrderable('/admin/galleries/sort-image')
 })
 
 function initBtnDestroyImage() {

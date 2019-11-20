@@ -42,7 +42,7 @@ class MenuSeeder extends Seeder
                 'type' => '0',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/products/san-pham-nu',
+                'link' => '/products/san-pham-nu.htm',
                 'order' => '3',
                 'created_by' => '1',
             ]
@@ -54,7 +54,7 @@ class MenuSeeder extends Seeder
                 'type' => '0',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/products/san-pham-nam',
+                'link' => '/products/san-pham-nam.htm',
                 'order' => '4',
                 'created_by' => '1',
             ]

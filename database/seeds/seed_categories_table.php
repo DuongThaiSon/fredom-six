@@ -192,13 +192,13 @@ class seed_categories_table extends Seeder
         DB::table('categories')->insert(
             [
                 'id' => '15',
-                'name' => 'Mix & Max',
+                'name' => 'Mix & Match',
                 'avatar' => 'shortJean.png',
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'product',
                 'order' => '15',
-                'slug' => 'mix-max',
+                'slug' => 'mix-match',
                 'parent_id' => '0',
                 'created_by' => '1',
                 'created_at' => '2019-11-19 02:17:29'

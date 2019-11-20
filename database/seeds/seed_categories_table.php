@@ -238,7 +238,7 @@ class seed_categories_table extends Seeder
             [
                 'id' => '18',
                 'name' => 'Hot Sale',
-                'avatar' => '',
+                'avatar' => 'hot-sale.png',
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'gallery',

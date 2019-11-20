@@ -27,7 +27,7 @@
           <div class="product mb-3">
             <div class="card">
               <div class="product-img">
-                <a href="{{ route('client.products.detail', $prod->id) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
+                <a href="{{ route('client.products.detail', ['slug_cat' => $prod->categories[0]->slug, 'slug_view' => $prod->slug]) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                     class="mx-auto d-flex justify-content-center" alt=""></a>
                 <div class="product-colors justify-content-center d-flex">
                   <div class="product-color" style="background: #2d2d2d;"></div>
@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <a href="{{ route('client.products.detail', $prod->id) }}" class="product-name">{{ $prod->name }}</a>
+                <a href="{{ route('client.products.detail', ['slug_cat' => $prod->categories[0]->slug, 'slug_view' => $prod->slug]) }}" class="product-name">{{ $prod->name }}</a>
                 <!-- rating -->
                 <div class="rating">
                   <!-- <input name="stars1" id="e1" type="radio"> -->

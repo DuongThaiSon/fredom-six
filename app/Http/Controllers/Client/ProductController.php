@@ -14,7 +14,8 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where('is_new', 1)->simplePaginate(8);
+        $productNew = Product::where('is_new', 1)->with(['categories'])->simplePaginate(8);
+        // print_r($productNew->toArray());die;
         return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($slug_cat = null, $slug_view = null)

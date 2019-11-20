@@ -80,7 +80,7 @@
             </a>
         </div>
         <div class="col-md-4 col-sm-block">
-            <a href="{{ route('client.products.category', ['slug_cat', 'business-collection']) }}">
+            <a href="{{ route('client.products.category', ['slug_cat' => 'business-collection']) }}">
                 <div class="card-collection"
                     style="background: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $business->avatar }}) no-repeat center; background-size: cover; height: 520px;">
                     <div class="dark-overlay">
@@ -90,7 +90,7 @@
             </a>
         </div>
         <div class="col-md-4 col-sm-block">
-            <a href="{{ route('client.products.category', ['slug_cat', 'classic-collection']) }}">
+            <a href="{{ route('client.products.category', ['slug_cat' => 'classic-collection']) }}">
                 <div class="card-collection"
                     style="background: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $classic->avatar }}) no-repeat center; background-size: cover; height: 520px;">
                     <div class="dark-overlay">

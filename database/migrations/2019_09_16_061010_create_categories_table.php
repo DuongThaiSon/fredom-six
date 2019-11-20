@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name', 100)->nullable();
             $table->bigInteger('parent_id')->nullable();
             $table->string('avatar', 100)->nullable();
-            $table->string('description', 100)->nullable();
+            $table->text('description')->nullable();
             $table->text('detail')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_new')->nullable()->default(true);

@@ -21,7 +21,7 @@ class CreateMenusTable extends Migration
             $table->bigInteger('parent_id')->nullable();
             $table->bigInteger('category_id')->nullable();
             $table->string('link', 100)->nullable();
-            $table->string('description', 100)->nullable();
+            $table->text('description')->nullable();
             $table->bigInteger('order')->nullable();
             $table->string('language', 3)->nullable();
             $table->bigInteger('created_by')->nullable();

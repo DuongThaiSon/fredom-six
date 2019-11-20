@@ -36,7 +36,7 @@ class seed_categories_table extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'parent_id' => '0',
-                'type' => 'news',
+                'type' => 'article',
                 'slug' => 'san-pham-nu',
                 'order' => '1',
                 'created_by' => '1',
@@ -227,7 +227,7 @@ class seed_categories_table extends Seeder
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'gallery',
-                'order' => '16',
+                'order' => '17',
                 'slug' => 'partner',
                 'parent_id' => '0',
                 'created_by' => '1',
@@ -242,8 +242,53 @@ class seed_categories_table extends Seeder
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'gallery',
-                'order' => '16',
+                'order' => '18',
                 'slug' => 'hot-sale',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '19',
+                'name' => 'Luxury collection',
+                'avatar' => 'leotive5dd49d99a911d.png',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '19',
+                'slug' => 'luxury-collection',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '20',
+                'name' => 'Business collection',
+                'avatar' => 'leotive5dd49e25d2791.png',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '20',
+                'slug' => 'business-collection',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '21',
+                'name' => 'Classic collection',
+                'avatar' => 'leotive5dd49e8fc1033.png',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '21',
+                'slug' => 'classic-collection',
                 'parent_id' => '0',
                 'created_by' => '1',
                 'created_at' => '2019-11-19 02:17:29'

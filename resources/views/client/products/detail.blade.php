@@ -6,8 +6,8 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="">Sản phẩm nữ</a></li>
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('client.products.category', ['slug_cat' => $category->slug]) }}">Sản phẩm nữ</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <a class="active">{{ $product->name }}</a>
                     </li>
@@ -32,7 +32,7 @@
 
                                     <ul class="thumbnail mr-3" style="height: 95%;">
                                         <li data-target="#product_details_slider" data-slide-to="0"
-                                            style="background-image: url({{ asset('media/product') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
                                         </li>
 
                                     </ul>
@@ -46,36 +46,16 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active py-3" style="max-height: 600px;">
                                         <a class="gallery_img"
-                                            href="{{ asset('media/product') }}/{{ $product->avatar }}">
+                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
                                             <img class="d-block w-75 mx-auto"
                                                 style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                                                src="{{ asset('media/product') }}/{{ $product->avatar }}"
+                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}"
                                                 alt="{{ $product->avatar }}">
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                    <ul class="thumbnail mr-3" style="height: 95%;">
-                      <li data-target="#product_details_slider" data-slide-to="0"
-                        style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
-                      </li>
-
-                    </ul>
-
-                  </ol>
-                  <button onclick="scrollDown()" class="down-button text-center ml-4" style="z-index: 999;"><i
-                      class="fas fa-angle-down"></i>
-                  </button>
-                </div>
-                <div class="col-lg-9">
-                  <div class="carousel-inner">
-                    <div class="carousel-item active py-3" style="max-height: 600px;">
-                      <a class="gallery_img" href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
-                        <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                          src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}" alt="{{ $product->avatar }}">
-                      </a>
                     </div>
                 </div>
             </div>
@@ -112,7 +92,8 @@
                         </span>
                     </div>
                     <span class="ml-2 pt-4">({{ count($product->reviews) }} Đánh giá)</span>
-                    <a href="#review-tab" class="ml-3 pt-4 text-muted write-review"><i class="fas fa-edit"></i> Viết đánh giá</a>
+                    <a href="#review-tab" class="ml-3 pt-4 text-muted write-review"><i class="fas fa-edit"></i>
+                        Viết đánh giá</a>
                 </div>
 
                 <!-- detail -->
@@ -185,9 +166,11 @@
                                 </div>
                                 <select class="form-control pl-0" name="size" id="size"
                                     style="border-left: 0 !important;" style="font-size: 14px;">
-                                    @foreach ($product->productAttributeValues->where('productAttribute.name', 'Kích
+                                    @foreach ($product->productAttributeValues->where('productAttribute.name',
+                                    'Kích
                                     cỡ') as $item)
-                                    <option value="{{ $item->value }}}">{{ $item->value ?? 'Đang cập nhập' }}</option>
+                                    <option value="{{ $item->value }}}">{{ $item->value ?? 'Đang cập nhập' }}
+                                    </option>
                                     @endforeach
 
                                 </select>
@@ -225,10 +208,12 @@
                             <span class="font-weight-bold text-uppercase">thích</span>
                         </button>
                     </div>
-                    <div class="form-underline mt- w-100" style="width: 102% !important; margin-left: 1px;"></div>
+                    <div class="form-underline mt- w-100" style="width: 102% !important; margin-left: 1px;">
+                    </div>
                     <div class="category mt-2">
                         <span class="text-muted"><i class="fas fa-pen-square mr-2"></i> Bộ sưu tập: </span>
-                        <a href="{{ route('client.products.category', $category->slug ??'') }}" class="font-weight-bold">{{ $category->name }}</a>
+                        <a href="{{ route('client.products.category', $category->slug ??'') }}"
+                            class="font-weight-bold">{{ $category->name }}</a>
                     </div>
                     <div class="social-network mt-2">
                         <a href="#" class="btn social-link"><i class="fab fa-facebook-f"></i></a>
@@ -266,63 +251,81 @@
                 </div>
                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                     @auth
-                        <div class="product-review d-flex">
-                            <a href="#">
-                                <img src="{{ Auth::user()->avatar ? '/assets/client/img/customer.png' : 'http://goo.gl/vyAs27' }}" style="width: 150px; height: 150px; border: 1px ridge;" alt=""
-                                    class="rounded-circle">
-                            </a>
-                            <div class="comment-section ml-5" style="flex: 0 0 700px;">
-                                <form action="" class="comment-form" id="comment-form">
-                                    @php
-                                        $currentUserReview = App\Models\Review::where([['user_id', auth()->user()->id],['product_id', $product->id]])->firstOrFail();
-                                    @endphp
-                                    <fieldset >
-                                        <textarea class="form-control comment-zone" rows="5" placeholder="Nội dung...." >{{ $currentUserReview->content??'' }}</textarea>
-                                        <input type="hidden" name="current-user" value="{{ Auth::user()->id ??'' }}">
-                                        <div class="d-flex justify-content-between">
-                                            <div id='rating' class='rating'>
-                                                <span class="pt-4">Đánh giá:</span>
-                                                <span class='ratingStars rate-product {{  $currentUserReview->rate >= 1 ? 'clickStars' : '' }}' data-star="1">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </span>
-                                                <span class='ratingStars rate-product {{  $currentUserReview->rate >= 2 ? 'clickStars' : '' }}' data-star="2">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </span>
-                                                <span class='ratingStars rate-product {{  $currentUserReview->rate >= 3 ? 'clickStars' : '' }}' data-star="3">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </span>
-                                                <span class='ratingStars rate-product {{  $currentUserReview->rate >= 4 ? 'clickStars' : '' }}' data-star="4">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </span>
-                                                <span class='ratingStars rate-product {{  $currentUserReview->rate >= 5 ? 'clickStars' : '' }}' data-star="5">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                </span>
-                                                <input type="hidden" name="rating" value="{{ $currentUserReview->rate }}">
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-secondary mt-4 btn-comment {{ !empty($currentUserReview) ? 'd-none' : '' }} ">Gửi đánh giá</button>
-                                                <button class="btn btn-primary mt-4 btn-fix-review float-right {{ empty($currentUserReview) ? 'd-none' : '' }}">Sửa đánh giá</button>
-                                                {{-- {!! !empty($currentUserReview) ? '<button class="btn btn-primary mt-4 btn-fix-review float-right">Sửa đánh giá</button>' : `<button class="btn btn-secondary mt-4 btn-comment ">Gửi đánh giá</button>` !!} --}}
-                                            </div>
+                    <div class="product-review d-flex">
+                        <a href="#">
+                            <img src="{{ Auth::user()->avatar ? '/assets/client/img/customer.png' : 'http://goo.gl/vyAs27' }}"
+                                style="width: 150px; height: 150px; border: 1px ridge;" alt="" class="rounded-circle">
+                        </a>
+                        <div class="comment-section ml-5" style="flex: 0 0 700px;">
+                            <form action="" class="comment-form" id="comment-form">
+                                @php
+                                $currentUserReview = App\Models\Review::where([['user_id',
+                                auth()->user()->id],['product_id', $product->id]])->firstOrFail();
+                                @endphp
+                                <fieldset>
+                                    <textarea class="form-control comment-zone" rows="5"
+                                        placeholder="Nội dung....">{{ $currentUserReview->content??'' }}</textarea>
+                                    <input type="hidden" name="current-user" value="{{ Auth::user()->id ??'' }}">
+                                    <div class="d-flex justify-content-between">
+                                        <div id='rating' class='rating'>
+                                            <span class="pt-4">Đánh giá:</span>
+                                            <span
+                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 1 ? 'clickStars' : '' }}'
+                                                data-star="1">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <span
+                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 2 ? 'clickStars' : '' }}'
+                                                data-star="2">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <span
+                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 3 ? 'clickStars' : '' }}'
+                                                data-star="3">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <span
+                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 4 ? 'clickStars' : '' }}'
+                                                data-star="4">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <span
+                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 5 ? 'clickStars' : '' }}'
+                                                data-star="5">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="hidden" name="rating" value="{{ $currentUserReview->rate }}">
                                         </div>
-                                    </fieldset>
-                                </form>
-                            </div>
+                                        <div>
+                                            <button
+                                                class="btn btn-secondary mt-4 btn-comment {{ !empty($currentUserReview) ? 'd-none' : '' }} ">Gửi
+                                                đánh giá</button>
+                                            <button
+                                                class="btn btn-primary mt-4 btn-fix-review float-right {{ empty($currentUserReview) ? 'd-none' : '' }}">Sửa
+                                                đánh giá</button>
+                                            {{-- {!! !empty($currentUserReview) ? '<button class="btn btn-primary mt-4 btn-fix-review float-right">Sửa đánh giá</button>' : `<button class="btn btn-secondary mt-4 btn-comment ">Gửi đánh giá</button>` !!} --}}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
                         </div>
+                    </div>
                     @endauth
                     @guest
                     <div class="text-center">
-                        <a href="{{ route('client.loginform') }}" class="btn btn-secondary">Bạn phải đăng nhập để đánh giá</a>
+                        <a href="{{ route('client.loginform') }}" class="btn btn-secondary">Bạn phải đăng nhập
+                            để đánh giá</a>
                     </div>
                     @endguest
 
                     <div class="list-comments"> </div>
                 </div>
-        {{-- </div> --}}
-        <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
-        <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...</div>
+                {{-- </div> --}}
+                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
+                <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...
+                </div>
+            </div>
         </div>
-    </div>
 
 
 
@@ -336,13 +339,11 @@
             <div class="container">
                 <div class="row mb-4">
                     @forelse ($products as $item)
-
-
                     <div class="col-lg-3">
                         <div class="product">
                             <div class="card">
                                 <div class="product-img">
-                                    <a href="{{ route('client.products.detail', $item->id) }}"><img
+                                    <a href="{{ route('client.products.detail', ['slug_view' => $item->slug, 'slug_cat' => $category->slug]) }}"><img
                                             src="{{ asset('media/product') }}/{{ $item->avatar }}"
                                             class="mx-auto d-flex justify-content-center" alt=""></a>
                                     <div class="product-colors justify-content-center d-flex">
@@ -353,32 +354,36 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <a href="{{ route('client.products.detail', $item->id) }}"
+                                    <a href="{{ route('client.products.detail', ['slug_view' => $item->slug, 'slug_cat' => $category->slug]) }}"
                                         class="product-name">{{ $item->name }}</a>
                                     <!-- rating -->
-                                    <div class="rating">
-                                        <!-- <input name="stars1" id="e1" type="radio"> -->
-                                        <label for="e1">
-                                            <i class="fas fa-star"></i>
-                                        </label>
-                                        <!-- <input name="stars1" id="e2" type="radio"> -->
-                                        <label for="e2">
-                                            <i class="fas fa-star"></i>
-                                        </label>
-                                        <!-- <input name="stars1" id="e3" type="radio"> -->
-                                        <label for="e3">
-                                            <i class="fas fa-star"></i>
-                                        </label>
-                                        <!-- <input name="stars1" id="e4" type="radio"> -->
-                                        <label for="e4">
-                                            <i class="fas fa-star"></i>
-                                        </label>
-                                        <!-- <input name="stars1" id="e5" type="radio"> -->
-                                        <label for="e5">
-                                            <i class="fas fa-star"></i>
-                                        </label>
+                                    <div id='rating' class='rating'>
+                                        <span
+                                            class='ratingStars rate-product {{  $item->rate >= 1 ? 'clickStars' : '' }}'
+                                            data-star="1">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                        <span
+                                            class='ratingStars rate-product {{  $item->rate >= 2 ? 'clickStars' : '' }}'
+                                            data-star="2">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                        <span
+                                            class='ratingStars rate-product {{  $item->rate >= 3 ? 'clickStars' : '' }}'
+                                            data-star="3">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                        <span
+                                            class='ratingStars rate-product {{  $item->rate >= 4 ? 'clickStars' : '' }}'
+                                            data-star="4">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
+                                        <span
+                                            class='ratingStars rate-product {{  $item->rate >= 5 ? 'clickStars' : '' }}'
+                                            data-star="5">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
                                     </div>
-                                    <div class="clear"></div>
                                     <!-- price -->
                                     <div class="product-price">
                                         <span

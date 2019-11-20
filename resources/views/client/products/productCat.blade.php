@@ -6,7 +6,7 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a class="active"
                             href="{{ route('client.products.category', $category->slug) }}">{{ $category->name ??''}}</a></li>
                 </ol>
@@ -74,7 +74,8 @@
                 <div class="product mb-3">
                     <div class="card">
                         <div class="product-img">
-                            <a href="{{ route('client.products.detail', [$category->slug, $prod->slug]) }}"><img
+                            <a href="{{ route('client.products.detail', ['slug_view' => $prod->slug, 'slug_cat' => $category->slug]) }}">
+                                <img
                                     src="{{ asset('/media/product') }}/{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
@@ -85,7 +86,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="{{ route('client.products.detail', $prod->id) }}"
+                            <a href="{{ route('client.products.detail', ['slug_view' => $prod->slug, 'slug_cat' => $category->slug]) }}"
                                 class="product-name">{{ $prod->name }}</a>
                             <!-- rating -->
                             <div class="rating">

@@ -49,12 +49,13 @@ Route::group([
         'as' => 'client.products.new',
         'uses' => 'ProductController@newArrival'
     ]);
+    Route::get('products.htm', 'ProductController@productCat');
     Route::group(['prefix' => 'products'], function () {
-        Route::get('{slug_cat?}', [
+        Route::get('{slug_cat}.htm', [
             'as' => 'client.products.category',
             'uses' => 'ProductController@productCat'
         ]);
-        Route::get('{slug_cat}/{slug_view?}',[
+        Route::get('{slug_cat}/{slug_view}.htm',[
             'as' => 'client.products.detail',
             'uses' => 'ProductController@detail'
         ]);

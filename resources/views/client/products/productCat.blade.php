@@ -31,11 +31,12 @@
                         </li>
                         @endforeach
                     </ul>
-                    <div class="checkbox-option p-3">
+                    <div class="checkbox-option p-3" style="margin-left: 4%; width: fit-content;">
                         <div class="all-options d-flex">
                             <!-- styles -->
                             @forelse ($category->productAttributes as $attribute)
-                            <div class="style-options d-flex flex-wrap align-self-start" style="width: 80px">
+                            
+                            <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px">
                                 @forelse ($attribute->productAttributeValues as $attributeValue)
 
                                 <label class="checkbox-container"
@@ -56,7 +57,7 @@
                         </div>
                         <form action="{{ route('client.products.category', $category->slug) }}" method="GET"
                             enctype="text/plain">
-                            <button class="btn btn-primary" type="submit" value="Tìm kiếm">Tìm kiếm</button>
+                            <button style="border-radius: 0.25rem !important;" class="btn btn-primary" type="submit" value="Tìm kiếm">Lọc sản phẩm</button>
                             <input type="hidden" id="tags" data-role="tagsinput" value="" name="term"
                                 placeholder="Tìm kiếm">
                         </form>
@@ -76,7 +77,7 @@
                         <div class="product-img">
                             <a href="{{ route('client.products.detail', ['slug_view' => $prod->slug, 'slug_cat' => $category->slug]) }}">
                                 <img
-                                    src="{{ asset('/media/product') }}/{{ $prod->avatar }}"
+                                    src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
                                 <div class="product-color" style="background: #2d2d2d;"></div>

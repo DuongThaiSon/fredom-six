@@ -16,7 +16,7 @@
 </div>
 <!-- showcase -->
 <div id="showcase" style="height: 645px; overflow: hidden;">
-    <img src="/assets/client/img/contact-img/leatherBag.png" style="width: 100%; background-position: top;" alt="">
+    <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $category->avatar }}" style="width: 100%; background-position: top;" alt="">
 </div>
 <!-- product -->
 <section id="product-option">

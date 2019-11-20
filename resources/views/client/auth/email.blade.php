@@ -22,14 +22,16 @@
             <!-- Form -->
             <form class="mt-4 mb-0" action="{{ route('client.password.email')}}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if ($errors->has('email'))
+                <div class="alert alert-danger">Email của bạn không đúng</div>
+                </span>
+                @endif
+                @if(Session::has('status'))
+                <div class="alert alert-success text-center">Vui lòng kiểm tra email của bạn</div>
+                @endif
                 <div class="form-group">
                     <label for="">Email *</label>
                     <input id="email-field" type="email" class="form-control border-secondary" required name="email" />
-                    @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                @endif
                 </div>
                 <button type="submit" class="btn btn-dark mb-3">Lấy lại mật khẩu</button>
                 <div class="clear"></div>

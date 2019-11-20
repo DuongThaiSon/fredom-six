@@ -12,7 +12,7 @@ const mix = require("laravel-mix");
  */
 
 mix.js("resources/js/admin/main.js", "public/assets/admin/js")
-    .js("resources/js/admin/gallery.edit.js", "public/assets/admin/js")
+    .js("resources/js/admin/galleries.edit.js", "public/assets/admin/js")
     .js("resources/js/admin/products.edit.js", "public/assets/admin/js")
     .js("resources/js/admin/productCats.edit.js", "public/assets/admin/js")
     .js("resources/js/client/products.detail.js", "public/assets/client/js")

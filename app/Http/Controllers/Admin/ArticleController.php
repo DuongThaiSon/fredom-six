@@ -118,7 +118,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-       $attributes = $this->service->appendEditData($request, '/media/article/', $request->avatar);
+       $attributes = $this->service->appendEditData($request->all());
 
         $articles = Article::findOrFail($id);
         $article  = $articles->fill($attributes);
@@ -159,9 +159,6 @@ class ArticleController extends Controller
                 Article::findOrFail($id)->delete();
             }
             return 1;
-        }
-        if (!$deleted) {
-            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
         }
         return redirect()->back()->with('win','Xóa dữ liệu thành công.');
     }

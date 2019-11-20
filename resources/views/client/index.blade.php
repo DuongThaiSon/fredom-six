@@ -14,7 +14,7 @@
       <!-- slide -->
       @forelse ($slide as $image)
         <div class="carousel-item {{ $loop->first ? 'active':'' }} "
-          style="background:url('{{ asset('/media/uploadImg') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
+          style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
           <div class="container">
             <div class="row">
               <div class="col-6"></div>
@@ -26,20 +26,16 @@
                   <h1 class="text-uppercase display-4 mb-4"  style="margin-left: 120px;">
                     bag
                   </h1>
-                  <p>
-                    Use this text to share information about your brand with your
-                    customers. Describe a product, share annoucement, or welcome
-                    customers to your store
-                  </p>
+                  <p>{{ $image->caption }}</p>
                   <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a>
                 </div>
               </div>
             </div>
           </div>
-        </div>            
+        </div>
       @empty
       @endforelse
-      
+
     </div>
   </div>
 </div>
@@ -53,7 +49,7 @@
           <p class="mb-5">{!! $articleIntro->articles[0]->detail !!}</p>
         </div>
         <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
-          <img src="{{ asset('media/articles') }}/{{ $articleIntro->articles[0]->avatar }}" class="pl-5 mt-5" alt="" />
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $articleIntro->articles[0]->avatar }}" class="pl-5 mt-5" alt="" />
         </div>
       </div>
     </div>
@@ -72,31 +68,31 @@
   <section id="collection">
     <div class="row">
       <div class="col-md-4 col-sm-block">
-        <a href="#">
+        <a href="{{ route('client.products.category') }}/luxury-collection">
           <div class="card-collection"
-            style="background: url('{{ asset('assets/client') }}/img/luxury.png') no-repeat center; background-size: cover; height: 520px;">
+            style="background: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $luxury->avatar }}) no-repeat center; background-size: cover; height: 520px;">
             <div class="dark-overlay">
-              <h2>luxury collection</h2>
+              <h2>{{ $luxury->name }}</h2>
             </div>
           </div>
         </a>
       </div>
       <div class="col-md-4 col-sm-block">
-        <a href="#">
+        <a href="{{ route('client.products.category') }}/business-collection">
           <div class="card-collection"
-            style="background: url('{{ asset('assets/client') }}/img/business.png') no-repeat center; background-size: cover; height: 520px;">
+            style="background: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $business->avatar }}) no-repeat center; background-size: cover; height: 520px;">
             <div class="dark-overlay">
-              <h2>business collection</h2>
+              <h2>{{ $business->name }}</h2>
             </div>
           </div>
         </a>
       </div>
       <div class="col-md-4 col-sm-block">
-        <a href="#">
+        <a href="{{ route('client.products.category') }}/classic-collection">
           <div class="card-collection"
-            style="background: url('{{ asset('assets/client') }}/img/classic.png') no-repeat center; background-size: cover; height: 520px;">
+            style="background: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $classic->avatar }}) no-repeat center; background-size: cover; height: 520px;">
             <div class="dark-overlay">
-              <h2>classic collection</h2>
+              <h2>{{ $classic->name }}</h2>
             </div>
           </div>
         </a>
@@ -104,35 +100,21 @@
     </div>
   </section>
   <!-- sale -->
-  <section id="sale">
-    <h2 class="sale-title">Hot sale</h2>
+  <section id="sale" style="background: url(/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $saleBanner->avatar }})">
+    <h2 class="sale-title">{{ $saleBanner->name }}</h2>
     <div class="container">
       <div class="banner">
         <div id="banner" class="owl-carousel owl-theme">
-          <div class="item">
-            <a href="#">
-              <img src="{{ asset('assets/client') }}/img/SaleImage.png" alt="">
-            </a>
-            <div class="banner-content position-absolute">
-              <div class="banner-text"></div>
+            @foreach ($sale as $item)
+            <div class="item">
+              <a href="#">
+                <img src="/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $item->name }}" alt="{{ $item->name }}">
+              </a>
+              <div class="banner-content position-absolute">
+                <div class="banner-text"></div>
+              </div>
             </div>
-          </div>
-          <div class="item">
-            <a href="#">
-              <img src="{{ asset('assets/client') }}/img/SaleImage.png" alt="">
-            </a>
-            <div class="banner-content">
-              <div class="banner-text"></div>
-            </div>
-          </div>
-          <div class="item">
-            <a href="#">
-              <img src="{{ asset('assets/client') }}/img/SaleImage.png" alt="">
-            </a>
-            <div class="banner-content">
-              <div class="banner-text"></div>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>
@@ -151,57 +133,42 @@
       <div class="item">
         <div class="row" style="height: 578px">
           <div class="col-lg-3 full-set">
-            <img src="{{ asset('media/product') }}/{{ $products->avatar }}" alt="">
+            <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $products->avatar }}" alt="">
           </div>
           <div class="col-lg-3">
             @foreach ($products->products->take(2) as $item)
             <div class="{{ $loop->iteration === 1?'clothe':'short' }}">
-                <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+                <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
                 <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                   <p class="mb-0">{{ $item->name }}</p>
-                  <a href="#" class="item-link">Xem sản phẩm</a>
+                  <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
                 </div>
               </div>
             @endforeach
-            
-            {{-- <div class="short">
-              <img src="{{ asset('assets/client') }}/img/short.png" alt="">
-              <div class="short-name">
-                <p class="mb-0">Quần Short</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
-              </div>
-            </div> --}}
           </div>
           <div class="col-lg-3">
               @foreach ($products->products->skip(2)->take(3) as $item)
             <div class="earing">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="earing-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
-           
+
           </div>
-          
+
           <div class="col-lg-3">
               @foreach ($products->products->skip(5)->take(2) as $item)
             <div class="shoes">
-              <img src="{{ asset('media/product') }}/{{ $item->avatar }}" alt="">
+              <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
               <div class="shoes-name">
                 <p class="mb-0">{{ $item->name }}</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
+                <a href="{{ route('client.products.detail', $item->id) }}" class="item-link">Xem sản phẩm</a>
               </div>
             </div>
               @endforeach
-            {{-- <div class="bag">
-              <img src="{{ asset('assets/client') }}/img/bag.png" alt="">
-              <div class="bag-name">
-                <p class="mb-0">Túi Orico</p>
-                <a href="#" class="item-link">Xem sản phẩm</a>
-              </div>
-            </div> --}}
           </div>
         </div>
       </div>
@@ -213,12 +180,10 @@
       <div class="col-md-6 p-0">
         <div class="col-lg-9 mx-auto">
           <div class="lookbook-content">
-            <h3 class="text-uppercase">weekend lookbook</h3>
-            <h2 class="text-uppercase display-4">business woman</h2>
+            <h3 class="text-uppercase">{{ $lookbook->articles[0]->name }}</h3>
+            <h2 class="text-uppercase display-4">{!! $lookbook->articles[0]->description !!}</h2>
             <div class="line"></div>
-            <p> Use this text to share information about your brand with your customers.
-              Describe a product, share announcements, or welcome customers to your
-              store.</p>
+            <div class="text-Area">{!! $lookbook->articles[0]->detail !!}</div> 
             <div class="learn">
               <a href="" class="text-uppercase">learn more</a>
             </div>
@@ -227,24 +192,22 @@
       </div>
       <div class="col-md-6 p-0">
         <div class="lookbook-img">
-          <img src="{{ asset('assets/client') }}/img/business-woman.png" alt="">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $lookbook->articles[0]->avatar }}" alt="">
         </div>
       </div>
 
       <div class="col-md-6 p-0">
         <div class="lookbook-img">
-          <img src="{{ asset('assets/client') }}/img/men-style.png" alt="">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $lookbook->articles[1]->avatar }}" alt="">
         </div>
       </div>
       <div class="col-lg-6 col-md-6 p-0">
         <div class="col-lg-9 mx-auto">
           <div class="lookbook-content">
-            <h3 class="text-uppercase">travel in style</h3>
-            <h2 class="text-uppercase display-4">men styled outfits</h2>
+            <h3 class="text-uppercase">{{ $lookbook->articles[1]->name }}</h3>
+            <h2 class="text-uppercase display-4">{!! $lookbook->articles[1]->description !!}</h2>
             <div class="line"></div>
-            <p>Use this text to share information about your brand with your customers.
-              Describe a product, share announcements, or welcome customers to your
-              store.</p>
+            <div class="text-Area">{!! $lookbook->articles[1]->detail !!}</div>
             <div class="learn">
               <a href="" class="text-uppercase">learn more</a>
             </div>
@@ -264,16 +227,16 @@
         @foreach ($articleReview->articles as $item)
         <div class="item">
           <div class="card-customer card border-0 mx-auto">
-            <img src="{{ asset('/media/articles') }}/{{ $item->avatar }}" class="card-img" alt="">
+            <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar }}" class="card-img" alt="">
             <div class="card-body">
               <div class="card-name text-capitalize text-center">{{ $item->name }}</div>
               <div class="card-job text-capitalize text-center">{!! $item->description !!}</div>
-              <p class="card-text">{!! $item->detail !!}</p>
+              <div class="card-text">{!! $item->detail !!}</div>
             </div>
           </div>
         </div>
         @endforeach
-        
+
       </div>
       <!-- quote -->
       <div class="quote">
@@ -282,7 +245,7 @@
       </div>
       <div class="cmt text-center">
         <div class="ava-cmt">
-          <img src="{{ asset('media/articles') }}/{{ $quote->avatar }}" alt="">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $quote->avatar }}" alt="">
         </div>
         <div class="cmt-name">
           <p class="text-capitalize font-weight-bold">{{ $quote->name }}</p>
@@ -296,41 +259,17 @@
     <div class="line"></div>
     <div class="container">
       <div id="logo-partner" class="owl-carousel owl-theme">
+        @forelse ($partner as $item)
         <div class="item">
           <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/color-company.png" alt="">
+            <img src="/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $item->name }}" alt="">
           </div>
         </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/king.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/trend.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/brilliant-color.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/inside.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/fashion-color.png" alt="">
-          </div>
-        </div>
-        <div class="item">
-          <div class="logo-list">
-            <img src="{{ asset('assets/client') }}/img/telenor.png" alt="">
-          </div>
-        </div>
+        @empty
+            
+        @endforelse
+        
+        
       </div>
     </div>
     <div class="line"></div>
@@ -364,7 +303,7 @@
       <div id="new-slide" class="owl-carousel owl-theme">
         @foreach ($articles as $item)
         <div class="card-news card-border-0 news-item">
-          <img src="{{ asset('media/articles') }}/{{ $item->avatar}}" alt="" class="card-img-top">
+          <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar}}" alt="" class="card-img-top">
           <div class="card-body">
             <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
             <div class="card-text more">{!! $item->description !!}</div>
@@ -372,7 +311,7 @@
           </div>
         </div>
         @endforeach
-        
+
       </div>
     </div>
   </section>
@@ -388,7 +327,7 @@
             $(this).parents('.news-item').find(".more").text(content);
         }
       });
-      
+
  </script>
-      
+
   @endpush

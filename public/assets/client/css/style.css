@@ -154,7 +154,7 @@ body {
       padding: 200px 0; }
 
 #sale {
-  background: url("../img/hot-sale.png") no-repeat center;
+  /* background: url("../img/hot-sale.png") no-repeat center; */
   background-size: cover;
   padding: 60px 0;
   margin-bottom: 128px; }
@@ -303,7 +303,10 @@ body {
     width: 100%; }
   #lookbook .lookbook-content {
     padding-top: 150px; }
-
+#lookbook .text-Area p {
+  margin-bottom: 0;
+  width: 390px;
+}
 #customer {
   margin-top: 140px;
   position: relative; }
@@ -452,3 +455,6 @@ body {
   #main-footer .policy {
     padding-top: 140px;
     line-height: 2.5; }
+    .dropdown-menu.show {
+      left: -25px !important;
+  }

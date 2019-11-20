@@ -57,7 +57,25 @@
                             </div>
                         </div>
 
+                    <ul class="thumbnail mr-3" style="height: 95%;">
+                      <li data-target="#product_details_slider" data-slide-to="0"
+                        style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                      </li>
 
+                    </ul>
+
+                  </ol>
+                  <button onclick="scrollDown()" class="down-button text-center ml-4" style="z-index: 999;"><i
+                      class="fas fa-angle-down"></i>
+                  </button>
+                </div>
+                <div class="col-lg-9">
+                  <div class="carousel-inner">
+                    <div class="carousel-item active py-3" style="max-height: 600px;">
+                      <a class="gallery_img" href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
+                        <img class="d-block w-75 mx-auto" style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
+                          src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}" alt="{{ $product->avatar }}">
+                      </a>
                     </div>
                 </div>
             </div>

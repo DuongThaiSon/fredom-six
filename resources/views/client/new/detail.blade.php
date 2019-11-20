@@ -21,7 +21,7 @@
               <span>{{ $detail->updated_at ?? ''}}</span>
             </div>
           </div>
-          <div class="detail-content">
+          <div class="detail-content text-justify">
             <h2 class="detail-title font-weight-bold">{{ $detail->name??'' }}</h2>
             {!! $detail->detail ??'' !!}
           </div>
@@ -48,7 +48,7 @@
           <div class="more-news">
             <a href="{{ route('client.news.detail', $newest->slug )}}">
               <div class="news-img">
-                <img src="{{ asset('media/articles') }}/{{ $newest->avatar }}" alt="">
+                <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $newest->avatar }}" alt="">
               </div>
               <p class="news-title font-weight-bold">{{ $newest->name }}</p>
             </a>

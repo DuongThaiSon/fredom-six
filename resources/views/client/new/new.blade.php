@@ -13,7 +13,7 @@
         <!-- slide -->
         @forelse ($slide as $image)
           <div class="carousel-item {{ $loop->first ? 'active':'' }} "
-            style="background:url('{{ asset('/media/uploadImg') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
+            style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
             <div class="container">
               <div class="row">
                 <div class="col-6"></div>
@@ -50,7 +50,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="news-img">
-            <img src="{{ asset('media/articles') }}/{{ $new->avatar }}" alt="{!! $new->name !!}">
+            <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $new->avatar }}" alt="{!! $new->name !!}">
           </div>
         </div>
         <div class="col-12 col-md-6">

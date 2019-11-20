@@ -1,0 +1,14 @@
+  .ratingStars{
+    font-size: 20px;
+    color: grey;
+    cursor: pointer;
+    text-shadow: 2px 3px  #ddd;
+  }
+  .hoverStars{
+    color: #fd0;
+    font-size: 20px;
+  }
+  .clickStars{
+    color: #fd0;
+    font-size: 20px;
+  }

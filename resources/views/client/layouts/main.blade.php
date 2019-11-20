@@ -2,36 +2,38 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ $title }}</title>
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.carousel.min.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.theme.default.min.css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/aos.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/animate.min.css" />
-  <link rel="stylesheet" type="text/css" href="{{ asset('assets/client') }}/css/slick.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/style.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/pages.css" />
-  <link rel="stylesheet" href="{{ asset('assets/client') }}/css/responsive.css" />
-  
-  @stack('css')
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $title }}</title>
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/aos.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/client') }}/css/slick.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/style.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/pages.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/responsive.css" />
+    <link rel="stylesheet" href="{{ asset('assets/client') }}/css/star-rating.css" />
+    @stack('css')
 </head>
 
 <body>
-  <!-- header -->
-  
+    <!-- header -->
+
     @include('client.layouts.header.header')
 
-  <!-- contact -->
+    <!-- contact -->
     @yield('content')
-  
+
     @include('client.layouts.footer.footer')
-  
+
     <script src="{{ asset('assets/client') }}/js/jquery.min.js"></script>
     <script src="{{ asset('assets/client') }}/js/popper.min.js"></script>
     <script src="{{ asset('assets/client') }}/js/bootstrap.min.js"></script>

@@ -34,9 +34,9 @@
             </div>
             <div class="share">
               <span class="share-link text-uppercase font-weight-bold">share this: </span>
-              <a target="_blank" href="https://twitter.com/intent/tweet?text={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-twitter"></i></a>
-              <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ route('client.news.detail', $detail->id??'' )}}&media=moolez.vn/{{ $detail->avatar??''}}&description="><i class="fab fa-pinterest"></i></a>
-              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('client.news.detail', $detail->id??'' )}}"><i class="fab fa-facebook-square"></i></a>
+              <a target="_blank" href="https://twitter.com/intent/tweet?text={{ route('client.news.detail', $detail->slug??'' )}}"><i class="fab fa-twitter"></i></a>
+              <a target="_blank" href="https://www.pinterest.com/pin/create/button/?url={{ route('client.news.detail', $detail->slug??'' )}}&media=moolez.vn/{{ $detail->avatar??''}}&description="><i class="fab fa-pinterest"></i></a>
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('client.news.detail', $detail->slug??'' )}}"><i class="fab fa-facebook-square"></i></a>
             </div>
           </div>
           <hr>
@@ -46,7 +46,7 @@
           <!-- single news -->
           @forelse ($newests as $newest)
           <div class="more-news">
-            <a href="{{ route('client.news.detail', $newest->id )}}">
+            <a href="{{ route('client.news.detail', $newest->slug )}}">
               <div class="news-img">
                 <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $newest->avatar }}" alt="">
               </div>

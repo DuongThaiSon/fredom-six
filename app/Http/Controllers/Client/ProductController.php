@@ -13,17 +13,21 @@ class ProductController extends Controller
 {
     public function newArrival(Request $request)
 
-    {   
+    {
         $productNew = Product::where('is_new', 1)->simplePaginate(8);
         return view('client.products.newArrival', compact('productNew'));
     }
-    Public function detail($id)
+    Public function detail($slug_cat = null, $slug_view = null)
     {
-        $products = Product::where('product_code', 'like', '%'.'GN'.'%')->simplePaginate(4);
-        $reviews = Review::where('is_public', 1)->orderBy('order')->paginate(10);
-        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute'])->findOrFail($id);
+        $category = Category::where([
+            ['type', 'product'],
+            ['slug', $slug_cat]
+        ])->first();
+        $products = $category->products()->where('slug', '<>', $slug_view)->take(4)->get();
+        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments'])->where('slug', $slug_view)->firstOrFail();
+        $rating = $product->comments()->avg('rating');
         // print_r($product->toArray());die;
-        return view('client.products.detail', compact('product','reviews', 'products'));
+        return view('client.products.detail', compact('product', 'category', 'products', 'rating'));
     }
     public function review(Request $request)
     {

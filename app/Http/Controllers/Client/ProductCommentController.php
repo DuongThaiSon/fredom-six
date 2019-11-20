@@ -4,31 +4,23 @@ namespace App\Http\Controllers\Client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use App\Models\Image;
+use App\Models\Product;
 
-class NewController extends Controller
+class ProductCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        $news = Article::where([
-            ['category_id', '=', '2'],
-            ['is_public', '=', '1']
-        ])->orderBy('id','desc')->paginate(3);
-        $slide = Image::where([
-            ['imageable_id', '=', '2'],
-            ['is_public', '=', '1']
-        ])->orderBy('order', 'desc')->get();
-        // $firstSlide = $slide = Image::where([
-        //     ['imageable_id', '=', '2'],
-        //     ['is_public', '=', '1']
-        // ])->orderBy('id')->first();
-        return view('client.new.new', compact('news', 'slide'));
+        $comments = $product->comments()->orderBy('created_at', 'desc')->simplePaginate(5);
+        $comments->author = $comments->map(function($q) {
+            return $q->createdBy;
+        });
+
+        return view('client.products.comments', compact('comments'))->render();
     }
 
     /**
@@ -47,9 +39,16 @@ class NewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Product $product)
     {
-        //
+        // $product = Product::findOrFail($request->productId);
+        $comment = $product->comments()->create([
+            'content' => $request->comment,
+            'user_id' => $request->currentUser,
+            'rating' => $request->rating
+        ]);
+
+        return response()->json(compact('comment'), 200);
     }
 
     /**
@@ -58,17 +57,9 @@ class NewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug_view)
+    public function show($id)
     {
-        $detail = Article::where('slug', $slug_view)->firstOrFail();
-        $newests = Article::where([
-            ['id', '<>', $detail->id],
-            ['category_id', '=', '2'],
-            ['is_public', '=', '1'],
-            ['is_new', '=', '1']
-        ])->orderBy('id','desc')->limit(3)->get();
-
-        return view('client.new.detail', compact('newests', 'detail'));
+        //
     }
 
     /**

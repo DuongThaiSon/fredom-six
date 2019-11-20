@@ -35,10 +35,10 @@
                 </div>
               </div>
             </div>
-          </div>            
+          </div>
         @empty
         @endforelse
-       
+
       </div>
     </div>
   </div>
@@ -61,18 +61,18 @@
               <span>{{ $new->updated_at}}</span>
             </div>
             <p class="title-detail">{!! $new->description !!}​</p>
-            <a href="{{ route('client.news.detail', $new->id) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
+            <a href="{{ route('client.news.detail', $new->slug) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
         </div>
       </div>
-          
+
       @empty
           Không có tin tức nào.
       @endforelse
-    
+
       <!-- pagination -->
       <div class="row mb-0 justify-content-end">
-       
+
         {{ $news->links() }}
       </div>
     </div>

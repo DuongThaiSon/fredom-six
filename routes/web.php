@@ -21,15 +21,17 @@ Route::group([
         'as' => 'client.introduces.index',
         'uses' => 'ArticleController@index'
     ]);
+    Route::group(['prefix' => 'news'], function () {
+        Route::get('/',[
+            'as' => 'client.news.index',
+            'uses' => 'NewController@index'
+        ]);
+        Route::get('/{slug_view?}',[
+            'as' => 'client.news.detail',
+            'uses' => 'NewController@show'
+        ]);
+    });
 
-    Route::get('news',[
-        'as' => 'client.news.index',
-        'uses' => 'NewController@index'
-    ]);
-    Route::get('news/{id}',[
-        'as' => 'client.news.detail',
-        'uses' => 'NewController@show'
-    ]);
 
     Route::get('showrooms',[
         'as' => 'client.showrooms.index',
@@ -47,19 +49,20 @@ Route::group([
         'as' => 'client.products.new',
         'uses' => 'ProductController@newArrival'
     ]);
-    Route::get('products/{slug_cat?}', [
-        'as' => 'client.products.category',
-        'uses' => 'ProductController@productCat'
-    ]);
-    Route::get('products/detail/{id}',[
-        'as' => 'client.products.detail',
-        'uses' => 'ProductController@detail'
-    ]);
-    Route::post('products/review',[
-        'as' => 'client.review.review',
-        'uses' => 'ProductController@review'
-    ]);
-    
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('{slug_cat?}', [
+            'as' => 'client.products.category',
+            'uses' => 'ProductController@productCat'
+        ]);
+        Route::get('{slug_cat}/{slug_view?}',[
+            'as' => 'client.products.detail',
+            'uses' => 'ProductController@detail'
+        ]);
+        Route::resource('{product}/reviews', 'ProductReviewController');
+        Route::resource('{product}/comments', 'ProductCommentController');
+    });
+
+
     Route::get('cart', 'CartController@index');
     Route::post('cart/add', 'CartController@add');
     Route::post('cart/update', 'CartController@update');
@@ -68,8 +71,9 @@ Route::group([
     Route::post('cart/store', 'CartController@store');
     Route::get('footer', 'HomeController@footer');
 
-    
-    Route::get('home', 'HomeController@index');
+
+    Route::get('/', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
     Route::group([
         'namespace' => 'Auth'
     ], function() {
@@ -105,11 +109,11 @@ Route::group([
             'as' => 'client.reset.password',
             'uses' => 'ResetPasswordController@reset'
         ]);
-    
+
         Route::get('password/reset/{token}',[
             'as' => 'client.password.reset',
             'uses' => 'ResetPasswordController@showResetFormClient'
         ]);
     });
-   
+
 });

@@ -9,11 +9,6 @@
     }
 </style>
 <div class="d-flex">
-    <!-- Logo -->
-    <div id="logo">
-        <img src="img/Group.png" alt="" />
-    </div>
-
     <!-- Login -->
     <div id="login-form" >
         <div class="form form-login" >

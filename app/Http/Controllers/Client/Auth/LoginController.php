@@ -42,6 +42,7 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+        // print_r('a');die;
         $this->validate($request,[
             'email' => 'required|email',
             'password' => 'required'
@@ -53,7 +54,7 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)) {
             return redirect('/home')->with('win', 'Login Successful');
         }else {
-            return redirect()->back()->with('fail',"Username or password is incorrect or Your account is'n active yet");
+            return redirect()->back()->with('fail',"Email hoặc mật khẩu không chính xác");
         }
     }
 

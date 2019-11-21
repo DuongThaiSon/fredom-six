@@ -34,7 +34,7 @@
           <!-- map modal -->
           <div class="modal fade" id="map-north-{{ $loop->iteration }}" style="top: 150px;">
             <div class="modal-dialog">
-              <div class="modal-content" style="max-height:300px !important;">
+              <div class="modal-content" style="max-height:300px !important; margin-top: 15%">
                   {!! $showmb->map !!}
               </div>
             </div>
@@ -74,7 +74,7 @@
           <!-- map modal -->
           <div class="modal fade" id="map-central-{{ $loop->iteration }}" style="top: 150px;">
             <div class="modal-dialog">
-              <div class="modal-content" style="max-height:300px !important;">
+              <div class="modal-content" style="max-height:300px !important; margin-top: 15%">
                   {!! $showmt->map !!}
               </div>
             </div>
@@ -114,7 +114,7 @@
           <!-- map modal -->
           <div class="modal fade" id="map-south-{{  $loop->iteration  }}" style="top: 150px;">
             <div class="modal-dialog">
-              <div class="modal-content" style="max-height:300px !important;">
+              <div class="modal-content" style="max-height:300px !important; margin-top: 15%">
                   {!! $showmn->map !!}
               </div>
             </div>

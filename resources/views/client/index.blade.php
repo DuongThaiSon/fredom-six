@@ -124,8 +124,8 @@
 <!-- gift -->
 <section id="gift">
     <div class="gift-image">
-        <a href="#"><img src="{{ asset('assets/client') }}/img/gift.png" alt=""></a>
-        <h1 class="text-uppercase display-3">gifts</h1>
+        <a href="{{ route('client.products.category', ['slug_cat' => 'gifts']) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $gifts->avatar }}" alt=""></a>
+        <h1 class="text-uppercase display-3">{{ $gifts->name }}</h1>
     </div>
 </section>
 <!-- mix & match -->

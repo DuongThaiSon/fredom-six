@@ -31,7 +31,8 @@ class HomeController extends Controller
         $luxury = Category::find(19);
         $business = Category::find(20);
         $classic = Category::find(21);
+        $gifts = Category::find(22);
         // print_r($partner->toArray());die;
-        return view('client.index', compact('articles','articleReview', 'slide', 'articleIntro', 'quote', 'products', 'lookbook', 'partner','sale', 'saleBanner', 'luxury', 'business', 'classic'));
+        return view('client.index', compact('articles','articleReview', 'slide', 'articleIntro', 'quote', 'products', 'lookbook', 'partner','sale', 'saleBanner', 'luxury', 'business', 'classic', 'gifts'));
     }
 }

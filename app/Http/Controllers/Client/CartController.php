@@ -26,8 +26,16 @@ class CartController extends Controller
         $cartItems = Cart::getContent();
         // print_r($cartItems);die;
         $productIds = $cartItems->pluck('id');
-        $relatedCategory = Category::with(['products'])->findOrFail($cartItems->first()->attributes->category_id);
-        $product = $relatedCategory->products()->whereNotIn('id', $productIds)->take(4)->get();
+        if(count($cartItems) > 0)
+        {
+            $relatedCategory = Category::with(['products'])->findOrFail($cartItems->first()->attributes->category_id);
+            $product = $relatedCategory->products()->whereNotIn('id', $productIds)->take(4)->get();
+
+        }
+        else
+        {
+            $product = Product::take(4)->get();
+        }
         $product = $product->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;

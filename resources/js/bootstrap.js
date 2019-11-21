@@ -6,10 +6,12 @@ require('jquery-ui/ui/widgets/sortable.js')
 require('popper.js');
 require('bootstrap');
 require('bootstrap-select');
+require('bootstrap-notify');
 require('jasny-bootstrap/dist/js/jasny-bootstrap');
 window.accounting = require('accounting/accounting');
 require('./simpleMoneyFormat');
 window.flatpickr = require("flatpickr");
+window.Swal = require('sweetalert2')
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

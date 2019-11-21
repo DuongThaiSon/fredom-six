@@ -147,9 +147,9 @@
 <script>
     $(".options-list").click(function () {
       if ($('.checkbox-option:visible').length)
-        $('.checkbox-option').slideToggle();
+        $('.checkbox-option').fadeToggle(1500);
       else
-        $('.checkbox-option').slideToggle();
+        $('.checkbox-option').fadeToggle(1500);
     })
 
 </script>

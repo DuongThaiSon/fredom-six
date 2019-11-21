@@ -151,7 +151,7 @@ var postComment = function postComment() {
           // $('.product-comment').remove();
           alert('Cảm ơn bạn đã đánh giá sản phẩm!');
           $('.btn-comment').addClass('d-none');
-          $('.btn-fix-review').removeClass('.d-none');
+          $('.btn-fix-review').removeClass('d-none');
           loadComment();
         }
       });

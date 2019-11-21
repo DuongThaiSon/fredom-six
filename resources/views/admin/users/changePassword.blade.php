@@ -5,7 +5,7 @@
           <div class="container-fluid" style="background: #e5e5e5;">
             <div class="row justify-content-center">
              <div class="col-6">
-              <form id="change-password-form" method="POST" action="{{ route('password.change') }}">
+              <form id="change-password-form" method="POST" action="{{ route('admin.password.change') }}">
                 @csrf
 
                 <h1>ĐỔI MẬT KHẨU</h1>

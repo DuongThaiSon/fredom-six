@@ -10,19 +10,19 @@
             </div>
             <div class="col-lg-6 col-md-7">
             <ul class="nav nav-head float-right">
-                <li class="nav-item p-0">
+                {{-- <li class="nav-item p-0">VNĐ
                 <select name="" id="" class="head-select">
                     <option value="">VNĐ</option>
                     <option value="">$</option>
                     <option value="">£</option>
                 </select>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                <select name="" id="" class="head-select">
+                {{-- <select name="" id="" class="head-select">
                     <option value="">Vietnamese</option>
                     <option value="">United States</option>
                     <option value="">England</option>
-                </select>
+                </select> --}}
                 @guest('web')
                     </li>
                     <li class="nav-item">
@@ -31,7 +31,7 @@
                     <li class="nav-item">
                     <a href="{{ route('client.loginform')}}">Đăng nhập</a>
                     </li>
-                @endguest 
+                @endguest
                 @auth('web')
                     </li>
                     <li class="nav-item">
@@ -49,11 +49,11 @@
                             </div>
                         </div>
                     </li>
-                    
-      
+
+
                 @endauth
-                
-            
+
+
                 {{-- <li class="nav-item p-0">
                 <button type="button" class="btn-search">
                     <i class="fas fa-search"></i>
@@ -85,7 +85,7 @@
                         <a href="{{ $item->link }}" class="nav-link text-uppercase">{{ $item->name }}</a>
                     </li>
                 @endforeach
-                
+
             </ul>
             <div class="cart">
                 <div class="cart-icon">

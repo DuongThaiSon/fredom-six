@@ -57,6 +57,7 @@ class CartController extends Controller
                 'discount' => $product->discount,
                 'category_id' => $product->categories[0]->id,
                 'category' => $product->categories[0]->name,
+                'size' => $request->size,
             )
         ));
 

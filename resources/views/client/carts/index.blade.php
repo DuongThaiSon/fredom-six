@@ -56,7 +56,7 @@
                 <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
                   class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }} ,
                   SKU: {{ $item->attributes->product_code }} ,
-                  Đen - cỡ nhỏ</a>
+                  cỡ: {{ $item->attributes->size }}</a>
               </div>
             </td>
             <td class="font-weight-bold text-center">{{ number_format($item->price)}}</td>

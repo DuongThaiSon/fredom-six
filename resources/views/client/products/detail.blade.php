@@ -259,42 +259,42 @@
                         <div class="comment-section ml-5" style="flex: 0 0 700px;">
                             <form action="" class="comment-form" id="comment-form">
                                 @php
-                                $currentUserReview = App\Models\Review::where([['user_id',
-                                auth()->user()->id],['product_id', $product->id]])->firstOrFail();
+                                    // print_r($product->id);die;
+                                    $currentUserReview = App\Models\Review::where([['user_id', auth()->user()->id],['product_id', $product->id]])->first();
                                 @endphp
                                 <fieldset>
                                     <textarea class="form-control comment-zone" rows="5"
-                                        placeholder="Nội dung....">{{ $currentUserReview->content??'' }}</textarea>
+                                        placeholder="Nội dung....">{{ $currentUserReview->content ??'' }}</textarea>
                                     <input type="hidden" name="current-user" value="{{ Auth::user()->id ??'' }}">
                                     <div class="d-flex justify-content-between">
                                         <div id='rating' class='rating'>
                                             <span class="pt-4">Đánh giá:</span>
                                             <span
-                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 1 ? 'clickStars' : '' }}'
+                                                class='ratingStars rate-product {{  !empty($currentUserReview->rate) && $currentUserReview->rate >= 1 ? 'clickStars' : '' }}'
                                                 data-star="1">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </span>
                                             <span
-                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 2 ? 'clickStars' : '' }}'
+                                                class='ratingStars rate-product {{  !empty($currentUserReview->rate) && $currentUserReview->rate >= 2 ? 'clickStars' : '' }}'
                                                 data-star="2">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </span>
                                             <span
-                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 3 ? 'clickStars' : '' }}'
+                                                class='ratingStars rate-product {{  !empty($currentUserReview->rate) && $currentUserReview->rate >= 3 ? 'clickStars' : '' }}'
                                                 data-star="3">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </span>
                                             <span
-                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 4 ? 'clickStars' : '' }}'
+                                                class='ratingStars rate-product {{  !empty($currentUserReview->rate) && $currentUserReview->rate >= 4 ? 'clickStars' : '' }}'
                                                 data-star="4">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </span>
                                             <span
-                                                class='ratingStars rate-product {{  $currentUserReview->rate >= 5 ? 'clickStars' : '' }}'
+                                                class='ratingStars rate-product {{  !empty($currentUserReview->rate) && $currentUserReview->rate >= 5 ? 'clickStars' : '' }}'
                                                 data-star="5">
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </span>
-                                            <input type="hidden" name="rating" value="{{ $currentUserReview->rate }}">
+                                            <input type="hidden" name="rating" value="{{ $currentUserReview->rate ??'' }}">
                                         </div>
                                         <div>
                                             <button
@@ -359,27 +359,27 @@
                                     <!-- rating -->
                                     <div id='rating' class='rating'>
                                         <span
-                                            class='ratingStars rate-product {{  $item->rate >= 1 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{  $item->rate >= 1 ? 'clickStars' : '' }}'
                                             data-star="1">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars rate-product {{  $item->rate >= 2 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{  $item->rate >= 2 ? 'clickStars' : '' }}'
                                             data-star="2">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars rate-product {{  $item->rate >= 3 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{  $item->rate >= 3 ? 'clickStars' : '' }}'
                                             data-star="3">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars rate-product {{  $item->rate >= 4 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{  $item->rate >= 4 ? 'clickStars' : '' }}'
                                             data-star="4">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars rate-product {{  $item->rate >= 5 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{  $item->rate >= 5 ? 'clickStars' : '' }}'
                                             data-star="5">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>

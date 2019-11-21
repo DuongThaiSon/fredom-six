@@ -27,7 +27,11 @@ class CartController extends Controller
         // print_r($cartItems);die;
         $productIds = $cartItems->pluck('id');
         $relatedCategory = Category::with(['products'])->findOrFail($cartItems->first()->attributes->category_id);
-        $product = $relatedCategory->products()->whereNotIn('id', $productIds)->simplePaginate(4);
+        $product = $relatedCategory->products()->whereNotIn('id', $productIds)->take(4)->get();
+        $product = $product->map(function($q) {
+            $q->rate = $q->reviews()->avg('rate');
+            return $q;
+        });
 
         return view('client.carts.index', compact('cartItems', 'product'));
     }

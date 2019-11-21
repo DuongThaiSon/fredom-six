@@ -146,19 +146,19 @@
                       class="product-name">{{ $item->name }}</a>
                     <!-- rating -->
                     <div id='rating' class='rating'>
-                        <span class='ratingStars '>
+                        <span class='ratingStars {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars '>
+                        <span class='ratingStars {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars '>
+                        <span class='ratingStars {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars '>
+                        <span class='ratingStars {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars '>
+                        <span class='ratingStars {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
                     </div>

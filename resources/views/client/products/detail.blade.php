@@ -385,7 +385,7 @@
                                     <!-- price -->
                                     <div class="product-price">
                                         <span
-                                            class="{{ ($item->discount > 0)?'old-price':'new-price' }}" style="text-decoration: line-through; font-size: 13px;">{{ number_format($item->price) }}&nbsp;&#8363;</span>
+                                            class="{{ ($item->discount > 0)?'old-price':'new-price' }}">{{ number_format($item->price) }}&nbsp;&#8363;</span>
                                         <span
                                             class="new-price">{{ (($item->discount > 0)?number_format($item->price-$item->price*$item->discount/100):'') }}&nbsp;&#8363;</span>
                                     </div>

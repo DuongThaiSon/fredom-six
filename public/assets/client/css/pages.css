@@ -278,7 +278,7 @@ input:focus {
       #product-option .options .checkbox-option .style-options {
        margin-right: 50px; }
       #product-option .options .checkbox-option .size-options {
- 
+
         margin-right: 24px; }
       #product-option .options .checkbox-option .size-options {
         margin: 0 85px 0 60px; }
@@ -877,3 +877,13 @@ input[type=number]::-webkit-outer-spin-button {
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg); }
+
+      .new-price {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .old-price {
+        text-decoration: line-through;
+        font-size: 13px;
+      }

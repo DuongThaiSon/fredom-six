@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('client.products.category', ['slug_cat' => $category->slug]) }}">Sản phẩm nữ</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('client.products.category', ['slug_cat' => $category->slug]) }}">{{ $category->name }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                         <a class="active">{{ $product->name }}</a>
                     </li>
@@ -160,16 +160,14 @@
                                 <div class="input-group-prepend">
                                     <span
                                         style="border-radius: 0 !important; background: #ffffff; border-right: none !important;font-size: 14px !important;"
-                                        class="input-group-text text-muted pr-0" id="basic-addon1">Kích
-                                        thước:
+                                        class="input-group-text text-muted pr-0" id="basic-addon1">Kích thước:
                                     </span>
                                 </div>
                                 <select class="form-control pl-0" name="size" id="size"
                                     style="border-left: 0 !important;" style="font-size: 14px;">
                                     @foreach ($product->productAttributeValues->where('productAttribute.name',
-                                    'Kích
-                                    cỡ') as $item)
-                                    <option value="{{ $item->value }}}">{{ $item->value ?? 'Đang cập nhập' }}
+                                    'Kích cỡ') as $item)
+                                    <option value="{{ $item->value }}">{{ $item->value ?? 'Đang cập nhập' }}
                                     </option>
                                     @endforeach
 
@@ -192,10 +190,10 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <input class="code form-control text-muted" type="text" placeholder="Mã ưu đãi"
                                     style="font-size: 14px !important;">
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="btn-group my-3">
@@ -216,11 +214,11 @@
                             class="font-weight-bold">{{ $category->name }}</a>
                     </div>
                     <div class="social-network mt-2">
-                        <a href="#" class="btn social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="btn social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="btn social-link"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('client.products.detail', ['slug_cat' => $category->slug, 'slug_view' => $product->slug]) }}" class="btn social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/intent/tweet?url={{ route('client.products.detail', ['slug_cat' => $category->slug, 'slug_view' => $product->slug]) }}" class="btn social-link"><i class="fab fa-twitter"></i></a>
+                        {{-- <a href="#" class="btn social-link"><i class="fab fa-pinterest-p"></i></a>
                         <a href="#" class="btn social-link"><i class="fab fa-google-plus-g"></i></a>
-                        <a href="#" class="btn social-link"><i class="fab fa-tumblr"></i></a>
+                        <a href="#" class="btn social-link"><i class="fab fa-tumblr"></i></a> --}}
                     </div>
                 </form>
             </div>
@@ -240,10 +238,10 @@
                     <a class="nav-link text-muted" id="chart-tab" data-toggle="tab" href="#chart" role="tab"
                         aria-controls="chart" aria-selected="false">Size Chart</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link text-muted" id="showroom-tab" data-toggle="tab" href="#showroom" role="tab"
                         aria-controls="showroom" aria-selected="false">Showroom</a>
-                </li>
+                </li> --}}
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
@@ -387,9 +385,9 @@
                                     <!-- price -->
                                     <div class="product-price">
                                         <span
-                                            class="{{ ($item->discount > 0)?'old-price':'new-price' }}">{{ number_format($item->price) }}</span>
+                                            class="{{ ($item->discount > 0)?'old-price':'new-price' }}" style="text-decoration: line-through; font-size: 13px;">{{ number_format($item->price) }}&nbsp;&#8363;</span>
                                         <span
-                                            class="new-price">{{ (($item->discount > 0)?number_format($item->price-$item->price*$item->discount/100):'') }}</span>
+                                            class="new-price">{{ (($item->discount > 0)?number_format($item->price-$item->price*$item->discount/100):'') }}&nbsp;&#8363;</span>
                                     </div>
                                 </div>
                                 <div class="list-group list-group-flush">

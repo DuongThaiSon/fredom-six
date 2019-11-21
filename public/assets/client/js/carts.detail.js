@@ -4,13 +4,14 @@ $(document).ready(function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-  
+
       $('.btn-buy-now').click(function(e)
       {
         e.preventDefault();
         let data = {
           id: $(this).attr('data-id'),
           quantity: $("input[type=number]").val(),
+          size: $('#size').val(),
         }
         $.ajax({
           url: '/cart/add',
@@ -21,9 +22,9 @@ $(document).ready(function() {
             location.href='/cart';
           },
           error: function(){
-  
+
           }
-          
+
         });
       });
       $('.btn-add-cart').click(function(e)
@@ -41,11 +42,11 @@ $(document).ready(function() {
               $('.cart-items').text(scs.quantity);
             },
             error: function(){
-  
+
             }
-            
+
           });
         });
-  
-      
+
+
 })

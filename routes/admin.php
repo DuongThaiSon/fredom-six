@@ -385,8 +385,14 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'backups.download',
             'uses' =>'BackupController@download'
         ]);
+        Route::delete('delete', [
+            'as' => 'backups.destroy',
+            'uses' => 'BackupController@destroy'
+        ]);
     });
-    Route::resource('backups', 'BackupController');
+    Route::resource('backups', 'BackupController', [
+        'only' => ['index', 'store']
+    ]);
 });
 
 

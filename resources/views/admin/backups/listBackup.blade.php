@@ -28,7 +28,10 @@
                 </a>
                 @endif
 
-                <a class="btn btn-sm btn-link px-2 py-0" data-toggle="tooltip" title="Xóa">
+                <a href="{{ route('admin.backups.destroy', [
+                    'disk' => $item['disk'],
+                    'file_name' => urlencode($item['file_name'])
+                    ]) }}" class="btn btn-sm btn-link px-2 py-0 btn-delete-backup" data-toggle="tooltip" title="Xóa">
                     <i class="material-icons">delete_forever</i>
                 </a>
             </td>

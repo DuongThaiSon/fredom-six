@@ -153,12 +153,20 @@ class BackupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $disk = Storage::disk($request->disk);
+        $file_name = urldecode($request->input('file_name'));
+        if ($disk->exists($file_name)) {
+            $disk->delete($file_name);
+            $backups = $this->collectBackupFiles();
+            $backups = collect($backups)->paginate(15);
+            return view('admin.backups.listBackup', compact('backups'));
+        } else {
+            abort(404, trans('backpack::backup.backup_doesnt_exist'));
+        }
     }
 
     /**

@@ -1,4 +1,9 @@
 $(document).ready(function() {
+    btnCreateBackup();
+    btnDeleteBackup();
+});
+
+let btnCreateBackup = function() {
     $(".btn-create-backup").on("click.btnCreateBackup", function(e) {
         e.preventDefault();
 
@@ -54,11 +59,52 @@ $(document).ready(function() {
                                 "Đã tạo sao lưu cho thời điểm hiện tại",
                                 "success"
                             ).then(function() {
-                                $("#table-list-backup").html(scs);
+                                $("#table-list-backup").html(scs)
+                                btnDeleteBackup()
                             });
                         }
                     });
                 }
             });
     });
-});
+};
+
+let btnDeleteBackup = function() {
+    $(".btn-delete-backup").off("click.btnDeleteBackup");
+    $(".btn-delete-backup").on("click.btnDeleteBackup", function(e) {
+        e.preventDefault();
+        const deleteBackupUrl = $(this).attr("href");
+
+        Swal.fire({
+            title: "Xóa tệp sao lưu này?",
+            text: "Bạn sẽ không thể lấy lại tệp đã xóa!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "",
+            confirmButtonText: "Đúng, xóa nó đi!",
+            cancelButtonText: "Hủy",
+            showLoaderOnConfirm: true,
+            preConfirm: () => {
+                return $.ajax({
+                    url: deleteBackupUrl,
+                    method: "POST",
+                    data: {
+                        _method: "DELETE"
+                    },
+                    success: response => {
+                        return response;
+                    },
+                    error: error => {
+                        Swal.showValidationMessage(`Request failed: ${error}`);
+                    }
+                });
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then(result => {
+            if (result.value) {
+                $("#table-list-backup").html(result.value);
+            }
+        });
+    });
+};

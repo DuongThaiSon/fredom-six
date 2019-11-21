@@ -20,13 +20,13 @@ class ArticleController extends Controller
         $ceo = Image::where([
             ['imageable_id', '=', '1'],
             ['is_public', '=', '1']
-        ])->orderBy('order','desc')->first();
+        ])->orderBy('order','desc')->firstOrFail();
         $slideAbout = Image::where([
             ['imageable_id', '=', '3'],
             ['is_public', '=', '1']
         ])->orderBy('order', 'desc')->get();
         $ourworks = Article::where('category_id', 3)->orderBy('order')->get();
-        $about = Article::where('category_id', 4)->orderBy('order')->first();
+        $about = Article::where('category_id', 4)->orderBy('order')->firstOrFail();
         return view('client.introduce.introduce', compact('about', 'ourworks', 'ceo', 'slideAbout'));
     }
 

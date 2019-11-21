@@ -19,6 +19,7 @@ class seed_articles_table extends Seeder
 
                 <p>B&ecirc;n cạnh đ&oacute;, kh&aacute;ch h&agrave;ng c&ograve;n được hưởng nhiều gi&aacute; trị gia tăng,v&agrave; dịch vụ kh&aacute;c biệt m&agrave; c&aacute;c h&atilde;ng kh&aacute;c chưa hoặc kh&ocirc;ng c&oacute;.</p>',
                 'is_public' => '1',
+                'slug' => 'ten-gioi-thieu-moolez',
                 'category_id' => '3',
                 'order' => '1',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -37,6 +38,7 @@ class seed_articles_table extends Seeder
                 
                 <p>Lu&ocirc;n nắm bắt v&agrave; dẫn đầu xu hướng, Moolez ti&ecirc;n phong tạo dựng phong c&aacute;ch, mang cả thế giới thời trang đến với người Việt.</p>',
                 'is_public' => '1',
+                'slug' => 'about-moolez',
                 'category_id' => '4',
                 'order' => '2',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -49,6 +51,7 @@ class seed_articles_table extends Seeder
                 'name' => 'SỨ MỆNH',
                 'detail' => '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>',
                 'is_public' => '1',
+                'slug' => 'su-menh',
                 'category_id' => '3',
                 'order' => '4',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -61,6 +64,7 @@ class seed_articles_table extends Seeder
                 'name' => 'TẦM NHÌN',
                 'detail' => '<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>',
                 'is_public' => '1',
+                'slug' => 'tam-nhin',
                 'category_id' => '3',
                 'order' => '5',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -75,6 +79,7 @@ class seed_articles_table extends Seeder
 
                 <p>B&ecirc;n cạnh đ&oacute;, kh&aacute;ch h&agrave;ng c&ograve;n được hưởng nhiều gi&aacute; trị gia tăng,v&agrave; dịch vụ kh&aacute;c biệt m&agrave; c&aacute;c h&atilde;ng kh&aacute;c chưa hoặc kh&ocirc;ng c&oacute;.</p>',
                 'is_public' => '1',
+                'slug' => 'gia-tri-cot-loi-van-hoa-doanh-nghiep-nang-luc',
                 'category_id' => '3',
                 'order' => '6',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -89,6 +94,7 @@ class seed_articles_table extends Seeder
 
                 <p>B&ecirc;n cạnh đ&oacute;, kh&aacute;ch h&agrave;ng c&ograve;n được hưởng nhiều gi&aacute; trị gia tăng,v&agrave; dịch vụ kh&aacute;c biệt m&agrave; c&aacute;c h&atilde;ng kh&aacute;c chưa hoặc kh&ocirc;ng c&oacute;.</p>',
                 'is_public' => '1',
+                'slug' => 'thong-diep-tu-nguoi-dung-dau',
                 'category_id' => '3',
                 'order' => '7',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -103,18 +109,19 @@ class seed_articles_table extends Seeder
                 'description' => '<p>Đ&aacute;nh bay cơn n&oacute;ng m&ugrave;a h&egrave; với ƯU Đ&Atilde;I tới 50%++ từ MOOLEZ, &aacute;p dụng DUY NHẤT tại​Showroom Trần Duy Hưng v&agrave; Nha Trang.​&nbsp;</p>',
                 'detail' => '<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 
-                <p style="text-align:center"><img alt="" src="https://nexus.leagueoflegends.com/wp-content/uploads/2017/07/LOL_CMS_107_Social_1200.jpg" style="height:630px; width:1200px" /></p>
+                <p style="text-align:center"><img alt="" src="https://moolez.vn/uploads/news/_large/Untitled0638-compressed.jpg" /></p>
                 
                 <p style="text-align:center">caption</p>
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
                 
-                <p style="text-align:center"><img alt="" src="https://nexus.leagueoflegends.com/wp-content/uploads/2017/07/LOL_CMS_107_Social_1200.jpg" style="height:630px; width:1200px" /></p>
+                <p style="text-align:center"><img alt="" src="https://moolez.vn/uploads/news/_large/Untitled0638-compressed.jpg" /></p>
                 
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&rsquo;s standard dummy text ever since. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>',
                 'is_new' => '1',
                 'avatar' => 'leotive5db1036230cf9.png',
                 'is_public' => '1',
+                'slug' => 'cang-dong-cang-re-thoi-bay-nang-he-voi-con-mua-sale-moolez',
                 'is_highlight' => '1',
                 'order' => '9',
                 'category_id' => '2',
@@ -132,6 +139,7 @@ class seed_articles_table extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
+                'slug' => 'dep-da-dung-day-phong-cach-cung-bo-office-bag-tu-moolez',
                 'order' => '10',
                 'category_id' => '2',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -148,6 +156,7 @@ class seed_articles_table extends Seeder
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
+                'slug' => 'biet-dai-ngot-ngao-699000d-danh-rieng-cho-quy-ong',
                 'order' => '11',
                 'category_id' => '2',
                 'updated_at' => '2019-11-18 00:54:54',
@@ -160,7 +169,7 @@ class seed_articles_table extends Seeder
                 'name' => 'Adam Smith',
                 'avatar' => 'business.png',
                 'description' => '<p>english&nbsp;teacher</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -177,7 +186,7 @@ class seed_articles_table extends Seeder
                 'name' => 'jennifer lopez',
                 'avatar' => 'customer2.png',
                 'description' => '<p>official</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -194,7 +203,7 @@ class seed_articles_table extends Seeder
                 'name' => 'Quỳnh nguyễn',
                 'avatar' => 'customer5.png',
                 'description' => '<p>blogger</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -211,7 +220,7 @@ class seed_articles_table extends Seeder
                 'name' => 'John smith',
                 'avatar' => 'customer4.png',
                 'description' => '<p>ceo</p>',
-                'detail' => '<p>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Tempora&nbsp;nostrum&nbsp;ad&nbsp;animi&nbsp;ipsam&nbsp;beatae&nbsp;ea&nbsp;voluptatum&nbsp;distinctio,&nbsp;ut&nbsp;suscipit&nbsp;quos.</p>',
+                'detail' => '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nostrum ad animi ipsam beatae ea voluptatum distinctio, ut suscipit quos.</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',

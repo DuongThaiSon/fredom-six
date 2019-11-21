@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('avatar', 100)->nullable();
             $table->string('unit', 100)->nullable();
             $table->string('product_code', 100)->nullable();
-            $table->string('description', 100)->nullable();
+            $table->text('description')->nullable();
             $table->text('detail')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);

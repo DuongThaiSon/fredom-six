@@ -131,7 +131,7 @@
               <div class="product">
                 <div class="card">
                   <div class="product-img">
-                    <a href="{{ route('client.products.detail', $item->id) }}"><img
+                    <a href="{{ route('client.products.detail', ['slug_cat' => $item->categories[0]->slug, 'slug_view' => $item->slug]) }}"><img
                         src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
@@ -142,32 +142,26 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <a href="{{ route('client.products.detail', $item->id) }}"
+                    <a href="{{ route('client.products.detail', ['slug_cat' => $item->categories[0]->slug, 'slug_view' => $item->slug]) }}"
                       class="product-name">{{ $item->name }}</a>
                     <!-- rating -->
-                    <div class="rating">
-                      <!-- <input name="stars1" id="e1" type="radio"> -->
-                      <label for="e1">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e2" type="radio"> -->
-                      <label for="e2">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e3" type="radio"> -->
-                      <label for="e3">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e4" type="radio"> -->
-                      <label for="e4">
-                        <i class="fas fa-star"></i>
-                      </label>
-                      <!-- <input name="stars1" id="e5" type="radio"> -->
-                      <label for="e5">
-                        <i class="fas fa-star"></i>
-                      </label>
+                    <div id='rating' class='rating'>
+                        <span class='ratingStars {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span class='ratingStars {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span class='ratingStars {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span class='ratingStars {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </span>
+                        <span class='ratingStars {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        </span>
                     </div>
-                    <div class="clear"></div>
                     <!-- price -->
                     <div class="product-price">
                       <span class="old-price">{{ $item->price }}</span>

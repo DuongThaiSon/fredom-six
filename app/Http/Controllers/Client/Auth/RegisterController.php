@@ -56,7 +56,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return redirect()->route('client.loginform')->with('success', 'You have successfully signed up');
+        return redirect()->route('client.loginform')->with('success', 'Đăng ký tài khoản thành công');
     }
     /**
      * Get a validator for an incoming registration request.

@@ -13,7 +13,7 @@
         <!-- slide -->
         @forelse ($slide as $image)
           <div class="carousel-item {{ $loop->first ? 'active':'' }} "
-            style="background:url('{{ asset('/media/uploadImg') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
+            style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
             <div class="container">
               <div class="row">
                 <div class="col-6"></div>
@@ -61,7 +61,7 @@
               <span>{{ $new->updated_at}}</span>
             </div>
             <p class="title-detail">{!! $new->description !!}​</p>
-            <a href="{{ route('client.news.detail', $new->id) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
+            <a href="{{ route('client.news.detail', $new->slug) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
         </div>
       </div>

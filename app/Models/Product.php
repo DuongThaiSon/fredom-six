@@ -23,6 +23,16 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\ProductAttributeValue', 'product_attribute_value', 'product_id', 'product_attribute_value_id');
     }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Comment', 'commentable');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
 }
 
 

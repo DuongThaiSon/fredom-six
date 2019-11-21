@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Cart as Order;
 
 class CartController extends Controller
 {
     public function index()
-    
+
     {
-        $product = Product::where('product_code', 'GN')->simplePaginate(4);
+        // Cart::clear();die;
+        // print_r($product);die;
         // $condition = new \Darryldecode\Cart\CartCondition(array(
         //     'name' => 'Khuyến Mãi',
         //     'type' => 'number',
@@ -23,12 +25,27 @@ class CartController extends Controller
         // Cart::condition($condition);
         $cartItems = Cart::getContent();
         // print_r($cartItems);die;
-        // Cart::clear();
+        $productIds = $cartItems->pluck('id');
+        if(count($cartItems) > 0)
+        {
+            $relatedCategory = Category::with(['products'])->findOrFail($cartItems->first()->attributes->category_id);
+            $product = $relatedCategory->products()->whereNotIn('id', $productIds)->take(4)->get();
+
+        }
+        else
+        {
+            $product = Product::take(4)->get();
+        }
+        $product = $product->map(function($q) {
+            $q->rate = $q->reviews()->avg('rate');
+            return $q;
+        });
+
         return view('client.carts.index', compact('cartItems', 'product'));
     }
     public function add(Request $request)
     {
-        $product = Product::findOrFail($request->id);
+        $product = Product::with(['categories'])->findOrFail($request->id);
         Cart::add(array(
             'id' => $request->id,
             'name' => $product->name,
@@ -38,6 +55,8 @@ class CartController extends Controller
                 'avatar' => $product->avatar,
                 'product_code' => $product->product_code,
                 'discount' => $product->discount,
+                'category_id' => $product->categories[0]->id,
+                'category' => $product->categories[0]->name,
             )
         ));
 
@@ -83,7 +102,7 @@ class CartController extends Controller
         ]);
         $attributes = $request->only([
             'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
-        ]); 
+        ]);
         $order = Order::create($attributes);
         foreach (Cart::getContent() as $item) {
             $order->cartItems()->create([

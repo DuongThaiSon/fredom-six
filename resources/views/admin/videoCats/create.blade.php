@@ -80,7 +80,7 @@
 
                     <div class="form-group">
                         <label class="control-label">Thẻ Meta Description</label>
-                        <input type="text" class="form-control" name="meta_discription" placeholder="Thẻ Meta Description"/>
+                        <input type="text" class="form-control" name="meta_description" placeholder="Thẻ Meta Description"/>
                         <small class="form-text">Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small>
                     </div>
 

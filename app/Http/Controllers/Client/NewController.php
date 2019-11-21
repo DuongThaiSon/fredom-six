@@ -58,15 +58,16 @@ class NewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug_view)
     {
+        $detail = Article::where('slug', $slug_view)->firstOrFail();
         $newests = Article::where([
+            ['id', '<>', $detail->id],
             ['category_id', '=', '2'],
             ['is_public', '=', '1'],
             ['is_new', '=', '1']
         ])->orderBy('id','desc')->limit(3)->get();
 
-        $detail = Article::findOrFail($id);
         return view('client.new.detail', compact('newests', 'detail'));
     }
 

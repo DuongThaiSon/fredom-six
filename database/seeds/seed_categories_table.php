@@ -294,5 +294,20 @@ class seed_categories_table extends Seeder
                 'created_at' => '2019-11-19 02:17:29'
             ]
         );
+        DB::table('categories')->insert(
+            [
+                'id' => '22',
+                'name' => 'Gifts',
+                'avatar' => 'gift.png',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '22',
+                'slug' => 'gifts',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
     }
 }

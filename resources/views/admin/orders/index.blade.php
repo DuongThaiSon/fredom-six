@@ -50,18 +50,23 @@
                     <td>{{ $item->total_quantity }}</td>
                     <td>{{ number_format($item->total_price) }}</td>
                     <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->status }}</td>
+                    <td>{{ $item->payment_status }}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="In">
+                            {{--  <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="In">
                               <i class="material-icons">print</i>
-                            </a>
+                            </a>  --}}
                             <a href="{{ route('admin.orders.edit', $item->id) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sủa">
                               <i class="material-icons">mode_edit</i>
                             </a>
-                            <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="Xóa">
-                              <i class="material-icons">delete</i>
-                            </a>
+                            <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.orders.destroy', $item->id)}}" method="POST">
+                              @method('DELETE')
+                              @csrf
+
+                                   <button class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
+                                      <i class="material-icons">delete</i>
+                                  </button>
+                              </form>
                           </div>
                     </td>
                   </tr>

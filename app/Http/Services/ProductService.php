@@ -37,6 +37,7 @@ class ProductService extends BaseModel
         'category_id',
         'meta_title',
         'slug',
+        'size_chart',
         'meta_description',
         'meta_keyword',
         'meta_page_topic',

@@ -36,7 +36,7 @@
                             <!-- styles -->
                             @forelse ($category->productAttributes as $attribute)
                             
-                            <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px">
+                            <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
                                 @forelse ($attribute->productAttributeValues as $attributeValue)
 
                                 <label class="checkbox-container"

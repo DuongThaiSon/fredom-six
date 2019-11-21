@@ -12,6 +12,17 @@ use Storage;
 
 class BackupController extends Controller
 {
+    const LIST_BACKUP_OPTION = [
+        'only_db' => '--only-db',
+        'only_files' => '--only-files',
+        'both' => ''
+    ];
+
+    const ALLOW_NOTIFICATION = [
+        '0' => '--disable-notifications',
+        '1' => ''
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +34,18 @@ class BackupController extends Controller
             dd('Chưa config ổ đĩa lưu backup');
         }
 
+        $backups = $this->collectBackupFiles();
+        $backups = collect($backups)->paginate(15);
+        return view('admin.backups.index', compact('backups'));
+    }
+
+    /**
+     * Collect backup file data
+     *
+     * @return array
+     */
+    private function collectBackupFiles()
+    {
         $backups = [];
         foreach (config('backup.backup.destination.disks') as $disk_name) {
             $disk = Storage::disk($disk_name);
@@ -38,15 +61,14 @@ class BackupController extends Controller
                         'file_size'     => $disk->size($f),
                         'last_modified' => $disk->lastModified($f),
                         'disk'          => $disk_name,
-                        'download'      => ($adapter instanceof Local) ? true : false,
+                        'can_download'      => ($adapter instanceof Local) ? true : false,
                         ];
                 }
             }
         }
         // reverse the backups, so the newest one would be on top
         $backups = array_reverse($backups);
-        $backups = collect($backups)->paginate(15);
-        return view('admin.backups.index', compact('backups'));
+        return $backups;
     }
 
     /**
@@ -67,7 +89,31 @@ class BackupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $message = 'success';
+        $options = json_decode($request->options);
+        $backupCommend = 'backup:run';
+        $backupCommend .= ' ' . self::LIST_BACKUP_OPTION[$options[0]] . ' ' . self::ALLOW_NOTIFICATION[$options[1]];
+        try {
+            ini_set('max_execution_time', 600);
+            Log::info('Leotive -- Called backup:run from admin interface');
+            Artisan::call($backupCommend);
+            $output = Artisan::output();
+            if (strpos($output, 'Backup failed because')) {
+                preg_match('/Backup failed because(.*?)$/ms', $output, $match);
+                $message = "Leotive -- backup process failed because ";
+                $message .= isset($match[1]) ? $match[1] : '';
+                Log::error($message.PHP_EOL.$output);
+            } else {
+                Log::info("Leotive -- backup process has started");
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+            return response()->json($e->getMessage(), 500);
+        }
+
+        $backups = $this->collectBackupFiles();
+        $backups = collect($backups)->paginate(15);
+        return view('admin.backups.listBackup', compact('backups'));
     }
 
     /**

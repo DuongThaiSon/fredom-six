@@ -12,8 +12,9 @@ return [
          * --only-files
          * --disable-notifications
          */
-        'backpack_flags' => [
-            '--disable-notifications'=> true,
+        'backup_flags' => [
+            '--disable-notifications',
+            '--only-db'
         ],
 
         /*

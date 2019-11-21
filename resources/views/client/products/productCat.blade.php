@@ -90,33 +90,28 @@
                             <a href="{{ route('client.products.detail', ['slug_view' => $prod->slug, 'slug_cat' => $category->slug]) }}"
                                 class="product-name">{{ $prod->name }}</a>
                             <!-- rating -->
-                            <div class="rating">
-                                <!-- <input name="stars1" id="e1" type="radio"> -->
-                                <label for="e1">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e2" type="radio"> -->
-                                <label for="e2">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e3" type="radio"> -->
-                                <label for="e3">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e4" type="radio"> -->
-                                <label for="e4">
-                                    <i class="fas fa-star"></i>
-                                </label>
-                                <!-- <input name="stars1" id="e5" type="radio"> -->
-                                <label for="e5">
-                                    <i class="fas fa-star"></i>
-                                </label>
+                            <div id='rating' class='rating'>
+                                <span class='ratingStars '>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <span class='ratingStars '>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <span class='ratingStars '>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <span class='ratingStars '>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                                <span class='ratingStars '>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
                             </div>
                             <div class="clear"></div>
                             <!-- price -->
                             <div class="product-price">
                                 <span
-                                    class="{{ ($prod->discount > 0)?'old-price':'new-price' }}">{{ number_format($prod->price) }}</span>
+                                    class="{{ ($prod->discount > 0)?'old-price':'new-price' }}" >{{ number_format($prod->price) }}&nbsp;&#8363;</span>
                                 <span
                                     class="new-price">{{ (($prod->discount > 0)?number_format($prod->price-$prod->price*$prod->discount/100):'') }}</span>
                             </div>

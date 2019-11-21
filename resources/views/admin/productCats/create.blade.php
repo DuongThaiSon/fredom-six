@@ -97,11 +97,27 @@
 
                         <div class="form-group">
                           <label class="control-label">Ảnh đại diện</label>
-                          <div class="custom-file">
+                          {{--  <div class="custom-file">
                             <input type="file" class="custom-file-input" name="avatar">
                             <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                        </div>  --}}
                         </div>
-                        </div>
+                        <div class="form-group">
+                          <div class="fileinput fileinput-new" data-provides="fileinput">
+                              <div class="fileinput-new img-thumbnail" style="width: 400px; height: 230px;">
+                                  <img src=""  alt="">
+                              </div>
+                              <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
+                              <div>
+                                  <span class="btn btn-outline-secondary btn-file">
+                                      <span class="fileinput-new">Select image</span>
+                                      <span class="fileinput-exists">Change</span>
+                                      <input type="file" name="avatar">
+                                  </span>
+                                  <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                              </div>
+                          </div>
+                      </div>
                   </div>
                 </div>
 

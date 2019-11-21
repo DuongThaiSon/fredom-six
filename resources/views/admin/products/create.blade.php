@@ -51,7 +51,7 @@
                         required
                         class="form-control"
                         placeholder="The cat in the hat"
-                        value="{{$product->name ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Tên của tin bài</small>
                     </div>
@@ -82,29 +82,29 @@
                         required
                         class="form-control"
                         placeholder=""
-                        value="{{$product->price ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Giá của sản phẩm</small>
                     </div>
                     <div class="form-group">
-                      <label>Discount</label>
+                      <label>Discount (%)</label>
                       <input
                         type="number"
                         name="discount"
                         class="form-control"
                         placeholder=""
-                        value="{{$product->discount ?? ''}}"
+                        value=""
                       />
-                      <small class="form-text">Khuyến mãi của sản phẩm</small>
+                      <small class="form-text">Khuyến mãi của sản phẩm tính theo %</small>
                     </div>
-                    <div class="form-group">
+                    {{--  <div class="form-group">
                       <label>Discount start</label>
                       <input
                         type="datetime-local"
                         name="discount_start"
                         class="form-control"
                         placeholder=""
-                        value="{{$product->discount_start ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Thời gian bắt đầu khuyến mãi</small>
                     </div>
@@ -115,10 +115,10 @@
                         name="discount_end"
                         class="form-control"
                         placeholder="The cat in the hat"
-                        value="{{$product->discount_end ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Thời gian kết thúc khuyến mãi</small>
-                    </div>
+                    </div>  --}}
                     <div class="form-group">
                       <label>Unit</label>
                       <input
@@ -127,7 +127,7 @@
                         required
                         class="form-control"
                         placeholder=""
-                        value="{{$product->unit ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Đơn vị sản phẩm</small>
                     </div>
@@ -139,7 +139,7 @@
                         required
                         class="form-control"
                         placeholder=""
-                        value="{{$product->product_code ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Mã sản phẩm</small>
                     </div>
@@ -151,7 +151,7 @@
                         required
                         class="form-control"
                         placeholder="The cat in the hat"
-                        value="{{$product->quantity ?? ''}}"
+                        value=""
                       />
                       <small class="form-text">Số lượng sản phẩm</small>
                     </div>
@@ -221,7 +221,7 @@
                         class="form-control"
                         name="meta_title"
                         placeholder="Tiêu đề Browser (title)"
-                        value="{{$product->meta_title ?? ''}}"
+                        value=""
                       />
                       <small class="form-text"
                         >Tiêu đề của trang chủ có tác dụng tốt nhất cho
@@ -236,7 +236,7 @@
                         class="form-control"
                         name="slug"
                         placeholder="Tối ưu URL"
-                        value="{{$product->slug ?? ''}}"
+                        value=""
                       />
                       <small class="form-text"
                         >Tối ưu hóa đường dẫn URL dể tốt nhất cho SEO.</small
@@ -250,7 +250,7 @@
                           class="form-control"
                           name="meta_description"
                           placeholder="Thẻ Meta Description"
-                          value="{{$product->meta_description ?? ''}}"
+                          value=""
                         />
                         <small class="form-text"
                           >Thẻ meta description của trang cung cấp cho Google và các công cụ tìm kiếm bản tóm tắt nội dung của trang đó. Trong khi tiêu đề trang có thể là vài từ hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn. Thẻ meta description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small
@@ -264,7 +264,7 @@
                             class="form-control"
                             name="meta_keyword"
                             placeholder="Thẻ Meta keywords"
-                            value="{{$product->meta_keyword ?? ''}}"
+                            value=""
                           />
                           <small class="form-text"
                             >Meta Keywords (Thẻ khai báo từ khóa trong SEO) Trong quá trình biên tập nội dung, Meta Keywords là một thẻ được dùng để khai báo các từ khóa dùng cho bộ máy tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng hiểu nội dung của bạn đang muốn nói đến những vấn đề gì!</small
@@ -278,7 +278,7 @@
                               class="form-control"
                               name="meta_page_topic"
                               placeholder="Thẻ Meta Page Topic"
-                              value="{{$product->meta_page_topic ?? ''}}"
+                              value=""
                             />
                             <small class="form-text"
                               >Theo chuẩn SEO, thẻ meta page topic sẽ là tiêu điểm của trang web đang có nội dung nói về chủ đề nào</small
@@ -292,6 +292,7 @@
                                 <label class="custom-file-label" for="">Choose file</label>
                             </div>
                         </div>
+                        
                     </div>
                   </div>
 
@@ -299,9 +300,18 @@
                   <hr>
                     <div class="row">
                       <div class="col-12">
+                        <legend>Size Chart</legend>
+                        <div class="form-group">
+                          <textarea class="form-control ck-classic" name="size_chart"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                          <textarea class="form-control ck-classic" name="description">{{$product->description?? ''}}</textarea>
+                          <textarea class="form-control ck-classic" name="description"></textarea>
                         </div>
                       </div>
                     </div>
@@ -310,7 +320,7 @@
                       <div class="col-12">
                         <legend>Nội dung chi tiết</legend>
                         <div class="form-group">
-                          <textarea class="form-control ck-classic" name="detail">{{$product->detail?? ''}}</textarea>
+                          <textarea class="form-control ck-classic" name="detail"></textarea>
                         </div>
                       </div>
                     </div>

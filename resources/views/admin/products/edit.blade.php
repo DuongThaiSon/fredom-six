@@ -105,17 +105,17 @@
                                 <small class="form-text">Giá của sản phẩm</small>
                             </div>
                             <div class="form-group">
-                                <label>Discount</label>
+                                <label>Discount (%)</label>
                                 <input
                                 type="number"
                                 name="discount"
                                 class="form-control"
                                 placeholder=""
-                                value="{{$product->discount ?? ''}}"
+                                value="{{ $product->discount ?? ''}}"
                                 />
-                                <small class="form-text">Khuyến mãi của sản phẩm</small>
+                                <small class="form-text">Khuyến mãi của sản phẩm tính theo %</small>
                             </div>
-                            <div class="row">
+                            {{--  <div class="row">
                                 <div class="col-6"><div class="form-group">
                                     <label>Discount start</label>
                                     <input
@@ -138,7 +138,7 @@
                                     />
                                     <small class="form-text">Thời gian kết thúc khuyến mãi</small>
                                 </div></div>
-                            </div>
+                            </div>  --}}
 
 
                             <div class="form-group">
@@ -345,6 +345,15 @@
                     </div>
 
                         <!-- CK Editor -->
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
+                            <legend>Size Chart</legend>
+                            <div class="form-group">
+                                <textarea class="form-control ck-classic" name="size_chart">{{$product->size_chart?? ''}}</textarea>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-12">

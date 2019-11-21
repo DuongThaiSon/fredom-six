@@ -66,7 +66,7 @@ class MenuSeeder extends Seeder
                 'type' => '0',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '',
+                'link' => '/products/gifts.htm',
                 'order' => '5',
                 'created_by' => '1',
             ]

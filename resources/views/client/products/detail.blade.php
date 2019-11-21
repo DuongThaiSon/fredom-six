@@ -66,9 +66,9 @@
                 <!-- price -->
                 <div class="product-price">
                     <span
-                        class="new-price font-weight-bold">{{ (($product->discount > 0)?number_format($product->price-$product->price*$product->discount/100):'') }}</span>
+                        class="new-price font-weight-bold">{{ (($product->discount > 0)?number_format($product->price-$product->price*$product->discount/100):'') }}&nbsp;&#8363;</span>
                     <span
-                        class="{{ ($product->discount > 0)?'old-price text-muted':'new-price font-weight-bold' }}">{{ number_format($product->price) }}</span>
+                        class="{{ ($product->discount > 0)?'old-price text-muted':'new-price font-weight-bold' }}">{{ number_format($product->price) }}&nbsp;&#8363;</span>
                 </div>
                 <!-- review -->
                 <div class="review d-flex mt-2">

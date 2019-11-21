@@ -201,10 +201,10 @@
                             <i class="fas fa-shopping-basket mr-2"></i>
                             <span class="font-weight-bold text-uppercase">mua ngay</span>
                         </a>
-                        <button class="btn like-button ml-2">
+                        <a href="https://www.facebook.com/moolezvietnam/" class="btn like-button ml-2">
                             <i class="fas fa-heart"></i>
                             <span class="font-weight-bold text-uppercase">thích</span>
-                        </button>
+                        </a>
                     </div>
                     <div class="form-underline mt- w-100" style="width: 102% !important; margin-left: 1px;">
                     </div>

@@ -148,10 +148,12 @@
                         <div class="col-lg-4 pr-0">
                             <!-- color -->
                             <div class="product-colors d-flex">
-                                <div class="product-color" style="background: #2d2d2d;"></div>
-                                <div class="product-color" style="background: #ffffff;"></div>
-                                <div class="product-color" style="background: #f55678;"></div>
-                                <div class="product-color" style="background: #ffa733;"></div>
+                                    @php
+                                        $colors = $product->productAttributeValues->where('productAttribute.name', 'Màu sắc');
+                                    @endphp
+                                    @foreach ($colors as $color)
+                                        <div class="product-color" style="background: {{ $color->value }};"></div>
+                                    @endforeach
                             </div>
                         </div>
                         <div class="col-lg-6 py-2">
@@ -201,10 +203,17 @@
                             <i class="fas fa-shopping-basket mr-2"></i>
                             <span class="font-weight-bold text-uppercase">mua ngay</span>
                         </a>
-                        <a href="https://www.facebook.com/moolezvietnam/" class="btn like-button ml-2">
-                            <i class="fas fa-heart"></i>
-                            <span class="font-weight-bold text-uppercase">thích</span>
-                        </a>
+                        @auth
+                            @php
+                                $isLikeByMe = App\Models\Like::where([['user_id', auth()->user()->id],['product_id', $product->id]])->first();
+                            @endphp
+                            <a href="#" class="btn like-button ml-2 {{ $isLikeByMe ? 'is-like' : '' }}" data-href="{{ route('client.products.like') }}" {{ $isLikeByMe ? 'disabled=disabled' : '' }}>
+                                <i class="fas fa-heart"></i>
+                                <span class="font-weight-bold text-uppercase">thích</span>
+                                <input type="hidden" value="{{ $product->id }}" name="product_id">
+                                <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
+                            </a>
+                        @endauth
                     </div>
                     <div class="form-underline mt- w-100" style="width: 102% !important; margin-left: 1px;">
                     </div>
@@ -345,10 +354,12 @@
                                             src="{{ asset('media/product') }}/{{ $item->avatar }}"
                                             class="mx-auto d-flex justify-content-center" alt=""></a>
                                     <div class="product-colors justify-content-center d-flex">
-                                        <div class="product-color" style="background: #2d2d2d;"></div>
-                                        <div class="product-color" style="background: #ffffff;"></div>
-                                        <div class="product-color" style="background: #f55678;"></div>
-                                        <div class="product-color" style="background: #ffa733;"></div>
+                                            @php
+                                                $colors = $item->productAttributeValues->where('productAttribute.name', 'Màu sắc');
+                                            @endphp
+                                            @foreach ($colors as $color)
+                                                <div class="product-color" style="background: {{ $color->value }};"></div>
+                                            @endforeach
                                     </div>
                                 </div>
                                 <div class="card-body">

@@ -60,4 +60,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Product', 'likes', 'user_id', 'post_id');
     }
+
+    public function reviews()
+    {
+        return $this->belongsToMany('App\Models\Product', 'reviews')
+            ->withPivot(['content', 'rate'])
+            ->withTimestamps();
+    }
 }

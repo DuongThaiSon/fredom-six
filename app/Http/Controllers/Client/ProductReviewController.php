@@ -80,11 +80,14 @@ class ProductReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product, $id)
+    public function update(Product $product, Request $request)
     {
-        $review = Review::where([['product_id', $product->id], ['user_id', $id]])->update($request->all());
+        auth()->guard('web')->user()->reviews()->updateExistingPivot($product->id, [
+            'content' => $request->content,
+            'rate' => $request->rate
+        ]);
 
-        return response()->json(compact('review'), 200);
+        return response()->json([], 204);
     }
 
     /**

@@ -9,11 +9,6 @@
     }
 </style>
 <div class="d-flex">
-    <!-- Logo -->
-    <div id="logo">
-        <img src="img/Group.png" alt="" />
-    </div>
-
     <!-- Login -->
     <div id="login-form" >
         <div class="form form-login" >
@@ -24,10 +19,8 @@
                 @endif
             <form class="mt-4 mb-0" action="{{ route('client.login') }}" method="POST">
                 @csrf
-                @if ($errors->any())
-                <div class="alert-danger">
-                    {{ $errors->first() }}
-                </div>
+                @if(Session::has('fail'))
+                    <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                 @endif
                 <div class="form-group">
                     <label for="">Email *</label>

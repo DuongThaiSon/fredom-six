@@ -15,6 +15,7 @@ class seed_user_table extends Seeder
             array(
                 'email' => 'admin@leotive.com',
                 'name' => 'LEOTIVE',
+                'type' => 'Admin',
                 'password' => bcrypt('leotive123')
             )
         );

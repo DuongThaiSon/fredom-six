@@ -133,6 +133,7 @@ class ProductAttributeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        ProductAttribute::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
     }
 }

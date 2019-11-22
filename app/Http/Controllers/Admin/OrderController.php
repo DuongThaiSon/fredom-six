@@ -87,7 +87,16 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        
+        $attributes = $request->only([
+            'payment_status'
+        ]);
+        $order->fill($attributes);
+        $order->save();
+        // print_r($attributes);die;
+
+        return redirect()->back()->with('success', 'Lưu dữ liệu thành công');
     }
 
     /**
@@ -98,6 +107,7 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
     }
 }

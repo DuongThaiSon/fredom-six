@@ -319,7 +319,7 @@
                     <div class="list-comments"> </div>
                 </div>
                 {{-- </div> --}}
-                <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">...</div>
+                <div class="tab-pane fade text-center" id="chart" role="tabpanel" aria-labelledby="chart-tab">{!! $product->size_chart !!}</div>
                 <div class="tab-pane fade" id="showroom" role="tabpanel" aria-labelledby="showroom-tab">...
                 </div>
             </div>
@@ -429,9 +429,9 @@
 <script>
     var content = $(".details").find(".more").html();
 
-      var lessText = content.substr(0, 200);
-      var showText = content.substr(200, content.length - 200);
-      if(content.length > 200) {
+      var lessText = content.substr(0, 300);
+      var showText = content.substr(300, content.length - 300);
+      if(content.length > 300) {
           $(".details").find(".more").html(lessText).append("<a href='#' class='read-more-link'> ...Xem thêm</a>");
       } else {
           $(".details").find(".more").html(content);

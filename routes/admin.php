@@ -379,6 +379,20 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'files',
         'uses' => 'FileController'
     ]);
+
+    Route::group(['prefix' => 'backups'], function () {
+        Route::get('download', [
+            'as' => 'backups.download',
+            'uses' =>'BackupController@download'
+        ]);
+        Route::delete('delete', [
+            'as' => 'backups.destroy',
+            'uses' => 'BackupController@destroy'
+        ]);
+    });
+    Route::resource('backups', 'BackupController', [
+        'only' => ['index', 'store']
+    ]);
 });
 
 

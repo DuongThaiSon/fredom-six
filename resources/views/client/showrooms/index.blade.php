@@ -98,6 +98,7 @@
                 </div>
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
             </div>
+
             <div class="row">
                 <!-- showroom -->
                 @foreach ($showroommn as $showmn)

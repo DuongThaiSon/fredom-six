@@ -3,9 +3,9 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="" enctype="multipart/form-data">
-
+  <form method="POST" action="{{ route('admin.orders.update', $order->id) }}" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
   <div id="content">
     <h1 class="mt-3 pl-4">Thông tin bài viết</h1>
     <div class="save-group-buttons">
@@ -37,15 +37,15 @@
                 <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
                     <div class="form-group">
                         <label>Tên khách hàng</label>
-                        <input type="text" name="name" class="form-control" placeholder="Tên khách hàng" value="{{ $order->first_name ??'' }} {{ $order->last_name }}"/>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->first_name ??'' }} {{ $order->last_name }}"/>
                         <small class="form-text">Tên người mua hàng</small>
                     </div>
                     <div class="form-group">
                         <label>Trạng thái</label>
-                        <select name="regions" class="form-control" id="sel1">
-                            <option value="" {{ $order->payment_status == 'wait' ? 'selected' : '' }}>Đặt hàng</option>
-                            <option value="" {{ $order->payment_status == 'shipping' ? 'selected' : '' }}>Đang giao hàng</option>
-                            <option value="" {{ $order->payment_status == 'done' ? 'selected' : '' }}>Hoàn thành</option>
+                        <select name="payment_status" class="form-control" id="sel1">
+                            <option value="Wait" {{ $order->payment_status == 'wait' ? 'selected' : '' }}>Wait</option>
+                            <option value="Shipping" {{ $order->payment_status == 'shipping' ? 'selected' : '' }}>Shipping</option>
+                            <option value="Done" {{ $order->payment_status == 'done' ? 'selected' : '' }}>Done</option>
                         </select>
                         <small class="form-text">Trạng thái </small>
                     </div>

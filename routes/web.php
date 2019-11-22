@@ -70,6 +70,7 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
+    Route::get('cart/complete', 'CartController@complete');
     Route::get('footer', 'HomeController@footer');
 
 
@@ -115,6 +116,15 @@ Route::group([
             'as' => 'client.password.reset',
             'uses' => 'ResetPasswordController@showResetFormClient'
         ]);
+        Route::group(['prefix' => 'user/password'], function() {
+            Route::get('change',[
+                'as' => 'client.password.change',
+                'uses' => 'ChangePasswordController@change'
+            ]);
+            Route::post('update',[
+                'as' => 'client.password.update',
+                'uses' => 'ChangePasswordController@update'
+            ]);
+        });
     });
-
 });

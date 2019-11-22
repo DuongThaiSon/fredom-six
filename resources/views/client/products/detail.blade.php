@@ -148,12 +148,17 @@
                         <div class="col-lg-4 pr-0">
                             <!-- color -->
                             <div class="product-colors d-flex">
-                                    @php
-                                        $colors = $product->productAttributeValues->where('productAttribute.name', 'Màu sắc');
-                                    @endphp
-                                    @foreach ($colors as $color)
-                                        <div class="product-color" style="background: {{ $color->value }};"></div>
-                                    @endforeach
+                                @forelse ($product->productAttributeValues as $attribute)
+                                    @if ($attribute->productAttribute->type === 'color')
+                                    <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
+                                        <div class="product-color" style="background: {{ $attribute->value }};">
+                                        </div>
+                                    </a>
+                                    @endif
+
+                                @empty
+                                @endforelse
+                                <input type="hidden" name="color" value="{{ $product->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $product->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
                             </div>
                         </div>
                         <div class="col-lg-6 py-2">

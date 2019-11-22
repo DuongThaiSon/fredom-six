@@ -54,9 +54,10 @@
                   <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                 </div>
                 <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
-                  class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }} ,
-                  SKU: {{ $item->attributes->product_code }} ,
-                  cỡ: {{ $item->attributes->size }}</a>
+                  class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }}</a>
+                <p><b>SKU:</b> {{ $item->attributes->product_code }} <br>
+                    <b>Cỡ:</b> {{ $item->attributes->size }} <br>
+                    <b>Màu:</b> <span style="background-color: {{ $item->attributes->color }};">{{ $item->attributes->color }}</span></p>
               </div>
             </td>
             <td class="font-weight-bold text-center">{{ number_format($item->price)}}</td>

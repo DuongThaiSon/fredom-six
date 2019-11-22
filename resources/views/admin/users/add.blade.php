@@ -91,9 +91,9 @@
                         name="type"
                         placeholder=""
                       >
-                    <option value="Admin">Admin</option>
+                    <option value="ADMIN">ADMIN</option>
                     {{--  <option value="2">Mod</option>  --}}
-                    <option value="Member">Member</option>
+                    <option value="MEMBER">MEMBER</option>
                     </select>
                       
                     </div>

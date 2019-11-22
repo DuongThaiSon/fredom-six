@@ -92,9 +92,9 @@
                         name="type"
                         placeholder=""
                       >
-                    <option value="Admin" {{ $user->type==='Admin'?'selected':'' }}>Admin</option>
+                    <option value="ADMIN" {{ $user->type==='ADMIN'?'selected':'' }}>Admin</option>
                     {{--  <option value="2">Mod</option>  --}}
-                    <option value="Member" {{ $user->type==='Member'?'selected':'' }}>Member</option>
+                    <option value="MEMBER" {{ $user->type==='MEMBER'?'selected':'' }}>Member</option>
                     </select>
                       
                     </div>

@@ -79,21 +79,21 @@
                 <table class="table-sm table-hover table mb-2" width="100%">
                     <thead>
                         <tr class="text-muted">
-                            <th></th>
-                            <th class="text-center">
+                            <th width="5%"></th>
+                            <th  width="5%" class="text-center">
                                 <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                                     <i class="material-icons text-muted">check_box_outline_blank</i>
                                 </a>
                             </th>
-                            <th>ID</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Mục</th>
-                            <th style="width: 40px;">Hiển thị</th>
-                            <th style="width: 40px;">Nổi bật</th>
-                            <th style="width: 40px;">Mới</th>
-                            <th style="width: 120px;">Ngày tạo</th>
-                            <th style="width: 120px;">Người đăng</th>
-                            <th style="width: 160px;">Thao tác</th>
+                            <th width="5%">ID</th>
+                            <th width="20%">Tên sản phẩm</th>
+                            <th width="15%">Mục</th>
+                            <th width="5%" >Hiển thị</th>
+                            <th width="5%" >Nổi bật</th>
+                            <th width="5%" >Mới</th>
+                            <th width="15%" >Ngày tạo</th>
+                            <th width="10%" >Người đăng</th>
+                            <th width="10%" >Thao tác</th>
                         </tr>
                     </thead>
                     <tbody class="sort">
@@ -104,7 +104,7 @@
                                 <i class="material-icons">format_line_spacing</i>
                             </td>
                             <td class="text-center">
-                                <input type="checkbox" class="checkdel" name=id[] value="{{$product->id}}" delid="{{$product->id}}" />
+                                <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$product->id}}" delid="{{$product->id}}" data-id="{{ $product->id }}" />
                             </td>
                             <td>{{$product->id}}</td>
                             <td class="editname">
@@ -145,7 +145,7 @@
                                     <a class="btn btn-sm p-1 move-top-button" product-id="{{$product->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                                         <i class="material-icons">call_made</i>
                                     </a>
-                             
+
                                     </a>
                                     <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.products.destroy', $product->id)}}" method="POST" enctype="multipart/form-data">
                                     @method('DELETE')
@@ -182,6 +182,7 @@
         core.makeTableOrderable('/admin/products/sort');
         core.initCheckboxButton();
         core.updateViewViewStatus('/admin/products/update-view-status');
+        core.deleteMultipleItems('/admin/delete-many/products/');
     });
 </script>
 @endpush

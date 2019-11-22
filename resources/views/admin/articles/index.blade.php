@@ -106,7 +106,7 @@
                                     <i class="material-icons">format_line_spacing</i>
                                 </td>
                                 <td class="text-center">
-                                    <input type="checkbox" class="checkdel" name=id[] value="{{$article->id}}" delid="{{$article->id}}" />
+                                    <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$article->id}}" delid="{{$article->id}}" data-id="{{ $article->id }}" />
                                 </td>
                                 <td>{{$article->id}}</td>
                                 <td class="editname">
@@ -177,6 +177,7 @@
         core.makeTableOrderable('/admin/articles/sort');
         core.initCheckboxButton();
         core.updateViewViewStatus('/admin/articles/update-view-status');
+        core.deleteMultipleItems('/admin/articles/delete');
         /**sort**/
         // let sortableOptions = {
         //     handle: ".connect",

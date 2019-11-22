@@ -171,6 +171,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'article-categories.sortcat',
             'uses' => 'ArticleCategoryController@sortcat'
         ]);
+        Route::delete('delete-all', [
+            'as' => 'article-categories.deleteAll',
+            'uses' => 'ArticleCategoryController@deleteAll'
+        ]);
     });
     Route::resource('article-categories', 'ArticleCategoryController');
 
@@ -344,6 +348,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('menus', 'MenuController');
 
     // product
+    Route::delete('delete-many/products', [
+        'as' => 'products.deleteMany',
+        'uses' => 'ProductController@deleteMany'
+    ]);
     Route::group(['prefix' => 'products'], function() {
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
@@ -353,10 +361,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
+
     });
     Route::resource('products', 'ProductController');
 
     // product category
+    Route::delete('delete-many/product-categories', [
+        'as' => 'productCategories.deleteMany',
+        'uses' => 'ProductCategoryController@deleteMany'
+    ]);
     Route::group(['prefix' => 'product-categories'], function() {
         //
     });

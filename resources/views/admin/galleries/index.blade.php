@@ -89,7 +89,7 @@
                     <i class="material-icons">format_line_spacing</i>
                   </td>
                   <td class="text-center">
-                    <input type="checkbox" class="checkdel" name=id[] value="{{$gallery->id}}" delid="{{$gallery->id}}" />
+                    <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$gallery->id}}" delid="{{$gallery->id}}" />
                   </td>
                   <td>{{$gallery->id}}</td>
                   <td class="editname">
@@ -183,4 +183,11 @@
 @endsection
 @push('js')
 <script src="{{ asset('assets/admin') }}/js/gallery.js"></script>
+<script>
+$(document).ready(function () {
+            // core.makeTableOrderable('/admin/products/sort');
+            core.initCheckboxButton();
+            // core.updateViewViewStatus('/admin/products/update-view-status');
+        });
+</script>
 @endpush

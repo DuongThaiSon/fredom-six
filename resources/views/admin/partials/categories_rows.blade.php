@@ -9,7 +9,7 @@
                                 <i class="material-icons">format_line_spacing</i>
                             </td>
                             <td style="width: 34.5px;" class="text-center">
-                                <input type="checkbox" class="checkdel" name=id[] value="{{$category->id}}" />
+                                <input type="checkbox" class="checkdel form-check-input" name="id[]" value="{{$category->id}}" data-id="{{ $category->id }}" />
                             </td>
                             <td style="width: 40px;">{{ $category->id }}</td>
                             <td class="editname">

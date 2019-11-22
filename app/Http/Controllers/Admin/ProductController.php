@@ -162,4 +162,13 @@ class ProductController extends Controller
         $productAttributes = Category::whereIdAndType($request->category_id, 'product')->firstOrFail()->productAttributes()->get();
         return view('admin.partials.productAttributeModalOptions', compact('productAttributes'));
     }
+
+    public function deleteMany(Request $request)
+    {
+        $products = explode(",",$request->ids);
+        foreach ($products as $product) {
+            Product::findOrFail($product)->delete();
+        }
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
 }

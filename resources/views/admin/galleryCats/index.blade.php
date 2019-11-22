@@ -53,4 +53,11 @@
   @endsection
   @push('js')
     <script src="{{ asset('assets/admin') }}/js/galleryCats.js"></script>
+    <script>
+    $(document).ready(function () {
+            // core.makeTableOrderable('/admin/products/sort');
+            core.initCheckboxButton();
+            // core.updateViewViewStatus('/admin/products/update-view-status');
+        });
+    </script>
   @endpush

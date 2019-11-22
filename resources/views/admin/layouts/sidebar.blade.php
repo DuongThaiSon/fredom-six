@@ -103,7 +103,7 @@
             </li>
 
             <!-- Video -->
-            <li class="nav-item has-child">
+            {{-- <li class="nav-item has-child">
                 <a
                 href="#videosubmenu"
                 data-toggle="collapse"
@@ -128,7 +128,7 @@
                     </li>
                 </ul>
                 </div>
-            </li>
+            </li> --}}
             <!-- Order -->
             <li class="nav-item">
                 <a href="{{ route('admin.orders.index') }}" class="nav-link" id="menu-order">

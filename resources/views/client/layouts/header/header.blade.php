@@ -91,13 +91,13 @@
                         <div class="submenu">
                             @foreach ($item->sub as $subitem)
                             <div class="submenu-parent">
-                                <a href="#" class="submenu-item">
+                                <a href="{{ $subitem->link }}" class="submenu-item">
                                     <p class="m-0">{{ $subitem->name }}</p>
                                 </a>
                                 @if ($subitem->sub->count())
                                 <div class="second-submenu">
                                     @foreach ($subitem->sub as $secondsub)
-                                        <a href="#" class="second-submenu-item">
+                                        <a href="{{ $secondsub->link }}" class="second-submenu-item">
                                             <p class="m-0">{{ $secondsub->name }}</p>
                                         </a>
                                     @endforeach

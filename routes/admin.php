@@ -125,6 +125,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'gallery-categories.sortcat',
             'uses' => 'GalleryCategoryController@sortcat'
         ]);
+        Route::delete('delete-all', [
+            'as' => 'gallery-categories.deleteAll',
+            'uses' => 'GalleryCategoryController@deleteAll'
+        ]);
     });
     Route::resource('gallery-categories', 'GalleryCategoryController',[
         'parameters' => ['gallery-categories' => 'id']

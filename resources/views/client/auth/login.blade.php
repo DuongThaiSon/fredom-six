@@ -20,7 +20,7 @@
             <form class="mt-4 mb-0" action="{{ route('client.login') }}" method="POST">
                 @csrf
                 @if(Session::has('fail'))
-                    <div class="alert alert-success">{{ Session::get('fail') }}</div>
+                    <div class="alert alert-danger">{{ Session::get('fail') }}</div>
                 @endif
                 <div class="form-group">
                     <label for="">Email *</label>

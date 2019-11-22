@@ -59,6 +59,10 @@ Route::group([
             'as' => 'client.products.detail',
             'uses' => 'ProductController@detail'
         ]);
+        Route::post('/like', [
+            'as' => 'client.products.like',
+            'uses' => 'ProductController@like'
+        ]);
         Route::resource('{product}/reviews', 'ProductReviewController');
         Route::resource('{product}/comments', 'ProductCommentController');
     });

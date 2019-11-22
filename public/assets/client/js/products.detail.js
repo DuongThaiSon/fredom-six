@@ -99,6 +99,7 @@ $(document).ready(function () {
   productStarRate();
   loadComment();
   fixReview();
+  likeMePls();
   $('.write-review').click(function (e) {
     $('#review-tab').tab("show");
   });
@@ -227,6 +228,27 @@ var fixReview = function fixReview() {
         }
       });
     }
+  });
+};
+
+var likeMePls = function likeMePls() {
+  $('.like-button').on('click', function (e) {
+    e.preventDefault();
+    var data = {
+      product_id: $('input[name=product_id]').val(),
+      user_id: $('input[name=user_id]').val()
+    };
+    console.log(data);
+    $.ajax({
+      url: $('.like-button').data('href'),
+      method: 'POST',
+      data: data,
+      success: function success(scs) {
+        alert('Cảm ơn bạn đã thích sản phẩm của chúng tôi!');
+        $('.like-button').addClass('is-like');
+        $(".like-button").attr('disabled', 'disabled');
+      }
+    });
   });
 };
 

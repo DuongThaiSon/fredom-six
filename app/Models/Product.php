@@ -33,6 +33,11 @@ class Product extends Model
     {
         return $this->hasMany('App\Models\Review');
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\Models\User', 'likes');
+    }
 }
 
 

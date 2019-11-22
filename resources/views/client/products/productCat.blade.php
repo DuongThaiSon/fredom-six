@@ -80,10 +80,16 @@
                                     src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
-                                <div class="product-color" style="background: #2d2d2d;"></div>
+                                    @php
+                                        $colors = $prod->productAttributeValues->where('productAttribute.name', 'Màu sắc');
+                                    @endphp
+                                    @foreach ($colors as $color)
+                                        <div class="product-color" style="background: {{ $color->value }};"></div>
+                                    @endforeach
+                                {{-- <div class="product-color" style="background: #2d2d2d;"></div>
                                 <div class="product-color" style="background: #ffffff;"></div>
                                 <div class="product-color" style="background: #f55678;"></div>
-                                <div class="product-color" style="background: #ffa733;"></div>
+                                <div class="product-color" style="background: #ffa733;"></div> --}}
                             </div>
                         </div>
                         <div class="card-body">

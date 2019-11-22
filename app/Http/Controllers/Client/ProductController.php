@@ -8,19 +8,20 @@ use App\Models\Product;
 use App\Models\Review;
 use App\Models\Category;
 use App\Models\ProductAttribute;
+use App\Models\Like;
 
 class ProductController extends Controller
 {
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where('is_new', 1)->with(['categories'])->paginate(8);
+        $productNew = Product::where('is_new', 1)->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(8);
         $productNew = $productNew->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
         // $productNew = $productNew;
-        // print_r($productNew);die;
+        // print_r($productNew->toArray());die;
         return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($slug_cat = null, $slug_view = null)
@@ -29,12 +30,12 @@ class ProductController extends Controller
             ['type', 'product'],
             ['slug', $slug_cat]
         ])->first();
-        $products = $category->products()->where('slug', '<>', $slug_view)->take(4)->get();
+        $products = $category->products()->with(['productAttributeValues', 'productAttributeValues.productAttribute'])->where('slug', '<>', $slug_view)->take(4)->get();
         $products = $products->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
-        // print_r($products);die;
+        // print_r($products->toArray());die;
         $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments'])->where('slug', $slug_view)->firstOrFail();
         $rating = $product->reviews()->avg('rate');
         // print_r($product->toArray());die;
@@ -80,5 +81,15 @@ class ProductController extends Controller
         // print_r($category->toArray());die;
 
         return view('client.products.productCat', compact('category', 'products'));
+    }
+
+    public function like(Request $request)
+    {
+        $like = Like::create([
+            'product_id' => $request->product_id,
+            'user_id' => $request->user_id
+        ]);
+
+        return response()->json(compact('like'), 200);
     }
 }

@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         $this->notify(new ClientResetPasswordNotification($token));
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\Models\Product', 'likes', 'user_id', 'post_id');
+    }
 }

@@ -82,7 +82,33 @@
             <ul class="navbar-nav ml-auto">
                 @foreach ($menuTop as $item)
                     <li class="nav-item pl-lg-5">
-                        <a href="{{ $item->link }}" class="nav-link text-uppercase">{{ $item->name }}</a>
+                        <a href="{{ $item->link }}" class="nav-link text-uppercase">{{ $item->name }} 
+                            @if ($item->sub->count())
+                            <i class="fas fa-chevron-down"></i>
+                            @endif
+                        </a>
+                        @if ($item->sub->count())
+                        <div class="submenu">
+                            @foreach ($item->sub as $subitem)
+                            <div class="submenu-parent">
+                                <a href="#" class="submenu-item">
+                                    <p class="m-0">{{ $subitem->name }}</p>
+                                </a>
+                                @if ($subitem->sub->count())
+                                <div class="second-submenu">
+                                    @foreach ($subitem->sub as $secondsub)
+                                        <a href="#" class="second-submenu-item">
+                                            <p class="m-0">{{ $secondsub->name }}</p>
+                                        </a>
+                                    @endforeach
+                                    
+                                </div>
+                                @endif
+                            </div>
+                            @endforeach
+                            
+                        </div>
+                        @endif
                     </li>
                 @endforeach
 

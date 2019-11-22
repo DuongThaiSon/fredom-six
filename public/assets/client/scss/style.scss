@@ -99,6 +99,16 @@ body {
         }
     }
     // Navbar
+    .nav-item {
+        position: relative;
+        a.active i {
+          visibility: visible;
+        }
+        .nav-link {
+          padding: 15px 10px;
+        }
+       }
+      
     #navbar {
         background-color: $black-color;
         opacity: 0.8;

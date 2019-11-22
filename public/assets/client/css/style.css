@@ -83,8 +83,6 @@ body {
   #header #navbar.fixed-menu {
     position: fixed !important;
     top: 0; }
-  #header #navbar .pl-lg-5 {
-    padding-left: 3.5rem !important; }
   #header #navbar #navbarCollapse {
     position: relative; }
     #header #navbar #navbarCollapse .cart {
@@ -103,6 +101,61 @@ body {
           border-radius: 50%;
           top: -5%;
           right: -10%; }
+          #header #navbar .nav-item {
+            position: relative; }
+            #header #navbar .nav-item a.active i {
+              visibility: visible; }
+            #header #navbar .nav-item .nav-link i {
+              font-size: 50%;
+              vertical-align: middle; }
+          #header #navbar .submenu {
+            position: absolute;
+            display: none;
+            width: 160px;
+            background: #161616;
+            z-index: 999;
+            left: 10px;
+            box-shadow: 0 0 7px rgba(0, 0, 0, 0.1); }
+            #header #navbar .submenu .submenu-item {
+              display: block;
+              width: 100%;
+              padding: 2px 15px;
+              color: #fff; }
+              #header #navbar .submenu .submenu-item p {
+                padding: 7px 0;
+                text-transform: capitalize;
+                font-size: 13px; }
+          #header #navbar .navbar-nav .nav-item:hover > .submenu {
+            display: block; }
+             /* Second Submenu */
+        #header #navbar .submenu .submenu-parent {
+          position: relative; }
+          #header #navbar .submenu .submenu-parent i {
+            font-size: 50%;
+            vertical-align: middle; }
+          #header #navbar .submenu .submenu-parent .second-submenu {
+            position: absolute;
+            display: none;
+            width: 160px;
+            background: #000000;
+            z-index: 999;
+            top: 0;
+            right: -160px;
+            color: black;
+            box-shadow: 0 0 7px rgba(0, 0, 0, 0.1); }
+            #header #navbar .submenu .submenu-parent .second-submenu .second-submenu-item {
+              display: block;
+              width: 100%;
+              padding: 2px 15px;
+              color: #fff; }
+              #header #navbar .submenu .submenu-parent .second-submenu .second-submenu-item p {
+                padding: 4px 0;
+                text-transform: capitalize;
+                font-size: 13px; }
+          #header #navbar .submenu .submenu-parent:hover .second-submenu {
+            display: block; }
+
+  
  #showcase h1,
  #showcase h2,
  #showcase a,

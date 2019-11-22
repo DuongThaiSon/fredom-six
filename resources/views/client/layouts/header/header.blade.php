@@ -40,8 +40,8 @@
                                 aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name}}</a>
                             <div class="dropdown-menu"
                                 style="z-index: 999999; padding: 0 !important; border-radius: unset !important; font-size: 13px;">
-                                <a class="dropdown-item" href="#">Thông tin cá nhân</a>
-                                <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                                {{--  <a class="dropdown-item" href="#">Thông tin cá nhân</a>  --}}
+                                <a class="dropdown-item" href="{{ route('client.password.change') }}">Đổi mật khẩu</a>
                                 <form action="{{ route('client.logout')}}" method="POST" >
                                 @csrf
                                     <button style="cursor: pointer;" class="dropdown-item" type="submit"><a>Đăng xuất</a></button>

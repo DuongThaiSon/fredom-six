@@ -116,6 +116,15 @@ Route::group([
             'as' => 'client.password.reset',
             'uses' => 'ResetPasswordController@showResetFormClient'
         ]);
+        Route::group(['prefix' => 'user/password'], function() {
+            Route::get('change',[
+                'as' => 'client.password.change',
+                'uses' => 'ChangePasswordController@change'
+            ]);
+            Route::post('update',[
+                'as' => 'client.password.update',
+                'uses' => 'ChangePasswordController@update'
+            ]);
+        });
     });
-
 });

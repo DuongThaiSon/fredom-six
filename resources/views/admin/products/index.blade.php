@@ -145,9 +145,15 @@
                                     <a class="btn btn-sm p-1 move-top-button" product-id="{{$product->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
                                         <i class="material-icons">call_made</i>
                                     </a>
-                                <a href="{{route('admin.products.destroy', $product->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá">
-                                        <i class="material-icons">delete</i>
+                             
                                     </a>
+                                    <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.products.destroy', $product->id)}}" method="POST" enctype="multipart/form-data">
+                                    @method('DELETE')
+                                    @csrf
+                                        <button class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>

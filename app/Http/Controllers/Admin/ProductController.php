@@ -135,7 +135,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
     }
 
     public function fetchOption(Request $request)

@@ -369,7 +369,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/productCats.edit.js */"./resources/js/admin/productCats.edit.js");
+module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\productCats.edit.js */"./resources/js/admin/productCats.edit.js");
 
 
 /***/ })

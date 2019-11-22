@@ -132,13 +132,14 @@ let fixReview = function() {
         {
             let data = {
                 content: $('.comment-zone').val(),
-                rate: $('input[name=rating]').val()
+                rate: $('input[name=rating]').val(),
+                _method: "PUT"
             };
             let id = $('.btn-buy-now').data('id');
             let user_id = $('input[name=current-user]').val();
             $.ajax({
                 url: `/products/${id}/reviews/${user_id}`,
-                method: "PUT",
+                method: "POST",
                 data: data,
                 success: function(scs) {
                     // $('input[name=rating]').val("");

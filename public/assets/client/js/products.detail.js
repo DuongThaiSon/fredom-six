@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -210,13 +210,14 @@ var fixReview = function fixReview() {
     } else {
       var data = {
         content: $('.comment-zone').val(),
-        rate: $('input[name=rating]').val()
+        rate: $('input[name=rating]').val(),
+        _method: "PUT"
       };
       var id = $('.btn-buy-now').data('id');
       var user_id = $('input[name=current-user]').val();
       $.ajax({
         url: "/products/".concat(id, "/reviews/").concat(user_id),
-        method: "PUT",
+        method: "POST",
         data: data,
         success: function success(scs) {
           // $('input[name=rating]').val("");
@@ -268,7 +269,7 @@ var chooseColor = function chooseColor() {
 
 /***/ }),
 
-/***/ 4:
+/***/ 5:
 /*!******************************************************!*\
   !*** multi ./resources/js/client/products.detail.js ***!
   \******************************************************/

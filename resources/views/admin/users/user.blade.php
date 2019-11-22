@@ -51,7 +51,7 @@
                           <th style="width: 24px;">ID</th>
                           <th>Username</th>
                           <th>Email</th>
-                          <th>Vai trò quản trị</th>
+                          <th>Vai trò </th>
                           <th class="text-center" style="width: 144px;">
                             THAO TÁC
                           </th>
@@ -75,7 +75,7 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}  {{$user->birthday}}</td>
                             <td>{{ $user->email }}</td>
-                            <td></td>
+                            <td>{{ $user->type }}</td>
                             <td class="text-center">
                               <a href="{{ route('admin.users.info',$user->id ) }}" data-toggle="tooltip" title="Sửa"
                                 ><i class="material-icons">border_color</i></a

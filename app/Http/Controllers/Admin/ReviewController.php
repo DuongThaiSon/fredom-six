@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -78,8 +79,12 @@ class ReviewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        // print_r($request->all());die;
+        Review::where([
+            ['product_id' , $id],
+            ['user_id' , $request->user_id]
+        ])->delete();
     }
 }

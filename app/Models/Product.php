@@ -38,6 +38,17 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\User', 'likes');
     }
+
+    public function images()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable');
+    }
+
+    public function registerMediaGroups()
+    {
+        $this->addMediaGroup('gallery')
+             ->performConversions('thumb');
+    }
 }
 
 

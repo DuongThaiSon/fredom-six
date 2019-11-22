@@ -34,18 +34,43 @@
         <div class="bg-white p-4 pt-5">
             <div class="row">
                 <div class="col-12">
-                <legend>THÔNG TIN NỘI DUNG PHỤ</legend>
+                <legend>THÔNG TIN ĐƠN HÀNG</legend>
                     <div class="form-group">
                         <label>Tên khách hàng</label>
                         <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->first_name ??'' }} {{ $order->last_name }}"/>
                         <small class="form-text">Tên người mua hàng</small>
                     </div>
                     <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->email ??'' }}"/>
+                        <small class="form-text">Email khách hàng</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->address ??'' }}"/>
+                        <small class="form-text">Địa chỉ giao hàng</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->phone ??'' }}"/>
+                        <small class="form-text">Số điện thoại liên hệ</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Phương thức vận chuyển</label>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->ship ??'' }}"/>
+                        <small class="form-text">Phương thức vận chuyển</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Phương thức thanh toán</label>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->payment_choice ??'' }}"/>
+                        <small class="form-text">Phương thức thanh toán</small>
+                    </div>
+                    <div class="form-group">
                         <label>Trạng thái</label>
                         <select name="payment_status" class="form-control" id="sel1">
-                            <option value="Wait" {{ $order->payment_status == 'wait' ? 'selected' : '' }}>Wait</option>
-                            <option value="Shipping" {{ $order->payment_status == 'shipping' ? 'selected' : '' }}>Shipping</option>
-                            <option value="Done" {{ $order->payment_status == 'done' ? 'selected' : '' }}>Done</option>
+                            <option value="Đặt hàng" {{ $order->payment_status == 'Đặt hàng' ? 'selected' : '' }}>Đặt hàng</option>
+                            <option value="Đang giao hàng" {{ $order->payment_status == 'Đang giao hàng' ? 'selected' : '' }}>Đang giao hàng</option>
+                            <option value="Hoàn thành" {{ $order->payment_status == 'Hoàn thành' ? 'selected' : '' }}>Hoàn thành</option>
                         </select>
                         <small class="form-text">Trạng thái </small>
                     </div>

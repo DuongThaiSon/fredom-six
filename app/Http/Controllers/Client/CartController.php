@@ -106,13 +106,14 @@ class CartController extends Controller
         $attributes = $request->only([
             'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
         ]);
+        $attributes['payment_status'] = 'Đặt hàng';
         $order = Order::create($attributes);
-        // r a bấm thanh toán đi a 
-        
+        // r a bấm thanh toán đi a
+
         $cart_item = [];
         $i = 0;
         foreach (Cart::getContent() as $item) {
-            
+
             $order->cartItems()->create([
                 'product_id' => $item->id,
                 'price' => $item->price*$item->quantity,
@@ -125,7 +126,7 @@ class CartController extends Controller
                 'total'         => $item->price*$item->quantity,
             ];
             $i++;
-            
+
         }
         $cart = [
             'name' => $request->last_name,
@@ -136,17 +137,17 @@ class CartController extends Controller
             'ship' => $request->ship,
             'payment_choice' => $request->payment_choice,
         ];
-       
 
-        Cart::clear();      
-        return view('client.carts.complete', compact('cart','cart_item'));// view comple 
+
+        Cart::clear();
+        return view('client.carts.complete', compact('cart','cart_item'));// view comple
     }
     /**
      * Complete cart
      */
 
     public function complete()
-    {  
+    {
         $order = Order::with(['cartItems'])->get();
         // print_r($order->toArray());die;
         return view('client.carts.complete', compact('order'));

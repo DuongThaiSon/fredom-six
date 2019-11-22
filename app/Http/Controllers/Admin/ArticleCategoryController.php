@@ -180,20 +180,25 @@ class ArticleCategoryController extends Controller
 
     public function deleteAll(Request $request)
     {
-        $ids = $request->ids;
+        // print_r($request->all());die;
+        $ids = explode(",", $request->ids);
         if(empty($ids)) {
             return 0;
         } else {
-            $categoryid = $this->getSubCategories($ids);
-            $this->foreachlong($categoryid);
-            Category::findOrFail($ids)->delete();
-            $categories = $this->getSubCategories(0,$ids);
-            $category = $categories->filter(function($value, $key) use ($ids){
-                return $value->id == $ids;
-            });
+            foreach ($ids as $id) {
+                Category::findOrFail($id)->delete();
+            }
             return 1;
+            // $categoryid = $this->getSubCategories($ids);
+            // $this->foreachlong($categoryid);
+            // Category::findOrFail($ids)->delete();
+            // $categories = $this->getSubCategories(0,$ids);
+            // $category = $categories->filter(function($value, $key) use ($ids){
+            //     return $value->id == $ids;
+            // });
+            // return 1;
         }
-        // return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
     }
 
     public function sortcat(Request $request){

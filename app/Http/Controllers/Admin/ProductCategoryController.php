@@ -130,4 +130,13 @@ class ProductCategoryController extends Controller
     {
         //
     }
+
+    public function deleteMany(Request $request)
+    {
+        $products = explode(",",$request->ids);
+        foreach ($products as $product) {
+            Category::findOrFail($product)->delete();
+        }
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
 }

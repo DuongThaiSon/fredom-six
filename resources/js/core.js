@@ -92,7 +92,7 @@ export function deleteAnItem(delete_url, item_name = "mục") {
 
         let _this = $(this);
         let delete_id = $(this).attr("data-id");
-        swal({
+        Swal.fire({
             title: "Bạn chắc chứ?",
             text: `Hành động sẽ xóa vĩnh viễn ${item_name} này!`,
             type: "warning",
@@ -105,9 +105,9 @@ export function deleteAnItem(delete_url, item_name = "mục") {
         })
             .then(function(result) {
                 if (result.value) {
-                    swal({
+                    Swal.fire({
                         onOpen: () => {
-                            swal.showLoading();
+                            Swal.showLoading();
                         }
                     });
                     $.ajax({
@@ -118,7 +118,7 @@ export function deleteAnItem(delete_url, item_name = "mục") {
                         },
                         success: function() {
                             _this.closest("li").remove();
-                            swal({
+                            Swal.fire({
                                 title: "Thành công",
                                 text: "Bài viết đã được xóa.",
                                 type: "success",
@@ -129,7 +129,7 @@ export function deleteAnItem(delete_url, item_name = "mục") {
                         },
                         error: function(err) {
                             if (err.status === 403) {
-                                swal({
+                                Swal.fire({
                                     title: "Không được phép!",
                                     type: "error",
                                     confirmButtonClass: "btn btn-danger",
@@ -141,7 +141,7 @@ export function deleteAnItem(delete_url, item_name = "mục") {
                                         <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
                                 }).catch(swal.noop);
                             } else {
-                                swal({
+                                Swal.fire({
                                     title: "Lỗi",
                                     text: `Hãy đảm bảo rằng không còn bài viết và ${item_name} con nào thuộc ${item_name} cần xóa!`,
                                     type: "error",
@@ -165,9 +165,8 @@ export function deleteAnItem(delete_url, item_name = "mục") {
 export function deleteMultipleItems(delete_url, item_name = "mục") {
     $("#btn-del-all").click(function() {
         var countchecked = $("input.form-check-input:checkbox:checked").length;
-
         if (countchecked > 0) {
-            swal({
+            Swal.fire({
                 title: "Bạn chắc chứ?",
                 text: `Hành động sẽ xóa vĩnh viễn những ${item_name} đã chọn!`,
                 type: "warning",
@@ -188,9 +187,9 @@ export function deleteMultipleItems(delete_url, item_name = "mục") {
                         );
 
                         delete_id = delete_id.slice(0, delete_id.length - 1);
-                        swal({
+                        Swal.fire({
                             onOpen: () => {
-                                swal.showLoading();
+                                Swal.showLoading();
                             }
                         });
 
@@ -202,29 +201,31 @@ export function deleteMultipleItems(delete_url, item_name = "mục") {
                                 _method: "DELETE"
                             },
                             success: function() {
-                                for (
-                                    ;
-                                    $("input.form-check-input:checkbox:checked")
-                                        .length > 0;
+                                // for (
+                                //     ;
+                                //     $("input.form-check-input:checkbox:checked")
+                                //         .length > 0;
 
-                                ) {
-                                    let _this = $(
-                                        "input.form-check-input:checkbox:checked"
-                                    ).first();
-                                    _this.closest("li").remove();
-                                }
-                                swal({
+                                // ) {
+                                //     let _this = $(
+                                //         "input.form-check-input:checkbox:checked"
+                                //     ).first();
+                                //     _this.closest("li").remove();
+                                // }
+                                Swal.fire({
                                     title: "Thành công",
                                     text: `Đã xóa các ${item_name} được chọn.`,
                                     type: "success",
                                     confirmButtonClass: "btn btn-success",
                                     buttonsStyling: false
+                                }).then(function() {
+                                    location.reload();
                                 });
                                 changeAppearButtonCheckAll();
                             },
                             error: function(err) {
                                 if (err.status === 403) {
-                                    swal({
+                                    Swal.fire({
                                         title: "Không được phép!",
                                         type: "error",
                                         confirmButtonClass: "btn btn-danger",
@@ -236,7 +237,7 @@ export function deleteMultipleItems(delete_url, item_name = "mục") {
                                     <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
                                     }).catch(swal.noop);
                                 } else {
-                                    swal({
+                                    Swal.fire({
                                         title: "Lỗi",
                                         text: `Hãy đảm bảo rằng không còn bài viết và ${item_name} con nào thuộc ${item_name} cần xóa!`,
                                         type: "error",
@@ -250,7 +251,7 @@ export function deleteMultipleItems(delete_url, item_name = "mục") {
                 })
                 .catch(swal.noop);
         } else {
-            swal({
+            Swal.fire({
                 title: "Err...",
                 text: `Chưa chọn ${item_name} nào cả.`,
                 buttonsStyling: false,
@@ -275,7 +276,7 @@ export function makeTableOrderable(order_url) {
                 },
                 error: function(err) {
                     if (err.status === 403) {
-                        swal({
+                        Swal.fire({
                             title: "Lỗi!",
                             type: "error",
                             confirmButtonClass: "btn btn-danger",

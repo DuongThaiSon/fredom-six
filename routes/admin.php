@@ -357,6 +357,14 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ProductController@deleteMany'
     ]);
     Route::group(['prefix' => 'products'], function() {
+        Route::post('{product}/process', [
+            'as' => 'products.processImage',
+            'uses' => 'ProductController@processImage'
+        ]);
+        Route::delete('{product}/revert/{image}', [
+            'as' => 'products.revertImage',
+            'uses' => 'ProductController@revertImage'
+        ]);
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -412,6 +420,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 });
 
+Route::resource('reviews', 'ReviewController');
 
 // Guest routes
 Route::group(['namespace' => 'Auth'], function() {

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Image;
 
 
 class ProductController extends Controller
@@ -82,7 +83,9 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = $this->service->allWithSub($product->id);
-        $product->load(['productAttributeValues.productAttribute', 'categories.productAttributes']);
+        $product->load(['productAttributeValues.productAttribute', 'categories.productAttributes', 'reviews' => function($q) {
+            $q->orderBy('created_at', 'desc');
+        }]);
         $selectedCategory = $product->categories->first();
         if ($product->categories->count()) {
             $productAttributes = $product->categories->first()->productAttributes;
@@ -90,6 +93,7 @@ class ProductController extends Controller
             $productAttributes = ProductAttribute::all();
         }
         $selectedProductAttributes = $product->productAttributeValues->pluck('productAttribute')->unique('id');
+        // print_r($product->toArray());die;
         return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes'));
     }
 
@@ -170,5 +174,49 @@ class ProductController extends Controller
             Product::findOrFail($product)->delete();
         }
         return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
+
+    public function processImage(Request $request, Product $product)
+    {
+        $request->validate([
+            'uploadImage' => 'required|image'
+        ]);
+
+        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/products')); // upload path
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0777, true);
+            $gitignore = '.gitignore';
+            $text = "*\n!.gitignore\n";
+            file_put_contents($destinationPath.'/'.$gitignore, $text);
+        }
+
+        $file = $request->file('uploadImage');
+        $extension = $file->getClientOriginalExtension(); // getting image extension
+        $fileName = uniqid(date('d.m.Y')) . '.' . $extension; // renameing image
+        // $file->move($destinationPath, $fileName); // upload origin file to given path
+        $uploadImage = \Image::make($file); //
+        $uploadImage->save($destinationPath.'/'.$fileName); // upload file with reduce quality
+        $currentOrder = \App\Models\Image::max('order');
+        $product->images()->create([
+            'name' => $fileName,
+            'size' => $file->getClientSize(),
+            'mime' => $file->getClientMimeType(),
+            'order' => $currentOrder?$currentOrder+1:1,
+            'created_by' => auth()->guard('admin')->id(),
+            'updated_by' => auth()->guard('admin')->id()
+        ]);
+
+        return view('admin.products.imageShowcase', compact('product'));
+    }
+
+    public function revertImage(Product $product, Image $image)
+    {
+        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/products'));
+        $fileName = $image->name;
+        if (file_exists($destinationPath.'/'.$fileName)) {
+            unlink($destinationPath.'/'.$fileName);
+        }
+        $image->delete();
+        return view('admin.products.imageShowcase', compact('product'));
     }
 }

@@ -53,7 +53,7 @@ class UserService
     {
         $avatar = $this->uploadAvatar($request, $destinationDir);
         $attributes = [
-            'name', 'email', 
+            'name', 'email', 'type'
         ];
         $attributes = $request->only($attributes);
         $attributes['password'] = bcrypt($request['password']);

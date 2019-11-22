@@ -89,12 +89,12 @@
                       <select 
                         type="text"
                         class="form-control"
-                        name="page_title"
+                        name="type"
                         placeholder=""
                       >
-                    <option value="1">Admin</option>
-                    <option value="2">Mod</option>
-                    <option value="3">Member</option>
+                    <option value="Admin" {{ $user->type==='Admin'?'selected':'' }}>Admin</option>
+                    {{--  <option value="2">Mod</option>  --}}
+                    <option value="Member" {{ $user->type==='Member'?'selected':'' }}>Member</option>
                     </select>
                       
                     </div>

@@ -12,7 +12,9 @@ $(document).ready(function() {
           id: $(this).attr('data-id'),
           quantity: $("input[type=number]").val(),
           size: $('#size').val(),
-        }
+          color: $('input[name=color]').val()
+        };
+
         $.ajax({
           url: '/cart/add',
           method: 'POST',

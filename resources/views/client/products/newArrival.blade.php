@@ -30,16 +30,18 @@
                 <a href="{{ route('client.products.detail', ['slug_cat' => $prod->categories[0]->slug, 'slug_view' => $prod->slug]) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                     class="mx-auto d-flex justify-content-center" alt=""></a>
                 <div class="product-colors justify-content-center d-flex">
-                    @php
-                        $colors = $prod->productAttributeValues->where('productAttribute.name', 'Màu sắc');
-                    @endphp
-                    @foreach ($colors as $color)
-                        <div class="product-color" style="background: {{ $color->value }};"></div>
-                    @endforeach
-                  {{-- <div class="product-color" style="background: #2d2d2d;"></div> --}}
-                  {{-- <div class="product-color" style="background: #ffffff;"></div>
-                  <div class="product-color" style="background: #f55678;"></div>
-                  <div class="product-color" style="background: #ffa733;"></div> --}}
+                    @forelse ($prod->productAttributeValues as $attribute)
+                        @if ($attribute->productAttribute->type === 'color')
+                        <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
+                            <div class="product-color" style="background: {{ $attribute->value }};">
+                            </div>
+                        </a>
+                        @endif
+
+                    @empty
+                    @endforelse
+                    <input type="hidden" name="color" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                    <input type="hidden" name="size" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
                 </div>
               </div>
               <div class="card-body">
@@ -68,6 +70,7 @@
                   <span class="new-price">{{ (($prod->discount > 0)?number_format($prod->price-$prod->price*$prod->discount/100) .'đ':'') }}</span>
                 </div>
               </div>
+
               <div class="list-group list-group-flush">
                 <div class="list-group-item">
                   <a href="" data-id="{{ $prod->id }}" class="btn-add-cart cart-link text-muted ">
@@ -76,6 +79,7 @@
                   </a>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

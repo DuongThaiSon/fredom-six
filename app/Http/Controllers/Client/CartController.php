@@ -58,6 +58,7 @@ class CartController extends Controller
                 'category_id' => $product->categories[0]->id,
                 'category' => $product->categories[0]->name,
                 'size' => $request->size,
+                'color' => $request->color
             )
         ));
 

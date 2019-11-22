@@ -5,6 +5,7 @@ $(document).ready(function(){
     loadComment();
     fixReview();
     likeMePls();
+    chooseColor();
     $('.write-review').click(function(e) {
         $('#review-tab').tab("show");
     });
@@ -171,5 +172,19 @@ let likeMePls = function() {
                 $(".like-button").attr('disabled', 'disabled');
             }
         })
+    });
+};
+
+let chooseColor = function() {
+    $('.choose-color').on('click', function(e) {
+        e.preventDefault();
+        $('.choose-color').each(function(e) {
+            if($(this).hasClass('click-choose-color'))
+            {
+                $(this).removeClass('click-choose-color');
+            }
+        });
+        $(this).addClass('click-choose-color');
+        $('input[name=color]').val($(this).data('color'));
     });
 };

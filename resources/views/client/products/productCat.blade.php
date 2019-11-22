@@ -69,7 +69,7 @@
 <section id="product-list">
     <div class="container">
         <div class="row mb-4">
-            @forelse ($category->products as $prod)
+            @forelse ($products as $prod)
             <div class="col-lg-3">
                 <div class="product mb-3">
                     <div class="card">
@@ -90,19 +90,19 @@
                                 class="product-name">{{ $prod->name }}</a>
                             <!-- rating -->
                             <div id='rating' class='rating'>
-                                <span class='ratingStars '>
+                                <span class='ratingStars {{ !empty($prod->rate) && $prod->rate >= 1 ? 'clickStars': '' }}'>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
-                                <span class='ratingStars '>
+                                <span class='ratingStars {{ !empty($prod->rate) && $prod->rate >= 2 ? 'clickStars': '' }}'>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
-                                <span class='ratingStars '>
+                                <span class='ratingStars {{ !empty($prod->rate) && $prod->rate >= 3 ? 'clickStars': '' }}'>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
-                                <span class='ratingStars '>
+                                <span class='ratingStars {{ !empty($prod->rate) && $prod->rate >= 4 ? 'clickStars': '' }}'>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
-                                <span class='ratingStars '>
+                                <span class='ratingStars {{ !empty($prod->rate) && $prod->rate >= 5 ? 'clickStars': '' }}'>
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
                             </div>

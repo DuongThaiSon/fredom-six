@@ -14,8 +14,13 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where('is_new', 1)->with(['categories'])->simplePaginate(8);
-        // print_r($productNew->toArray());die;
+        $productNew = Product::where('is_new', 1)->with(['categories'])->paginate(8);
+        $productNew = $productNew->map(function($q) {
+            $q->rate = $q->reviews()->avg('rate');
+            return $q;
+        });
+        // $productNew = $productNew;
+        // print_r($productNew);die;
         return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($slug_cat = null, $slug_view = null)
@@ -29,6 +34,7 @@ class ProductController extends Controller
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
+        // print_r($products);die;
         $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments'])->where('slug', $slug_view)->firstOrFail();
         $rating = $product->reviews()->avg('rate');
         // print_r($product->toArray());die;
@@ -67,7 +73,12 @@ class ProductController extends Controller
             $category = $category->with(['products', 'productAttributes.productAttributeValues']);
         }
         $category = $category->firstOrFail();
+        $products = $category->products->map(function($q) {
+            $q->rate = $q->reviews()->avg('rate');
+            return $q;
+        });
+        // print_r($category->toArray());die;
 
-        return view('client.products.productCat', compact('category'));
+        return view('client.products.productCat', compact('category', 'products'));
     }
 }

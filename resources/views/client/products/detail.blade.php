@@ -66,9 +66,9 @@
                 <!-- price -->
                 <div class="product-price">
                     <span
-                        class="new-price font-weight-bold">{{ (($product->discount > 0)?number_format($product->price-$product->price*$product->discount/100):'') }}&nbsp;&#8363;</span>
+                        class="new-price font-weight-bold">{{ (($product->discount > 0)?number_format($product->price-$product->price*$product->discount/100) . ' đ':'') }}</span>
                     <span
-                        class="{{ ($product->discount > 0)?'old-price text-muted':'new-price font-weight-bold' }}">{{ number_format($product->price) }}&nbsp;&#8363;</span>
+                        class="{{ ($product->discount > 0)?'old-price text-muted':'new-price font-weight-bold' }}">{{ number_format($product->price) }} đ</span>
                 </div>
                 <!-- review -->
                 <div class="review d-flex mt-2">
@@ -357,27 +357,27 @@
                                     <!-- rating -->
                                     <div id='rating' class='rating'>
                                         <span
-                                            class='ratingStars  {{  $item->rate >= 1 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{ !empty($item->rate) && $item->rate >= 1 ? 'clickStars' : '' }}'
                                             data-star="1">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars  {{  $item->rate >= 2 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{ !empty($item->rate) && $item->rate >= 2 ? 'clickStars' : '' }}'
                                             data-star="2">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars  {{  $item->rate >= 3 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{ !empty($item->rate) && $item->rate >= 3 ? 'clickStars' : '' }}'
                                             data-star="3">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars  {{  $item->rate >= 4 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{ !empty($item->rate) && $item->rate >= 4 ? 'clickStars' : '' }}'
                                             data-star="4">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>
                                         <span
-                                            class='ratingStars  {{  $item->rate >= 5 ? 'clickStars' : '' }}'
+                                            class='ratingStars  {{ !empty($item->rate) && $item->rate >= 5 ? 'clickStars' : '' }}'
                                             data-star="5">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                         </span>

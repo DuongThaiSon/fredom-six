@@ -197,11 +197,11 @@
                     <a href="{{ route('admin.users.add')}}" class="nav-link">Thêm mới người dùng</a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.users.admin')}}" class="nav-link">Danh sách quản trị viên</a>
+                    <a href="{{ route('admin.users.admin')}}" class="nav-link">Danh sách thành viên</a>
                 </li>
-                <li>
+                {{-- <li>
                     <a href="#" class="nav-link">Danh sách thành viên</a>
-                </li>
+                </li> --}}
                 </ul>
             </div>
             </li>

@@ -14,7 +14,7 @@ class AddTypeToUsersTable extends Migration
     public function up()
     {// lỗi :))
         Schema::table('users', function (Blueprint $table) {
-            $table->string('type')->nullable()->default('Member')->after('name');
+            $table->string('type')->nullable()->default('MEMBER')->after('name');
         });
     }
 

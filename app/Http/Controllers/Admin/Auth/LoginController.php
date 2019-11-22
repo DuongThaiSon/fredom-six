@@ -42,6 +42,7 @@ class LoginController extends Controller
     {
         return view('admin.auth.login');
     }
+
     /**
      * The user has logged out of the application.
      *
@@ -51,6 +52,19 @@ class LoginController extends Controller
     protected function loggedOut(Request $request)
     {
         return redirect('/admin/login');
+    }
+    
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+        $credentials['type'] = 'ADMIN';
+        return $credentials;
     }
 
     /**

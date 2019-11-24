@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\OrderCreated;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
@@ -116,7 +117,10 @@ class CartController extends Controller
                 'quantity' => $item->quantity
             ]);};
 
-        Cart::clear();      
+        Cart::clear();
+
+        event(new OrderCreated($order));
+
         return redirect()->route('client.carts.complete', $order->id);
     }
     /**

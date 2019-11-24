@@ -18,7 +18,7 @@
           <div class="position-relative">
             <form action="{{ route('client.subscribe') }}" method="POST" enctype="multipart/form-data" >
               @csrf
-              <input type="email" name="email" id="" placeholder="Your email address">
+              <input type="email" name="email" id="" required placeholder="Your email address">
               <button type="submit" class="btn-sub text-uppercase">subscribe</button>
             </form>
           </div>

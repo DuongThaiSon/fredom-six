@@ -55,9 +55,20 @@
                 </div>
                 <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
                   class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }}</a>
-                <p><b>SKU:</b> {{ $item->attributes->product_code }} <br>
-                    <b>Cỡ:</b> {{ $item->attributes->size }} <br>
-                    <b>Màu:</b> <span style="background-color: {{ $item->attributes->color }};">{{ $item->attributes->color }}</span></p>
+                  <div>
+                    <div><b>SKU:</b> {{ $item->attributes->product_code }}</div>
+                    <div><b>Cỡ:</b> {{ $item->attributes->size }} </div>
+                        {{-- <b>Màu:</b> <span><div style="background-color: {{ $item->attributes->color }}">
+                          {{ $item->attributes->color }}</div>
+                        </span> --}}
+                    <div class="d-flex"><b>Màu:</b>
+                        <div class="circle" style="background: #000;height: 20px;
+                        width: 20px;
+                        border-radius: 100%;
+                        margin-left: 5px;
+                        border: 1px solid #161515;"></div>
+                    </div>
+                  </div>
               </div>
             </td>
             <td class="font-weight-bold text-center">{{ number_format($item->price)}}</td>

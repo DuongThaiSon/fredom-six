@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\OrderCreated;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
@@ -108,48 +109,31 @@ class CartController extends Controller
         ]);
         $attributes['payment_status'] = 'Đặt hàng';
         $order = Order::create($attributes);
-        // r a bấm thanh toán đi a
-
-        $cart_item = [];
-        $i = 0;
+        
         foreach (Cart::getContent() as $item) {
 
             $order->cartItems()->create([
                 'product_id' => $item->id,
                 'price' => $item->price*$item->quantity,
                 'quantity' => $item->quantity
-            ]);
-            $cart_item[$i]=[
-                'product_name' => $item->name,
-                'quantity'      => $item->quantity,
-                'price'         => $item->price,
-                'total'         => $item->price*$item->quantity,
-            ];
-            $i++;
-
-        }
-        $cart = [
-            'name' => $request->last_name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'city' => $request->city,
-            'ship' => $request->ship,
-            'payment_choice' => $request->payment_choice,
-        ];
-
+            ]);};
 
         Cart::clear();
-        return view('client.carts.complete', compact('cart','cart_item'));// view comple
+
+        event(new OrderCreated($order));
+
+        return redirect()->route('client.carts.complete', $order->id);
     }
     /**
      * Complete cart
      */
 
-    public function complete()
-    {
-        $order = Order::with(['cartItems'])->get();
-        // print_r($order->toArray());die;
+    public function complete($id)
+    {  
+        $order = Order::with('cartItems')->findOrFail($id);
+        $order->sum = $order->cartItems->sum(function($q) {
+            return $q->price * $q->quantity;
+        });
         return view('client.carts.complete', compact('order'));
     }
 }

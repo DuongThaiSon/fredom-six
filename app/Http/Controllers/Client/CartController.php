@@ -107,10 +107,11 @@ class CartController extends Controller
         $attributes = $request->only([
             'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
         ]);
+        $attributes['payment_status'] = 'Đặt hàng';
         $order = Order::create($attributes);
         
         foreach (Cart::getContent() as $item) {
-            
+
             $order->cartItems()->create([
                 'product_id' => $item->id,
                 'price' => $item->price*$item->quantity,

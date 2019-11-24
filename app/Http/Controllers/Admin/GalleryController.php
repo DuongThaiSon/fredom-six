@@ -323,4 +323,18 @@ class GalleryController extends Controller
             return 0;
         }
     }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        if(empty($ids)) {
+            return 0;
+        }else {
+            foreach ($ids as $id) {
+                Gallery::findOrFail($id)->delete();
+            }
+            return 1;
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
 }

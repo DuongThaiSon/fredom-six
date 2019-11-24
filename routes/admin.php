@@ -125,6 +125,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'gallery-categories.sortcat',
             'uses' => 'GalleryCategoryController@sortcat'
         ]);
+        Route::delete('delete-all', [
+            'as' => 'gallery-categories.deleteAll',
+            'uses' => 'GalleryCategoryController@deleteAll'
+        ]);
     });
     Route::resource('gallery-categories', 'GalleryCategoryController',[
         'parameters' => ['gallery-categories' => 'id']
@@ -170,6 +174,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
         Route::post('sortcat', [
             'as' => 'article-categories.sortcat',
             'uses' => 'ArticleCategoryController@sortcat'
+        ]);
+        Route::delete('delete-all', [
+            'as' => 'article-categories.deleteAll',
+            'uses' => 'ArticleCategoryController@deleteAll'
         ]);
     });
     Route::resource('article-categories', 'ArticleCategoryController');
@@ -344,7 +352,19 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('menus', 'MenuController');
 
     // product
+    Route::delete('delete-many/products', [
+        'as' => 'products.deleteMany',
+        'uses' => 'ProductController@deleteMany'
+    ]);
     Route::group(['prefix' => 'products'], function() {
+        Route::post('{product}/process', [
+            'as' => 'products.processImage',
+            'uses' => 'ProductController@processImage'
+        ]);
+        Route::delete('{product}/revert/{image}', [
+            'as' => 'products.revertImage',
+            'uses' => 'ProductController@revertImage'
+        ]);
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -353,10 +373,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
+
     });
     Route::resource('products', 'ProductController');
 
     // product category
+    Route::delete('delete-many/product-categories', [
+        'as' => 'productCategories.deleteMany',
+        'uses' => 'ProductCategoryController@deleteMany'
+    ]);
     Route::group(['prefix' => 'product-categories'], function() {
         //
     });
@@ -395,6 +420,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 });
 
+Route::resource('reviews', 'ReviewController');
 
 // Guest routes
 Route::group(['namespace' => 'Auth'], function() {

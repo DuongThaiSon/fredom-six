@@ -11,7 +11,7 @@
                     create_new_folder
                   </i>
                 </a>
-                <button data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" target="_blank">
+                <button data-toggle="tooltip" title="Xóa toàn bộ mục đã chọn" class="btn btn-sm btn-dark" target="_blank" id="btn-del-all">
                   <i class="material-icons">
                     delete_forever
                   </i>
@@ -53,4 +53,12 @@
   @endsection
   @push('js')
     <script src="{{ asset('assets/admin') }}/js/galleryCats.js"></script>
+    <script>
+    $(document).ready(function () {
+            // core.makeTableOrderable('/admin/products/sort');
+            core.initCheckboxButton();
+            // core.updateViewViewStatus('/admin/products/update-view-status');
+            core.deleteMultipleItems('/admin/gallery-categories/delete-all/');
+        });
+    </script>
   @endpush

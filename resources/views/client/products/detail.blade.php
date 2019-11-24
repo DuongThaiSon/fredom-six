@@ -449,9 +449,9 @@
 <script>
     var content = $(".details").find(".more").html();
 
-      var lessText = content.substr(0, 300);
-      var showText = content.substr(300, content.length - 300);
-      if(content.length > 300) {
+      var lessText = content.substr(0, 500);
+      var showText = content.substr(500, content.length - 500);
+      if(content.length > 500) {
           $(".details").find(".more").html(lessText).append("<a href='#' class='read-more-link'> ...Xem thêm</a>");
       } else {
           $(".details").find(".more").html(content);

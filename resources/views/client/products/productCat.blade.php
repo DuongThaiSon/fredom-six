@@ -25,17 +25,19 @@
             <div class="col-12">
                 <div class="options d-flex justify-content-center">
                     <ul class="nav">
-                        <li class="text-muted">Bộ lọc</li>
-                        @foreach ($category->productAttributes as $item)
-                        <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
-                        </li>
-                        @endforeach
+                        @if ($category->name == "gift")
+                            <li class="text-muted">Bộ lọc</li>
+                            @foreach ($category->productAttributes as $item)
+                            <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
+                            </li>
+                            @endforeach
+                        @endif
                     </ul>
                     <div class="checkbox-option p-3" style="margin-left: 4%; width: fit-content;">
                         <div class="all-options d-flex">
                             <!-- styles -->
                             @forelse ($category->productAttributes as $attribute)
-                            
+
                             <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
                                 @forelse ($attribute->productAttributeValues as $attributeValue)
 

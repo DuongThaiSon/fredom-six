@@ -62,9 +62,9 @@
                                 <tr class="text-muted">
                                     <th style="width: 34.5px;"></th>
                                     <th style="width: 34.5px;" class="text-center">
-                                    <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
-                                        <i class="material-icons text-muted">check_box_outline_blank</i>
-                                    </a>
+                                        <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
+                                            <i class="material-icons text-muted">check_box_outline_blank</i>
+                                        </a>
                                     </th>
                                     <th style="width: 40px;">ID</th>
                                     <th>TÊN MỤC</th>
@@ -90,4 +90,13 @@
 @endsection
 @push('js')
     <script src="{{ asset('assets/admin') }}/js/productCats.js"></script>
+    <script>
+        $(document).ready(function () {
+            // core.makeTableOrderable('/admin/products/sort');
+            core.initCheckboxButton();
+            // core.updateViewViewStatus('/admin/products/update-view-status');
+
+            core.deleteMultipleItems('/admin/articles/delete');
+        });
+    </script>
 @endpush

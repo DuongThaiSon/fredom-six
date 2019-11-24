@@ -114,12 +114,12 @@ $(document).ready(function () {
             console.log(ids);
           if (result.value) {
             $.ajax({
-                url: "/admin/gallery/delete",
-              type: "POST",
-              data: {
-                _method: "DELETE",
-                ids: ids
-              }
+                url: "/admin/galleries/delete",
+                type: "POST",
+                data: {
+                    _method: "DELETE",
+                    ids: ids
+                }
             });
             Swal.fire(
               'Đã xóa!',

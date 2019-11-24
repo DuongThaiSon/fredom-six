@@ -50545,7 +50545,7 @@ function deleteAnItem(delete_url) {
     var _this = $(this);
 
     var delete_id = $(this).attr("data-id");
-    swal({
+    Swal.fire({
       title: "Bạn chắc chứ?",
       text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(item_name, " n\xE0y!"),
       type: "warning",
@@ -50557,9 +50557,9 @@ function deleteAnItem(delete_url) {
       buttonsStyling: false
     }).then(function (result) {
       if (result.value) {
-        swal({
+        Swal.fire({
           onOpen: function onOpen() {
-            swal.showLoading();
+            Swal.showLoading();
           }
         });
         $.ajax({
@@ -50571,7 +50571,7 @@ function deleteAnItem(delete_url) {
           success: function success() {
             _this.closest("li").remove();
 
-            swal({
+            Swal.fire({
               title: "Thành công",
               text: "Bài viết đã được xóa.",
               type: "success",
@@ -50582,7 +50582,7 @@ function deleteAnItem(delete_url) {
           },
           error: function error(err) {
             if (err.status === 403) {
-              swal({
+              Swal.fire({
                 title: "Không được phép!",
                 type: "error",
                 confirmButtonClass: "btn btn-danger",
@@ -50593,7 +50593,7 @@ function deleteAnItem(delete_url) {
                                         <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
               })["catch"](swal.noop);
             } else {
-              swal({
+              Swal.fire({
                 title: "Lỗi",
                 text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
                 type: "error",
@@ -50619,7 +50619,7 @@ function deleteMultipleItems(delete_url) {
     var countchecked = $("input.form-check-input:checkbox:checked").length;
 
     if (countchecked > 0) {
-      swal({
+      Swal.fire({
         title: "Bạn chắc chứ?",
         text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(item_name, " \u0111\xE3 ch\u1ECDn!"),
         type: "warning",
@@ -50636,9 +50636,9 @@ function deleteMultipleItems(delete_url) {
             delete_id += $(this).attr("data-id") + ",";
           });
           delete_id = delete_id.slice(0, delete_id.length - 1);
-          swal({
+          Swal.fire({
             onOpen: function onOpen() {
-              swal.showLoading();
+              Swal.showLoading();
             }
           });
           $.ajax({
@@ -50649,24 +50649,30 @@ function deleteMultipleItems(delete_url) {
               _method: "DELETE"
             },
             success: function success() {
-              for (; $("input.form-check-input:checkbox:checked").length > 0;) {
-                var _this = $("input.form-check-input:checkbox:checked").first();
-
-                _this.closest("li").remove();
-              }
-
-              swal({
+              // for (
+              //     ;
+              //     $("input.form-check-input:checkbox:checked")
+              //         .length > 0;
+              // ) {
+              //     let _this = $(
+              //         "input.form-check-input:checkbox:checked"
+              //     ).first();
+              //     _this.closest("li").remove();
+              // }
+              Swal.fire({
                 title: "Thành công",
                 text: "\u0110\xE3 x\xF3a c\xE1c ".concat(item_name, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
                 type: "success",
                 confirmButtonClass: "btn btn-success",
                 buttonsStyling: false
+              }).then(function () {
+                location.reload();
               });
               changeAppearButtonCheckAll();
             },
             error: function error(err) {
               if (err.status === 403) {
-                swal({
+                Swal.fire({
                   title: "Không được phép!",
                   type: "error",
                   confirmButtonClass: "btn btn-danger",
@@ -50677,7 +50683,7 @@ function deleteMultipleItems(delete_url) {
                                     <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
                 })["catch"](swal.noop);
               } else {
-                swal({
+                Swal.fire({
                   title: "Lỗi",
                   text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
                   type: "error",
@@ -50690,7 +50696,7 @@ function deleteMultipleItems(delete_url) {
         }
       })["catch"](swal.noop);
     } else {
-      swal({
+      Swal.fire({
         title: "Err...",
         text: "Ch\u01B0a ch\u1ECDn ".concat(item_name, " n\xE0o c\u1EA3."),
         buttonsStyling: false,
@@ -50714,7 +50720,7 @@ function makeTableOrderable(order_url) {
         },
         error: function error(err) {
           if (err.status === 403) {
-            swal({
+            Swal.fire({
               title: "Lỗi!",
               type: "error",
               confirmButtonClass: "btn btn-danger",
@@ -50830,8 +50836,8 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/main.js */"./resources/js/admin/main.js");
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/sass/admin/main.scss */"./resources/sass/admin/main.scss");
+__webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\main.js */"./resources/js/admin/main.js");
+module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\sass\admin\main.scss */"./resources/sass/admin/main.scss");
 
 
 /***/ })

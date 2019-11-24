@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 'email', 'password', 'avatar', 'type'
     ];
 
     /**
@@ -59,5 +59,12 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->belongsToMany('App\Models\Product', 'likes', 'user_id', 'post_id');
+    }
+
+    public function reviews()
+    {
+        return $this->belongsToMany('App\Models\Product', 'reviews')
+            ->withPivot(['content', 'rate'])
+            ->withTimestamps();
     }
 }

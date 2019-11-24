@@ -222,4 +222,18 @@ class GalleryCategoryController extends Controller
                     ->paginate();
         return view('admin.galleries.index', compact('galleries'));
     }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = explode(",",$request->ids);
+        if(empty($ids)) {
+            return 0;
+        }else {
+            foreach ($ids as $id) {
+                Category::findOrFail($id)->delete();
+            }
+            return 1;
+        }
+        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+    }
 }

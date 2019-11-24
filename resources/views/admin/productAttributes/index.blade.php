@@ -44,7 +44,7 @@
                         @foreach ($attributes as $attribute )
                         <tr id="item_{{$attribute->id}}" class="ui-state-default">
                             <td class="text-center">
-                                <input type="checkbox" class="checkdel" value="{{$attribute->id}}" data-id="{{$attribute->id}}" />
+                                <input type="checkbox" class="checkdel form-check-input" value="{{$attribute->id}}" data-id="{{$attribute->id}}" />
                             </td>
                             <td>{{$attribute->id}}</td>
                             <td class="editname">
@@ -165,6 +165,7 @@
 <script>
     $(document).ready(function () {
         core.updateViewViewStatus('/admin/products/update-view-status');
+        core.initCheckboxButton();
     });
 </script>
 @endpush

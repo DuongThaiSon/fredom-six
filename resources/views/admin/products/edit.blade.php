@@ -38,6 +38,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#nav-image">Ảnh</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#nav-review">Quản lý review</a>
+                </li>
             </ul>
             <br>
             <div class="tab-content" id="nav-tabContent">
@@ -388,8 +391,60 @@
                                 </div>
                             </div>
                             <div class="image-showcase">
-                                {{-- @include('admin.galleries.imageShowcase') --}}
+                                @include('admin.products.imageShowcase')
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="nav-review" role="tabpanel" aria-labelledby="nav-image-tab">
+                    <div class="row">
+                        <div class="col-12">
+                            <legend>Quản lý review</legend>
+                            <div class="row">
+                                <div class="table-responsive bg-white mt-4" id="cat_table">
+                                    <table class="table-sm table-hover table mb-2" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%">STT</th>
+                                                <th width="15%">Người tạo</th>
+                                                <th width="40%">Review</th>
+                                                <th width="10%">Đánh giá</th>
+                                                <th width="15%">Ngày tạo</th>
+                                                <th width="10%">Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($product->reviews as $item)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $item->user->name ?? '' }}</td>
+                                                    <td>{{ $item->content ?? '' }}</td>
+                                                    <td>{{ $item->rate ?? '' }} *</td>
+                                                    <td>{{ $item->created_at }}</td>
+                                                    <td>
+                                                        <button class="btn btn-sm p-1 btn-delete" data-toggle="tooltip" title="Xoá" type="submit" data-user="{{ $item->user_id }}" data-product="{{ $item->product_id }}" data-href="{{ route('admin.reviews.destroy', $item->product_id) }}">
+                                                            <i class="material-icons">delete</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            {{-- <div class="row">
+                                <div class="form-group col-4">
+                                    <div class="input-group mb-3">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input upload-variant-image" id="input-image">
+                                            <label class="custom-file-label" for="input-image">Chọn ảnh</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="image-showcase">
+                                @include('admin.products.imageShowcase')
+                            </div> --}}
                         </div>
                     </div>
                 </div>

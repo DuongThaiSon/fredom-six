@@ -151,7 +151,8 @@ class ArticleController extends Controller
 
     public function deleteAll(Request $request)
     {
-        $ids = $request->ids;
+        // print_r($request->all());die;
+        $ids = explode(",",$request->ids);
         if(empty($ids)) {
             return 0;
         }else {

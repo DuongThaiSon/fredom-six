@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Article;
+use App\Models\Gallery;
 use App\Models\Image;
 
 class ArticleController extends Controller
@@ -17,14 +18,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $ceo = Image::where([
-            ['imageable_id', '=', '1'],
-            ['is_public', '=', '1']
-        ])->orderBy('order','desc')->firstOrFail();
-        $slideAbout = Image::where([
-            ['imageable_id', '=', '3'],
-            ['is_public', '=', '1']
-        ])->orderBy('order', 'desc')->get();
+        $galleryCeo = Gallery::findOrFail(1);
+        $ceo = $galleryCeo->images()->orderBy('order', 'desc')->firstOrFail();
+        $galleryAbout = Gallery::findOrFail(3);
+        $slideAbout = $galleryAbout->images()->orderBy('order', 'desc')->get();
         $ourworks = Article::where('category_id', 3)->orderBy('order')->get();
         $about = Article::where('category_id', 4)->orderBy('order')->firstOrFail();
         return view('client.introduce.introduce', compact('about', 'ourworks', 'ceo', 'slideAbout'));

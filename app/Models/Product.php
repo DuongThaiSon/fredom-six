@@ -19,9 +19,9 @@ class Product extends Model
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
 
-    public function productAttributeValues()
+    public function productAttributeOptions()
     {
-        return $this->belongsToMany('App\Models\ProductAttributeValue', 'product_attribute_value', 'product_id', 'product_attribute_value_id');
+        return $this->belongsToMany('App\Models\ProductAttributeOption', 'product_attribute_values', 'product_id', 'product_attribute_option_id');
     }
 
     public function comments()

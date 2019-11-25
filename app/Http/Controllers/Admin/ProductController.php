@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $categories = $this->service->allWithSub($product->id);
-        $product->load(['productAttributeValues.productAttribute', 'categories.productAttributes', 'reviews' => function($q) {
+        $product->load(['productAttributeOptions.productAttribute', 'categories.productAttributes', 'reviews' => function($q) {
             $q->orderBy('created_at', 'desc');
         }]);
         $selectedCategory = $product->categories->first();
@@ -92,7 +92,7 @@ class ProductController extends Controller
         } else {
             $productAttributes = ProductAttribute::all();
         }
-        $selectedProductAttributes = $product->productAttributeValues->pluck('productAttribute')->unique('id');
+        $selectedProductAttributes = $product->productAttributeOptions->pluck('productAttribute')->unique('id');
         // print_r($product->toArray());die;
         return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes'));
     }
@@ -112,7 +112,7 @@ class ProductController extends Controller
 
 
             if (!$productAttribute->can_select) {
-                $productAttribute->productAttributeValues()->update([
+                $productAttribute->productAttributeOptions()->update([
                     'value' => collect($request->attribute_values[13])->first()
                 ]);
                 $syncData[] = collect($request->attribute_values[$productAttribute->id])->keys()->first();
@@ -122,7 +122,7 @@ class ProductController extends Controller
 
 
         }
-        $product->productAttributeValues()->sync($syncData);
+        $product->productAttributeOptions()->sync($syncData);
         $product->categories()->sync($request->category);
         $attributes = $this->service->appendEditData($request->all());
         $product = Product::findOrFail($request->id);
@@ -148,7 +148,7 @@ class ProductController extends Controller
         $request->validate([
             'checked_ids' => 'required'
         ]);
-        $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeValues']);
+        $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeOptions']);
         if ($request->has('product_id')) {
             $product = Product::findOrFail($request->product_id);
         } else {

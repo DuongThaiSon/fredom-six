@@ -30,7 +30,7 @@
                 <a href="{{ route('client.products.detail', ['slug_cat' => $prod->categories[0]->slug, 'slug_view' => $prod->slug]) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                     class="mx-auto d-flex justify-content-center" alt=""></a>
                 <div class="product-colors justify-content-center d-flex">
-                    @forelse ($prod->productAttributeValues as $attribute)
+                    @forelse ($prod->productAttributeOptions as $attribute)
                         @if ($attribute->productAttribute->type === 'color')
                         <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                             <div class="product-color" style="background: {{ $attribute->value }};">
@@ -40,8 +40,8 @@
 
                     @empty
                     @endforelse
-                    <input type="hidden" name="color" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
-                    <input type="hidden" name="size" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
+                    <input type="hidden" name="color" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                    <input type="hidden" name="size" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
                 </div>
               </div>
               <div class="card-body">

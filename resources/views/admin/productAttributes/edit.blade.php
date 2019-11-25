@@ -53,7 +53,7 @@
                     <div class="col-md-6 select-zone">
                         <legend>Tạo lựa chọn</legend>
                         <div class="selection-list">
-                            @forelse ($productAttribute->productAttributeValues()->get() as $item)
+                            @forelse ($productAttribute->productAttributeOptions()->get() as $item)
                             <div class="row form-group selection-item">
                                 <div class="col-10 input-group">
                                     <input type="hidden" name="attribute_values[{{ $item->id }}][id]" value="{{ $item->id }}" class="selection-item-id"/>

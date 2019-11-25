@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where('is_new', 1)->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(8);
+        $productNew = Product::where('is_new', 1)->with(['categories','productAttributeOptions', 'productAttributeOptions.productAttribute'])->paginate(8);
         $productNew = $productNew->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
@@ -30,13 +30,13 @@ class ProductController extends Controller
             ['type', 'product'],
             ['slug', $slug_cat]
         ])->first();
-        $products = $category->products()->with(['productAttributeValues', 'productAttributeValues.productAttribute'])->where('slug', '<>', $slug_view)->take(4)->get();
+        $products = $category->products()->with(['productAttributeOptions', 'productAttributeOptions.productAttribute'])->where('slug', '<>', $slug_view)->take(4)->get();
         $products = $products->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
         // print_r($products->toArray());die;
-        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments'])->where('slug', $slug_view)->firstOrFail();
+        $product = Product::with(['productAttributeOptions', 'productAttributeOptions.productAttribute', 'comments'])->where('slug', $slug_view)->firstOrFail();
         $rating = $product->reviews()->avg('rate');
         // print_r($product->toArray());die;
         return view('client.products.detail', compact('product', 'category', 'products', 'rating'));
@@ -66,12 +66,12 @@ class ProductController extends Controller
         {
             $ids = explode(",", $request->term);
             $category = $category->with(['products' => function($q) use ($ids) {
-                $q->whereHas('productAttributeValues', function ($q) use ($ids){
+                $q->whereHas('productAttributeOptions', function ($q) use ($ids){
                     return $q->whereIn('id', $ids);
                 });
-            }, 'productAttributes.productAttributeValues']);
+            }, 'productAttributes.productAttributeOptions']);
         } else {
-            $category = $category->with(['products', 'productAttributes.productAttributeValues']);
+            $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
         }
         $category = $category->firstOrFail();
         $products = $category->products->map(function($q) {

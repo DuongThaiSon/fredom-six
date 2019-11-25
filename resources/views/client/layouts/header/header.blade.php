@@ -82,7 +82,7 @@
             <ul class="navbar-nav ml-auto">
                 @foreach ($menuTop as $item)
                     <li class="nav-item pl-lg-5">
-                        <a href="{{ $item->type == 6 || $item->type == 7 ? route('client.products.category', ['slug_cat' => $item->link]) : $item->link }}" class="nav-link text-uppercase">{{ $item->name }}
+                        <a href="{{ $item->type == 5 || $item->type == 8 ? route('client.products.category', ['slug_cat' => $item->link]) : $item->link }}" class="nav-link text-uppercase">{{ $item->name }}
                             @if ($item->sub->count())
                             <i class="fas fa-chevron-down"></i>
                             @endif
@@ -92,13 +92,13 @@
                             <div style="background: #000000; width: 200px; height:17px;"></div>
                             @foreach ($item->sub as $subitem)
                             <div class="submenu-parent">
-                                <a href="{{ $subitem->type == 6 || $subitem->type == 7 ? route('client.products.category', ['slug_cat' => $subitem->link]) : $subitem->link }}" class="submenu-item">
+                                <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : $subitem->link }}" class="submenu-item">
                                     <p class="m-0">{{ $subitem->name }}</p>
                                 </a>
                                 @if ($subitem->sub->count())
                                 <div class="second-submenu">
                                     @foreach ($subitem->sub as $secondsub)
-                                        <a href="{{ $secondsub->type == 6 || $secondsub->type == 7 ? route('client.products.category', ['slug_cat' => $secondsub->link]) : $secondsub->link }}" class="second-submenu-item">
+                                        <a href="{{ $secondsub->type == 8 || $secondsub->type == 5 ? route('client.products.category', ['slug_cat' => $secondsub->link]) : $secondsub->link }}" class="second-submenu-item">
                                             <p class="m-0">{{ $secondsub->name }}</p>
                                         </a>
                                     @endforeach

@@ -99,40 +99,8 @@
 @endsection
 @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
 </script>
-<script>
-  $(document).ready(function(){
-    $("select[name=type]").on('change', function (e) {
-      e.preventDefault();
-      let url = "";
-      if ($(this).val() == 4) {
-        url = "list-articles";
-        ajaxCall(url);
-      }
-      if ($(this).val() == 8) {
-        url = "list-products";
-        ajaxCall(url);
-      }
-    });
-    
-  });
-
-  let ajaxCall = function(url) {
-    $.ajax({
-        url: '/admin/menus/'+url,
-        method: 'GET',
-        success: function(scs){
-          $('.filter-result').html(scs)
-          $('input:[name=link]').remove();
-        },
-        error: function(e){
-          console.log(e);
-          
-          }
-      });
-   };
-    
-</script>
+<script src="{{ asset('assets/admin') }}/js/menus.edit.js"></script>
 @endpush

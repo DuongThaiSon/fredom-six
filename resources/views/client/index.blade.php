@@ -272,14 +272,12 @@
             @empty
 
             @endforelse
-
-
         </div>
     </div>
     <div class="line"></div>
 </section>
 <!-- customer voice -->
-<section id="customer-voice">
+{{-- <section id="customer-voice">
     <div class="row">
         <div class="col-lg-4">
             <h1 class="text-uppercase text-right">customer voice</h1>
@@ -300,10 +298,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- news -->
 <section id="news">
     <div class="container">
+            <div class=""><h1 class="text-uppercase text-center">News</h1></div>
         <div id="new-slide" class="owl-carousel owl-theme">
             @foreach ($articles as $item)
             <div class="card-news card-border-0 news-item">

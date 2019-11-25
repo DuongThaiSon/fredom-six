@@ -23,13 +23,7 @@ class OrderController extends Controller
             $q->total_price = $q->cartItems->sum('price');
             return $q;
         });
-        // $orders = $orders->paginate();
-        // print_r($orders->toArray());die;
-        // foreach($orders as $key => $order) {
-        //     $carts = CartItem::where('cart_id', $order->id)->get();
-        //     $order->total_quantity = $carts->sum('quantity');
-        //     $order->total_price = $carts->sum('price');
-        // }
+       
         return view('admin.orders.index', compact('orders'));
 
     }
@@ -74,7 +68,10 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = Order::with(['cartItems', 'cartItems.product'])->findOrFail($id);
-        // print_r($order->toArray());die;
+        $order->sum = $order->cartItems->sum(function($q) {
+            return $q->price * $q->quantity;
+        });
+        
         return view('admin.orders.edit', compact('order'));
     }
 

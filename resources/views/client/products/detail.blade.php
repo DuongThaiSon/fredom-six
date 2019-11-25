@@ -29,14 +29,14 @@
                                         class="fas fa-angle-up"></i>
                                 </button>
                                 <ol class="carousel-indicators d-flex flex-column align-items-center m-0">
-
                                     <ul class="thumbnail mr-3" style="height: 95%;">
+                                        @forelse ($product->images as $item)
                                         <li data-target="#product_details_slider" data-slide-to="0"
-                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                                            style="background-image: url(/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $item->name ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
                                         </li>
-
+                                        @empty
+                                        @endforelse
                                     </ul>
-
                                 </ol>
                                 <button onclick="scrollDown()" class="down-button text-center ml-4"
                                     style="z-index: 999;"><i class="fas fa-angle-down"></i>
@@ -172,8 +172,7 @@
                                 </div>
                                 <select class="form-control pl-0" name="size" id="size"
                                     style="border-left: 0 !important;" style="font-size: 14px;">
-                                    @foreach ($product->productAttributeValues->where('productAttribute.name',
-                                    'Kích cỡ') as $item)
+                                    @foreach ($product->productAttributeValues->where('productAttribute.name','Kích cỡ') as $item)
                                     <option value="{{ $item->value }}">{{ $item->value ?? 'Đang cập nhập' }}
                                     </option>
                                     @endforeach

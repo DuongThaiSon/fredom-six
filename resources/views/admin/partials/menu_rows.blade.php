@@ -1,6 +1,6 @@
 <ul style="list-style-type: none;" class="sortcat ui-sortable">
     @forelse ($menuCats as $menu )
-        <li id="item_{{ $menu->id}}" class="ui-state-default" style="border:none;">
+        <li id="item_{{ $menu->id}}" class="ui-state-default" style="border: none;">
             <div class="table-responsive bg-white">
                 <table class="table table-hover table-sm" width="100%">
                     <tbody>

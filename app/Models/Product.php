@@ -8,6 +8,12 @@ class Product extends Model
 {
     protected $guarded=['id'];
 
+    const PRODUCT_TYPES = [
+        'BASIC' => 'Basic',
+        'DOWNLOADABLE' => 'Downloadable',
+        'VARIABLE_PRODUCT' => 'Variable Product',
+    ];
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'product_category')

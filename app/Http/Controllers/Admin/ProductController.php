@@ -44,8 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub();
-        return view('admin.products.create', compact('categories'));
+        return view('admin.products.create', compact('categories', 'typeOptions'));
     }
 
     /**
@@ -60,7 +61,7 @@ class ProductController extends Controller
         $product = Product::create($attributes);
         $product->categories()->attach($request->category);
 
-        return redirect()->back();
+        return redirect()->route('admin.product.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
     }
 
     /**
@@ -82,6 +83,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub($product->id);
         $product->load(['productAttributeOptions.productAttribute', 'categories.productAttributes', 'reviews' => function($q) {
             $q->orderBy('created_at', 'desc');
@@ -94,7 +96,7 @@ class ProductController extends Controller
         }
         $selectedProductAttributes = $product->productAttributeOptions->pluck('productAttribute')->unique('id');
         // print_r($product->toArray());die;
-        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes'));
+        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions'));
     }
 
     /**

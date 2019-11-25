@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Tiêu đề sản phẩm</label>
+                                <label>@importantfield Tiêu đề sản phẩm</label>
                                 <input
                                 type="text"
                                 name="name"
@@ -67,14 +67,30 @@
                                 placeholder="The cat in the hat"
                                 value="{{$product->name ?? ''}}"
                                 />
-                                <small class="form-text">Tên của tin bài</small>
+                                <small class="form-text">Tên sản phẩm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Loại sản phẩm</label>
+                                <select
+                                    disabled
+                                    class="selectpicker form-control"
+                                    data-style="select-with-transition"
+                                    title="Chọn loại sản phẩm"
+                                    data-show-tick="true">
+                                    @forelse ($typeOptions as $optionKey => $optionValue)
+                                        <option value="{{ $optionKey }}" {{ $product->type===$optionKey?'selected':'' }}>{{ $optionValue }}</option>
+                                    @empty
+
+                                    @endforelse
+                                </select>
                             </div>
 
                             @php
                                 $selectedCategories = $product->categories->pluck('id')->toArray();
                             @endphp
                             <div class="form-group">
-                                <label>Nằm trong mục</label>
+                                <label>@importantfield Nằm trong mục</label>
                                 <select
                                     required
                                     name="category[]"

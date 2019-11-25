@@ -9,16 +9,15 @@ use App\Models\Article;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Component;
+use App\Models\Gallery;
 use App\Models\Product;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $slide = Image::where([
-            ['imageable_id', '=', '2'],
-            ['is_public', '=', '1']
-        ])->orderBy('order', 'desc')->get();
+        $gallery = Gallery::findOrFail(2);
+        $slide = $gallery->images()->orderBy('order', 'desc')->get();
         $articles = Article::where('category_id', 2)->get();
         $articleIntro = Category::with('articles')->find(1);
         $articleReview = Category::with('articles')->find(13);

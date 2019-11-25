@@ -177,8 +177,8 @@ class MenuController extends Controller
     public function listArticle(Request $request)
     {
 
-        $articles = Article::with('category')->simplePaginate(5);
-        return view('admin.menus.list_articles', compact('articles'))->render();
+        $results = Article::with('category')->simplePaginate(5);
+        return view('admin.menus.list_articles', compact('results'))->render();
     }
     /**
      *
@@ -186,8 +186,8 @@ class MenuController extends Controller
 
     public function listProduct()
     {
-        $products = Product::with('categories')->simplePaginate(5);
-        return view('admin.menus.list_products', compact('products'));
+        $results = Product::with('categories')->simplePaginate(5);
+        return view('admin.menus.list_products', compact('results'));
     }
     /**
      *
@@ -196,7 +196,7 @@ class MenuController extends Controller
     public function getArticle($id)
     {
         $article = Article::with(['category'])->findOrFail($id)->toArray();
-        return response()->json(['article'=>$article]);
+        return response()->json(['results'=>$article]);
     }
     /**
      *
@@ -206,7 +206,7 @@ class MenuController extends Controller
     {
         $product = Product::with(['categories'])->findOrFail($id)->toArray();
         // print_r($product);die;
-        return response()->json(['product'=>$product]);
+        return response()->json(['results'=>$product]);
     }
 
     public function searchArticles(Request $request)

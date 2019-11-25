@@ -56,16 +56,17 @@ export class productAttributeCore {
         let index = Date.now()
         return `
         <div class="row form-group selection-item">
-            <div class="col-10 input-group">
+            <div class="col-5">
                 <input type="hidden" name="attribute_values[${index}][id]" value="${id}" class="selection-item-id"/>
                 <input type="${type}" name="attribute_values[${index}][value]" value="${value}" class="selection-item-value"/>
-                <div class="input-group-prepend">
-                    <a href="#" class="text-decoration-none btn-remove-selection-item">
-                        <div class="input-group-text bg-white">
-                            <i class="material-icons">delete</i>
-                        </div>
-                    </a>
-                </div>
+            </div>
+            <div class="col-5">
+                <input type="text" name="attribute_values[${index}][note]" value="" class="form-control" placeholder="Chú thích thêm"/>
+            </div>
+            <div class="col-1">
+                <a href="#" class="text-decoration-none btn-remove-selection-item">
+                    <i class="material-icons">delete</i>
+                </a>
             </div>
         </div>
         `;

@@ -179,7 +179,7 @@ function () {
       var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
       var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
       var index = Date.now();
-      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
+      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-5\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n            </div>\n            <div class=\"col-5\">\n                <input type=\"text\" name=\"attribute_values[").concat(index, "][note]\" value=\"\" class=\"form-control\" placeholder=\"Ch\xFA th\xEDch th\xEAm\"/>\n            </div>\n            <div class=\"col-1\">\n                <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                    <i class=\"material-icons\">delete</i>\n                </a>\n            </div>\n        </div>\n        ");
     }
   }, {
     key: "removeSelectionItem",
@@ -385,7 +385,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\product-attributes.create.js */"./resources/js/admin/product-attributes.create.js");
+module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/product-attributes.create.js */"./resources/js/admin/product-attributes.create.js");
 
 
 /***/ })

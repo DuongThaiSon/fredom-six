@@ -53,7 +53,8 @@ class ProductAttributeController extends Controller
 
         foreach ($request->attribute_values as $data) {
             $productAttribute->productAttributeOptions()->create([
-                'value' => $data['value']
+                'value' => $data['value'],
+                'note' => $data['value']
             ]);
         }
 
@@ -117,7 +118,8 @@ class ProductAttributeController extends Controller
         $productAttribute->productAttributeOptions()->whereNotIn('id', $keepIds)->delete();
         foreach ($request->attribute_values as $data) {
             $productAttribute->productAttributeOptions()->updateOrCreate(['id'=>$data['id']], [
-                'value' => $data['value']
+                'value' => $data['value'],
+                'note' => $data['note']
             ]);
         }
 

@@ -50,21 +50,22 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-6 select-zone">
+                    <div class="col-lg-6 select-zone">
                         <legend>Tạo lựa chọn</legend>
                         <div class="selection-list">
                             @forelse ($productAttribute->productAttributeOptions()->get() as $item)
                             <div class="row form-group selection-item">
-                                <div class="col-10 input-group">
+                                <div class="col-5">
                                     <input type="hidden" name="attribute_values[{{ $item->id }}][id]" value="{{ $item->id }}" class="selection-item-id"/>
                                     <input type="{{ $productAttribute->type }}" name="attribute_values[{{ $item->id }}][value]" value="{{ $item->value }}" class="selection-item-value"/>
-                                    <div class="input-group-prepend">
-                                        <a href="#" class="text-decoration-none btn-remove-selection-item">
-                                            <div class="input-group-text bg-white">
-                                                <i class="material-icons">delete</i>
-                                            </div>
-                                        </a>
-                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" name="attribute_values[{{ $item->id }}][note]" value="{{ $item->note }}" class="form-control" placeholder="Chú thích thêm"/>
+                                </div>
+                                <div class="col-1">
+                                    <a href="#" class="text-decoration-none btn-remove-selection-item">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </div>
                             </div>
                             @empty

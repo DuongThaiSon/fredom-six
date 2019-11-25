@@ -31,8 +31,8 @@
                                 <ol class="carousel-indicators d-flex flex-column align-items-center m-0">
                                     <ul class="thumbnail mr-3" style="height: 95%;">
                                         @forelse ($product->images as $item)
-                                        <li data-target="#product_details_slider" data-slide-to="0"
-                                            style="background-image: url(/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $item->name ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
+                                        <li data-target="#product_details_slider" data-slide-to="0" class="thumbnail-products" data-src="{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}"
+                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
                                         </li>
                                         @empty
                                         @endforelse
@@ -46,11 +46,11 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active py-3" style="max-height: 600px;">
                                         <a class="gallery_img"
-                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
-                                            <img class="d-block w-75 mx-auto"
+                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ??'' }}">
+                                            <img class="d-block w-75 mx-auto product-main-image"
                                                 style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}"
-                                                alt="{{ $product->avatar }}">
+                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ??'' }}"
+                                                alt="{{ $product->images[0]->name ??'' }}">
                                         </a>
                                     </div>
                                 </div>

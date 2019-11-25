@@ -9,6 +9,13 @@ $(document).ready(function(){
     $('.write-review').click(function(e) {
         $('#review-tab').tab("show");
     });
+
+    $('.thumbnail-products').on('click', function(e) {
+        e.preventDefault();
+        let a = $(this).data('src');
+        $('.product-main-image').attr('src', '/' + a);
+        $('.gallery_img').attr('href', '/' + a);
+    })
 });
 
 let rateStar = function() {

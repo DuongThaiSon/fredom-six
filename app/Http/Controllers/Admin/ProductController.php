@@ -182,7 +182,7 @@ class ProductController extends Controller
             'uploadImage' => 'required|image'
         ]);
 
-        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/products')); // upload path
+        $destinationPath = public_path(env('UPLOAD_DIR_PRODUCT', 'media/products')); // upload path
         if (!file_exists($destinationPath)) {
             mkdir($destinationPath, 0777, true);
             $gitignore = '.gitignore';
@@ -211,7 +211,7 @@ class ProductController extends Controller
 
     public function revertImage(Product $product, Image $image)
     {
-        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/products'));
+        $destinationPath = public_path(env('UPLOAD_DIR_PRODUCT', 'media/products'));
         $fileName = $image->name;
         if (file_exists($destinationPath.'/'.$fileName)) {
             unlink($destinationPath.'/'.$fileName);

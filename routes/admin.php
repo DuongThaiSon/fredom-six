@@ -347,6 +347,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'menus.searchProducts',
             'uses' => 'MenuController@searchProducts'
         ]);
+        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
+        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
+        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
+        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
     });
 
     Route::resource('menus', 'MenuController');

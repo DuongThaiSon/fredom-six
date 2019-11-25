@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Edit Component')])
+@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Edit Order')])
 @section('content')
 <!-- Content -->
 <div id="main-content">
@@ -76,32 +76,37 @@
                     </div>
                     <div class="form-group">
                         <label>Giỏ hàng</label>
-                        <table class="w-100 table-sm table-hover table mb-2">
+                        <table class="w-100 table-sm table-hover table mb-2 text-center">
                             <thead>
                                 <tr class="text-muted">
-                                    <th class="w-25">Sản phẩm</th>
-                                    <th class="w-25">Số lượng</th>
+                                    <th class="w-5">STT</th>
+                                    <th class="w-30">Sản phẩm</th>
+                                    <th class="w-5">Số lượng</th>
                                     <th class="w-25">Giá</th>
-                                    <th class="w-25">Thành tiền</th>
+                                    <th class="w-30">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody class="sort">
                                 @forelse ($order->cartItems as $cartItem)
                                     <tr>
-                                        <td>{{ $cartItem->product->name ??'' }}</td>
-                                        <td>{{ $cartItem->quantity }}</td>
-                                        <td>{{ number_format($cartItem->price) }}</td>
-                                        <td>
-                                            {{ number_format($cartItem->quantity * $cartItem->price) }}
-                                        </td>
+                                        <td class="w-5">{{ $loop->iteration ??'' }}</td>
+                                        <td class="w-30">{{ $cartItem->product->name ??'' }}</td>
+                                        <td class="w-5">{{ $cartItem->quantity }}</td>
+                                        <td class="w-25">{{ number_format($cartItem->price) }}&nbsp;đ</td>
+                                        <td class="w-30">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="100%">
-                                            Không có dữ liệu!
-                                        </td>
+                                        <td colspan="100%">Không có dữ liệu!</td>
                                     </tr>
                                 @endforelse
+                                    <tr>
+                                        <td >Tổng</td>
+                                        <td class="w-35"></td>
+                                        <td class="w-5">{{ $order->cartItems->sum('quantity') }}</td>
+                                        <td class="w-25"></td>
+                                        <td class="w-30">{{ number_format($order->sum) }}&nbsp;đ</td>
+                                    </tr>
                             </tbody>
                         </table>
                         <small class="form-text">Các sản phẩm có trong giỏ hàng</small>

@@ -47,8 +47,9 @@
                     <thead>
     
                     <tr class="" style="background: #ffa500; color: white;">
+                        <th style="border: 1px solid black !important" class="w-5">STT</th>
                         <th style="border: 1px solid black !important" class="w-25">Sản phẩm</th>
-                        <th style="border: 1px solid black !important" class="w-25">Số lượng</th>
+                        <th style="border: 1px solid black !important" class="w-20">Số lượng</th>
                         <th style="border: 1px solid black !important" class="w-25">Giá</th>
                         <th style="border: 1px solid black !important" class="w-25">Thành tiền</th>
                         
@@ -57,10 +58,11 @@
                     <tbody>
                     @forelse ($order->cartItems as $cartItem)
                     <tr style="border: 1px solid black !important">
+                        <td style="border: 1px solid black !important" class="w-5">{{ $loop->iteration }}</td>
                         <td style="border: 1px solid black !important" class="w-25">{{ $cartItem->product->name ??'' }}</td>
-                        <td style="border: 1px solid black !important" class="w-25">{{ $cartItem->quantity ??'' }}</td>
-                        <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->price).'đ' ??'' }}</td>
-                        <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->quantity * $cartItem->price).'đ' ??'' }}</td>
+                        <td style="border: 1px solid black !important" class="w-20">{{ $cartItem->quantity ??'' }}</td>
+                        <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->price) ??'' }}&nbsp;đ</td>
+                        <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->quantity * $cartItem->price) ??'' }}&nbsp;đ</td>
                     </tr>
                     @empty
                     <tr>
@@ -70,8 +72,9 @@
                     </tr>
                     @endforelse
                     <tr style="border: 1px solid black !important">
-                        <th style="border: 1px solid black !important" class="w-25">Tổng</th>
-                        <th style="border: 1px solid black !important" class="w-25">{{ $order->cartItems->sum('quantity') }}</th>
+                        <th style="border: 1px solid black !important" class="w-5">Tổng</th>
+                        <th style="border: 1px solid black !important" class="w-25"></th>
+                        <th style="border: 1px solid black !important" class="w-20">{{ $order->cartItems->sum('quantity') }}</th>
                         <th style="border: 1px solid black !important" class="w-25"></th>
                         <th style="border: 1px solid black !important" class="w-25">{{ number_format($order->sum) }}&nbsp;đ</th>
                     </tr>

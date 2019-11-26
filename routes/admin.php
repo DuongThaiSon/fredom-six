@@ -379,6 +379,18 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
     });
+    Route::get('products/import', [
+        'as' => 'excel.index',
+        'uses' => 'ExcelController@index'
+    ]);
+    Route::post('products/import/update', [
+        'as' => 'excel.import',
+        'uses' => 'ExcelController@import'
+    ]);
+    Route::get('products/export', [
+        'as' => 'excel.export',
+        'uses' => 'ExcelController@export'
+    ]);
     Route::resource('products', 'ProductController');
 
     // product category
@@ -422,9 +434,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
     ]);
+    //Import excel
+   
 });
 
 Route::resource('reviews', 'ReviewController');
+
+
 
 // Guest routes
 Route::group(['namespace' => 'Auth'], function() {

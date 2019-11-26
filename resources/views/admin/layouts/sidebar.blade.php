@@ -43,6 +43,9 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.product-categories.index') }}" class="nav-link menu-product-categories-index">Quản lý danh mục sản phẩm</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.excel.index') }}" class="nav-link menu-Upload-products-excel">Upload sản phẩm bằng excel</a>
+                    </li>
                 </ul>
                 </div>
             </li>

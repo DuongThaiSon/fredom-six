@@ -357,14 +357,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ProductController@deleteMany'
     ]);
     Route::group(['prefix' => 'products'], function() {
-        Route::post('{product}/process', [
-            'as' => 'products.processImage',
-            'uses' => 'ProductController@processImage'
-        ]);
-        Route::delete('{product}/revert/{image}', [
-            'as' => 'products.revertImage',
-            'uses' => 'ProductController@revertImage'
-        ]);
+        
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -373,10 +366,22 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
-        Route::post('{product}/create-variant', [
-            'as' => 'products.createVariation',
-            'uses' => 'ProductController@createVariation'
-        ]);
+        
+        Route::group(['prefix' => '{product}'], function () {
+            Route::post('process', [
+                'as' => 'products.processImage',
+                'uses' => 'ProductController@processImage'
+            ]);
+            Route::delete('revert/{image}', [
+                'as' => 'products.revertImage',
+                'uses' => 'ProductController@revertImage'
+            ]);
+            Route::post('create-variant', [
+                'as' => 'products.createVariation',
+                'uses' => 'ProductController@createVariation'
+            ]);
+            Route::resource('variants', 'ProductVariantController');
+        });
     });
     Route::resource('products', 'ProductController');
 

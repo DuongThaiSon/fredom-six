@@ -138,6 +138,9 @@ export class productCore {
                 method: "POST",
                 data: {
                     attributes: makeVariationData
+                },
+                success: function(resolve) {
+                    $(".product-variants-list").html(resolve)
                 }
             })
 

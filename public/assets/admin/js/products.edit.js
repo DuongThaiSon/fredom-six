@@ -3242,6 +3242,9 @@ function () {
           method: "POST",
           data: {
             attributes: makeVariationData
+          },
+          success: function success(resolve) {
+            $(".product-variants-list").html(resolve);
           }
         });
       });

@@ -432,12 +432,12 @@
                                     <p class="selected-value mt-2">&nbsp;</p>
                                 </div>
                                 <div>
-                                    <button class="btn btn-block btn-primary border btn-make-variation" data-href="{{ route('admin.products.createVariation', $product->id) }}">
+                                    <button class="btn btn-block btn-primary border btn-make-variation" data-href="{{ route('admin.variants.store', $product->id) }}">
                                         Tạo biến thể
                                     </button>
                                 </div>
                             </div>
-                            <div class="table-responsive bg-white mt-4 col-12" id="cat_table">
+                            <div class="table-responsive bg-white mt-4 col-12 product-variants-list" id="cat_table">
                                 @include('admin.productVariants.index', ['products' => $product->variants->paginate(4)])
                             </div>
                         </div>

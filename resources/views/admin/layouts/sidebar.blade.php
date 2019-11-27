@@ -46,6 +46,27 @@
                 </ul>
                 </div>
             </li>
+
+            {{-- Partner --}}
+            <li class="nav-item has-child">
+                    <a
+                        data-toggle="collapse"
+                        data-target="#partner"
+                        href=""
+                        class="nav-link collapsed"
+                        ><i class="material-icons align-middle">local_shipping</i><span>Đối tác vận chuyển</span></a
+                    >
+                    <div class="sub collapse" id="partner">
+                        <ul class="flex-column nav">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.partners.create') }}" class="nav-link menu-partner-create">Tạo đối tác mới</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.partners.index') }}" class="nav-link menu-partner-index">Quản lý đối tác</a>
+                        </li>
+                        </ul>
+                    </div>
+                    </li>
             <!-- News -->
 
             <li class="nav-item has-child">
@@ -131,17 +152,17 @@
             </li> --}}
             <!-- Order -->
             <li class="nav-item">
-                <a href="{{ route('admin.orders.index') }}" class="nav-link" id="menu-order">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link menu-cart" id="menu-order">
                 <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
                 </a>
             </li>
 
             <!-- Language -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="language.html" class="nav-link" id="menu-language">
                 <i class="material-icons align-middle">language</i><span>Ngôn ngữ</span>
             </a>
-            </li>
+            </li> --}}
 
             <!--Contact-->
             <li class="nav-item">
@@ -207,13 +228,13 @@
             </li>
 
             <!-- File -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="{{ route('admin.files') }}" class="nav-link menu-files" id="menu-files">
                 <i class="material-icons align-middle"
                 >settings_system_daydream</i
                 ><span>Quản lý file</span>
             </a>
-            </li>
+            </li> --}}
 
             <!-- Setting -->
             <li class="nav-item has-child">

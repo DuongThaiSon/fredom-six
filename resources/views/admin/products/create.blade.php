@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'products', 'title' => __('Products Detail')])
+@extends('admin.layouts.main', ['activePage' => 'products-create', 'title' => __('Products Detail')])
 @section('content')
  <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
@@ -292,7 +292,7 @@
                                 <label class="custom-file-label" for="">Choose file</label>
                             </div>
                         </div>
-                        
+
                     </div>
                   </div>
 

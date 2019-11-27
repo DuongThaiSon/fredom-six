@@ -376,9 +376,9 @@ Route::group(['middleware'=>'auth:admin'], function(){
                 'as' => 'products.revertImage',
                 'uses' => 'ProductController@revertImage'
             ]);
-            Route::post('create-variant', [
-                'as' => 'products.createVariation',
-                'uses' => 'ProductController@createVariation'
+            Route::post('reorder-variant', [
+                'as' => 'variants.reorder',
+                'uses' => 'ProductVariantController@reorder'
             ]);
             Route::resource('variants', 'ProductVariantController');
         });

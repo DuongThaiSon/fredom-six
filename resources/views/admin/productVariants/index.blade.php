@@ -14,7 +14,7 @@
             <th width="10%" class="text-right">Thao tác</th>
         </tr>
     </thead>
-    <tbody class="sort">
+    <tbody class="sort variant-sort" data-href="{{ route('admin.variants.reorder', $product->id) }}">
         @include('admin.productVariants.list')
     </tbody>
 </table>

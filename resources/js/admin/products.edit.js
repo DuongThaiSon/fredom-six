@@ -32,7 +32,7 @@ $(document).ready(function() {
         })
     })
 
-    makeTableOrderable('/admin/products/sort-image');
+    // makeTableOrderable('/admin/products/sort-image');
     // deleteAnItem('/admin/products');
     deleteSingleItem();
 });

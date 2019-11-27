@@ -109,6 +109,7 @@ export class productCore {
     constructor(productId = null) {
         this.productId = productId
         this.productVariantPagination()
+        this.makeVariantProductOrderable()
 
     }
 
@@ -141,6 +142,8 @@ export class productCore {
                 },
                 success: function(resolve) {
                     $(".product-variants-list").html(resolve)
+                    _this.productVariantPagination()
+                    _this.makeVariantProductOrderable()
                 }
             })
 
@@ -214,10 +217,48 @@ export class productCore {
                 success: function(resolve) {
                     $(".product-variants-list").html(resolve)
                     _this.productVariantPagination()
+                    _this.makeVariantProductOrderable()
                 }
             })
             
         })        
+    }
+
+    makeVariantProductOrderable() {
+        let variantTableData = $(".variant-sort")
+        let variantSortUrl = variantTableData.attr('data-href')
+        console.log(variantSortUrl);
+        
+        variantTableData.sortable({
+            handle: ".connect",
+            placeholder: "ui-state-highlight",
+            forcePlaceholderSize: true,
+            update: function(event, ui) {
+                let sort = $(this).sortable("toArray");
+                $.ajax({
+                    url: variantSortUrl,
+                    method: "POST",
+                    data: {
+                        sort: sort
+                    },
+                    error: function(err) {
+                        if (err.status === 403) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                type: "error",
+                                confirmButtonClass: "btn btn-danger",
+                                buttonsStyling: false,
+                                html:
+                                    "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                            }).catch(swal.noop);
+                        }
+                    }
+                });
+            }
+        });
     }
 }
 

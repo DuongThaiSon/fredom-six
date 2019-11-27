@@ -69,7 +69,8 @@ class Product extends Model
     public function variants()
     {
         return $this->belongsToMany(Product::class, 'product_attribute_values', 'product_id', 'variant_id')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->orderBy('order', 'desc');
     }
 }
 

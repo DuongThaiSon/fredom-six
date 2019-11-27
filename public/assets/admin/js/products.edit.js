@@ -3208,6 +3208,7 @@ function () {
 
     this.productId = productId;
     this.productVariantPagination();
+    this.makeVariantProductOrderable();
   }
 
   _createClass(productCore, [{
@@ -3245,6 +3246,10 @@ function () {
           },
           success: function success(resolve) {
             $(".product-variants-list").html(resolve);
+
+            _this.productVariantPagination();
+
+            _this.makeVariantProductOrderable();
           }
         });
       });
@@ -3326,8 +3331,46 @@ function () {
             $(".product-variants-list").html(resolve);
 
             _this.productVariantPagination();
+
+            _this.makeVariantProductOrderable();
           }
         });
+      });
+    }
+  }, {
+    key: "makeVariantProductOrderable",
+    value: function makeVariantProductOrderable() {
+      var variantTableData = $(".variant-sort");
+      var variantSortUrl = variantTableData.attr('data-href');
+      console.log(variantSortUrl);
+      variantTableData.sortable({
+        handle: ".connect",
+        placeholder: "ui-state-highlight",
+        forcePlaceholderSize: true,
+        update: function update(event, ui) {
+          var sort = $(this).sortable("toArray");
+          $.ajax({
+            url: variantSortUrl,
+            method: "POST",
+            data: {
+              sort: sort
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                Swal.fire({
+                  title: "Lỗi!",
+                  type: "error",
+                  confirmButtonClass: "btn btn-danger",
+                  buttonsStyling: false,
+                  html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                })["catch"](swal.noop);
+              }
+            }
+          });
+        }
       });
     }
   }]);
@@ -3422,8 +3465,8 @@ $(document).ready(function () {
         initBtnDestroyImage();
       }
     });
-  });
-  Object(_core__WEBPACK_IMPORTED_MODULE_1__["makeTableOrderable"])('/admin/products/sort-image'); // deleteAnItem('/admin/products');
+  }); // makeTableOrderable('/admin/products/sort-image');
+  // deleteAnItem('/admin/products');
 
   deleteSingleItem();
 });

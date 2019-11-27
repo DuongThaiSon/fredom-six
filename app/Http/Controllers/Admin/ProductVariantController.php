@@ -21,7 +21,10 @@ class ProductVariantController extends Controller
      */
     public function index(Product $product)
     {
-        return view('admin.productVariants.index', ['products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id))]);
+        return view('admin.productVariants.index', [
+            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'product' => $product
+        ]);
     }
 
     /**
@@ -122,6 +125,9 @@ class ProductVariantController extends Controller
             'quantity' => $product->quantity,
             'price' => $product->price,
             'unit' => $product->unit,
+            'order' => Product::max('order')+1,
+            'created_by' => auth()->id(),
+            'updated_by' => auth()->id()
         ];
 
         $optionValues = ProductAttributeOption::find($options)->transform(function($q) {
@@ -227,5 +233,22 @@ class ProductVariantController extends Controller
     public function destroy($id)
     {
         //
+    }
+    
+    /**
+     * Reorder variant
+     */
+    public function reorder(Request $request)
+    {
+        $items = $request->sort;
+		$order = array();
+		foreach ($items as $c) {
+			$id      = str_replace('item_', '', $c);
+			$order[] = Product::findOrFail($id)->order;
+		}
+		rsort($order);
+		foreach ($order as $k => $v) {
+            Product::where('id', str_replace('item_', '', $items[$k]))->update(['order' => $v]);
+        }
     }
 }

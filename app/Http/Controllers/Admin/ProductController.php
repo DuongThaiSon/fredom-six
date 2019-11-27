@@ -107,23 +107,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $productAttributes = ProductAttribute::findOrFail(collect($request->attribute_values)->keys()->all());
-        $syncData = [];
-        foreach ($productAttributes as $productAttribute) {
-
-
-            if (!$productAttribute->can_select) {
-                $productAttribute->productAttributeOptions()->update([
-                    'value' => collect($request->attribute_values[13])->first()
-                ]);
-                $syncData[] = collect($request->attribute_values[$productAttribute->id])->keys()->first();
-            } else {
-                $syncData = array_merge($request->attribute_values[$productAttribute->id], $syncData);
-            }
-
-
-        }
-        $product->productAttributeOptions()->sync($syncData);
         $product->categories()->sync($request->category);
         $attributes = $this->service->appendEditData($request->all());
         $product = Product::findOrFail($request->id);

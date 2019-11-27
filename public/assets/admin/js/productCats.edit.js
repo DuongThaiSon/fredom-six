@@ -452,16 +452,28 @@ function () {
       $(".btn-delete-variant").on("click.deleteVariant", function (e) {
         e.preventDefault();
         var deleteUrl = $(this).attr("data-href");
-        $.ajax({
-          url: deleteUrl,
-          method: "POST",
-          data: {
-            _method: 'DELETE'
-          },
-          success: function success(resolve) {
-            $(".product-variants-list").html(resolve);
+        Swal.fire({
+          title: 'Xóa biến thể',
+          text: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#d33'
+        }).then(function (result) {
+          if (result.value) {
+            $.ajax({
+              url: deleteUrl,
+              method: "POST",
+              data: {
+                _method: 'DELETE'
+              },
+              success: function success(resolve) {
+                Swal.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
+                $(".product-variants-list").html(resolve);
 
-            _this.initVariantAction();
+                _this.initVariantAction();
+              }
+            });
           }
         });
       });

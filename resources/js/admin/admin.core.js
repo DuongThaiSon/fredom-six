@@ -1,8 +1,8 @@
 export class productAttributeCore {
-    constructor() {}
+    constructor() { }
 
     applyAttributeType() {
-        $("input[name=type]").on("change.applyAttributeType", function() {
+        $("input[name=type]").on("change.applyAttributeType", function () {
             let type = $("input[name=type]:checked").val()
             $(".selection-item-value").attr('type', type)
         })
@@ -10,7 +10,7 @@ export class productAttributeCore {
 
     submitData() {
         let _this = this
-        $(".btn-submit-data").on("click.submitData", function(e) {
+        $(".btn-submit-data").on("click.submitData", function (e) {
             e.preventDefault();
             if (!_this.canPassValidateData()) {
                 return;
@@ -26,7 +26,7 @@ export class productAttributeCore {
         }
 
         if ($("input[name=can_select]").attr("checked")) {
-            $(".selection-item-value").each(function() {
+            $(".selection-item-value").each(function () {
                 if (_.trim($(this).val()) < 1) {
                     validated = false;
                 }
@@ -76,7 +76,7 @@ export class productAttributeCore {
         $(".btn-remove-selection-item").off(".removeSelectionItem");
         $(".btn-remove-selection-item").on(
             "click.removeSelectionItem",
-            function(e) {
+            function (e) {
                 e.preventDefault();
                 let items = $(".selection-item").length;
                 if (items < 2) {
@@ -91,7 +91,7 @@ export class productAttributeCore {
 
     collectAttributeData() {
         let data = [];
-        $(".selection-item").each(function() {
+        $(".selection-item").each(function () {
             let rowData = {};
             rowData.value = $(this)
                 .find(".selection-item-value")
@@ -108,7 +108,7 @@ export class productAttributeCore {
 export class productCore {
     constructor(productId = null) {
         this.productId = productId
-        this.initVariantAction()        
+        this.initVariantAction()
         this.submitEditVariantForm()
     }
 
@@ -117,7 +117,7 @@ export class productCore {
         $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             let result = '';
             let selected = $(this).find('option:selected')
-            selected.each(function(index, element) {
+            selected.each(function (index, element) {
                 result += $(element).text()
                 if (index < selected.length - 1) {
                     result += ', '
@@ -130,7 +130,7 @@ export class productCore {
 
     makeVariation() {
         let _this = this
-        $('.btn-make-variation').on("click.btnMakeVariation", function(e) {
+        $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
             e.preventDefault()
             let makeVariationUrl = $(this).attr("data-href")
             let makeVariationData = $(".attribute-selectpicker").val()
@@ -140,9 +140,9 @@ export class productCore {
                 data: {
                     attributes: makeVariationData
                 },
-                success: function(resolve) {
+                success: function (resolve) {
                     $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()               
+                    _this.initVariantAction()
                 }
             })
 
@@ -156,7 +156,7 @@ export class productCore {
             data: {
                 checked_ids: checkedIds
             },
-            success: function(scs) {
+            success: function (scs) {
                 $(".product-attribute-option").html(scs)
                 $(".attribute-selectpicker").selectpicker()
                 $("#selectProductAttributeModal").modal("hide")
@@ -166,7 +166,7 @@ export class productCore {
 
     submitData() {
         let _this = this
-        $(".btn-submit-data").on("click.submitData", function(e) {
+        $(".btn-submit-data").on("click.submitData", function (e) {
             e.preventDefault();
             $("input[name=price]").val(accounting.unformat($(".price-input").val()))
             $('.form-main').submit()
@@ -189,7 +189,7 @@ export class productCore {
             data: {
                 category_id: categoryId
             },
-            success: function(scs) {
+            success: function (scs) {
                 $("#selectProductAttributeModal").find(".modal-body").html(scs)
             }
         })
@@ -208,29 +208,29 @@ export class productCore {
     productVariantPagination() {
         let _this = this
         $(".variant-pagination").find("a.page-link").off("click.productVariantPagination")
-        $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function(e) {
+        $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
             e.preventDefault()
             let pagingUrl = $(this).attr("href")
             $.ajax({
                 url: pagingUrl,
-                success: function(resolve) {
+                success: function (resolve) {
                     $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()                    
+                    _this.initVariantAction()
                 }
             })
-            
-        })        
+
+        })
     }
 
     makeVariantProductOrderable() {
         let variantTableData = $(".variant-sort")
         let variantSortUrl = variantTableData.attr('data-href')
-        
+
         variantTableData.sortable({
             handle: ".connect",
             placeholder: "ui-state-highlight",
             forcePlaceholderSize: true,
-            update: function(event, ui) {
+            update: function (event, ui) {
                 let sort = $(this).sortable("toArray");
                 $.ajax({
                     url: variantSortUrl,
@@ -238,7 +238,7 @@ export class productCore {
                     data: {
                         sort: sort
                     },
-                    error: function(err) {
+                    error: function (err) {
                         if (err.status === 403) {
                             Swal.fire({
                                 title: "Lỗi!",
@@ -261,12 +261,12 @@ export class productCore {
     showEditVariantForm() {
         let _this = this
         $(".btn-edit-variant").off("click.showEditVariantForm")
-        $(".btn-edit-variant").on("click.showEditVariantForm", function(e) {
+        $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
             e.preventDefault()
             let editUrl = $(this).attr("data-href")
             $.ajax({
                 url: editUrl,
-                success: function(resolve) {
+                success: function (resolve) {
                     $("#variant-edit-modal").find(".modal-body").html(resolve)
                     $("#variant-edit-modal").modal('show')
                     $(".price-format").simpleMoneyFormat()
@@ -277,14 +277,14 @@ export class productCore {
 
     submitEditVariantForm() {
         let _this = this
-        $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function(e) {
+        $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
             e.preventDefault()
             let formData = new FormData();
             formData.append('name', $("input[name=variant_name]").val());
             formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
             formData.append('product_code', $("input[name=variant_product_code]").val());
             formData.append('quantity', $("input[name=variant_quantity]").val());
-            if($("input[name=variant_is_public]:checked").val()) {
+            if ($("input[name=variant_is_public]:checked").val()) {
                 formData.append('is_public', $("input[name=variant_is_public]:checked").val());
             }
             if ($("input[name=variant_avatar]")[0].files[0]) {
@@ -298,7 +298,7 @@ export class productCore {
                 method: "POST",
                 contentType: false,
                 processData: false,
-                success: function(resolve) {
+                success: function (resolve) {
                     $("#variant-edit-modal").modal('hide')
                     $(".product-variants-list").html(resolve)
                     _this.initVariantAction()
@@ -306,7 +306,7 @@ export class productCore {
                         'Thành công!',
                         'Dữ liệu đã được cập nhật!',
                         'success'
-                      )
+                    )
                 }
             })
         })
@@ -315,19 +315,35 @@ export class productCore {
     deleteVariant() {
         let _this = this
         $(".btn-delete-variant").off("click.deleteVariant")
-        $(".btn-delete-variant").on("click.deleteVariant", function(e) {  
+        $(".btn-delete-variant").on("click.deleteVariant", function (e) {
             e.preventDefault()
             let deleteUrl = $(this).attr("data-href")
-            
-            $.ajax({
-                url: deleteUrl,
-                method: "POST",
-                data: {
-                    _method: 'DELETE'
-                },
-                success: function(resolve) {
-                    $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()         
+
+            Swal.fire({
+                title: 'Xóa biến thể',
+                text: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+                showCancelButton: true,
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy',
+                confirmButtonColor: '#d33'
+            }).then(result => {
+                if (result.value) {
+                    $.ajax({
+                        url: deleteUrl,
+                        method: "POST",
+                        data: {
+                            _method: 'DELETE'
+                        },
+                        success: function (resolve) {
+                            Swal.fire(
+                                'Thành công!',
+                                'Đã xóa biến thể chỉ định',
+                                'success'
+                            )
+                            $(".product-variants-list").html(resolve)
+                            _this.initVariantAction()
+                        }
+                    })
                 }
             })
         })
@@ -339,18 +355,18 @@ export class productCore {
         this.showEditVariantForm()
         this.deleteVariant()
     }
-    
+
 }
 
 export class productCategoriesCore {
-    constructor() {}
+    constructor() { }
 
     collectSelectedAttribute() {
         let _this = this
-        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
+        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
             e.preventDefault()
             let checked = []
-            $(".select-attribute-input:checked").each(function() {
+            $(".select-attribute-input:checked").each(function () {
                 checked.push({
                     id: $(this).val(),
                     value: $(this).attr('data-name')
@@ -365,7 +381,7 @@ export class productCategoriesCore {
 
     renderSelectedAttribute(checkedIds) {
         let template = "";
-        _.forEach(checkedIds, function(item) {
+        _.forEach(checkedIds, function (item) {
             template += `
             <div class="form-group">
                 <input type="hidden" name="product_attributes[]" class="form-control" value="${item.id}" readonly />

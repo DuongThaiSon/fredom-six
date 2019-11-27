@@ -44,7 +44,7 @@ class ProductVariantController extends Controller
         });
 
         return view('admin.productVariants.index', [
-            'products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }

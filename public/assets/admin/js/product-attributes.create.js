@@ -221,8 +221,8 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    this.productVariantPagination();
-    this.makeVariantProductOrderable();
+    this.initVariantAction();
+    this.submitEditVariantForm();
   }
 
   _createClass(productCore, [{
@@ -261,9 +261,7 @@ function () {
           success: function success(resolve) {
             $(".product-variants-list").html(resolve);
 
-            _this.productVariantPagination();
-
-            _this.makeVariantProductOrderable();
+            _this.initVariantAction();
           }
         });
       });
@@ -344,9 +342,7 @@ function () {
           success: function success(resolve) {
             $(".product-variants-list").html(resolve);
 
-            _this.productVariantPagination();
-
-            _this.makeVariantProductOrderable();
+            _this.initVariantAction();
           }
         });
       });
@@ -356,7 +352,6 @@ function () {
     value: function makeVariantProductOrderable() {
       var variantTableData = $(".variant-sort");
       var variantSortUrl = variantTableData.attr('data-href');
-      console.log(variantSortUrl);
       variantTableData.sortable({
         handle: ".connect",
         placeholder: "ui-state-highlight",
@@ -386,6 +381,72 @@ function () {
           });
         }
       });
+    }
+  }, {
+    key: "showEditVariantForm",
+    value: function showEditVariantForm() {
+      var _this = this;
+
+      $(".btn-edit-variant").off("click.showEditVariantForm");
+      $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
+        e.preventDefault();
+        var editUrl = $(this).attr("href");
+        $.ajax({
+          url: editUrl,
+          success: function success(resolve) {
+            $("#variant-edit-modal").find(".modal-body").html(resolve);
+            $("#variant-edit-modal").modal('show');
+            $(".price-format").simpleMoneyFormat();
+          }
+        });
+      });
+    }
+  }, {
+    key: "submitEditVariantForm",
+    value: function submitEditVariantForm() {
+      var _this = this;
+
+      $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('name', $("input[name=variant_name]").val());
+        formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
+        formData.append('product_code', $("input[name=variant_product_code]").val());
+        formData.append('quantity', $("input[name=variant_quantity]").val());
+
+        if ($("input[name=variant_is_public]:checked").val()) {
+          formData.append('is_public', $("input[name=variant_is_public]:checked").val());
+        }
+
+        if ($("input[name=variant_avatar]")[0].files[0]) {
+          formData.append('avatar', $("input[name=variant_avatar]")[0].files[0]);
+        }
+
+        formData.append('_method', 'PUT');
+        var updateVariantUrl = $(".form-update-variant").attr('action');
+        $.ajax({
+          url: updateVariantUrl,
+          data: formData,
+          method: "POST",
+          contentType: false,
+          processData: false,
+          success: function success(resolve) {
+            $("#variant-edit-modal").modal('hide');
+            $(".product-variants-list").html(resolve);
+
+            _this.initVariantAction();
+
+            Swal.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
+          }
+        });
+      });
+    }
+  }, {
+    key: "initVariantAction",
+    value: function initVariantAction() {
+      this.makeVariantProductOrderable();
+      this.productVariantPagination();
+      this.showEditVariantForm();
     }
   }]);
 

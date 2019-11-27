@@ -108,9 +108,8 @@ export class productAttributeCore {
 export class productCore {
     constructor(productId = null) {
         this.productId = productId
-        this.productVariantPagination()
-        this.makeVariantProductOrderable()
-
+        this.initVariantAction()        
+        this.submitEditVariantForm()
     }
 
     collectSelectedAttributeId() {
@@ -142,8 +141,7 @@ export class productCore {
                 },
                 success: function(resolve) {
                     $(".product-variants-list").html(resolve)
-                    _this.productVariantPagination()
-                    _this.makeVariantProductOrderable()
+                    _this.initVariantAction()               
                 }
             })
 
@@ -216,8 +214,7 @@ export class productCore {
                 url: pagingUrl,
                 success: function(resolve) {
                     $(".product-variants-list").html(resolve)
-                    _this.productVariantPagination()
-                    _this.makeVariantProductOrderable()
+                    _this.initVariantAction()                    
                 }
             })
             
@@ -227,7 +224,6 @@ export class productCore {
     makeVariantProductOrderable() {
         let variantTableData = $(".variant-sort")
         let variantSortUrl = variantTableData.attr('data-href')
-        console.log(variantSortUrl);
         
         variantTableData.sortable({
             handle: ".connect",
@@ -260,6 +256,67 @@ export class productCore {
             }
         });
     }
+
+    showEditVariantForm() {
+        let _this = this
+        $(".btn-edit-variant").off("click.showEditVariantForm")
+        $(".btn-edit-variant").on("click.showEditVariantForm", function(e) {
+            e.preventDefault()
+            let editUrl = $(this).attr("href")
+            $.ajax({
+                url: editUrl,
+                success: function(resolve) {
+                    $("#variant-edit-modal").find(".modal-body").html(resolve)
+                    $("#variant-edit-modal").modal('show')
+                    $(".price-format").simpleMoneyFormat()
+                }
+            })
+        })
+    }
+
+    submitEditVariantForm() {
+        let _this = this
+        $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function(e) {
+            e.preventDefault()
+            let formData = new FormData();
+            formData.append('name', $("input[name=variant_name]").val());
+            formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
+            formData.append('product_code', $("input[name=variant_product_code]").val());
+            formData.append('quantity', $("input[name=variant_quantity]").val());
+            if($("input[name=variant_is_public]:checked").val()) {
+                formData.append('is_public', $("input[name=variant_is_public]:checked").val());
+            }
+            if ($("input[name=variant_avatar]")[0].files[0]) {
+                formData.append('avatar', $("input[name=variant_avatar]")[0].files[0]);
+            }
+            formData.append('_method', 'PUT')
+            let updateVariantUrl = $(".form-update-variant").attr('action')
+            $.ajax({
+                url: updateVariantUrl,
+                data: formData,
+                method: "POST",
+                contentType: false,
+                processData: false,
+                success: function(resolve) {
+                    $("#variant-edit-modal").modal('hide')
+                    $(".product-variants-list").html(resolve)
+                    _this.initVariantAction()
+                    Swal.fire(
+                        'Thành công!',
+                        'Dữ liệu đã được cập nhật!',
+                        'success'
+                      )
+                }
+            })
+        })
+    }
+
+    initVariantAction() {
+        this.makeVariantProductOrderable()
+        this.productVariantPagination()
+        this.showEditVariantForm()
+    }
+    
 }
 
 export class productCategoriesCore {

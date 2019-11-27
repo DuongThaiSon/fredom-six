@@ -500,6 +500,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="variant-edit-modal" tabindex="-1" role="dialog" aria-labelledby="variant-edit-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrol-lable modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="variant-edit-modal-label">Cập nhật thông tin biến thể</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary btn-submit-variant-edit">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
 <script src="/assets/admin/js/products.edit.js"></script>

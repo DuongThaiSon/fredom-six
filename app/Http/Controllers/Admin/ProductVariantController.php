@@ -43,7 +43,10 @@ class ProductVariantController extends Controller
             $this->makeProductVariation($product, $request->get('attributes'));
         });
 
-        return view('admin.productVariants.index', ['products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id))]);
+        return view('admin.productVariants.index', [
+            'products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'product' => $product
+        ]);
     }
 
     /**
@@ -204,12 +207,13 @@ class ProductVariantController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Product $product
+     * @param  \App\Models\Product $variant
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product, Product $variant)
     {
-        //
+        return view('admin.productVariants.edit', compact('product', 'variant'));
     }
 
     /**
@@ -219,9 +223,46 @@ class ProductVariantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product, Product $variant)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'numeric',
+            'product_code' => 'unique:'.(new Product)->getTable().',product_code,'.$variant->id,
+            'quantity' => 'numeric',
+            'avatar' => 'sometimes|image' 
+        ]);
+
+        $attributes = $request->only([
+            'name', 'price', 'product_code', 'quantity'
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $destinationPath = public_path(env('UPLOAD_DIR_PRODUCT', 'media/images/products')); // upload path
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+                $gitignore = '.gitignore';
+                $text = "*\n!.gitignore\n";
+                file_put_contents($destinationPath.'/'.$gitignore, $text);
+            }
+
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            $fileName = uniqid(date('d.m.Y')) . '.' . $extension; // renaming image
+            // $file->move($destinationPath, $fileName); // upload origin file to given path
+            $uploadImage = \Image::make($file); //
+            $uploadImage->save($destinationPath.'/'.$fileName); // upload file with reduce quality
+            $attributes['avatar'] = $fileName;
+        }
+        $attributes['is_public'] = $request->has('is_public');
+        $attributes['updated_by'] = auth()->id();
+        $variant->fill($attributes);
+        $variant->save();
+
+        return view('admin.productVariants.index', [
+            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'product' => $product
+        ]);
     }
 
     /**

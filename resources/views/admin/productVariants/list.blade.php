@@ -19,11 +19,11 @@
     <td class="text-right">{{ number_format($entry->price) }} đ</td>
     <td class="text-right">
         <div class="btn-group">
-            <a href="#" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
+            <button href="{{ route('admin.variants.edit', ['product' => $product->id, 'variant' => $entry->id]) }}" class="btn btn-sm p-1 btn-link btn-edit-variant" data-toggle="tooltip"
                 title="Sửa">
                 <i class="material-icons">border_color</i>
-            </a>
-            <button class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
+            </button>
+            <button class="btn btn-sm p-1 btn-link" data-toggle="tooltip" title="Xoá" type="submit">
                 <i class="material-icons">delete</i>
             </button>
         </div>

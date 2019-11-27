@@ -13,6 +13,7 @@
                     <br>
                     <button class="btn btn-dark">Upload file</button>
                     <a class="btn btn-dark" href="{{ route('admin.excel.export') }}">Download</a>
+                    <a class="btn btn-dark" href="{{ asset('excel') }}/update_product.xlsx">File Mẫu</a>
                 </form>
             </div>
         </div>

@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where('is_new', 1)->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(8);
+        $productNew = Product::where([['is_new', 1],['is_public', 1]])->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(16);
         $productNew = $productNew->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;

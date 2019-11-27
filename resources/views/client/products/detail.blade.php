@@ -49,7 +49,7 @@
                                             href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ??'' }}">
                                             <img class="d-block w-75 mx-auto product-main-image"
                                                 style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ??'' }}"
+                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ?? $product->avatar }}"
                                                 alt="{{ $product->images[0]->name ??'' }}">
                                         </a>
                                     </div>

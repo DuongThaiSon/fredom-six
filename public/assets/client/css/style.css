@@ -37,6 +37,10 @@ body {
     outline: none; }
   body img {
     max-width: 100%; }
+  .row {
+    margin-right: unset !important;
+    margin-left: unset !important;
+  }
 
 #header .head-hotline {
   color: #a3a3a3;

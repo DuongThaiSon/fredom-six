@@ -73,7 +73,7 @@
     <div class="container">
         <div class="row mb-4">
             @forelse ($products as $prod)
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-6">
                 <div class="product mb-3">
                     <div class="card">
                         <div class="product-img">

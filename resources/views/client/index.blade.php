@@ -245,7 +245,7 @@
         <!-- quote -->
         <div class="quote">
             <img src="{{ asset('assets/client') }}/img/quote.png" class="float-left" alt="">
-            <p class="text-center font-italic">{!! strip_tags($quote->detail) !!}</p>
+            <div class="text-center font-italic">{!! $quote->detail !!}</div>
         </div>
         <div class="cmt text-center">
             <div class="ava-cmt">

@@ -82,14 +82,12 @@ input:focus {
 #news .news-container {
   margin: 0 166px; }
   #news .news-container h6 {
-    font-size: 25px;
-    margin-bottom: 36px; }
+    font-size: 25px; }
   #news .news-container .time {
     color: #aaaaaa;
     margin-bottom: 25px; }
   #news .news-container .title-detail {
-    font-size: 16px;
-    margin-bottom: 25px; }
+    font-size: 16px; }
   #news .news-container img {
     width: 100%;
     height: 350px; }
@@ -679,7 +677,7 @@ input[type=number]::-webkit-outer-spin-button {
     height: 200px; }
 #product-detail .single_product_thumb {
   position: relative; }
-#product-detail .single_product_thumb .carousel-indicators li {
+#product-detail .single_product_thumb .product-thumbs .carousel-indicators li {
   border: 1px solid #e3e6e9;
   background-position: center center;
   background-size: cover;
@@ -725,7 +723,7 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 10px 0; }
     .more-product .product-colors .product-color {
       margin-top: 20px;
-      border: 0.5px solid #000000;
+      border: 0.5px solid #e3e6e9;
       border-radius: 100%;
       width: 19px;
       height: 19px;

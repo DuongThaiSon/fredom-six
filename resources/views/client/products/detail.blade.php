@@ -263,11 +263,10 @@
                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                     @auth
                     <div class="product-review d-flex">
-                        <a href="#">
-                            <img src="{{ Auth::user()->avatar ? '/assets/client/img/customer.png' : 'http://goo.gl/vyAs27' }}"
-                                style="width: 150px; height: 150px; border: 1px ridge;" alt="" class="rounded-circle">
-                        </a>
-                        <div class="comment-section ml-5" style="flex: 0 0 700px;">
+                        {{-- <div class="col-2 text-center align-self-center">
+                            <h5>{{ Auth::user()->name ?? '' }}</h5>
+                        </div> --}}
+                        <div class="comment-section col-12">
                             <form action="" class="comment-form" id="comment-form">
                                 @php
                                     // print_r($product->id);die;

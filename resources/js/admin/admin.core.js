@@ -114,14 +114,33 @@ export class productCore {
 
     collectSelectedAttributeId() {
         let _this = this
-        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
-            e.preventDefault()
-            let checked = []
-            $(".select-attribute-input:checked").each(function() {
-                checked.push($(this).val())
+        $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            let result = '';
+            let selected = $(this).find('option:selected')
+            selected.each(function(index, element) {
+                result += $(element).text()
+                if (index < selected.length - 1) {
+                    result += ', '
+                }
             })
-            _this.renderSelectedAttribute(checked)
-            return
+            $(".selected-value").text(result)
+            _this.setVariantButtonStatus()
+        });
+    }
+
+    makeVariation() {
+        $('.btn-make-variation').on("click.btnMakeVariation", function(e) {
+            e.preventDefault()
+            let makeVariationUrl = $(this).attr("data-href")
+            let makeVariationData = $(".attribute-selectpicker").val()
+            $.ajax({
+                url: makeVariationUrl,
+                method: "POST",
+                data: {
+                    attributes: makeVariationData
+                }
+            })
+
         })
     }
 
@@ -152,7 +171,6 @@ export class productCore {
     selectCategory() {
         let _this = this
         $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            console.log($(this).val());
             _this.renderAttributeOptions($(this).val())
         });
 
@@ -170,6 +188,16 @@ export class productCore {
                 $("#selectProductAttributeModal").find(".modal-body").html(scs)
             }
         })
+    }
+
+    setVariantButtonStatus() {
+        let attributeSelectedCount = $('.attribute-selectpicker').val().length;
+        if (attributeSelectedCount) {
+            $(".btn-make-variation").attr("disabled", false)
+        } else {
+            $(".btn-make-variation").attr("disabled", true)
+        }
+
     }
 }
 

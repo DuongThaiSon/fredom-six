@@ -465,7 +465,7 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/galleries.edit.js */"./resources/js/admin/galleries.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/galleries.edit.js */"./resources/js/admin/galleries.edit.js");
 
 
 /***/ })

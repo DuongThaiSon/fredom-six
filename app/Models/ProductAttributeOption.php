@@ -11,7 +11,7 @@ class ProductAttributeOption extends Model
 
     public function productAttribute()
     {
-        return $this->belongsTo('App\Models\ProductAttribute');
+        return $this->belongsTo(ProductAttribute::class);
     }
 
     public function products()

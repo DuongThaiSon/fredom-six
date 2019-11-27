@@ -373,7 +373,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
-
+        Route::post('{product}/create-variant', [
+            'as' => 'products.createVariation',
+            'uses' => 'ProductController@createVariation'
+        ]);
     });
     Route::resource('products', 'ProductController');
 

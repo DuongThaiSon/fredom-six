@@ -27,7 +27,7 @@ class Product extends Model
 
     public function productAttributeOptions()
     {
-        return $this->belongsToMany('App\Models\ProductAttributeOption', 'product_attribute_values', 'product_id', 'product_attribute_option_id');
+        return $this->belongsToMany(ProductAttributeOption::class, 'product_attribute_values', 'product_id', 'product_attribute_option_id');
     }
 
     public function comments()
@@ -54,6 +54,22 @@ class Product extends Model
     {
         $this->addMediaGroup('gallery')
              ->performConversions('thumb');
+    }
+
+    public function attributes()
+    {
+        return $this->belongsToMany(ProductAttribute::class, 'product_attribute_value', 'product_id', 'product_attribute_id');
+    }
+
+    public function attributeProductValues()
+    {
+        return $this->hasMany(ProductAttributeValue::class);
+    }
+    
+    public function variants()
+    {
+        return $this->belongsToMany(Product::class, 'product_attribute_values', 'product_id', 'variant_id')
+            ->withTimestamps();
     }
 }
 

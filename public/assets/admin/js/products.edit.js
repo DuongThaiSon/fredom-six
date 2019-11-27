@@ -3215,16 +3215,35 @@ function () {
     value: function collectSelectedAttributeId() {
       var _this = this;
 
-      $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
-        e.preventDefault();
-        var checked = [];
-        $(".select-attribute-input:checked").each(function () {
-          checked.push($(this).val());
+      $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        var result = '';
+        var selected = $(this).find('option:selected');
+        selected.each(function (index, element) {
+          result += $(element).text();
+
+          if (index < selected.length - 1) {
+            result += ', ';
+          }
         });
+        $(".selected-value").text(result);
 
-        _this.renderSelectedAttribute(checked);
-
-        return;
+        _this.setVariantButtonStatus();
+      });
+    }
+  }, {
+    key: "makeVariation",
+    value: function makeVariation() {
+      $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
+        e.preventDefault();
+        var makeVariationUrl = $(this).attr("data-href");
+        var makeVariationData = $(".attribute-selectpicker").val();
+        $.ajax({
+          url: makeVariationUrl,
+          method: "POST",
+          data: {
+            attributes: makeVariationData
+          }
+        });
       });
     }
   }, {
@@ -3260,8 +3279,6 @@ function () {
       var _this = this;
 
       $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        console.log($(this).val());
-
         _this.renderAttributeOptions($(this).val());
       });
     }
@@ -3279,6 +3296,17 @@ function () {
           $("#selectProductAttributeModal").find(".modal-body").html(scs);
         }
       });
+    }
+  }, {
+    key: "setVariantButtonStatus",
+    value: function setVariantButtonStatus() {
+      var attributeSelectedCount = $('.attribute-selectpicker').val().length;
+
+      if (attributeSelectedCount) {
+        $(".btn-make-variation").attr("disabled", false);
+      } else {
+        $(".btn-make-variation").attr("disabled", true);
+      }
     }
   }]);
 
@@ -3351,6 +3379,8 @@ $(document).ready(function () {
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCore"](id);
   guide.collectSelectedAttributeId();
   guide.selectCategory();
+  guide.makeVariation();
+  guide.setVariantButtonStatus();
   $(".attribute-selectpicker").selectpicker();
   var productId = $('input[name=id]').val(); // filePond.initFilePond('gallery-images', `/admin/gallery/${productId}`);
 
@@ -3772,7 +3802,7 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/Projects/CMS/Leotive-CMS-v3/resources/js/admin/products.edit.js */"./resources/js/admin/products.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/products.edit.js */"./resources/js/admin/products.edit.js");
 
 
 /***/ })

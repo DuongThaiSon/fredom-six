@@ -248,6 +248,8 @@ function () {
   }, {
     key: "makeVariation",
     value: function makeVariation() {
+      var _this = this;
+
       $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
         e.preventDefault();
         var makeVariationUrl = $(this).attr("data-href");
@@ -390,7 +392,7 @@ function () {
       $(".btn-edit-variant").off("click.showEditVariantForm");
       $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
         e.preventDefault();
-        var editUrl = $(this).attr("href");
+        var editUrl = $(this).attr("data-href");
         $.ajax({
           url: editUrl,
           success: function success(resolve) {
@@ -442,11 +444,35 @@ function () {
       });
     }
   }, {
+    key: "deleteVariant",
+    value: function deleteVariant() {
+      var _this = this;
+
+      $(".btn-delete-variant").off("click.deleteVariant");
+      $(".btn-delete-variant").on("click.deleteVariant", function (e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr("data-href");
+        $.ajax({
+          url: deleteUrl,
+          method: "POST",
+          data: {
+            _method: 'DELETE'
+          },
+          success: function success(resolve) {
+            $(".product-variants-list").html(resolve);
+
+            _this.initVariantAction();
+          }
+        });
+      });
+    }
+  }, {
     key: "initVariantAction",
     value: function initVariantAction() {
       this.makeVariantProductOrderable();
       this.productVariantPagination();
       this.showEditVariantForm();
+      this.deleteVariant();
     }
   }]);
 

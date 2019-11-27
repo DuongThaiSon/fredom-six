@@ -129,6 +129,7 @@ export class productCore {
     }
 
     makeVariation() {
+        let _this = this
         $('.btn-make-variation').on("click.btnMakeVariation", function(e) {
             e.preventDefault()
             let makeVariationUrl = $(this).attr("data-href")
@@ -262,7 +263,7 @@ export class productCore {
         $(".btn-edit-variant").off("click.showEditVariantForm")
         $(".btn-edit-variant").on("click.showEditVariantForm", function(e) {
             e.preventDefault()
-            let editUrl = $(this).attr("href")
+            let editUrl = $(this).attr("data-href")
             $.ajax({
                 url: editUrl,
                 success: function(resolve) {
@@ -311,10 +312,32 @@ export class productCore {
         })
     }
 
+    deleteVariant() {
+        let _this = this
+        $(".btn-delete-variant").off("click.deleteVariant")
+        $(".btn-delete-variant").on("click.deleteVariant", function(e) {  
+            e.preventDefault()
+            let deleteUrl = $(this).attr("data-href")
+            
+            $.ajax({
+                url: deleteUrl,
+                method: "POST",
+                data: {
+                    _method: 'DELETE'
+                },
+                success: function(resolve) {
+                    $(".product-variants-list").html(resolve)
+                    _this.initVariantAction()         
+                }
+            })
+        })
+    }
+
     initVariantAction() {
         this.makeVariantProductOrderable()
         this.productVariantPagination()
         this.showEditVariantForm()
+        this.deleteVariant()
     }
     
 }

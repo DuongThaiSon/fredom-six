@@ -19,4 +19,4 @@
     </tbody>
 </table>
 
-{{ $products->links() }}
+{{ $products->links('admin.productVariants.pagination') }}

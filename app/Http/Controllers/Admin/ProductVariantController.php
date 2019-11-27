@@ -19,9 +19,9 @@ class ProductVariantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return view('admin.productVariants.index', ['products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id))]);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductVariantController extends Controller
             $this->makeProductVariation($product, $request->get('attributes'));
         });
 
-        return view('admin.productVariants.index', ['products' => $product->variants()->get()->paginate(4)]);
+        return view('admin.productVariants.index', ['products' => $product->variants()->get()->paginate(4)->withPath(route('admin.variants.index', $product->id))]);
     }
 
     /**

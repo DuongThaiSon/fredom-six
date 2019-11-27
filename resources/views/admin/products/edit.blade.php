@@ -438,7 +438,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive bg-white mt-4 col-12 product-variants-list" id="cat_table">
-                                @include('admin.productVariants.index', ['products' => $product->variants->paginate(4)])
+                                @include('admin.productVariants.index', ['products' => $product->variants->paginate(4)->withPath(route('admin.variants.index', $product->id))])
                             </div>
                         </div>
                     </div>

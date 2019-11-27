@@ -108,7 +108,7 @@ export class productAttributeCore {
 export class productCore {
     constructor(productId = null) {
         this.productId = productId
-        console.log(this.productId);
+        this.productVariantPagination()
 
     }
 
@@ -201,6 +201,23 @@ export class productCore {
             $(".btn-make-variation").attr("disabled", true)
         }
 
+    }
+
+    productVariantPagination() {
+        let _this = this
+        $(".variant-pagination").find("a.page-link").off("click.productVariantPagination")
+        $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function(e) {
+            e.preventDefault()
+            let pagingUrl = $(this).attr("href")
+            $.ajax({
+                url: pagingUrl,
+                success: function(resolve) {
+                    $(".product-variants-list").html(resolve)
+                    _this.productVariantPagination()
+                }
+            })
+            
+        })        
     }
 }
 

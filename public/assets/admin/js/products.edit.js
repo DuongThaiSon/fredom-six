@@ -3207,7 +3207,7 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    console.log(this.productId);
+    this.productVariantPagination();
   }
 
   _createClass(productCore, [{
@@ -3310,6 +3310,25 @@ function () {
       } else {
         $(".btn-make-variation").attr("disabled", true);
       }
+    }
+  }, {
+    key: "productVariantPagination",
+    value: function productVariantPagination() {
+      var _this = this;
+
+      $(".variant-pagination").find("a.page-link").off("click.productVariantPagination");
+      $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
+        e.preventDefault();
+        var pagingUrl = $(this).attr("href");
+        $.ajax({
+          url: pagingUrl,
+          success: function success(resolve) {
+            $(".product-variants-list").html(resolve);
+
+            _this.productVariantPagination();
+          }
+        });
+      });
     }
   }]);
 

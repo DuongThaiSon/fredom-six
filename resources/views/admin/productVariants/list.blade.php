@@ -1,5 +1,5 @@
 @forelse ($products as $entry)
-<tr id="item_b{{ $entry->id }}" class="ui-state-default">
+<tr id="item_{{ $entry->id }}" class="ui-state-default">
     <td class="text-muted connect" data-toggle="tooltip"
         title="Giữ icon này kéo thả để sắp xếp">
         <i class="material-icons">format_line_spacing</i>

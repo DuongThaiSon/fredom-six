@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phương thức vận chuyển</label>
-                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->ship ??'' }}"/>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->partner->name ??'' }} : {{ number_format($order->partner->price) ??'' }} vnđ"/>
                         <small class="form-text">Phương thức vận chuyển</small>
                     </div>
                     <div class="form-group">
@@ -105,7 +105,11 @@
                                         <td class="w-35"></td>
                                         <td class="w-5">{{ $order->cartItems->sum('quantity') }}</td>
                                         <td class="w-25"></td>
-                                        <td class="w-30">{{ number_format($order->sum) }}&nbsp;đ</td>
+                                        <td class="w-30">{{ number_format($order->sum ) }}&nbsp;đ</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">Tổng giá trị</td>
+                                        <td >{{ number_format($order->sum + $order->partner->price) }}&nbsp;đ</td>
                                     </tr>
                             </tbody>
                         </table>

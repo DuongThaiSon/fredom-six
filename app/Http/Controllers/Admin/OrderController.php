@@ -17,13 +17,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['cartItems'])->simplePaginate(5);
+        $orders = Order::with(['cartItems', 'partner'])->simplePaginate(5);
         $orders->map(function($q){
             $q->total_quantity = $q->cartItems->sum('quantity');
             $q->total_price = $q->cartItems->sum('price');
             return $q;
         });
-       
+
         return view('admin.orders.index', compact('orders'));
 
     }
@@ -67,11 +67,12 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::with(['cartItems', 'cartItems.product'])->findOrFail($id);
+        $order = Order::with(['cartItems', 'cartItems.product', 'partner'])->findOrFail($id);
+        // print_r($order->toArray());die;
         $order->sum = $order->cartItems->sum(function($q) {
             return $q->price * $q->quantity;
         });
-        
+
         return view('admin.orders.edit', compact('order'));
     }
 
@@ -85,7 +86,7 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = Order::findOrFail($id);
-        
+
         $attributes = $request->only([
             'payment_status'
         ]);

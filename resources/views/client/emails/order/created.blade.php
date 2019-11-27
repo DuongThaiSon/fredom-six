@@ -30,7 +30,7 @@
                 <div class="form-group col-12 col-md-12">
                     <div style="display: flex; margin-bottom: 10px">
                     <div style="font-weight: bold;">Phương thức vận chuyển: </div>
-                    <div style="font-style: italic;">{{ $order->ship ?? ''}} </div>
+                    <div style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price) ?? ''}} vnđ </div>
                     </div>
                 </div>
                 <div class="form-group col-12 col-md-12">
@@ -45,14 +45,14 @@
                 <div class="col-12" style="font-weight: bold; color: red;">Đơn hàng của bạn:</div>
                 <table class="w-100 table-sm table-hover table mb-2" style="border: 1px solid black; width: 50%; text-align: center;">
                     <thead>
-    
+
                     <tr class="" style="background: #ffa500; color: white;">
                         <th style="border: 1px solid black !important" class="w-5">STT</th>
                         <th style="border: 1px solid black !important" class="w-25">Sản phẩm</th>
                         <th style="border: 1px solid black !important" class="w-20">Số lượng</th>
                         <th style="border: 1px solid black !important" class="w-25">Giá</th>
                         <th style="border: 1px solid black !important" class="w-25">Thành tiền</th>
-                        
+
                     </tr>
                     </thead>
                     <tbody>
@@ -72,14 +72,18 @@
                     </tr>
                     @endforelse
                     <tr style="border: 1px solid black !important">
-                        <th style="border: 1px solid black !important" class="w-5">Tổng</th>
-                        <th style="border: 1px solid black !important" class="w-25"></th>
+                        <th style="border: 1px solid black !important" colspan="2">Tổng</th>
                         <th style="border: 1px solid black !important" class="w-20">{{ $order->cartItems->sum('quantity') }}</th>
                         <th style="border: 1px solid black !important" class="w-25"></th>
                         <th style="border: 1px solid black !important" class="w-25">{{ number_format($order->sum) }}&nbsp;đ</th>
                     </tr>
+                    <tr style="border: 1px solid black !important">
+                        <th style="border: 1px solid black !important" colspan="4">Tổng giá trị *</th>
+                        <th style="border: 1px solid black !important" >{{ number_format($order->sum + $order->partner->price) }}&nbsp;đ</th>
+                    </tr>
                     </tbody>
                 </table>
+                      <small>* Là tổng đơn hàng + tiền vận chuyển</small>
                 </div>
             </div>
         </div>

@@ -473,3 +473,13 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ResetPasswordController@showResetForm'
     ]);
 });
+
+
+//Addition route for Partners
+Route::group(['prefix' => 'partners'], function () {
+    Route::delete('delete-many', [
+        'as' => 'partners.deleteMany',
+        'uses' => 'PartnerController@deleteMany'
+    ]);
+});
+Route::resource('partners', 'PartnerController');

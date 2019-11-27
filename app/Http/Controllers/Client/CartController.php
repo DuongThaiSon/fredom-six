@@ -9,6 +9,7 @@ use Cart;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cart as Order;
+use App\Models\Partner;
 
 class CartController extends Controller
 {
@@ -90,11 +91,17 @@ class CartController extends Controller
 
     public function checkout()
     {
-        return view('client.carts.checkout');
+        if(!Cart::isEmpty()){
+            $partners = Partner::get();
+            return view('client.carts.checkout', compact('partners'));
+        }
+        else{
+            abort(404);
+        }
     }
     public function store(Request $request)
     {
-        // dd($request->all());
+        // print_r($request->all());
             $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
@@ -109,7 +116,7 @@ class CartController extends Controller
         ]);
         $attributes['payment_status'] = 'Đặt hàng';
         $order = Order::create($attributes);
-        
+
         foreach (Cart::getContent() as $item) {
 
             $order->cartItems()->create([
@@ -121,16 +128,17 @@ class CartController extends Controller
         Cart::clear();
 
         event(new OrderCreated($order));
-
-        return redirect()->route('client.carts.complete', $order->id);
+        $encrypt = encrypt($order->id);
+        return redirect()->route('client.carts.complete', $encrypt);
     }
     /**
      * Complete cart
      */
 
-    public function complete($id)
-    {  
-        $order = Order::with('cartItems')->findOrFail($id);
+    public function complete($key)
+    {
+        $id = decrypt($key);
+        $order = Order::with(['cartItems', 'partner'])->findOrFail($id);
         $order->sum = $order->cartItems->sum(function($q) {
             return $q->price * $q->quantity;
         });

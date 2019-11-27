@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'contact', 'title' => __('Order')])
+@extends('admin.layouts.main', ['activePage' => 'cart', 'title' => __('Order')])
 @section('content')
         <!-- Content -->
         <div id="main-content">
@@ -31,7 +31,7 @@
                     <th style="width: 120px;">THỜI GIAN ĐẶT HÀNG</th>
                     <th>TRẠNG THÁI</th>
                     <th style="width: 160px;">Thao tác</th>
-                    
+
                   </tr>
                 </thead>
                 <tbody class="sort">

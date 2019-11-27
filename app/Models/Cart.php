@@ -11,4 +11,9 @@ class Cart extends Model
     {
         return $this->hasMany('App\Models\CartItem');
     }
+
+    public function partner()
+    {
+        return $this->belongsTo('App\Models\Partner', 'ship');
+    }
 }

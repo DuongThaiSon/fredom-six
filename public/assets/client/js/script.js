@@ -95,7 +95,7 @@ $(document).ready(function () {
 
   $("#logo-partner").owlCarousel({
     loop: true,
-    nav: true,
+    nav: false,
     navText: [
       '<span aria-label="Previous"> <i class="fas fa-chevron-left"></i> </span>',
       '<span aria-label="Next"> <i class="fas fa-chevron-right"></i> </span>'

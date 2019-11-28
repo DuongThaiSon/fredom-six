@@ -29,7 +29,7 @@
       </div>
     </div>
     <!-- cart -->
-    <div class="cart">
+    <div class="cart col-md-12 col-12">
       <!-- product -->
       <table class="table">
         <thead>
@@ -139,7 +139,7 @@
             @forelse ($product as $item)
 
 
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-6">
               <div class="product">
                 <div class="card">
                   <div class="product-img">
@@ -165,26 +165,26 @@
                       class="product-name">{{ $item->name }}</a>
                     <!-- rating -->
                     <div id='rating' class='rating'>
-                        <span class='ratingStars {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
                     </div>
                     <!-- price -->
                     <div class="product-price">
-                      <span class="old-price">{{ $item->price }}</span>
-                      <span class="new-price">{{ number_format($item->price-$item->discount*$item->price/100) }}</span>
+                      <span class="old-price">{{ number_format($item->price).'đ' }}</span>
+                      <span class="new-price">{{ number_format($item->price-$item->discount*$item->price/100).'đ' }}</span>
                     </div>
                   </div>
                   <div class="list-group list-group-flush">

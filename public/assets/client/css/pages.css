@@ -472,9 +472,6 @@ input:focus {
       margin: 5px; }
   #cart .old-price {
     margin-right: 20px; }
-  #cart .new-price {
-    font-size: 24px;
-    font-weight: bold; }
   #cart .cart-link:hover {
     color: #000000 !important; }
   #cart .product-name:hover {
@@ -731,7 +728,7 @@ input[type=number]::-webkit-outer-spin-button {
   .more-product .old-price {
     margin-right: 20px; }
   .more-product .new-price {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold; }
   .more-product .cart-link:hover {
     color: #000000 !important; }

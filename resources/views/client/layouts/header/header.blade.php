@@ -54,7 +54,7 @@
                     <div class="cart">
                         <div class="cart-icon">
                             <a href="/cart"> <i class="fas fa-shopping-basket"></i></a>
-                            <div class="cart-items">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</div>
+                            <span class="cart-quantity">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</span>
                         </div>
                     </div>
                 </li>

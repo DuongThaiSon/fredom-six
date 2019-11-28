@@ -43,6 +43,11 @@
     <script src="{{ asset('assets/client') }}/js/owl.carousel.js"></script>
     <script src="{{ asset('assets/client') }}/js/script.js"></script>
     @stack('js')
+
+    @forelse ($scripts as $script)
+    {!! $script->script !!}
+    @empty
+    @endforelse
 </body>
 
 </html>

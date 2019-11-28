@@ -227,7 +227,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'settings.postEditEmailContent',
             'uses' => 'SettingController@postEditEmailContent'
         ]);
-
     });
 
     Route::group(['prefix' => 'components'], function (){
@@ -418,9 +417,28 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
     ]);
+
+    //Addition route for Partners
+    Route::group(['prefix' => 'partners'], function () {
+        Route::delete('delete-many', [
+            'as' => 'partners.deleteMany',
+            'uses' => 'PartnerController@deleteMany'
+        ]);
+    });
+    Route::resource('partners', 'PartnerController');
+
+    Route::group(['prefix' => 'seo-tools'], function () {
+        Route::delete('delete-many', [
+            'as' => 'seo-tools.deleteMany',
+            'uses' => 'SeoToolController@deleteMany'
+        ]);
+    });
+    Route::resource('seo-tools', 'SeoToolController');
+
+    Route::resource('reviews', 'ReviewController');
 });
 
-Route::resource('reviews', 'ReviewController');
+
 
 // Guest routes
 Route::group(['namespace' => 'Auth'], function() {
@@ -455,11 +473,4 @@ Route::group(['namespace' => 'Auth'], function() {
 });
 
 
-//Addition route for Partners
-Route::group(['prefix' => 'partners'], function () {
-    Route::delete('delete-many', [
-        'as' => 'partners.deleteMany',
-        'uses' => 'PartnerController@deleteMany'
-    ]);
-});
-Route::resource('partners', 'PartnerController');
+

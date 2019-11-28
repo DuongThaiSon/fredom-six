@@ -32,7 +32,9 @@ class AppServiceProvider extends ServiceProvider
         Conversion::register('thumb', function (Image $image) {
             return $image->fit(64, 64);
         });
-
+        \View::composer(
+            'client.layouts.main', 'App\Http\View\Composers\MainComposer'
+        );
         \View::composer(
             'client.layouts.footer.footer', 'App\Http\View\Composers\FooterComposer'
         );

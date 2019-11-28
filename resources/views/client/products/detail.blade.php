@@ -29,14 +29,14 @@
                                         class="fas fa-angle-up"></i>
                                 </button>
                                 <ol class="carousel-indicators d-flex flex-column align-items-center m-0">
-
                                     <ul class="thumbnail mr-3" style="height: 95%;">
-                                        <li data-target="#product_details_slider" data-slide-to="0"
-                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}); background-size: 57px 65px; background-repeat: no-repeat;">
+                                        @forelse ($product->images as $item)
+                                        <li data-target="#product_details_slider" data-slide-to="0" class="thumbnail-products" data-src="{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}"
+                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
                                         </li>
-
+                                        @empty
+                                        @endforelse
                                     </ul>
-
                                 </ol>
                                 <button onclick="scrollDown()" class="down-button text-center ml-4"
                                     style="z-index: 999;"><i class="fas fa-angle-down"></i>
@@ -46,11 +46,11 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active py-3" style="max-height: 600px;">
                                         <a class="gallery_img"
-                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}">
-                                            <img class="d-block w-75 mx-auto"
+                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ??'' }}">
+                                            <img class="d-block w-75 mx-auto product-main-image"
                                                 style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}"
-                                                alt="{{ $product->avatar }}">
+                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->images[0]->name ?? $product->avatar }}"
+                                                alt="{{ $product->images[0]->name ??'' }}">
                                         </a>
                                     </div>
                                 </div>
@@ -264,11 +264,10 @@
                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                     @auth
                     <div class="product-review d-flex">
-                        <a href="#">
-                            <img src="{{ Auth::user()->avatar ? '/assets/client/img/customer.png' : 'http://goo.gl/vyAs27' }}"
-                                style="width: 150px; height: 150px; border: 1px ridge;" alt="" class="rounded-circle">
-                        </a>
-                        <div class="comment-section ml-5" style="flex: 0 0 700px;">
+                        {{-- <div class="col-2 text-center align-self-center">
+                            <h5>{{ Auth::user()->name ?? '' }}</h5>
+                        </div> --}}
+                        <div class="comment-section col-12">
                             <form action="" class="comment-form" id="comment-form">
                                 @php
                                     // print_r($product->id);die;

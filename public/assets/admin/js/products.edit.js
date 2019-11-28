@@ -3767,6 +3767,8 @@ function deleteAnItem(delete_url) {
               type: "success",
               confirmButtonClass: "btn btn-success",
               buttonsStyling: false
+            }).then(function () {
+              location.reload();
             });
             changeAppearButtonCheckAll();
           },

@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'products', 'title' => __('Products Detail')])
+@extends('admin.layouts.main', ['activePage' => 'products-create', 'title' => __('Products Detail')])
 @section('content')
 <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">
@@ -308,13 +308,14 @@
                 </div>
                 </div>
 
-                <!-- CK Editor -->
-                <hr>
-                <div class="row">
-                    <div class="col-12">
-                    <legend>Size Chart</legend>
-                    <div class="form-group">
-                        <textarea class="form-control ck-classic" name="size_chart"></textarea>
+                        <div class="form-group">
+                          <label class="control-label">Ảnh đại diện</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="avatar">
+                                <label class="custom-file-label" for="">Choose file</label>
+                            </div>
+                        </div>
+
                     </div>
                     </div>
                 </div>

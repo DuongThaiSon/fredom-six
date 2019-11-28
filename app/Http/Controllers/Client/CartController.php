@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Events\OrderCreated;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Cart;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cart as Order;
+use App\Models\Partner;
 
 class CartController extends Controller
 {
@@ -89,11 +91,17 @@ class CartController extends Controller
 
     public function checkout()
     {
-        return view('client.carts.checkout');
+        if(!Cart::isEmpty()){
+            $partners = Partner::get();
+            return view('client.carts.checkout', compact('partners'));
+        }
+        else{
+            abort(404);
+        }
     }
     public function store(Request $request)
     {
-        // dd($request->all());
+        // print_r($request->all());
             $this->validate($request,[
             'first_name' => 'required',
             'last_name' => 'required',
@@ -108,48 +116,32 @@ class CartController extends Controller
         ]);
         $attributes['payment_status'] = 'Đặt hàng';
         $order = Order::create($attributes);
-        // r a bấm thanh toán đi a
 
-        $cart_item = [];
-        $i = 0;
         foreach (Cart::getContent() as $item) {
 
             $order->cartItems()->create([
                 'product_id' => $item->id,
                 'price' => $item->price*$item->quantity,
                 'quantity' => $item->quantity
-            ]);
-            $cart_item[$i]=[
-                'product_name' => $item->name,
-                'quantity'      => $item->quantity,
-                'price'         => $item->price,
-                'total'         => $item->price*$item->quantity,
-            ];
-            $i++;
-
-        }
-        $cart = [
-            'name' => $request->last_name,
-            'email' => $request->email,
-            'address' => $request->address,
-            'phone' => $request->phone,
-            'city' => $request->city,
-            'ship' => $request->ship,
-            'payment_choice' => $request->payment_choice,
-        ];
-
+            ]);};
 
         Cart::clear();
-        return view('client.carts.complete', compact('cart','cart_item'));// view comple
+
+        event(new OrderCreated($order));
+        $encrypt = encrypt($order->id);
+        return redirect()->route('client.carts.complete', $encrypt);
     }
     /**
      * Complete cart
      */
 
-    public function complete()
+    public function complete($key)
     {
-        $order = Order::with(['cartItems'])->get();
-        // print_r($order->toArray());die;
+        $id = decrypt($key);
+        $order = Order::with(['cartItems', 'partner'])->findOrFail($id);
+        $order->sum = $order->cartItems->sum(function($q) {
+            return $q->price * $q->quantity;
+        });
         return view('client.carts.complete', compact('order'));
     }
 }

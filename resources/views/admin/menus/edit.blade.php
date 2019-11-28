@@ -53,12 +53,12 @@
                       <select name="type" class="form-control" id="list-option">
                         <option {{ $menu->type===0?'selected':'' }} value="0">Link tùy chọn</option>
                         <option {{ $menu->type===1?'selected':'' }} value="1">[Bài viết] Link đến một mục bài viết</option>
-                        <option {{ $menu->type===2?'selected':'' }} value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
-                        <option {{ $menu->type===3?'selected':'' }} value="3">[Bài viết] Đồng bộ mục bài viết</option>
+                        {{-- <option {{ $menu->type===2?'selected':'' }} value="2">[Bài viết] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menu->type===3?'selected':'' }} value="3">[Bài viết] Đồng bộ mục bài viết</option> --}}
                         <option {{ $menu->type===4?'selected':'' }} value="4">[Bài viết] Link đến bài viết chỉ định</option>
                         <option {{ $menu->type===5?'selected':'' }} value="5">[Sản phẩm] Link đến một mục sản phẩm</option>
-                        <option {{ $menu->type===6?'selected':'' }} value="6">[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục</option>
-                        <option {{ $menu->type===7?'selected':'' }} value="7">[Sản phẩm] Đồng bộ mục sản phẩm</option>
+                        {{-- <option {{ $menu->type===6?'selected':'' }} value="6">[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục</option>
+                        <option {{ $menu->type===7?'selected':'' }} value="7">[Sản phẩm] Đồng bộ mục sản phẩm</option> --}}
                         <option {{ $menu->type===8?'selected':'' }} value="8">[Sản phẩm] Link đến sản phẩm chỉ định</option>
                       </select>
                       <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
@@ -76,15 +76,15 @@
                   </div>
 
                   <div class="col-lg-6" style="border: 1px solid gray">
-                      <p>Chú thích loại menu</p>
+                      <h3>Chú thích loại menu</h3>
                       <p>Link tùy chọn: Khi click vào menu này sẽ chuyển hướng đến URL chỉ định</p>
                       <p>[Bài viết] Link đến một mục bài viết: Người dùng click vào menu này sẽ chuyển hướng trực tiếp đến trang list bài viết theo mục đã chọn</p>
-                      <p>[Bài viết] Đồng bộ với toàn bộ mục con của một mục: Hệ thống sẽ tự sinh ra các menu con là các mục con của mục đã chọn và mỗi menu con sẽ link đến trang list bài viết theo mục đã chọn</p>
-                      <p>[Bài viết] Đồng bộ mục bài viết: Hệ thống tự sinh ra toàn bộ mục bài viết có trong cơ sở dữ liệu theo đúng cấu trúc mục cha, con đã định</p>
+                      {{-- <p>[Bài viết] Đồng bộ với toàn bộ mục con của một mục: Hệ thống sẽ tự sinh ra các menu con là các mục con của mục đã chọn và mỗi menu con sẽ link đến trang list bài viết theo mục đã chọn</p>
+                      <p>[Bài viết] Đồng bộ mục bài viết: Hệ thống tự sinh ra toàn bộ mục bài viết có trong cơ sở dữ liệu theo đúng cấu trúc mục cha, con đã định</p> --}}
                       <p>[Bài viết] Link đến bài viết chỉ định: Khi click vào menu này sẽ chuyển hướng đến trang chi tiết của bài viết được chọn</p>
                       <p>[Sản phẩm] Link đến một mục sản phẩm: Người dùng click vào menu này sẽ chuyển hướng trực tiếp đến trang list sản phẩm theo mục đã chọn</p>
-                      <p>[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục: Hệ thống sẽ tự sinh ra các menu con là các mục con của mục đã chọn và mỗi menu con sẽ link đến trang list sản phẩm theo mục đã chọn</p>
-                      <p>[Sản phẩm] Đồng bộ mục sản phẩm: Hệ thống tự sinh ra toàn bộ mục sản phẩm có trong cơ sở dữ liệu theo đúng cấu trúc mục cha, con đã định</p>
+                      {{-- <p>[Sản phẩm] Đồng bộ với toàn bộ mục con của một mục: Hệ thống sẽ tự sinh ra các menu con là các mục con của mục đã chọn và mỗi menu con sẽ link đến trang list sản phẩm theo mục đã chọn</p>
+                      <p>[Sản phẩm] Đồng bộ mục sản phẩm: Hệ thống tự sinh ra toàn bộ mục sản phẩm có trong cơ sở dữ liệu theo đúng cấu trúc mục cha, con đã định</p> --}}
                       <p>[Sản phẩm] Link đến sản phẩm chỉ định: Khi click vào menu này sẽ chuyển hướng đến trang chi tiết của sản phẩm được chọn</p>
                   </div>
                   <hr>
@@ -99,40 +99,8 @@
 @endsection
 @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
 </script>
-<script>
-  $(document).ready(function(){
-    $("select[name=type]").on('change', function (e) {
-      e.preventDefault();
-      let url = "";
-      if ($(this).val() == 4) {
-        url = "list-articles";
-        ajaxCall(url);
-      }
-      if ($(this).val() == 8) {
-        url = "list-products";
-        ajaxCall(url);
-      }
-    });
-    
-  });
-
-  let ajaxCall = function(url) {
-    $.ajax({
-        url: '/admin/menus/'+url,
-        method: 'GET',
-        success: function(scs){
-          $('.filter-result').html(scs)
-          $('input:[name=link]').remove();
-        },
-        error: function(e){
-          console.log(e);
-          
-          }
-      });
-   };
-    
-</script>
+<script src="{{ asset('assets/admin') }}/js/menus.edit.js"></script>
 @endpush

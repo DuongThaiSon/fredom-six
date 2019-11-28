@@ -5,10 +5,10 @@
 <div id="showcase">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
+            @forelse ($slide as $image)
+            <li data-target="#myCarousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+            @empty
+            @endforelse
         </ol>
         <div class="carousel-inner">
             <!-- slide -->
@@ -129,15 +129,15 @@
     </div>
 </section>
 <!-- mix & match -->
-<section id="mix-match" class="mb-4 d-none d-lg-block">
+<section id="mix-match" class="mb-4">
     <h1 class="text-center display-3 text-uppercase">{{ $products->name }}</h1>
     <div id="match" class="owl-carousel owl-theme">
         <div class="item">
             <div class="row" style="height: 578px">
-                <div class="col-lg-3 full-set">
+                <div class="col-lg-3 col-6 full-set">
                     <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $products->avatar }}" alt="">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 p-0">
                     @foreach ($products->products->take(2) as $item)
                     <div class="{{ $loop->iteration === 1?'clothe':'short' }}">
                         <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
@@ -149,11 +149,11 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6">
                     @foreach ($products->products->skip(2)->take(3) as $item)
-                    <div class="earing">
+                    <div class="{{ $loop->iteration === 1?'earing':($loop->iteration === 2?'watch':'glasses') }}">
                         <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
-                        <div class="earing-name">
+                        <div class="{{ $loop->iteration === 1?'earing-name':($loop->iteration === 2?'watch-name':'glasses-name') }}">
                             <p class="mb-0">{{ $item->name }}</p>
                             <a href="{{ route('client.products.detail', ['slug_cat' => 'mix-match', 'slug_view' => $item->slug]) }}" class="item-link">Xem sản
                                 phẩm</a>
@@ -162,12 +162,11 @@
                     @endforeach
 
                 </div>
-
-                <div class="col-lg-3">
+                <div class="col-lg-3 col-6 p-0">
                     @foreach ($products->products->skip(5)->take(2) as $item)
-                    <div class="shoes">
+                    <div class="{{ $loop->iteration === 1?'shoes':'bag' }}">
                         <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
-                        <div class="shoes-name">
+                        <div class="{{ $loop->iteration === 1?'shoes-name':'bag-name' }}">
                             <p class="mb-0">{{ $item->name }}</p>
                             <a href="{{ route('client.products.detail', ['slug_cat' => 'mix-match', 'slug_view' => $item->slug]) }}" class="item-link">Xem sản
                                 phẩm</a>
@@ -246,7 +245,7 @@
         <!-- quote -->
         <div class="quote">
             <img src="{{ asset('assets/client') }}/img/quote.png" class="float-left" alt="">
-            <p class="text-center font-italic">{!! strip_tags($quote->detail) !!}</p>
+            <div class="text-center font-italic">{!! $quote->detail !!}</div>
         </div>
         <div class="cmt text-center">
             <div class="ava-cmt">
@@ -273,14 +272,12 @@
             @empty
 
             @endforelse
-
-
         </div>
     </div>
     <div class="line"></div>
 </section>
 <!-- customer voice -->
-<section id="customer-voice">
+{{-- <section id="customer-voice">
     <div class="row">
         <div class="col-lg-4">
             <h1 class="text-uppercase text-right">customer voice</h1>
@@ -301,10 +298,11 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- news -->
 <section id="news">
     <div class="container">
+            <div class=""><h1 class="text-uppercase text-center">News</h1></div>
         <div id="new-slide" class="owl-carousel owl-theme">
             @foreach ($articles as $item)
             <div class="card-news card-border-0 news-item">

@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'contact', 'title' => __('Order')])
+@extends('admin.layouts.main', ['activePage' => 'cart', 'title' => __('Order')])
 @section('content')
         <!-- Content -->
         <div id="main-content">
@@ -26,12 +26,12 @@
                     </th>
                     <th class="text-center">ID</th>
                     <th>TÊN KHÁCH HÀNG</th>
-                    <th>TỔNG SỐ LƯỢNG SẢN PHẨM</th>
+                    <th>TỔNG SỐ LƯỢNG</th>
                     <th>GIÁ TRỊ</th>
                     <th style="width: 120px;">THỜI GIAN ĐẶT HÀNG</th>
                     <th>TRẠNG THÁI</th>
                     <th style="width: 160px;">Thao tác</th>
-                    
+
                   </tr>
                 </thead>
                 <tbody class="sort">
@@ -48,7 +48,7 @@
                       <a href="#">{{ $item->first_name.' '.$item->last_name }}</a>
                     </td>
                     <td>{{ $item->total_quantity }}</td>
-                    <td>{{ number_format($item->total_price) }}</td>
+                    <td>{{ number_format($item->total_price) }}&nbsp;đ</td>
                     <td>{{ $item->created_at }}</td>
                     <td>{{ $item->payment_status }}</td>
                     <td>

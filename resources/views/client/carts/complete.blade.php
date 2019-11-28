@@ -1,4 +1,4 @@
-@extends('client.layouts.main', ['title' => __('Hoàn thành')])
+@extends('client.layouts.main', ['title' => __('Complete')])
 @section('content')
 <!-- checkout -->
 <section id="checkout">
@@ -32,98 +32,93 @@
       <!-- Invoice-->
 <div class="container" id="cart-complete" style="margin-top: 150px;" >
     <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <div class="col-12 alert alert-success">Cảm ơn bạn đã mua hàng tại Moolez. Dưới đây là hóa đơn thanh toán đơn hàng của bạn</div>
+      <div class="col-lg-8 mx-auto">
+          <div class="col-12 alert alert-success">Thông tin đã được gửi tới email của bạn. Dưới đây là hóa đơn thanh toán đơn hàng của bạn</div>
             <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Tên người mua hàng: </div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['name'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Email: </div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['email'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Địa chỉ: </div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['address'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Số điện thoại:</div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['phone'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Phương thức vận chuyển: </div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['ship'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                        <div class="row">
-                        <div class="col-4" style="font-weight: bold;">Phương thức thanh toán: </div>
-                        <div class="col-8" style="font-style: italic;">{{ $cart['payment_choice'] ?? ''}}</div>
-                    </div>
-                </div>
-                <div class="form-group col-12 col-md-12">
-                    <div class="row">
-                    <div class="col-12" style="font-weight: bold; color: red;">Đơn hàng của bạn</div>
-                    <table class="w-100 table-sm table-hover table mb-2" style="border: 1px solid black">
-                        <thead>
-        
-                            <tr class="" style="background: orange; color: white;">
-                                </div>
-                                <th class="w-25">Sản phẩm</th>
-                                <th class="w-25">Số lượng</th>
-                                <th class="w-25">Giá</th>
-                                <th class="w-25">Thành tiền</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                                {{--  <tr style="border: 1px solid black !important">
-                                    <td>Áo quần</td>
-                                    <td>12</td>
-                                    <td>20.000.000</td>
-                                    <td>240.000.000</td>
-                                </tr>
-                                <tr style="border: 1px solid black !important">
-                                    <td>Áo quần</td>
-                                    <td>12</td>
-                                    <td>20.000.000</td>
-                                    <td>240.000.000</td>
-                                </tr>
-                                <tr style="border: 1px solid black !important">
-                                    <td>Áo quần</td>
-                                    <td>12</td>
-                                    <td>20.000.000</td>
-                                    <td>240.000.000</td>
-                                </tr>
-                                <tr style="border: 1px solid black !important">
-                                    <td colspan="3">Áo quần</td>
-                                    
-                                    <td>720.000.000</td>
-                                </tr>  --}}
-                            @foreach ($cart_item as $item)
-                                
-                                <tr style="border: 1px solid black !important">
-                                    <td>{{ $item['product_name']??'' }}</td>
-                                    <td>{{ $item['quantity']??'' }}</td>
-                                    <td>{{ $item['price']??'' }}</td>
-                                    <td>{{ $item['total']??'' }}</td>
-                                </tr>
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Tên người mua hàng: </div>
+                <div class="col-8" style="font-style: italic;">{{ $order->first_name ?? ''}} {{ $order->last_name ?? '' }} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-12">
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Email: </div>
+                <div class="col-8" style="font-style: italic;">{{ $order->email ?? ''}} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-12">
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Địa chỉ: </div>
+                <div class="col-8" style="font-style: italic;">{{ $order->address ?? ''}} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-12">
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Số điện thoại:</div>
+                <div class="col-8" style="font-style: italic;">{{ $order->phone ?? ''}} </div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-12">
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Phương thức vận chuyển: </div>
+                <div class="col-8" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price) ?? ''}} vnđ</div>
+              </div>
+            </div>
+            <div class="form-group col-12 col-md-12">
+              <div class="row">
+                <div class="col-4" style="font-weight: bold;">Phương thức thanh toán: </div>
+                <div class="col-8" style="font-style: italic;">{{ $order->payment_choice ?? ''}} </div>
+              </div>
+            </div>
+              <div class="form-group col-12 col-md-12">
+                  <div class="row">
+                  <div class="col-12" style="font-weight: bold; color: red;">Đơn hàng của bạn:</div>
+                    <table class="w-100 table-sm table-hover table mb-2" style="border: 1px solid black; text-align: center">
+                      <thead>
 
-                                @endforeach
-                        </tbody>
+                        <tr class="" style="background: #ffa500; color: white;">
+                          <th style="border: 1px solid black !important" class="w-5">STT</th>
+                          <th style="border: 1px solid black !important" class="w-25">Sản phẩm</th>
+                          <th style="border: 1px solid black !important" class="w-20">Số lượng</th>
+                          <th style="border: 1px solid black !important" class="w-25">Giá</th>
+                          <th style="border: 1px solid black !important" class="w-25">Thành tiền</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @forelse ($order->cartItems as $cartItem)
+                        <tr style="border: 1px solid black !important">
+                          <td style="border: 1px solid black !important" class="w-5">{{ $loop->iteration }}</td>
+                          <td style="border: 1px solid black !important" class="w-25">{{ $cartItem->product->name ??'' }}</td>
+                          <td style="border: 1px solid black !important" class="w-20">{{ $cartItem->quantity ??'' }}</td>
+                          <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->price) ??'' }}&nbsp;đ</td>
+                          <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->quantity * $cartItem->price) ??'' }}&nbsp;đ</td>
+                        </tr>
+                        @empty
+                        <tr>
+                          <td colspan="100%">
+                              Không có dữ liệu!
+                          </td>
+                        </tr>
+                        @endforelse
+                        <tr style="border: 1px solid black !important">
+                          <th style="border: 1px solid black !important" colspan="2">Tổng</th>
+                          <th style="border: 1px solid black !important" class="w-20">{{ $order->cartItems->sum('quantity') }}</th>
+                          <th style="border: 1px solid black !important" class="w-25"></th>
+                          <th style="border: 1px solid black !important" class="w-25">{{ number_format($order->sum) }}&nbsp;đ</th>
+                        </tr>
+                        <tr style="border: 1px solid black !important">
+                            <th style="border: 1px solid black !important" colspan="4">Tổng giá trị *</th>
+                            <th style="border: 1px solid black !important" >{{ number_format($order->sum + $order->partner->price) }}&nbsp;đ</th>
+                        </tr>
+                      </tbody>
                     </table>
-                </div>
-        </div>
-        
+                    <small>* Là tổng đơn hàng + tiền vận chuyển</small>
+                  </div>
+              </div>
+            </div>
+      </div>
+
     </div>
 </div>
 </section>

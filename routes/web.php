@@ -74,7 +74,10 @@ Route::group([
     Route::post('cart/destroy', 'CartController@destroy');
     Route::get('cart/checkout', 'CartController@checkout');
     Route::post('cart/store', 'CartController@store');
-    Route::get('cart/complete', 'CartController@complete');
+    Route::get('cart/complete/{key}', [
+        'as' => 'client.carts.complete',
+        'uses' => 'CartController@complete'
+    ]);
     Route::get('footer', 'HomeController@footer');
 
 

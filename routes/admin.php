@@ -347,6 +347,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'menus.searchProducts',
             'uses' => 'MenuController@searchProducts'
         ]);
+        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
+        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
+        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
+        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
     });
 
     Route::resource('menus', 'MenuController');
@@ -383,6 +387,18 @@ Route::group(['middleware'=>'auth:admin'], function(){
             Route::resource('variants', 'ProductVariantController');
         });
     });
+    Route::get('products/import', [
+        'as' => 'excel.index',
+        'uses' => 'ExcelController@index'
+    ]);
+    Route::post('products/import/update', [
+        'as' => 'excel.import',
+        'uses' => 'ExcelController@import'
+    ]);
+    Route::get('products/export', [
+        'as' => 'excel.export',
+        'uses' => 'ExcelController@export'
+    ]);
     Route::resource('products', 'ProductController');
 
     // product category
@@ -426,9 +442,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
     ]);
+    //Import excel
+   
 });
 
 Route::resource('reviews', 'ReviewController');
+
+
 
 // Guest routes
 Route::group(['namespace' => 'Auth'], function() {
@@ -461,3 +481,13 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ResetPasswordController@showResetForm'
     ]);
 });
+
+
+//Addition route for Partners
+Route::group(['prefix' => 'partners'], function () {
+    Route::delete('delete-many', [
+        'as' => 'partners.deleteMany',
+        'uses' => 'PartnerController@deleteMany'
+    ]);
+});
+Route::resource('partners', 'PartnerController');

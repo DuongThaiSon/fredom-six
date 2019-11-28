@@ -32,7 +32,22 @@
     font-size: 1rem !important; }
   .head-hotline .cart-items {
     font-size: 0.35rem !important; }
-
+  .cart {
+    position: relative;
+  }
+  .cart-quantity {
+    background: #ff5555 none repeat scroll 0 0;
+    border-radius: 50%;
+    color: #ffffff;
+    height: 17px;
+    line-height: 18px !important;
+    padding: 0;
+    position: absolute;
+    right: -7px;
+    text-align: center;
+    top: -6px;
+    width: 17px;
+  }
   #navbar img {
     width: 70%; }
   #navbar .navbar-brand {
@@ -404,12 +419,16 @@
     .more-product .col-6 {
       margin-bottom: 14px;
     }
+    
   .product-price .old-price {
     margin-right: 10px;
     font-size: 13px; }
   .product-price .new-price {
     font-size: 14px; }
 
+  .list-group-item span{
+    font-size: 10px;
+  }
   .mb-4 {
     margin-bottom: 0 !important; }
 
@@ -478,7 +497,17 @@
         height: 0.5px; }
 
   .ours-work {
-    margin-top: 20px; } }
+    margin-top: 20px; } 
+  .ratingStars i{
+    font-size: 15px;
+  }
+  .rating-mobile i{
+    font-size: 10px;
+  }
+  .number-input, .number-input .my-auto{
+    margin-left: 0px !important;
+  }
+  }
 
 @media only screen and (min-width: 768px) and (max-width: 990px ) {
   .navbar .cart-icon, .navbar .search-header, .navbar .search {

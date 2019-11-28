@@ -14,7 +14,7 @@
   </div>
 </div>
 <!-- showcase -->
-<div id="showcase" style="height: 645px; overflow: hidden;">
+<div id="showcase" style="overflow: hidden;">
   <img src="/assets/client/img/contact-img/leatherBag.png" style="width: 100%; background-position: top;" alt="">
 </div>
 
@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row mb-4">
         @forelse ($productNew as $prod)
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-6">
           <div class="product mb-3">
             <div class="card">
               <div class="product-img">

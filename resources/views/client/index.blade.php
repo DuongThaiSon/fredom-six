@@ -9,6 +9,7 @@
             <li data-target="#myCarousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
             @empty
             @endforelse
+            
         </ol>
         <div class="carousel-inner">
             <!-- slide -->

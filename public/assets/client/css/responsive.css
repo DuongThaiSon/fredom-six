@@ -385,7 +385,9 @@
       max-width: 50%; }
     #main-footer .certification {
       text-align: center;
-      width: 75%; }
+      width: 75%;
+      margin: auto;
+    }
 
   #news .row {
     margin-bottom: 60px; }
@@ -507,7 +509,65 @@
   .number-input, .number-input .my-auto{
     margin-left: 0px !important;
   }
+  .steps {
+    margin-bottom: 20px;
   }
+  .steps p {
+    font-size: 13px;
+  }
+  .form-checkout{
+    margin: 0 !important;
+  }
+  #checkout .form-checkout .checkout-button {
+    margin-left: 0 !important;
+    margin-top: 0 !important;
+    padding: 18px 90px !important
+  }
+  .receipt {
+    margin-top: 15px;
+  }
+  #showcase .showcase-image {
+    height: auto;
+  }
+  #news-detail .detail-content .detail-title{
+    font-size: 20px;
+  }
+  .cart table thead {
+    display: none;
+  }
+  .cart tbody tr {
+    display: flex;
+    flex-direction: column;
+  }
+  .cart tbody tr th:first-child {
+    text-align: center;
+  }
+  .product-cart a{
+    width: 120px !important;
+    margin-left: 5px !important;
+    margin-bottom: 0 !important;
+  }
+  #cart .cart {
+    margin-top: 20px;
+  }
+  #cart .confirm {
+    float: none !important;
+    padding: 10px 60px;
+  }
+  #cart .sub-total{
+    font-size: 17px !important;
+  }
+  #cart .product-img, 
+  .more-product .product-img,
+  #product-list .product-img {
+    margin-top: 0px ;
+  }
+  .rating {
+    margin-top: 0px;
+  }
+
+  
+}
 
 @media only screen and (min-width: 768px) and (max-width: 990px ) {
   .navbar .cart-icon, .navbar .search-header, .navbar .search {

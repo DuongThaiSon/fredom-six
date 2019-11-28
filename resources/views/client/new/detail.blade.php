@@ -21,9 +21,9 @@
               <span>{{ $detail->updated_at ?? ''}}</span>
             </div>
           </div>
-          <div class="detail-content text-justify">
+          <div class="detail-content">
             <h2 class="detail-title font-weight-bold">{{ $detail->name??'' }}</h2>
-            {!! $detail->detail ??'' !!}
+            <div class="text-justify">{!! $detail->detail ??'' !!}</div>
           </div>
           <div class="detail-bottom d-flex justify-content-between">
             <div class="tag">

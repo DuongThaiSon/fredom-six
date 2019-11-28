@@ -46,6 +46,7 @@ $(document).ready(function() {
           data: data,
           success: function (scs) {
             $('.cart-items').text(scs.quantity);
+            $('.cart-quantity').text(scs.quantity);
           },
           error: function () {
 

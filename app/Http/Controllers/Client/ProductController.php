@@ -29,7 +29,7 @@ class ProductController extends Controller
             ['type', 'product'],
             ['slug', $slug_cat]
         ])->first();
-        $products = $category->products()->with(['productAttributeValues', 'productAttributeValues.productAttribute'])->where('slug', '<>', $slug_view)->take(4)->get();
+        $products = $category->products()->with(['productAttributeOptions', 'productAttributeOptions.productAttribute'])->where('slug', '<>', $slug_view)->take(4)->get();
         $products = $products->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
@@ -64,12 +64,12 @@ class ProductController extends Controller
         {
             $ids = explode(",", $request->term);
             $category = $category->with(['products' => function($q) use ($ids) {
-                $q->whereHas('productAttributeValues', function ($q) use ($ids){
+                $q->whereHas('productAttributeOptions', function ($q) use ($ids){
                     return $q->whereIn('id', $ids);
                 });
-            }, 'productAttributes.productAttributeValues']);
+            }, 'productAttributes.productAttributeOptions']);
         } else {
-            $category = $category->with(['products', 'productAttributes.productAttributeValues']);
+            $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
         }
         $category = $category->firstOrFail();
         $products = $category->products->map(function($q) {

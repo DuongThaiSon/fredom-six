@@ -39,6 +39,9 @@
                     <a class="nav-link" data-toggle="tab" href="#nav-image">Ảnh</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#nav-attribute">Thuộc tính</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#nav-review">Quản lý review</a>
                 </li>
             </ul>
@@ -58,7 +61,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Tiêu đề sản phẩm</label>
+                                <label>@importantfield Tiêu đề sản phẩm</label>
                                 <input
                                 type="text"
                                 name="name"
@@ -67,14 +70,30 @@
                                 placeholder="The cat in the hat"
                                 value="{{$product->name ?? ''}}"
                                 />
-                                <small class="form-text">Tên của tin bài</small>
+                                <small class="form-text">Tên sản phẩm</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Loại sản phẩm</label>
+                                <select
+                                    disabled
+                                    class="selectpicker form-control"
+                                    data-style="select-with-transition"
+                                    title="Chọn loại sản phẩm"
+                                    data-show-tick="true">
+                                    @forelse ($typeOptions as $optionKey => $optionValue)
+                                        <option value="{{ $optionKey }}" {{ $product->type===$optionKey?'selected':'' }}>{{ $optionValue }}</option>
+                                    @empty
+
+                                    @endforelse
+                                </select>
                             </div>
 
                             @php
                                 $selectedCategories = $product->categories->pluck('id')->toArray();
                             @endphp
                             <div class="form-group">
-                                <label>Nằm trong mục</label>
+                                <label>@importantfield Nằm trong mục</label>
                                 <select
                                     required
                                     name="category[]"
@@ -334,23 +353,6 @@
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                            <legend>Thuộc tính sản phẩm</legend>
-                            <a class="btn btn-secondary" data-toggle="modal" data-target="#selectProductAttributeModal">
-                                Chọn thuộc tính
-                            </a>
-                        </div>
-                        <div class="col-12 product-attribute-option">
-                            @include('admin.partials.productAttributeOptions', [
-                                'product' => $product,
-                                'productAttributes' => $selectedProductAttributes
-                            ])
-                        </div>
-                    </div>
-
-                        <!-- CK Editor -->
-                    <hr>
-                    <div class="row">
-                        <div class="col-12">
                             <legend>Size Chart</legend>
                             <div class="form-group">
                                 <textarea class="form-control ck-classic" name="size_chart">{{$product->size_chart?? ''}}</textarea>
@@ -396,6 +398,50 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade show" id="nav-attribute" role="tabpanel" aria-labelledby="nav-image-tab">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <legend>Thuộc tính sản phẩm</legend>
+                                <br>
+                                <div class="form-group">
+                                    <label>Chọn thuộc tính</label>
+                                    <select
+                                        multiple
+                                        name="attributes"
+                                        data-selected-text-format="count > 0"
+                                        class="selectpicker form-control attribute-selectpicker"
+                                        data-count-selected-text="{0} mục đã được chọn"
+                                        data-style="select-with-transition"
+                                        title="Chọn thuộc tính cho sản phẩm"
+                                        data-size="7"
+                                        data-show-tick="true">
+
+                                        @forelse ($productAttributes as $attribute)
+                                            <option value="{{ $attribute->id }}" {{ $selectedProductAttributes->contains($attribute->id)?'selected':'' }}>{{ $attribute->name }}</option>
+                                        @empty
+                                        @endforelse
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <legend>&nbsp;</legend>
+                                <br>
+                                <div>
+                                    <label>Thuộc tính đã chọn</label>
+                                    <p class="selected-value mt-2">&nbsp;</p>
+                                </div>
+                                <div>
+                                    <button class="btn btn-block btn-primary border btn-make-variation" data-href="{{ route('admin.variants.store', $product->id) }}">
+                                        Tạo biến thể
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-responsive bg-white mt-4 col-12 product-variants-list" id="cat_table">
+                                @include('admin.productVariants.index', ['products' => $product->variants->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id))])
+                            </div>
+                        </div>
+                    </div>
                 <div class="tab-pane fade show" id="nav-review" role="tabpanel" aria-labelledby="nav-image-tab">
                     <div class="row">
                         <div class="col-12">
@@ -454,9 +500,26 @@
     </div>
 </div>
 
-{{-- Modal select product attribute --}}
-@includeWhen(isset($productAttributes), 'admin.modals.productAttributeModal', ['selectedAttributes' => $selectedProductAttributes])
-
+<div class="modal fade" id="variant-edit-modal" tabindex="-1" role="dialog" aria-labelledby="variant-edit-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrol-lable modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="variant-edit-modal-label">Cập nhật thông tin biến thể</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary btn-submit-variant-edit">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
 <script src="/assets/admin/js/products.edit.js"></script>

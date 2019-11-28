@@ -1,8 +1,8 @@
 export class productAttributeCore {
-    constructor() {}
+    constructor() { }
 
     applyAttributeType() {
-        $("input[name=type]").on("change.applyAttributeType", function() {
+        $("input[name=type]").on("change.applyAttributeType", function () {
             let type = $("input[name=type]:checked").val()
             $(".selection-item-value").attr('type', type)
         })
@@ -10,7 +10,7 @@ export class productAttributeCore {
 
     submitData() {
         let _this = this
-        $(".btn-submit-data").on("click.submitData", function(e) {
+        $(".btn-submit-data").on("click.submitData", function (e) {
             e.preventDefault();
             if (!_this.canPassValidateData()) {
                 return;
@@ -26,7 +26,7 @@ export class productAttributeCore {
         }
 
         if ($("input[name=can_select]").attr("checked")) {
-            $(".selection-item-value").each(function() {
+            $(".selection-item-value").each(function () {
                 if (_.trim($(this).val()) < 1) {
                     validated = false;
                 }
@@ -56,16 +56,17 @@ export class productAttributeCore {
         let index = Date.now()
         return `
         <div class="row form-group selection-item">
-            <div class="col-10 input-group">
+            <div class="col-5">
                 <input type="hidden" name="attribute_values[${index}][id]" value="${id}" class="selection-item-id"/>
                 <input type="${type}" name="attribute_values[${index}][value]" value="${value}" class="selection-item-value"/>
-                <div class="input-group-prepend">
-                    <a href="#" class="text-decoration-none btn-remove-selection-item">
-                        <div class="input-group-text bg-white">
-                            <i class="material-icons">delete</i>
-                        </div>
-                    </a>
-                </div>
+            </div>
+            <div class="col-5">
+                <input type="text" name="attribute_values[${index}][note]" value="" class="form-control" placeholder="Chú thích thêm"/>
+            </div>
+            <div class="col-1">
+                <a href="#" class="text-decoration-none btn-remove-selection-item">
+                    <i class="material-icons">delete</i>
+                </a>
             </div>
         </div>
         `;
@@ -75,7 +76,7 @@ export class productAttributeCore {
         $(".btn-remove-selection-item").off(".removeSelectionItem");
         $(".btn-remove-selection-item").on(
             "click.removeSelectionItem",
-            function(e) {
+            function (e) {
                 e.preventDefault();
                 let items = $(".selection-item").length;
                 if (items < 2) {
@@ -90,7 +91,7 @@ export class productAttributeCore {
 
     collectAttributeData() {
         let data = [];
-        $(".selection-item").each(function() {
+        $(".selection-item").each(function () {
             let rowData = {};
             rowData.value = $(this)
                 .find(".selection-item-value")
@@ -107,20 +108,49 @@ export class productAttributeCore {
 export class productCore {
     constructor(productId = null) {
         this.productId = productId
-        console.log(this.productId);
-
+        this.initVariantAction()
+        this.submitEditVariantForm()
+        this.showSelectedAttribute()
     }
 
     collectSelectedAttributeId() {
         let _this = this
-        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
+        $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+            _this.showSelectedAttribute()
+        });
+    }
+
+    showSelectedAttribute() {
+        let result = '';
+        let selected = $('.attribute-selectpicker').find('option:selected')
+        selected.each(function (index, element) {
+            result += $(element).text()
+            if (index < selected.length - 1) {
+                result += ', '
+            }
+        })
+        $(".selected-value").text(result)
+        this.setVariantButtonStatus()
+    }
+
+    makeVariation() {
+        let _this = this
+        $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
             e.preventDefault()
-            let checked = []
-            $(".select-attribute-input:checked").each(function() {
-                checked.push($(this).val())
+            let makeVariationUrl = $(this).attr("data-href")
+            let makeVariationData = $(".attribute-selectpicker").val()
+            $.ajax({
+                url: makeVariationUrl,
+                method: "POST",
+                data: {
+                    attributes: makeVariationData
+                },
+                success: function (resolve) {
+                    $(".product-variants-list").html(resolve)
+                    _this.initVariantAction()
+                }
             })
-            _this.renderSelectedAttribute(checked)
-            return
+
         })
     }
 
@@ -131,7 +161,7 @@ export class productCore {
             data: {
                 checked_ids: checkedIds
             },
-            success: function(scs) {
+            success: function (scs) {
                 $(".product-attribute-option").html(scs)
                 $(".attribute-selectpicker").selectpicker()
                 $("#selectProductAttributeModal").modal("hide")
@@ -141,7 +171,7 @@ export class productCore {
 
     submitData() {
         let _this = this
-        $(".btn-submit-data").on("click.submitData", function(e) {
+        $(".btn-submit-data").on("click.submitData", function (e) {
             e.preventDefault();
             $("input[name=price]").val(accounting.unformat($(".price-input").val()))
             $('.form-main').submit()
@@ -151,7 +181,6 @@ export class productCore {
     selectCategory() {
         let _this = this
         $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            console.log($(this).val());
             _this.renderAttributeOptions($(this).val())
         });
 
@@ -165,22 +194,184 @@ export class productCore {
             data: {
                 category_id: categoryId
             },
-            success: function(scs) {
+            success: function (scs) {
                 $("#selectProductAttributeModal").find(".modal-body").html(scs)
             }
         })
     }
+
+    setVariantButtonStatus() {
+        let attributeSelectedCount = $('.attribute-selectpicker').val().length;
+        if (attributeSelectedCount) {
+            $(".btn-make-variation").attr("disabled", false)
+        } else {
+            $(".btn-make-variation").attr("disabled", true)
+        }
+
+    }
+
+    productVariantPagination() {
+        let _this = this
+        $(".variant-pagination").find("a.page-link").off("click.productVariantPagination")
+        $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
+            e.preventDefault()
+            let pagingUrl = $(this).attr("href")
+            $.ajax({
+                url: pagingUrl,
+                success: function (resolve) {
+                    $(".product-variants-list").html(resolve)
+                    _this.initVariantAction()
+                }
+            })
+
+        })
+    }
+
+    makeVariantProductOrderable() {
+        let variantTableData = $(".variant-sort")
+        let variantSortUrl = variantTableData.attr('data-href')
+
+        variantTableData.sortable({
+            handle: ".connect",
+            placeholder: "ui-state-highlight",
+            forcePlaceholderSize: true,
+            update: function (event, ui) {
+                let sort = $(this).sortable("toArray");
+                $.ajax({
+                    url: variantSortUrl,
+                    method: "POST",
+                    data: {
+                        sort: sort
+                    },
+                    error: function (err) {
+                        if (err.status === 403) {
+                            Swal.fire({
+                                title: "Lỗi!",
+                                type: "error",
+                                confirmButtonClass: "btn btn-danger",
+                                buttonsStyling: false,
+                                html:
+                                    "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                            }).catch(swal.noop);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    showEditVariantForm() {
+        let _this = this
+        $(".btn-edit-variant").off("click.showEditVariantForm")
+        $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
+            e.preventDefault()
+            let editUrl = $(this).attr("data-href")
+            $.ajax({
+                url: editUrl,
+                success: function (resolve) {
+                    $("#variant-edit-modal").find(".modal-body").html(resolve)
+                    $("#variant-edit-modal").modal('show')
+                    $(".price-format").simpleMoneyFormat()
+                }
+            })
+        })
+    }
+
+    submitEditVariantForm() {
+        let _this = this
+        $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+            e.preventDefault()
+            let formData = new FormData();
+            formData.append('name', $("input[name=variant_name]").val());
+            formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
+            formData.append('product_code', $("input[name=variant_product_code]").val());
+            formData.append('quantity', $("input[name=variant_quantity]").val());
+            if ($("input[name=variant_is_public]:checked").val()) {
+                formData.append('is_public', $("input[name=variant_is_public]:checked").val());
+            }
+            if ($("input[name=variant_avatar]")[0].files[0]) {
+                formData.append('avatar', $("input[name=variant_avatar]")[0].files[0]);
+            }
+            formData.append('_method', 'PUT')
+            let updateVariantUrl = $(".form-update-variant").attr('action')
+            $.ajax({
+                url: updateVariantUrl,
+                data: formData,
+                method: "POST",
+                contentType: false,
+                processData: false,
+                success: function (resolve) {
+                    $("#variant-edit-modal").modal('hide')
+                    $(".product-variants-list").html(resolve)
+                    _this.initVariantAction()
+                    Swal.fire(
+                        'Thành công!',
+                        'Dữ liệu đã được cập nhật!',
+                        'success'
+                    )
+                }
+            })
+        })
+    }
+
+    deleteVariant() {
+        let _this = this
+        $(".btn-delete-variant").off("click.deleteVariant")
+        $(".btn-delete-variant").on("click.deleteVariant", function (e) {
+            e.preventDefault()
+            let deleteUrl = $(this).attr("data-href")
+
+            Swal.fire({
+                title: 'Xóa biến thể',
+                text: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+                showCancelButton: true,
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy',
+                confirmButtonColor: '#d33'
+            }).then(result => {
+                if (result.value) {
+                    $.ajax({
+                        url: deleteUrl,
+                        method: "POST",
+                        data: {
+                            _method: 'DELETE'
+                        },
+                        success: function (resolve) {
+                            Swal.fire(
+                                'Thành công!',
+                                'Đã xóa biến thể chỉ định',
+                                'success'
+                            )
+                            $(".product-variants-list").html(resolve)
+                            _this.initVariantAction()
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    initVariantAction() {
+        this.makeVariantProductOrderable()
+        this.productVariantPagination()
+        this.showEditVariantForm()
+        this.deleteVariant()
+    }
+
 }
 
 export class productCategoriesCore {
-    constructor() {}
+    constructor() { }
 
     collectSelectedAttribute() {
         let _this = this
-        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function(e) {
+        $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
             e.preventDefault()
             let checked = []
-            $(".select-attribute-input:checked").each(function() {
+            $(".select-attribute-input:checked").each(function () {
                 checked.push({
                     id: $(this).val(),
                     value: $(this).attr('data-name')
@@ -195,7 +386,7 @@ export class productCategoriesCore {
 
     renderSelectedAttribute(checkedIds) {
         let template = "";
-        _.forEach(checkedIds, function(item) {
+        _.forEach(checkedIds, function (item) {
             template += `
             <div class="form-group">
                 <input type="hidden" name="product_attributes[]" class="form-control" value="${item.id}" readonly />

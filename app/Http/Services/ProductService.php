@@ -53,7 +53,8 @@ class ProductService extends BaseModel
         'discount_end',
         'unit',
         'product_code',
-        'quantity'
+        'quantity',
+        'type'
     ];
 
     /**

@@ -18,8 +18,8 @@ class ProductAttribute extends Model
         return $this->belongsTo('App\Models\User', 'updated_by');
     }
 
-    public function productAttributeValues()
+    public function productAttributeOptions()
     {
-        return $this->hasMany('App\Models\ProductAttributeValue');
+        return $this->hasMany('App\Models\ProductAttributeOption');
     }
 }

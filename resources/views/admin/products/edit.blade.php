@@ -417,7 +417,7 @@
                                         data-show-tick="true">
 
                                         @forelse ($productAttributes as $attribute)
-                                            <option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
+                                            <option value="{{ $attribute->id }}" {{ $selectedProductAttributes->contains($attribute->id)?'selected':'' }}>{{ $attribute->name }}</option>
                                         @empty
                                         @endforelse
                                     </select>

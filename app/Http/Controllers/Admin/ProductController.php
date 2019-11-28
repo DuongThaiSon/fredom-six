@@ -84,7 +84,7 @@ class ProductController extends Controller
     {
         $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub($product->id);
-        $product->load(['productAttributeOptions.productAttribute', 'categories.productAttributes', 'reviews' => function($q) {
+        $product->load(['attributes', 'categories.productAttributes', 'reviews' => function($q) {
             $q->orderBy('created_at', 'desc');
         }, 'variants']);
         $selectedCategory = $product->categories->first();
@@ -93,8 +93,8 @@ class ProductController extends Controller
         } else {
             $productAttributes = ProductAttribute::all();
         }
-        $selectedProductAttributes = $product->productAttributeOptions->pluck('productAttribute')->unique('id');
-        // print_r($product->toArray());die;
+        $selectedProductAttributes = $product->attributes->pluck('id');
+        // print_r($selectedProductAttributes);die;
         return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions'));
     }
 

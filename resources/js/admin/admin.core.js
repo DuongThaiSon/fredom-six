@@ -110,22 +110,27 @@ export class productCore {
         this.productId = productId
         this.initVariantAction()
         this.submitEditVariantForm()
+        this.showSelectedAttribute()
     }
 
     collectSelectedAttributeId() {
         let _this = this
         $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            let result = '';
-            let selected = $(this).find('option:selected')
-            selected.each(function (index, element) {
-                result += $(element).text()
-                if (index < selected.length - 1) {
-                    result += ', '
-                }
-            })
-            $(".selected-value").text(result)
-            _this.setVariantButtonStatus()
+            _this.showSelectedAttribute()
         });
+    }
+
+    showSelectedAttribute() {
+        let result = '';
+        let selected = $('.attribute-selectpicker').find('option:selected')
+        selected.each(function (index, element) {
+            result += $(element).text()
+            if (index < selected.length - 1) {
+                result += ', '
+            }
+        })
+        $(".selected-value").text(result)
+        this.setVariantButtonStatus()
     }
 
     makeVariation() {

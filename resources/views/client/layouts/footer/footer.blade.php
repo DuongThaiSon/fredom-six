@@ -7,7 +7,7 @@
           <div class="col-lg-7 float-right">
           <h2 class="showroom-title text-uppercase">{{ $showroom->name }}</h2>
           <p>{!! $showroom->detail !!}</p>
-          <a href="{{ route('client.showrooms.index') }}" class="learn text-uppercase">learn more</a>
+          <a href="{{ route('client.showrooms.index') }}" class="learn text-uppercase"><b>learn more</b></a>
           </div>
       </div>
 

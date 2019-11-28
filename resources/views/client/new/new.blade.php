@@ -19,7 +19,7 @@
                 <div class="col-6"></div>
                 <div class="col-md-6 d-none d-md-block" style="padding-left: 70px;">
                   <div class="showcase-title">
-                    <h2 class="text-uppercase font-italic">the</h2>
+                    {{-- <h2 class="text-uppercase font-italic">the</h2>
                     <h2 class="text-uppercase font-italic ml-3">most</h2>
                     <h1 class="text-uppercase display-4">luxury</h1>
                     <h1 class="text-uppercase display-4 mb-4"  style="margin-left: 120px;">
@@ -29,8 +29,8 @@
                       Use this text to share information about your brand with your
                       customers. Describe a product, share annoucement, or welcome
                       customers to your store
-                    </p>
-                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a>
+                    </p> 
+                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a> --}}
                   </div>
                 </div>
               </div>
@@ -60,7 +60,7 @@
               <i class="fas fa-clock"></i>
               <span>{{ $new->updated_at}}</span>
             </div>
-            <p class="title-detail">{!! $new->description !!}​</p>
+            <div class="title-detail text-justify">{!! $new->description !!}​</div>
             <a href="{{ route('client.news.detail', $new->slug) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
         </div>

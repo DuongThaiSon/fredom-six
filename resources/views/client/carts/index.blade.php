@@ -6,20 +6,20 @@
     <!-- steps  -->
     <div class="steps">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
             <p class="text-uppercase font-weight-bold">giỏ hàng</p>
             <div class="orange-underline mx-auto"></div>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white"><span class="number">02</span></div>
             <p class="text-uppercase font-weight-bold">xác nhận đơn hàng</p>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white"><span class="number">03</span></div>
 
@@ -53,8 +53,8 @@
                 <div class="product-image">
                   <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                 </div>
-                <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
-                  class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }}</a>
+                <a href="#" style="width: 240px; font-size: 16px !important;"
+                  class="font-weight-bold text-uppercase mb-0 ml-5 ">{{ $item->name }}</a>
                   <div>
                     <div><b>SKU:</b> {{ $item->attributes->product_code }}</div>
                     <div><b>Cỡ:</b> {{ $item->attributes->size }} </div>
@@ -126,8 +126,7 @@
         </div>  --}}
       <div class="col-lg-12">
         <a href="/cart/checkout" type="submit"
-          class="btn confirm text-uppercase orange-text orange-border font-weight-bold float-right">xác nhận đơn
-          hàng</a>
+          class="btn confirm text-uppercase orange-text orange-border font-weight-bold float-right">xác nhận đơn hàng</a>
       </div>
     </div>
 

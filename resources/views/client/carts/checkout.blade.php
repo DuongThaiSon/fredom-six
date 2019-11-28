@@ -6,20 +6,20 @@
       <!-- steps  -->
       <div class="steps">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-4">
             <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
               <p class="text-uppercase font-weight-bold">giỏ hàng</p>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-4">
             <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white active"><span class="number">02</span></div>
               <p class="text-uppercase font-weight-bold">xác nhận đơn hàng</p>
               <div class="orange-underline mx-auto"></div>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-4">
             <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white" style="background: #ffffff"><span class="number"
                   style="color: #000000">03</span></div>
@@ -55,13 +55,17 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-lg-12 ">
                 <div class="form-group">
                   <label for="name" class="font-weight-bold">EMAIL *</label>
                   <input type="email" name="email" class="form-control form-control-block">
                 </div>
+                </div>
+                <div class="col-lg-12">
                 <div class="form-group">
                   <label for="name" class="font-weight-bold">ĐỊA CHỈ *</label>
                   <input type="text" name="address" class="form-control form-control-block">
+                </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-6">
@@ -77,19 +81,19 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group my-4">
+                {{-- <div class="form-group my-4">
                   <label class="checkbox-container">
                     <input type="checkbox">
                     <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Sử dụng cùng một
                       địa chỉ thanh toán ?</span>
                   </label>
-                </div>
+                </div> --}}
               </div>
             </div>
             <div class="col-lg-5">
               <p class="text-uppercase font-weight-bold m-0">phương thức vận chuyển</p>
               <div class="form-underline"></div>
-              <div class="form-group m-4">
+              <div class="form-group form-checkout m-4">
                 <label class="checkbox-container">
                   <input type="checkbox" value="-50.000 vnđ" name="ship">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Theo cước phí
@@ -98,7 +102,7 @@
               </div>
               <p class="text-uppercase font-weight-bold m-0">phương thức thanh toán</p>
               <div class="form-underline"></div>
-              <div class="form-group m-4">
+              <div class="form-group form-checkout m-4">
                 <label class="checkbox-container mb-3">
                   <input type="checkbox" value="COD" name="payment_choice">
                   <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán khi nhận
@@ -110,8 +114,7 @@
                     tuyến - VNPay</span>
                 </label>
               </div>
-              <button type="submit" class="btn btn-checkout checkout-button align-self-end text-uppercase font-weight-bold">thanh
-                toán</button>
+              <button type="submit" class="btn btn-checkout checkout-button align-self-end text-uppercase font-weight-bold">Thanh toán</button>
             </div>
           </div>
         </form>
@@ -134,7 +137,7 @@
       <!-- product quantity -->
       <div class="row p-2" style="margin-top: 25px;">
             @forelse (Cart::getContent() as $item)
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-6">
           <div class="product-quantity d-flex flex-column">
             <a href="#" class="text-capitalize mb-3">{{ $item->name }} <span
                 class="quantity text-uppercase ml-2"> x
@@ -142,7 +145,7 @@
             </a>
           </div>
         </div>
-        <div class="col-lg-6 text-right">
+        <div class="col-lg-6 col-6 text-right">
           <p class="font-weight-bold">{{ number_format($item->quantity*$item->price) }}</p>
         </div>
             @empty

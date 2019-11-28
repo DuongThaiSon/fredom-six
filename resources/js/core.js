@@ -124,6 +124,8 @@ export function deleteAnItem(delete_url, item_name = "mục") {
                                 type: "success",
                                 confirmButtonClass: "btn btn-success",
                                 buttonsStyling: false
+                            }).then(function() {
+                                location.reload();
                             });
                             changeAppearButtonCheckAll();
                         },

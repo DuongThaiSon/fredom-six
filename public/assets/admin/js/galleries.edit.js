@@ -261,6 +261,8 @@ function deleteAnItem(delete_url) {
               type: "success",
               confirmButtonClass: "btn btn-success",
               buttonsStyling: false
+            }).then(function () {
+              location.reload();
             });
             changeAppearButtonCheckAll();
           },
@@ -465,7 +467,7 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\galleries.edit.js */"./resources/js/admin/galleries.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/galleries.edit.js */"./resources/js/admin/galleries.edit.js");
 
 
 /***/ })

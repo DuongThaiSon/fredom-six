@@ -7,6 +7,7 @@ use Intervention\Image\Image;
 use Optix\Media\Facades\Conversion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,7 +33,9 @@ class AppServiceProvider extends ServiceProvider
         Conversion::register('thumb', function (Image $image) {
             return $image->fit(64, 64);
         });
-
+        \View::composer(
+            'client.layouts.main', 'App\Http\View\Composers\MainComposer'
+        );
         \View::composer(
             'client.layouts.footer.footer', 'App\Http\View\Composers\FooterComposer'
         );
@@ -61,6 +64,10 @@ class AppServiceProvider extends ServiceProvider
                     'pageName' => $pageName,
                 ]
             );
+        });
+
+        Blade::directive('importantfield', function ($expression) {
+            return "<?= '<span class=text-danger>*</span>' ?>";
         });
     }
 }

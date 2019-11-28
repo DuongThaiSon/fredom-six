@@ -227,7 +227,6 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'settings.postEditEmailContent',
             'uses' => 'SettingController@postEditEmailContent'
         ]);
-
     });
 
     Route::group(['prefix' => 'components'], function (){
@@ -361,14 +360,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ProductController@deleteMany'
     ]);
     Route::group(['prefix' => 'products'], function() {
-        Route::post('{product}/process', [
-            'as' => 'products.processImage',
-            'uses' => 'ProductController@processImage'
-        ]);
-        Route::delete('{product}/revert/{image}', [
-            'as' => 'products.revertImage',
-            'uses' => 'ProductController@revertImage'
-        ]);
+        
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -377,7 +369,22 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
-
+        
+        Route::group(['prefix' => '{product}'], function () {
+            Route::post('process', [
+                'as' => 'products.processImage',
+                'uses' => 'ProductController@processImage'
+            ]);
+            Route::delete('revert/{image}', [
+                'as' => 'products.revertImage',
+                'uses' => 'ProductController@revertImage'
+            ]);
+            Route::post('reorder-variant', [
+                'as' => 'variants.reorder',
+                'uses' => 'ProductVariantController@reorder'
+            ]);
+            Route::resource('variants', 'ProductVariantController');
+        });
     });
     Route::get('products/import', [
         'as' => 'excel.index',
@@ -434,11 +441,28 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
     ]);
-    //Import excel
-   
+
+    //Addition route for Partners
+    Route::group(['prefix' => 'partners'], function () {
+        Route::delete('delete-many', [
+            'as' => 'partners.deleteMany',
+            'uses' => 'PartnerController@deleteMany'
+        ]);
+    });
+    Route::resource('partners', 'PartnerController');
+
+    Route::group(['prefix' => 'seo-tools'], function () {
+        Route::delete('delete-many', [
+            'as' => 'seo-tools.deleteMany',
+            'uses' => 'SeoToolController@deleteMany'
+        ]);
+    });
+    Route::resource('seo-tools', 'SeoToolController');
+
+    Route::resource('reviews', 'ReviewController');
 });
 
-Route::resource('reviews', 'ReviewController');
+
 
 
 
@@ -473,3 +497,6 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ResetPasswordController@showResetForm'
     ]);
 });
+
+
+

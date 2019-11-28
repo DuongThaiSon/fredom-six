@@ -146,7 +146,7 @@
                         src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
-                        @forelse ($item->productAttributeValues as $attribute)
+                        @forelse ($item->productAttributeOptions as $attribute)
                             @if ($attribute->productAttribute->type === 'color')
                             <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                                 <div class="product-color" style="background: {{ $attribute->value }};">
@@ -155,8 +155,8 @@
                             @endif
                         @empty
                         @endforelse
-                        <input type="hidden" name="color" value="{{ $item->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $item->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
-                        <input type="hidden" name="size" value="{{ $item->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ') ? $item->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
+                        <input type="hidden" name="color" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $item->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                        <input type="hidden" name="size" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ') ? $item->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
                     </div>
                   </div>
                   <div class="card-body">

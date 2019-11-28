@@ -116,18 +116,18 @@
                         <div class="col-lg-12">
                             <span class="more">{!! $product->detail !!}</span>
 
-                            {{-- <p>* Chất liệu : {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}
+                            {{-- <p>* Chất liệu : {{ ($product->productAttributeOptions->firstWhere('productAttribute.name', 'Chất liệu')->value )?? 'đang cập nhập' }}
                             </p>
                             <p>* Màu sắc :
-                                {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}
+                                {{ ($product->productAttributeOptions->firstWhere('productAttribute.name', 'Màu sắc')->value) ?? 'đang cập nhập' }}
                             </p>
                         </div>
                         <div class="col-lg-7">
                             <p>* Xuất xứ :
-                                {{ ($product->productAttributeValues->firstWhere('productAttribute.name', 'Xuất xứ')->value) ?? 'đang cập nhập' }}
+                                {{ ($product->productAttributeOptions->firstWhere('productAttribute.name', 'Xuất xứ')->value) ?? 'đang cập nhập' }}
                             </p>
                             <p>* Kích thước :
-                                {{ ($product->productAttributeValues->where('productAttribute.name', 'Kích cỡ')->pluck('value')->join(", ")) ?? 'đang cập nhập' }}
+                                {{ ($product->productAttributeOptions->where('productAttribute.name', 'Kích cỡ')->pluck('value')->join(", ")) ?? 'đang cập nhập' }}
                             </p> --}}
                         </div>
                         <div class="col-lg-12">
@@ -162,7 +162,7 @@
                         <div class="col-lg-4 col-6 pr-0">
                             <!-- color -->
                             <div class="product-colors d-flex">
-                                @forelse ($product->productAttributeValues as $attribute)
+                                @forelse ($product->productAttributeOptions as $attribute)
                                     @if ($attribute->productAttribute->type === 'color')
                                     <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                                         <div class="product-color" style="background: {{ $attribute->value }};">
@@ -172,7 +172,7 @@
 
                                 @empty
                                 @endforelse
-                                <input type="hidden" name="color" value="{{ $product->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $product->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                                <input type="hidden" name="color" value="{{ $product->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $product->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
                             </div>
                         </div>
                         <div class="col-lg-6 col-6 py-2">
@@ -186,7 +186,8 @@
                                 </div>
                                 <select class="form-control pl-0" name="size" id="size"
                                     style="border-left: 0 !important;" style="font-size: 14px;">
-                                    @foreach ($product->productAttributeValues->where('productAttribute.name','Kích cỡ') as $item)
+                                    @foreach ($product->productAttributeOptions->where('productAttribute.name',
+                                    'Kích cỡ') as $item)
                                     <option value="{{ $item->value }}">{{ $item->value ?? 'Đang cập nhập' }}
                                     </option>
                                     @endforeach
@@ -357,11 +358,10 @@
                 <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                     @auth
                     <div class="product-review d-flex">
-                        <a href="#">
-                            <img src="{{ Auth::user()->avatar ? '/assets/client/img/customer.png' : 'http://goo.gl/vyAs27' }}"
-                                style="width: 150px; height: 150px; border: 1px ridge;" alt="" class="rounded-circle">
-                        </a>
-                        <div class="comment-section ml-5" style="flex: 0 0 700px;">
+                        {{-- <div class="col-2 text-center align-self-center">
+                            <h5>{{ Auth::user()->name ?? '' }}</h5>
+                        </div> --}}
+                        <div class="comment-section col-12">
                             <form action="" class="comment-form" id="comment-form">
                                 @php
                                     // print_r($product->id);die;
@@ -452,7 +452,7 @@
                                             src="{{ asset('media/product') }}/{{ $item->avatar }}"
                                             class="mx-auto d-flex justify-content-center" alt=""></a>
                                     <div class="product-colors justify-content-center d-flex">
-                                        @forelse ($item->productAttributeValues as $attribute)
+                                        @forelse ($item->productAttributeOptions as $attribute)
                                             @if ($attribute->productAttribute->type === 'color')
                                             <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                                                 <div class="product-color" style="background: {{ $attribute->value }};">
@@ -461,7 +461,7 @@
                                             @endif
                                         @empty
                                         @endforelse
-                                        <input type="hidden" name="color" value="{{ $item->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $item->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                                        <input type="hidden" name="color" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $item->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
                                     </div>
                                 </div>
                                 <div class="card-body">

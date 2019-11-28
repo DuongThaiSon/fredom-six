@@ -7,6 +7,8 @@ $(document).ready(function() {
     let guide = new productCore(id)
     guide.collectSelectedAttributeId()
     guide.selectCategory()
+    guide.makeVariation()
+    guide.setVariantButtonStatus()
     $(".attribute-selectpicker").selectpicker();
 
     let productId = $('input[name=id]').val();
@@ -30,7 +32,7 @@ $(document).ready(function() {
         })
     })
 
-    makeTableOrderable('/admin/products/sort-image');
+    // makeTableOrderable('/admin/products/sort-image');
     // deleteAnItem('/admin/products');
     deleteSingleItem();
 });

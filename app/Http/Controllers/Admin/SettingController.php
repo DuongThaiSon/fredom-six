@@ -24,7 +24,7 @@ class SettingController extends Controller
     }
 
     public function postInfoSetting(Request $request)
-    { 
+    {
         $request->validate([
             'company_website_url' => 'required|url',
             'company_name' => 'required',
@@ -49,8 +49,8 @@ class SettingController extends Controller
             'company_mobile.numeric' => 'Điện thoại phải là số',
             'company_mobile.digits_between' => 'Số điện thoại phải có ít nhất 10 chữ số',
             'company_email.email' => 'Email không hợp lệ',
-            'company_facebook_url.url' => 'Đường dẫn facbeook không hợp lệ', 
-        ]);   
+            'company_facebook_url.url' => 'Đường dẫn facbeook không hợp lệ',
+        ]);
         $setting = Setting::first();
         $attributes = $this->service->infoSetting($request);
         $setting->fill($attributes);
@@ -81,7 +81,7 @@ class SettingController extends Controller
             'email_smtp_pass.required' => 'Password không được để trống',
             'email_smtp_email_address.email' => 'Email không hợp lệ',
         ]
-    ); 
+    );
         $setting = Setting::first();
         $attributes = $this->service->sendMail($request);
         $setting->fill($attributes);
@@ -103,7 +103,7 @@ class SettingController extends Controller
         [
             'seo_page_title.required' => 'Tiêu đề không được để trống',
         ]
-    ); 
+    );
         $setting = Setting::first();
         $attributes = $this->service->seo($request);
         $setting->fill($attributes);

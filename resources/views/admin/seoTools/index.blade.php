@@ -1,13 +1,12 @@
-@extends('admin.layouts.main', ['activePage' => 'partner-index', 'title' => __('Danh sách đối tác')])
+@extends('admin.layouts.main', ['activePage' => 'seo-tools', 'title' => __('Danh sách công cụ SEO')])
 @section('content')
 <div id="main-content">
-
     <div class="container-fluid" style="background: #e5e5e5;">
         <div id="content">
-            <h1 class="mt-3 pl-4">Đối tác</h1>
+            <h1 class="mt-3 pl-4">Tin bài</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
-                <a href="{{route('admin.partners.create')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"
+                <a href="{{route('admin.seo-tools.create')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"
                     title="Thêm bài viết mới">
                     <i class="material-icons">
                         note_add
@@ -20,38 +19,37 @@
                     </i>
                 </button>
             </div>
-                <!-- TABLE -->
+
+            <!-- TABLE -->
             <div class="table-responsive bg-white mt-4" id="cat_table">
                 @csrf
                 <table class="table-sm table-hover table mb-2" width="100%">
                     <thead>
                         <tr class="text-muted">
-                            <th class="text-center" width="10%">
+                            <th  width="5%" class="text-center">
                                 <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                                     <i class="material-icons text-muted">check_box_outline_blank</i>
                                 </a>
                             </th>
-                            <th witdth="10%">ID</th>
-                            <th width="40%">Tên đối tác</th>
-                            <th width="30%">Giá (VNĐ)</th>
-                            <th width="10%">Thao tác</th>
+                            <th width="10%">ID</th>
+                            <th width="70%">Tiêu đề</th>
+                            <th width="15%" >Thao tác</th>
                         </tr>
                     </thead>
-                    <tbody class="sort">
-                        @forelse ($partners as $partner)
+                    <tbody>
+                        @forelse ($scripts as $script)
                             <tr>
                                 <td class="text-center">
-                                    <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$partner->id}}" data-id="{{ $partner->id }}" />
+                                    <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$script->id}}" data-id="{{ $script->id }}" />
                                 </td>
-                                <td>{{ $partner->id ??'' }}</td>
-                                <td><a href="{{ route('admin.partners.edit', $partner->id) }}">{{ $partner->name ?? '' }}</a></td>
-                                <td>{{ number_format($partner->price) ?? '' }}</td>
+                                <td>{{ $script->id }}</td>
+                                <td><a href="{{ route('admin.seo-tools.edit', $script->id) }}">{{ $script->name ?? '' }}</a></td>
                                 <td>
-                                    <a href="{{route('admin.partners.edit', $partner->id)}}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
+                                    <a href="{{route('admin.seo-tools.edit', $script->id)}}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
                                         title="Sửa">
                                         <i class="material-icons">border_color</i>
                                     </a>
-                                    <a href="#" class="btn btn-sm p-1 delete-category" data-toggle="tooltip" title="Xoá" data-id="{{ $partner->id }}">
+                                    <a href="#" class="btn btn-sm p-1 delete-category" data-toggle="tooltip" title="Xoá" data-id="{{ $script->id }}">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </td>
@@ -59,14 +57,15 @@
                         @empty
                             <tr>
                                 <td colspan="100%" class="text-center">
-                                    Không tìm thấy dữ liệu!
+                                    Không có dữ liệu! Mời bạn ấn vào <a href="{{ route('admin.seo-tools.create') }}">đây</a> để thêm mới!
                                 </td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
+
             </div>
-            {{ $partners->links() }}
+
             <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
                 class="float-right mt-4">
                 <i class="material-icons">
@@ -80,12 +79,9 @@
 @push('js')
 <script>
     $(document).ready(function () {
-        // core.makeTableOrderable('/admin/articles/sort');
         core.initCheckboxButton();
-        // core.updateViewViewStatus('/admin/articles/update-view-status');
-        core.deleteAnItem('/admin/partners');
-        core.deleteMultipleItems('/admin/partners/delete-many');
-
+        core.deleteAnItem('/admin/seo-tools');
+        core.deleteMultipleItems('/admin/seo-tools/delete-many');
     });
 </script>
 @endpush

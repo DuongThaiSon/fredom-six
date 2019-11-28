@@ -54,7 +54,7 @@
             </div>
     
             <!-- Button Toggle -->
-            <div class="mb-2">
+            {{-- <div class="mb-2">
                 <label class="control-label">
                     Hiển thị
                     <input
@@ -69,7 +69,7 @@
                         hiện thị trên giao diện trang web
                     </small>
                 </label>
-            </div>
+            </div> --}}
         </div>
     
         <div class="col-lg-6">

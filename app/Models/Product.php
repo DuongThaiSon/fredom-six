@@ -14,6 +14,11 @@ class Product extends Model
         'VARIABLE_PRODUCT' => 'Variable Product',
     ];
 
+    public function scopeWithoutVariation($query)
+    {
+        return $query->where('type', '!=', 'VARIATION');
+    }
+
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'product_category')

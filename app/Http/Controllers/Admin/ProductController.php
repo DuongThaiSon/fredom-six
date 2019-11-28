@@ -30,10 +30,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('order', 'desc')->with(['categories', 'updater'])->simplePaginate();
-        $categories = $this->service->allWithSub();
-        $users = User::all();
-        return view('admin.products.index', compact('products','categories', 'users'));
+        $products = Product::withoutVariation()->orderBy('order', 'desc')->with(['categories:name', 'updater:name'])->simplePaginate();
+        // $categories = $this->service->allWithSub();
+        // $users = User::all();
+        return view('admin.products.index', compact('products'));
     }
 
     /**

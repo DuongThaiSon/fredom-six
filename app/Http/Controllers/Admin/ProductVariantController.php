@@ -22,7 +22,7 @@ class ProductVariantController extends Controller
     public function index(Product $product)
     {
         return view('admin.productVariants.index', [
-            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'products' => $product->variants()->get()->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }
@@ -44,7 +44,7 @@ class ProductVariantController extends Controller
         });
 
         return view('admin.productVariants.index', [
-            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'products' => $product->variants()->get()->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }
@@ -260,7 +260,7 @@ class ProductVariantController extends Controller
         $variant->save();
 
         return view('admin.productVariants.index', [
-            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'products' => $product->variants()->get()->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }
@@ -275,7 +275,7 @@ class ProductVariantController extends Controller
     {        
         $variant->delete();
         return view('admin.productVariants.index', [
-            'products' => $product->variants()->get()->unique('id')->paginate(4)->withPath(route('admin.variants.index', $product->id)),
+            'products' => $product->variants()->get()->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }

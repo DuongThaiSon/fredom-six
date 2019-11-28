@@ -7,6 +7,7 @@ use Intervention\Image\Image;
 use Optix\Media\Facades\Conversion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -63,6 +64,10 @@ class AppServiceProvider extends ServiceProvider
                     'pageName' => $pageName,
                 ]
             );
+        });
+
+        Blade::directive('importantfield', function ($expression) {
+            return "<?= '<span class=text-danger>*</span>' ?>";
         });
     }
 }

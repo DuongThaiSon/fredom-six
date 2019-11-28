@@ -346,6 +346,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'menus.searchProducts',
             'uses' => 'MenuController@searchProducts'
         ]);
+        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
+        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
+        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
+        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
     });
 
     Route::resource('menus', 'MenuController');
@@ -356,14 +360,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ProductController@deleteMany'
     ]);
     Route::group(['prefix' => 'products'], function() {
-        Route::post('{product}/process', [
-            'as' => 'products.processImage',
-            'uses' => 'ProductController@processImage'
-        ]);
-        Route::delete('{product}/revert/{image}', [
-            'as' => 'products.revertImage',
-            'uses' => 'ProductController@revertImage'
-        ]);
+        
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -372,8 +369,35 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
-
+        
+        Route::group(['prefix' => '{product}'], function () {
+            Route::post('process', [
+                'as' => 'products.processImage',
+                'uses' => 'ProductController@processImage'
+            ]);
+            Route::delete('revert/{image}', [
+                'as' => 'products.revertImage',
+                'uses' => 'ProductController@revertImage'
+            ]);
+            Route::post('reorder-variant', [
+                'as' => 'variants.reorder',
+                'uses' => 'ProductVariantController@reorder'
+            ]);
+            Route::resource('variants', 'ProductVariantController');
+        });
     });
+    Route::get('products/import', [
+        'as' => 'excel.index',
+        'uses' => 'ExcelController@index'
+    ]);
+    Route::post('products/import/update', [
+        'as' => 'excel.import',
+        'uses' => 'ExcelController@import'
+    ]);
+    Route::get('products/export', [
+        'as' => 'excel.export',
+        'uses' => 'ExcelController@export'
+    ]);
     Route::resource('products', 'ProductController');
 
     // product category
@@ -437,6 +461,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::resource('reviews', 'ReviewController');
 });
+
+
 
 
 

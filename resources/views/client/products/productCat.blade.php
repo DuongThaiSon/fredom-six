@@ -39,7 +39,7 @@
                             @forelse ($category->productAttributes as $attribute)
 
                             <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
-                                @forelse ($attribute->productAttributeValues as $attributeValue)
+                                @forelse ($attribute->productAttributeOptions as $attributeValue)
 
                                 <label class="checkbox-container"
                                     style="{{ $attribute->type==="color"?'margin: 0 18px 18px 0':''}}">
@@ -73,7 +73,7 @@
     <div class="container">
         <div class="row mb-4">
             @forelse ($products as $prod)
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-6">
                 <div class="product mb-3">
                     <div class="card">
                         <div class="product-img">
@@ -82,7 +82,7 @@
                                     src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
-                                    @forelse ($prod->productAttributeValues as $attribute)
+                                    @forelse ($prod->productAttributeOptions as $attribute)
                                         @if ($attribute->productAttribute->type === 'color')
                                         <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                                             <div class="product-color" style="background: {{ $attribute->value }};">
@@ -92,8 +92,8 @@
 
                                     @empty
                                     @endforelse
-                                    <input type="hidden" name="color" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeValues->firstWhere('productAttribute.type', 'color')->value : '' }}">
-                                    <input type="hidden" name="size" value="{{ $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeValues->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
+                                    <input type="hidden" name="color" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                                    <input type="hidden" name="size" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
                             </div>
                         </div>
                         <div class="card-body">

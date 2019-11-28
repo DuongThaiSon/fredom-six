@@ -6,16 +6,25 @@ use App\Http\Services\MenuService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use App\Http\Requests\ProductCategoryRequest;
+use App\Http\Services\ProductCategoryService;
 use App\Models\Article;
 use App\Models\Product;
+use App\Models\Category;
 use Auth;
 
 class MenuController extends Controller
 {
-    public function __construct(MenuService $service)
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ProductCategoryService $service)
     {
         $this->service = $service;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -219,5 +228,45 @@ class MenuController extends Controller
     {
         $products = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get();
         return response()->json(compact('products'), 200);
+    }
+    /**
+     * Gọi ra danh mục sản phẩm 
+     */
+    public function listCategoryProduct()
+    {
+        $categories = $this->service->allWithSub(null, true);
+        
+        return view('admin.menus.category_table_products', compact('categories'))->render();
+    }
+    public function getProductCategory($id)
+    {
+        $product = Category::findOrFail($id)->toArray();
+        return response()->json(['results'=>$product]);
+    }
+
+    private function getSubCategories($parent_id, $ignore_id=null)
+    {
+        $Categories = Category::where('parent_id', $parent_id)
+            ->where('type', 'article')
+            ->where('id', '<>', $ignore_id)
+            ->orderBy('order', 'desc')
+            ->get()
+            ->map(function($query) use($ignore_id) {
+                $query->sub = $this->getSubCategories($query->id, $ignore_id);
+                return $query;
+            });
+
+        return $Categories;
+    }
+    public function listCategoryArticle()
+    {
+        $categories = $this->getSubCategories(0);
+        // print_r($categories->toArray());die;
+        return view('admin.menus.category_table_articles', compact('categories'))->render();
+    }
+    public function getArticleCategory($id)
+    {
+        $article = Category::findOrFail($id)->toArray();
+        return response()->json(['results'=>$article]);
     }
 }

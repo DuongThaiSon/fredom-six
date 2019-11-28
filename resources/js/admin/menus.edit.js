@@ -34,6 +34,36 @@ $(document).ready(function(){
                 }
             });
         }
+        if ($(this).val() == 5) {
+            url = "list-category-product"; // ajaxCall(url, 'get-product', 'products');
+      
+            $.ajax({
+              url: '/admin/menus/' + url,
+              method: 'GET',
+              success: function success(scs) {
+                // $('#table-show-record').remove();
+                $('.filter-result').html(scs);
+                chooseRecordCategoryProduct(url, 'get-category-product', 'category-product');
+                // buttonPaginationOnClick(url, 'get-product', 'products');
+                // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
+              }
+            });
+          }
+        if ($(this).val() == 1) {
+            url = "list-category-article"; // ajaxCall(url, 'get-product', 'products');
+        
+            $.ajax({
+                url: '/admin/menus/' + url,
+                method: 'GET',
+                success: function success(scs) {
+                // $('#table-show-record').remove();
+                $('.filter-result').html(scs);
+                chooseRecordCategoryProduct(url, 'get-category-article', 'category-article');
+                // buttonPaginationOnClick(url, 'get-product', 'products');
+                // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
+                }
+            });
+        }
     });
 
   });
@@ -264,4 +294,91 @@ $(document).ready(function(){
             </td>
         </tr>
         `;
+    };
+
+    let chooseRecordCategoryProduct = function(url, getUrl, type) {
+        $('.choose-record').on('click', function(e){
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            let slug = $(this).attr('data-slug');
+            $('input[name=link]').val(slug);
+
+            $.ajax({
+                url: '/admin/menus/'+ getUrl +'/' + id,
+                method: 'get',
+                success: function(scs){
+                resData = scs.results;
+                $('#table').remove();
+                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
+                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
+                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
+                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
+                            </tr></tbody></table>
+                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
+                    $('.filter-result').append(html);
+                    chooseOtherProductCategory(url, getUrl, type);
+                    // buttonPaginationOnClickProduct(url, getUrl, type);
+                }
+            });
+        });
+    };
+
+    let chooseOtherProductCategory = function(url, getUrl, type) {
+        $('.button-choose-other').click(function(e) {
+            e.preventDefault();
+            $('input[name=link]').val("");
+            $.ajax({
+                url: '/admin/menus/'+ url ,
+                method: 'GET',
+                success: function(scs){
+                    $('#table').remove();
+                    $('.filter-result').html(scs);
+                    chooseRecordCategoryProduct(url, getUrl, type);
+                    // buttonPaginationOnClickProduct(url, getUrl, type);
+                }
+            });
+        });
+    };
+    let chooseRecordCategoryArticle = function(url, getUrl, type) {
+        $('.choose-record').on('click', function(e){
+            e.preventDefault();
+            let id = $(this).attr('data-id');
+            let slug = $(this).attr('data-slug');
+            $('input[name=link]').val(slug);
+
+            $.ajax({
+                url: '/admin/menus/'+ getUrl +'/' + id,
+                method: 'get',
+                success: function(scs){
+                resData = scs.results;
+                $('#table').remove();
+                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
+                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
+                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
+                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
+                            </tr></tbody></table>
+                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
+                    $('.filter-result').append(html);
+                    chooseOtherArticleCategory(url, getUrl, type);
+                    // buttonPaginationOnClickArticle(url, getUrl, type);
+                }
+            });
+        });
+    };
+
+    let chooseOtherArticleCategory = function(url, getUrl, type) {
+        $('.button-choose-other').click(function(e) {
+            e.preventDefault();
+            $('input[name=link]').val("");
+            $.ajax({
+                url: '/admin/menus/'+ url ,
+                method: 'GET',
+                success: function(scs){
+                    $('#table').remove();
+                    $('.filter-result').html(scs);
+                    chooseRecordCategoryArticle(url, getUrl, type);
+                    // buttonPaginationOnClickArticle(url, getUrl, type);
+                }
+            });
+        });
     };

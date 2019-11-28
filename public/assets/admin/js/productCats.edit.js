@@ -179,7 +179,7 @@ function () {
       var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
       var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
       var index = Date.now();
-      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-10 input-group\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n                <div class=\"input-group-prepend\">\n                    <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                        <div class=\"input-group-text bg-white\">\n                            <i class=\"material-icons\">delete</i>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n        ");
+      return "\n        <div class=\"row form-group selection-item\">\n            <div class=\"col-5\">\n                <input type=\"hidden\" name=\"attribute_values[".concat(index, "][id]\" value=\"").concat(id, "\" class=\"selection-item-id\"/>\n                <input type=\"").concat(type, "\" name=\"attribute_values[").concat(index, "][value]\" value=\"").concat(value, "\" class=\"selection-item-value\"/>\n            </div>\n            <div class=\"col-5\">\n                <input type=\"text\" name=\"attribute_values[").concat(index, "][note]\" value=\"\" class=\"form-control\" placeholder=\"Ch\xFA th\xEDch th\xEAm\"/>\n            </div>\n            <div class=\"col-1\">\n                <a href=\"#\" class=\"text-decoration-none btn-remove-selection-item\">\n                    <i class=\"material-icons\">delete</i>\n                </a>\n            </div>\n        </div>\n        ");
     }
   }, {
     key: "removeSelectionItem",
@@ -221,7 +221,9 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    console.log(this.productId);
+    this.initVariantAction();
+    this.submitEditVariantForm();
+    this.showSelectedAttribute();
   }
 
   _createClass(productCore, [{
@@ -229,16 +231,46 @@ function () {
     value: function collectSelectedAttributeId() {
       var _this = this;
 
-      $(".btn-submit-select-product-attribute").on("click.collectSelectedAttributeId", function (e) {
+      $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+        _this.showSelectedAttribute();
+      });
+    }
+  }, {
+    key: "showSelectedAttribute",
+    value: function showSelectedAttribute() {
+      var result = '';
+      var selected = $('.attribute-selectpicker').find('option:selected');
+      selected.each(function (index, element) {
+        result += $(element).text();
+
+        if (index < selected.length - 1) {
+          result += ', ';
+        }
+      });
+      $(".selected-value").text(result);
+      this.setVariantButtonStatus();
+    }
+  }, {
+    key: "makeVariation",
+    value: function makeVariation() {
+      var _this = this;
+
+      $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
         e.preventDefault();
-        var checked = [];
-        $(".select-attribute-input:checked").each(function () {
-          checked.push($(this).val());
+        var makeVariationUrl = $(this).attr("data-href");
+        var makeVariationData = $(".attribute-selectpicker").val();
+        $.ajax({
+          url: makeVariationUrl,
+          method: "POST",
+          data: {
+            attributes: makeVariationData
+          },
+          success: function success(resolve) {
+            $(".product-variants-list").html(resolve);
+
+            _this.initVariantAction();
+          }
         });
-
-        _this.renderSelectedAttribute(checked);
-
-        return;
       });
     }
   }, {
@@ -274,8 +306,6 @@ function () {
       var _this = this;
 
       $('.category-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        console.log($(this).val());
-
         _this.renderAttributeOptions($(this).val());
       });
     }
@@ -293,6 +323,173 @@ function () {
           $("#selectProductAttributeModal").find(".modal-body").html(scs);
         }
       });
+    }
+  }, {
+    key: "setVariantButtonStatus",
+    value: function setVariantButtonStatus() {
+      var attributeSelectedCount = $('.attribute-selectpicker').val().length;
+
+      if (attributeSelectedCount) {
+        $(".btn-make-variation").attr("disabled", false);
+      } else {
+        $(".btn-make-variation").attr("disabled", true);
+      }
+    }
+  }, {
+    key: "productVariantPagination",
+    value: function productVariantPagination() {
+      var _this = this;
+
+      $(".variant-pagination").find("a.page-link").off("click.productVariantPagination");
+      $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
+        e.preventDefault();
+        var pagingUrl = $(this).attr("href");
+        $.ajax({
+          url: pagingUrl,
+          success: function success(resolve) {
+            $(".product-variants-list").html(resolve);
+
+            _this.initVariantAction();
+          }
+        });
+      });
+    }
+  }, {
+    key: "makeVariantProductOrderable",
+    value: function makeVariantProductOrderable() {
+      var variantTableData = $(".variant-sort");
+      var variantSortUrl = variantTableData.attr('data-href');
+      variantTableData.sortable({
+        handle: ".connect",
+        placeholder: "ui-state-highlight",
+        forcePlaceholderSize: true,
+        update: function update(event, ui) {
+          var sort = $(this).sortable("toArray");
+          $.ajax({
+            url: variantSortUrl,
+            method: "POST",
+            data: {
+              sort: sort
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                Swal.fire({
+                  title: "Lỗi!",
+                  type: "error",
+                  confirmButtonClass: "btn btn-danger",
+                  buttonsStyling: false,
+                  html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                })["catch"](swal.noop);
+              }
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: "showEditVariantForm",
+    value: function showEditVariantForm() {
+      var _this = this;
+
+      $(".btn-edit-variant").off("click.showEditVariantForm");
+      $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
+        e.preventDefault();
+        var editUrl = $(this).attr("data-href");
+        $.ajax({
+          url: editUrl,
+          success: function success(resolve) {
+            $("#variant-edit-modal").find(".modal-body").html(resolve);
+            $("#variant-edit-modal").modal('show');
+            $(".price-format").simpleMoneyFormat();
+          }
+        });
+      });
+    }
+  }, {
+    key: "submitEditVariantForm",
+    value: function submitEditVariantForm() {
+      var _this = this;
+
+      $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+        e.preventDefault();
+        var formData = new FormData();
+        formData.append('name', $("input[name=variant_name]").val());
+        formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
+        formData.append('product_code', $("input[name=variant_product_code]").val());
+        formData.append('quantity', $("input[name=variant_quantity]").val());
+
+        if ($("input[name=variant_is_public]:checked").val()) {
+          formData.append('is_public', $("input[name=variant_is_public]:checked").val());
+        }
+
+        if ($("input[name=variant_avatar]")[0].files[0]) {
+          formData.append('avatar', $("input[name=variant_avatar]")[0].files[0]);
+        }
+
+        formData.append('_method', 'PUT');
+        var updateVariantUrl = $(".form-update-variant").attr('action');
+        $.ajax({
+          url: updateVariantUrl,
+          data: formData,
+          method: "POST",
+          contentType: false,
+          processData: false,
+          success: function success(resolve) {
+            $("#variant-edit-modal").modal('hide');
+            $(".product-variants-list").html(resolve);
+
+            _this.initVariantAction();
+
+            Swal.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
+          }
+        });
+      });
+    }
+  }, {
+    key: "deleteVariant",
+    value: function deleteVariant() {
+      var _this = this;
+
+      $(".btn-delete-variant").off("click.deleteVariant");
+      $(".btn-delete-variant").on("click.deleteVariant", function (e) {
+        e.preventDefault();
+        var deleteUrl = $(this).attr("data-href");
+        Swal.fire({
+          title: 'Xóa biến thể',
+          text: 'Bạn có chắc chắn muốn thực hiện hành động này?',
+          showCancelButton: true,
+          confirmButtonText: 'Xóa',
+          cancelButtonText: 'Hủy',
+          confirmButtonColor: '#d33'
+        }).then(function (result) {
+          if (result.value) {
+            $.ajax({
+              url: deleteUrl,
+              method: "POST",
+              data: {
+                _method: 'DELETE'
+              },
+              success: function success(resolve) {
+                Swal.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
+                $(".product-variants-list").html(resolve);
+
+                _this.initVariantAction();
+              }
+            });
+          }
+        });
+      });
+    }
+  }, {
+    key: "initVariantAction",
+    value: function initVariantAction() {
+      this.makeVariantProductOrderable();
+      this.productVariantPagination();
+      this.showEditVariantForm();
+      this.deleteVariant();
     }
   }]);
 
@@ -369,7 +566,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\productCats.edit.js */"./resources/js/admin/productCats.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/productCats.edit.js */"./resources/js/admin/productCats.edit.js");
 
 
 /***/ })

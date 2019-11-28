@@ -4,7 +4,7 @@
         <label>{{ $attribute->name }}</label>
         <input
             type="text"
-            name="attribute_values[{{ $attribute->id }}][{{ $attribute->productAttributeValues->first()->id }}]"
+            name="attribute_values[{{ $attribute->id }}][{{ $attribute->productAttributeOptions->first()->id }}]"
             required
             class="form-control"
         />
@@ -12,7 +12,7 @@
     @else
 
     @php
-        $selectedAttribute = isset($product)?$product->productAttributeValues->pluck('id')->toArray():[];
+        $selectedAttribute = isset($product)?$product->productAttributeOptions->pluck('id')->toArray():[];
     @endphp
     <div class="form-group">
         <label>{{ $attribute->name }}</label>
@@ -28,7 +28,7 @@
             data-size="7"
             data-show-tick="true"
             id="product-category">
-            @forelse ($attribute->productAttributeValues as $item)
+            @forelse ($attribute->productAttributeOptions as $item)
                 <option
                     value="{{ $item->id }}"
                     {{ in_array($item->id, $selectedAttribute)?'selected':'' }}

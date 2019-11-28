@@ -129,6 +129,36 @@ $(document).ready(function () {
         }
       });
     }
+
+    if ($(this).val() == 5) {
+      url = "list-category-product"; // ajaxCall(url, 'get-product', 'products');
+
+      $.ajax({
+        url: '/admin/menus/' + url,
+        method: 'GET',
+        success: function success(scs) {
+          // $('#table-show-record').remove();
+          $('.filter-result').html(scs);
+          chooseRecordCategoryProduct(url, 'get-category-product', 'category-product'); // buttonPaginationOnClick(url, 'get-product', 'products');
+          // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
+        }
+      });
+    }
+
+    if ($(this).val() == 1) {
+      url = "list-category-article"; // ajaxCall(url, 'get-product', 'products');
+
+      $.ajax({
+        url: '/admin/menus/' + url,
+        method: 'GET',
+        success: function success(scs) {
+          // $('#table-show-record').remove();
+          $('.filter-result').html(scs);
+          chooseRecordCategoryProduct(url, 'get-category-article', 'category-article'); // buttonPaginationOnClick(url, 'get-product', 'products');
+          // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
+        }
+      });
+    }
   });
 }); //   let ajaxCall = function(url, getUrl, type) {
 //     $.ajax({
@@ -327,6 +357,82 @@ var rowHTMLProduct = function rowHTMLProduct() {
   return "\n        <tr class=\"article-item\">\n            <td>".concat(id, "</td>\n            <td class=\"choose-record\" data-id=\"").concat(id, "\">").concat(name, "</td>\n            <th>").concat(category_name, "</th>\n            <td>\n                <div class=\"btn-group\">\n                    <a class=\"btn-sm btn-success choose-record\" href=\"#\" data-id=\"").concat(id, "\"\n                        class=\"btn btn-sm p-1\" data-toggle=\"tooltip\" title=\"Ch\u1ECDn\" data-slug=\"").concat(slug, "\"\n                        data-type=\"article\">\n                        <i class=\"material-icons\">radio_button_checked</i><span style=\"padding-left:5px\">Ch\u1ECDn</span>\n                    </a>\n                </div>\n            </td>\n        </tr>\n        ");
 };
 
+var chooseRecordCategoryProduct = function chooseRecordCategoryProduct(url, getUrl, type) {
+  $('.choose-record').on('click', function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    var slug = $(this).attr('data-slug');
+    $('input[name=link]').val(slug);
+    $.ajax({
+      url: '/admin/menus/' + getUrl + '/' + id,
+      method: 'get',
+      success: function success(scs) {
+        resData = scs.results;
+        $('#table').remove();
+        var html = "<div class=\"table-responsive bg-white mt-4\" id=\"table\"><table id=\"table-show-record\" class=\"table-sm table-hover table mb-2\" width=\"100%\">";
+        html += "<thead><tr class=\"text-muted\"><th>ID</th><th>T\xCAN B\xC0I VI\u1EBET</th><th>T\xCAN M\u1EE4C</th></tr></thead>";
+        html += " <tbody><tr><td>" + resData.id + "</td>\n                            <td><a target=\"_blank\" href=\"/admin/" + type + "/" + resData.id + "/edit\">" + resData.name + "</a></td>\n                            </tr></tbody></table>\n                            <button class=\"btn btn-sm btn-info button-choose-other\">Ch\u1ECDn b\xE0i vi\u1EBFt kh\xE1c</button></div>";
+        $('.filter-result').append(html);
+        chooseOtherProductCategory(url, getUrl, type); // buttonPaginationOnClickProduct(url, getUrl, type);
+      }
+    });
+  });
+};
+
+var chooseOtherProductCategory = function chooseOtherProductCategory(url, getUrl, type) {
+  $('.button-choose-other').click(function (e) {
+    e.preventDefault();
+    $('input[name=link]').val("");
+    $.ajax({
+      url: '/admin/menus/' + url,
+      method: 'GET',
+      success: function success(scs) {
+        $('#table').remove();
+        $('.filter-result').html(scs);
+        chooseRecordCategoryProduct(url, getUrl, type); // buttonPaginationOnClickProduct(url, getUrl, type);
+      }
+    });
+  });
+};
+
+var chooseRecordCategoryArticle = function chooseRecordCategoryArticle(url, getUrl, type) {
+  $('.choose-record').on('click', function (e) {
+    e.preventDefault();
+    var id = $(this).attr('data-id');
+    var slug = $(this).attr('data-slug');
+    $('input[name=link]').val(slug);
+    $.ajax({
+      url: '/admin/menus/' + getUrl + '/' + id,
+      method: 'get',
+      success: function success(scs) {
+        resData = scs.results;
+        $('#table').remove();
+        var html = "<div class=\"table-responsive bg-white mt-4\" id=\"table\"><table id=\"table-show-record\" class=\"table-sm table-hover table mb-2\" width=\"100%\">";
+        html += "<thead><tr class=\"text-muted\"><th>ID</th><th>T\xCAN B\xC0I VI\u1EBET</th><th>T\xCAN M\u1EE4C</th></tr></thead>";
+        html += " <tbody><tr><td>" + resData.id + "</td>\n                            <td><a target=\"_blank\" href=\"/admin/" + type + "/" + resData.id + "/edit\">" + resData.name + "</a></td>\n                            </tr></tbody></table>\n                            <button class=\"btn btn-sm btn-info button-choose-other\">Ch\u1ECDn b\xE0i vi\u1EBFt kh\xE1c</button></div>";
+        $('.filter-result').append(html);
+        chooseOtherArticleCategory(url, getUrl, type); // buttonPaginationOnClickArticle(url, getUrl, type);
+      }
+    });
+  });
+};
+
+var chooseOtherArticleCategory = function chooseOtherArticleCategory(url, getUrl, type) {
+  $('.button-choose-other').click(function (e) {
+    e.preventDefault();
+    $('input[name=link]').val("");
+    $.ajax({
+      url: '/admin/menus/' + url,
+      method: 'GET',
+      success: function success(scs) {
+        $('#table').remove();
+        $('.filter-result').html(scs);
+        chooseRecordCategoryArticle(url, getUrl, type); // buttonPaginationOnClickArticle(url, getUrl, type);
+      }
+    });
+  });
+};
+
 /***/ }),
 
 /***/ 7:
@@ -336,7 +442,7 @@ var rowHTMLProduct = function rowHTMLProduct() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\menus.edit.js */"./resources/js/admin/menus.edit.js");
+module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\menus.edit.js */"./resources/js/admin/menus.edit.js");
 
 
 /***/ })

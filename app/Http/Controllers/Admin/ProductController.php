@@ -60,7 +60,7 @@ class ProductController extends Controller
         $product = Product::create($attributes);
         $product->categories()->attach($request->category);
 
-        return redirect()->route('admin.product.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
+        return redirect()->route('admin.products.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
     }
 
     /**

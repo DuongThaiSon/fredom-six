@@ -6,20 +6,20 @@
     <!-- steps  -->
     <div class="steps">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
             <p class="text-uppercase font-weight-bold">giỏ hàng</p>
             <div class="orange-underline mx-auto"></div>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white"><span class="number">02</span></div>
             <p class="text-uppercase font-weight-bold">xác nhận đơn hàng</p>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-4">
           <div class="step-1 text-center">
             <div class="orange-circle mx-auto text-white"><span class="number">03</span></div>
 
@@ -29,7 +29,7 @@
       </div>
     </div>
     <!-- cart -->
-    <div class="cart">
+    <div class="cart col-md-12 col-12">
       <!-- product -->
       <table class="table">
         <thead>
@@ -53,8 +53,8 @@
                 <div class="product-image">
                   <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                 </div>
-                <a href="#" style="width: 240px; font-size: 16px !important; margin-bottom: -30px !important;"
-                  class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }}</a>
+                <a href="#" style="width: 240px; font-size: 16px !important;"
+                  class="font-weight-bold text-uppercase mb-0 ml-5 ">{{ $item->name }}</a>
                   <div>
                     <div><b>SKU:</b> {{ $item->attributes->product_code }}</div>
                     {{-- <div><b>Cỡ:</b> {{ $item->attributes->size }} </div> --}}
@@ -133,8 +133,7 @@
         </div>  --}}
       <div class="col-lg-12">
         <a href="/cart/checkout" type="submit"
-          class="btn confirm text-uppercase orange-text orange-border font-weight-bold float-right">xác nhận đơn
-          hàng</a>
+          class="btn confirm text-uppercase orange-text orange-border font-weight-bold float-right">xác nhận đơn hàng</a>
       </div>
     </div>
 
@@ -146,7 +145,7 @@
             @forelse ($product as $item)
 
 
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-6">
               <div class="product">
                 <div class="card">
                   <div class="product-img">
@@ -173,26 +172,26 @@
                       class="product-name">{{ $item->name }}</a>
                     <!-- rating -->
                     <div id='rating' class='rating'>
-                        <span class='ratingStars {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 1 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 2 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 3 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 4 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
-                        <span class='ratingStars {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
+                        <span class='ratingStars rating-mobile {{  $item->rate >= 5 ? 'clickStars' : '' }}'>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </span>
                     </div>
                     <!-- price -->
                     <div class="product-price">
-                      <span class="old-price">{{ $item->price }}</span>
-                      <span class="new-price">{{ number_format($item->price-$item->discount*$item->price/100) }}</span>
+                      <span class="old-price">{{ number_format($item->price).'đ' }}</span>
+                      <span class="new-price">{{ number_format($item->price-$item->discount*$item->price/100).'đ' }}</span>
                     </div>
                   </div>
                   <div class="list-group list-group-flush">

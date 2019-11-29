@@ -6,19 +6,19 @@
       <!-- steps  -->
       <div class="steps">
         <div class="row">
-          <div class="col-lg-4">
-            <div class="step-1 text-center">
+          <div class="col-lg-4 col-4 ">
+            <div class="step-1 textlg-- col-12center">
               <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
               <p class="text-uppercase font-weight-bold">giỏ hàng</p>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-4">
             <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white active"><span class="number">02</span></div>
               <p class="text-uppercase font-weight-bold">xác nhận đơn hàng</p>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-4 col-4">
             <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white active"><span class="number">03</span></div>
               <p class="text-uppercase font-weight-bold">hóa đơn</p>
@@ -34,43 +34,43 @@
     <div class="row">
       <div class="col-lg-12 mx-auto">
           <div class="col-12 alert alert-success">Thông tin đã được gửi tới email của bạn. Dưới đây là hóa đơn thanh toán đơn hàng của bạn</div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Tên người mua hàng: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->first_name ?? ''}} {{ $order->last_name ?? '' }} </div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Tên người mua hàng: </div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->first_name ?? ''}} {{ $order->last_name ?? '' }} </div>
               </div>
             </div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Email: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->email ?? ''}} </div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Email: </div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->email ?? ''}} </div>
               </div>
             </div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Địa chỉ: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->address ?? ''}} </div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Địa chỉ: </div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->address ?? ''}} </div>
               </div>
             </div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Số điện thoại:</div>
-                <div class="col-8" style="font-style: italic;">{{ $order->phone ?? ''}} </div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Số điện thoại:</div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->phone ?? ''}} </div>
               </div>
             </div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
                 <div class="col-4" style="font-weight: bold;">Phương thức vận chuyển: </div>
                 <div class="col-8" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price ?? '0') ?? ''}} vnđ</div>
               </div>
             </div>
-            <div class="form-group col-12 col-md-12">
+            <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Phương thức thanh toán: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->payment_choice ?? ''}} </div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Phương thức thanh toán: </div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->payment_choice ?? ''}} </div>
               </div>
             </div>
-              <div class="form-group col-12 col-md-12">
+              <div class="form-group col-md-12 ">
                   <div class="row">
                   <div class="col-12" style="font-weight: bold; color: red;">Đơn hàng của bạn:</div>
                     <table class="w-100 table-sm table-hover table mb-2" style="border: 1px solid black; text-align: center">

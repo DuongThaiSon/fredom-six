@@ -62,20 +62,6 @@
           <h4 class="text-uppercase" style="font-size: 36px; color: #ffffff">our work</h4>
           <div class="under-line-white"></div>
           <div class="ours-work-detail">
-            <!-- detail-1 -->
-            {{-- @forelse ($ourworks as $ourwork)
-            <div class="detail-{{ $ourwork->id}} mb-3">
-              <a href="#detail-{{ $ourwork->id}}" class="collapsed text-uppercase active" data-target="#detail-{{ $ourwork->id }}"
-                data-toggle="collapse">
-                {!! $ourwork->name !!}
-              </a>
-              <div class="collapse mt-3" id="detail-{{ $ourwork->id}}">
-                {!! $ourwork->detail !!}
-              </div>
-            </div>
-            @empty
-                
-            @endforelse --}}
             <div id="accordion">
                 @forelse ($ourworks as $ourwork)
                 <div class="button font-weight-bold {{ $ourwork->id == 1? 'active' :''}}" role="button"
@@ -88,63 +74,11 @@
                 @empty
                     
                 @endforelse
-                  
-            <!-- detail-2 -->
-            {{-- <div class="detail-2 mb-3">
-              <a href="#detail-2" class="collapsed text-uppercase" data-target="#detail-2" data-toggle="collapse">
-                sứ mệnh
-              </a>
-              <div class="collapse mt-3" id="detail-2">
-              </div>
-            </div>
-            <!-- detail-3 -->
-            <div class="detail-3 mb-3">
-              <a href="#detail-3" class="collapsed text-uppercase" data-target="#detail-3" data-toggle="collapse">
-                tầm nhìn
-              </a>
-              <div class="collapse mt-3" id="detail-3">
-              </div>
-            </div>
-            <!-- detail-4 -->
-            <div class="detail-4 mb-3">
-              <a href="#detail-4" class="collapsed text-uppercase" data-target="#detail-4" data-toggle="collapse">
-                Giá trị cốt lõi: Văn hóa doanh nghiệp + năng lực
-              </a>
-              <div class="collapse mt-3" id="detail-4">
-                <p>Đối với sản phẩm mang thương hiệu Moolez, khách hàng luôn được sở hữu những sản phẩm chất lượng
-                  đẳng
-                  cấp nhất, từ nguyên liệu da nhập khẩu của các nước nổi tiếng như Italia đến linh kiện,
-                  phụ kiện đạt tiêu chuẩn châu Âu với kiểu dáng thời thượng, dẫn đầu xu hướng.</p>
-                <p>
-                  Bên cạnh đó, khách hàng còn được hưởng nhiều giá trị gia tăng,và dịch vụ khác biệt mà các hãng khác
-                  chưa hoặc không có.
-                </p>
-              </div>
-            </div>
-            <!-- detail-5 -->
-            <div class="detail-5">
-              <a href="#detail-5" class="collapsed text-uppercase" data-target="#detail-5" data-toggle="collapse">
-                Thông điệp từ người đứng đầu
-              </a>
-              <div class="collapse  mt-3" id="detail-5">
-                <p>Đối với sản phẩm mang thương hiệu Moolez, khách hàng luôn được sở hữu những sản phẩm chất lượng
-                  đẳng
-                  cấp nhất, từ nguyên liệu da nhập khẩu của các nước nổi tiếng như Italia đến linh kiện,
-                  phụ kiện đạt tiêu chuẩn châu Âu với kiểu dáng thời thượng, dẫn đầu xu hướng.</p>
-                <p>
-                  Bên cạnh đó, khách hàng còn được hưởng nhiều giá trị gia tăng,và dịch vụ khác biệt mà các hãng khác
-                  chưa hoặc không có.
-                </p>
-              </div>
-            </div> --}}
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- showroom -->
-  
-
 @endsection
   <script src="/assets/client/js/jquery.min.js"></script>
   <script src="/assets/client/js/owl.carousel.js"></script>

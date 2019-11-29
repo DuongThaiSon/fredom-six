@@ -9,13 +9,14 @@
             <li data-target="#myCarousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
             @empty
             @endforelse
+            
         </ol>
         <div class="carousel-inner">
             <!-- slide -->
             @forelse ($slide as $image)
             <div class="carousel-item {{ $loop->first ? 'active':'' }} "
                 style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
-                <div class="container">
+                {{-- <div class="container">
                     <div class="row">
                         <div class="col-6"></div>
                         <div class="col-md-6 d-none d-md-block" style="padding-left: 70px;">
@@ -32,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             @empty
             @endforelse
@@ -46,8 +47,8 @@
         <div class="row py-5">
             <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
                 <h3 class="text-uppercase">{{ $articleIntro->articles[0]->name }}</h3>
-                <h1 class="text-uppercase display-4">{!! strip_tags($articleIntro->articles[0]->description) !!}</h1>
-                <p class="mb-5">{!! $articleIntro->articles[0]->detail !!}</p>
+                <h1 class="text-uppercase display-4">{!! $articleIntro->articles[0]->description !!}</h1>
+                <div class="text-justify"><p class="mb-5">{!! $articleIntro->articles[0]->detail !!}</p></div>
             </div>
             <div class="col-lg-6 col-md-12 py-lg-4 my-lg-5">
                 <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $articleIntro->articles[0]->avatar }}" class="pl-5 mt-5"
@@ -60,7 +61,7 @@
         <div class="col-lg-8 col-md-12" style="background: #ebebeb">
             <div class="about-text py-5">
                 <p class="m-0">
-                    {!! strip_tags($articleIntro->articles[1]->detail) !!}
+                    {!! $articleIntro->articles[1]->detail !!}
                 </p>
             </div>
         </div>
@@ -189,7 +190,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[0]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase">learn more</a>
+                        <a href="" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -213,7 +214,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[1]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase">learn more</a>
+                        <a href="" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -253,7 +254,7 @@
             </div>
             <div class="cmt-name">
                 <p class="text-capitalize font-weight-bold">{{ $quote->name }}</p>
-                <p class="font-italic">{!! strip_tags($quote->description) !!}</p>
+                <p class="font-italic">{!! $quote->description !!}</p>
             </div>
         </div>
     </div>
@@ -310,7 +311,7 @@
                 <div class="card-body">
                     <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
                     <div class="card-text more">{!! $item->description !!}</div>
-                    <a href="{{ route('client.news.detail', $item->slug) }}" class="learn text-uppercase">Learn more</a>
+                    <a href="{{ route('client.news.detail', $item->slug) }}" class="learn text-uppercase"><b>Learn more</b></a>
                 </div>
             </div>
             @endforeach

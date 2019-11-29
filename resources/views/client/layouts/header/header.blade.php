@@ -3,12 +3,12 @@
     <div class="head-hotline">
         <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-4 pr-0">
+            <div class="col-lg-6 col-5 pr-0">
             <p class="hotline text-uppercase m-0">
                 <i class="fas fa-phone d-lg-none"></i><span class="phone">hotline:</span> {{ $hotline->company_hotline }}
             </p>
             </div>
-            <div class="col-lg-6 col-8 pl-0">
+            <div class="col-lg-6 col-7 pl-0">
             <ul class="nav nav-head float-right">
                 {{-- <li class="nav-item p-0">VNĐ
                 <select name="" id="" class="head-select">
@@ -54,7 +54,7 @@
                     <div class="cart">
                         <div class="cart-icon">
                             <a href="/cart"> <i class="fas fa-shopping-basket"></i></a>
-                            <div class="cart-items">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</div>
+                            <span class="cart-quantity">{{ \Cart::getTotalQuantity()>5?"5+":\Cart::getTotalQuantity() }}</span>
                         </div>
                     </div>
                 </li>

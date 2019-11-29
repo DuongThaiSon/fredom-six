@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/pages.css" />
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/responsive.css" />
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/star-rating.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     @stack('css')
 </head>
 
@@ -33,7 +34,7 @@
     @yield('content')
 
     @include('client.layouts.footer.footer')
-
+    
     <script src="{{ asset('assets/client') }}/js/jquery.min.js"></script>
     <script src="{{ asset('assets/client') }}/js/popper.min.js"></script>
     <script src="{{ asset('assets/client') }}/js/bootstrap.min.js"></script>
@@ -42,6 +43,7 @@
     <script src="{{ asset('assets/client') }}/js/aos.js"></script>
     <script src="{{ asset('assets/client') }}/js/owl.carousel.js"></script>
     <script src="{{ asset('assets/client') }}/js/script.js"></script>
+    
     @stack('js')
 
     @forelse ($scripts as $script)

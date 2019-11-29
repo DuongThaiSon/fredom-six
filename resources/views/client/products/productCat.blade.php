@@ -15,7 +15,7 @@
     </div>
 </div>
 <!-- showcase -->
-<div id="showcase" style="height: 645px; overflow: hidden;">
+<div id="showcase" style="overflow: hidden;">
     <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $category->avatar }}" style="width: 100%; background-position: top;" alt="">
 </div>
 <!-- product -->

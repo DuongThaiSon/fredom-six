@@ -565,6 +565,9 @@
   .rating {
     margin-top: 0px;
   }
+  .form-login{
+    width: 300px !important;
+  }
 
   
 }
@@ -689,7 +692,10 @@
     #lookbook h3 {
       font-size: 15px; }
     #lookbook h2 {
-      font-size: 30px; }
+      font-size: 24px; }
+    body .line {
+    margin: 20px 0 !important;
+  }
 
   #collection {
     padding: 0 20px;

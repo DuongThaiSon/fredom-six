@@ -1,3 +1,4 @@
+
 @extends('client.layouts.main', ['title' => __('News')])
 @section('content')
   <!-- showcase -->
@@ -18,8 +19,8 @@
               <div class="row">
                 <div class="col-6"></div>
                 <div class="col-md-6 d-none d-md-block" style="padding-left: 70px;">
-                  <div class="showcase-title">
-                    {{-- <h2 class="text-uppercase font-italic">the</h2>
+                  {{--<div class="showcase-title">
+                     <h2 class="text-uppercase font-italic">the</h2>
                     <h2 class="text-uppercase font-italic ml-3">most</h2>
                     <h1 class="text-uppercase display-4">luxury</h1>
                     <h1 class="text-uppercase display-4 mb-4"  style="margin-left: 120px;">
@@ -30,8 +31,8 @@
                       customers. Describe a product, share annoucement, or welcome
                       customers to your store
                     </p> 
-                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a> --}}
-                  </div>
+                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a> 
+                  </div>--}}
                 </div>
               </div>
             </div>

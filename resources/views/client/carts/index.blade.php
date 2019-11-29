@@ -57,17 +57,24 @@
                   class="font-weight-bold text-uppercase mb-0 ml-5">{{ $item->name }}</a>
                   <div>
                     <div><b>SKU:</b> {{ $item->attributes->product_code }}</div>
-                    <div><b>Cỡ:</b> {{ $item->attributes->size }} </div>
+                    {{-- <div><b>Cỡ:</b> {{ $item->attributes->size }} </div> --}}
                         {{-- <b>Màu:</b> <span><div style="background-color: {{ $item->attributes->color }}">
                           {{ $item->attributes->color }}</div>
                         </span> --}}
-                    <div class="d-flex"><b>Màu:</b>
+                    {{-- <div class="d-flex"><b>Màu:</b>
                         <div class="circle" style="background: #000;height: 20px;
                         width: 20px;
                         border-radius: 100%;
                         margin-left: 5px;
                         border: 1px solid #161515;"></div>
-                    </div>
+                    </div> --}}
+                    @if ($item->attributes->attributeOptions)
+                        @forelse ($item->attributes->attributeOptions as $key => $attributeOption)
+                            <div><b>{{ $key }}:</b> {{ $attributeOption }}</div>
+                        @empty
+
+                        @endforelse
+                    @endif
                   </div>
               </div>
             </td>
@@ -147,17 +154,18 @@
                         src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
-                        @forelse ($item->productAttributeOptions as $attribute)
-                            @if ($attribute->productAttribute->type === 'color')
-                            <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
-                                <div class="product-color" style="background: {{ $attribute->value }};">
+                        @php
+                            $colors = $item->productAttributeOptions->filter(function($q){
+                                return $q->product_attribute_id == 2;
+                            })->unique();
+                        @endphp
+                        @forelse ($colors as $color)
+                            {{-- <a href="#" class="choose-color" data-color="{{ $color->value }}"> --}}
+                                <div class="product-color" style="background: {{ $color->value }};" title="{{ $color->note }}">
                                 </div>
-                            </a>
-                            @endif
+                            {{-- </a> --}}
                         @empty
                         @endforelse
-                        <input type="hidden" name="color" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $item->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
-                        <input type="hidden" name="size" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ') ? $item->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
                     </div>
                   </div>
                   <div class="card-body">

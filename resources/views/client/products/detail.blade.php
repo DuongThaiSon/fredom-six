@@ -1,4 +1,4 @@
-@extends('client.layouts.main', ['title' => __('Product details')])
+@extends('client.layouts.main', ['title' => $product->name])
 @section('content')
 <!-- breadcrumb -->
 <div class="bread-crumb">
@@ -145,10 +145,10 @@
                 <div class="form-underline mt-3 w-100" style="width: 102% !important; margin-left: 6px;"></div>
                 <form action="">
                     <div class="row mt-2">
-                        <div class="col-lg-4 pr-0">
+                        <div class="col-lg-6 pr-0">
                             <!-- color -->
                             <div class="product-colors d-flex">
-                                @forelse ($product->productAttributeOptions as $attribute)
+                                {{-- @forelse ($product->productAttributeOptions as $attribute)
                                     @if ($attribute->productAttribute->type === 'color')
                                     <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
                                         <div class="product-color" style="background: {{ $attribute->value }};">
@@ -157,13 +157,31 @@
                                     @endif
 
                                 @empty
+                                @endforelse --}}
+                                {{-- <input type="hidden" name="color" value="{{ $product->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $product->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}"> --}}
+                                @php
+                                    $colors = $product->productAttributeOptions->filter(function($q) {
+                                        return $q->product_attribute_id == 2;
+                                    })->unique();
+                                @endphp
+                                @forelse ($colors as $color)
+                                    <a href="#" class="choose-color" data-color="{{ $color->id }}">
+                                        <div class="product-color" style="background: {{ $color->value }};" title="{{ $color->note }}">
+                                        </div>
+                                    </a>
+                                @empty
                                 @endforelse
-                                <input type="hidden" name="color" value="{{ $product->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $product->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                                <input type="hidden" name="color" value="{{ $colors->first()->id ?? '' }}">
                             </div>
                         </div>
                         <div class="col-lg-6 py-2">
                             <!-- size -->
-                            <div class="input-group mb-3">
+                            @php
+                                $sizes = $product->productAttributeOptions->filter(function($q) {
+                                    return $q->product_attribute_id == 3;
+                                })->unique();
+                            @endphp
+                            <div class="input-group mb-3 {{ count($sizes) > 0 ? '' : 'd-none' }}">
                                 <div class="input-group-prepend">
                                     <span
                                         style="border-radius: 0 !important; background: #ffffff; border-right: none !important;font-size: 14px !important;"
@@ -172,12 +190,10 @@
                                 </div>
                                 <select class="form-control pl-0" name="size" id="size"
                                     style="border-left: 0 !important;" style="font-size: 14px;">
-                                    @foreach ($product->productAttributeOptions->where('productAttribute.name',
-                                    'Kích cỡ') as $item)
-                                    <option value="{{ $item->value }}">{{ $item->value ?? 'Đang cập nhập' }}
+                                    @foreach ($sizes as $size)
+                                    <option value="{{ $size->id }}">{{ $size->value ?? 'Đang cập nhập' }}
                                     </option>
                                     @endforeach
-
                                 </select>
                             </div>
                         </div>
@@ -201,6 +217,7 @@
                                 <input class="code form-control text-muted" type="text" placeholder="Mã ưu đãi"
                                     style="font-size: 14px !important;">
                             </div> --}}
+
                         </div>
                     </div>
                     <div class="btn-group my-3">
@@ -358,16 +375,19 @@
                                             src="{{ asset('media/product') }}/{{ $item->avatar }}"
                                             class="mx-auto d-flex justify-content-center" alt=""></a>
                                     <div class="product-colors justify-content-center d-flex">
-                                        @forelse ($item->productAttributeOptions as $attribute)
-                                            @if ($attribute->productAttribute->type === 'color')
-                                            <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
-                                                <div class="product-color" style="background: {{ $attribute->value }};">
+                                        @php
+                                            $colors = $item->productAttributeOptions->filter(function($q) {
+                                                return $q->product_attribute_id == 2;
+                                            })->unique();
+                                        @endphp
+                                        @forelse ($colors as $color)
+                                            <a href="#" class="choose-color" data-color="{{ $color->id }}">
+                                                <div class="product-color" style="background: {{ $color->value }};" title="{{ $color->note }}">
                                                 </div>
                                             </a>
-                                            @endif
                                         @empty
                                         @endforelse
-                                        <input type="hidden" name="color" value="{{ $item->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $item->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
+                                        <input type="hidden" name="color" value="{{ $colors->first()->id ?? '' }}">
                                     </div>
                                 </div>
                                 <div class="card-body">

@@ -15,12 +15,12 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where([['is_new', 1],['is_public', 1]])->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(16);
+        $productNew = Product::where([['is_new', 1],['is_public', 1]])->with(['categories'])->paginate(16);
         $productNew = $productNew->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
-        
+
         return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($slug_cat = null, $slug_view = null)
@@ -34,8 +34,9 @@ class ProductController extends Controller
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
-        
-        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments', 'images'])->where('slug', $slug_view)->firstOrFail();
+        // print_r($products->toArray());die;
+        $product = Product::with(['comments', 'images'])->where('slug', $slug_view)->firstOrFail();
+        // print_r($product);die;
         $rating = $product->reviews()->avg('rate');
         return view('client.products.detail', compact('product', 'category', 'products', 'rating'));
     }
@@ -45,38 +46,50 @@ class ProductController extends Controller
             'email' => 'required|email',
             'detail' => 'required',
         ]);
-        $atrributes = $request->only([
+        $attributes = $request->only([
             'email', 'detail'
         ]);
 
-        $review = new Review($atrributes);
-        $review->fill($atrributes);
+        $review = new Review($attributes);
+        $review->fill($attributes);
         $review->save();
         return redirect()->back();
     }
     public function productCat($slug_cat = null, Request $request)
     {
-        $category = Category::whereType('product');
-        if ($slug_cat) {
-            $category->whereSlug($slug_cat);
-        }
-        if($request->term)
-        {
-            $ids = explode(",", $request->term);
-            $category = $category->with(['products' => function($q) use ($ids) {
-                $q->whereHas('productAttributeOptions', function ($q) use ($ids){
-                    return $q->whereIn('id', $ids);
-                });
-            }, 'productAttributes.productAttributeOptions']);
-        } else {
-            $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
-        }
-        $category = $category->firstOrFail();
-        $products = $category->products->map(function($q) {
-            $q->rate = $q->reviews()->avg('rate');
-            return $q;
-        });
-        
+        $products = Product::whereHas('categories', function($q) use ($slug_cat) {
+            return $q->where('slug', $slug_cat);
+        })->get()->load([ 'productAttributeOptions']);
+        // print_r($products[0]->productAttributeOptions->filter(function($q) use ($color) {
+        //     return $q->product_attribute_id == $color->id;
+        // })->toArray());die;
+        $category = Category::where([
+            ['type', 'product'],
+            ['slug', $slug_cat]
+        ])->firstOrFail();
+        // print_r($category->toArray());die;
+
+        // $category = Category::whereType('product');
+        // if ($slug_cat) {
+        //     $category->whereSlug($slug_cat);
+        // }
+        // if($request->term)
+        // {
+        //     $ids = explode(",", $request->term);
+        //     $category = $category->with(['products' => function($q) use ($ids) {
+        //         $q->whereHas('productAttributeOptions', function ($q) use ($ids){
+        //             return $q->whereIn('id', $ids);
+        //         });
+        //     }, 'productAttributes.productAttributeOptions']);
+        // } else {
+        //     $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
+        // }
+        // $category = $category->firstOrFail();
+        // $products = $category->products->map(function($q) {
+        //     $q->rate = $q->reviews()->avg('rate');
+        //     return $q;
+        // });
+
         return view('client.products.productCat', compact('category', 'products'));
     }
 

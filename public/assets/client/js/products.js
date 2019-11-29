@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    chooseColor();
+    // chooseColor();
   $('.checkbox-product').click(function() {
     var text = "";
     $('.checkbox-product:checked').each(function() {
@@ -20,8 +20,6 @@ $(document).ready(function () {
         let data = {
             id: $(this).attr('data-id'),
             quantity: 1,
-            size: $('input[name=size]').val(),
-            color: $('input[name=color]').val()
         };
         $.ajax({
           url: '/cart/add',

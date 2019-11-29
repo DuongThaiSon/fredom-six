@@ -66,15 +66,21 @@ class Product extends Model
         return $this->belongsToMany(ProductAttribute::class, 'product_attribute_value', 'product_id', 'product_attribute_id');
     }
 
+    public function variantAttributeValues()
+    {
+        return $this->belongsToMany(ProductAttributeOption::class, 'product_attribute_values', 'variant_id', 'product_attribute_option_id');
+    }
+
     public function attributeProductValues()
     {
         return $this->hasMany(ProductAttributeValue::class);
     }
-    
+
     public function variants()
     {
         return $this->belongsToMany(Product::class, 'product_attribute_values', 'product_id', 'variant_id')
             ->withTimestamps()
+            ->withPivot(['product_attribute_id', 'product_attribute_option_id'])
             ->orderBy('order', 'desc');
     }
 }

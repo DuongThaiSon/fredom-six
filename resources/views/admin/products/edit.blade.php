@@ -104,11 +104,14 @@
                                     title="Chọn mục sản phẩm"
                                     data-size="7"
                                     data-show-tick="true"
-                                    id="product-category">
+                                    id="product-category"
+                                    multiple
+                                    >
 
                                     <option value="0"></option>
                                     @php
-                                        $selectedCategoryId = optional($product->categories()->first())->id;
+                                        // $selectedCategoryId = optional($product->categories()->first())->id;
+                                        $selectedCategoryId = $product->categories->pluck('id');
                                     @endphp
                                     @include('admin.partials.productOptions', ['level' => 0, 'selectedCategoryId' => $selectedCategoryId])
 
@@ -511,7 +514,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>

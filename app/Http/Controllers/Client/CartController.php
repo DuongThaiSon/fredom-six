@@ -47,22 +47,70 @@ class CartController extends Controller
     }
     public function add(Request $request)
     {
-        $product = Product::with(['categories'])->findOrFail($request->id);
-        Cart::add(array(
-            'id' => $request->id,
-            'name' => $product->name,
-            'price' => $product->discount>0?($product->price-$product->discount*$product->price/100):$product->price,
-            'quantity' => $request->quantity,
-            'attributes' => array(
-                'avatar' => $product->avatar,
-                'product_code' => $product->product_code,
-                'discount' => $product->discount,
-                'category_id' => $product->categories[0]->id,
-                'category' => $product->categories[0]->name,
-                'size' => $request->size,
-                'color' => $request->color
-            )
-        ));
+        $product = Product::with(['variants', 'categories'])->findOrFail($request->id);
+
+        if ($request->size || $request->color) {
+            $request->color ? $attributeSelected[] = $request->color : '';
+            $request->size ? $attributeSelected[] = $request->size : '';
+            // print_r($attributeSelected);die;
+            $variantId = $product->variants()->get()->groupBy(['id', function($query) {
+                return $query->pivot->product_attribute_option_id;
+            }])->filter(function($query) use($attributeSelected) {
+                $results = true;
+                $attributeAvailable = $query->keys();
+                foreach ($attributeSelected as $queryValue) {
+                    $results = $results && $attributeAvailable->contains($queryValue);
+                }
+
+                return $results;
+            });
+            $variant = Product::findOrFail($variantId->keys()->first());
+        }
+        else
+        {
+            $variant = $product->variants->first();
+        }
+
+        if($variant)
+        {
+            $attributes = $variant->variantAttributeValues()->get();
+            $attributeValues = [];
+            foreach ($attributes as $key => $attribute) {
+                $attributeValues[$attribute->productAttribute->name] = $attribute->product_attribute_id == 2 ? $attribute->note : $attribute->value;
+            }
+            $values = array(
+                'id' => $variant->id,
+                'name' => $product->name,
+                'price' => $variant->discount>0?($variant->price-$variant->discount*$variant->price/100):$variant->price,
+                'quantity' => $request->quantity,
+                'attributes' => array(
+                    'avatar' => $variant->avatar,
+                    'product_code' => $variant->product_code,
+                    'discount' => $variant->discount,
+                    'category_id' => $product->categories[0]->id,
+                    'category' => $product->categories[0]->name,
+                    'attributeOptions' => $attributeValues
+                )
+            );
+        }
+        else {
+            $values = array(
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->discount>0?($product->price-$product->discount*$product->price/100):$product->price,
+                'quantity' => $request->quantity,
+                'attributes' => array(
+                    'avatar' => $product->avatar,
+                    'product_code' => $product->product_code,
+                    'discount' => $product->discount,
+                    'category_id' => $product->categories[0]->id,
+                    'category' => $product->categories[0]->name,
+                    // 'attributeOptions' => $attributeValues
+                )
+            );
+        }
+
+        Cart::add($values);
 
         return response()->json(['quantity' => Cart::getTotalQuantity()>5?'5+':Cart::getTotalQuantity()], 200);
     }

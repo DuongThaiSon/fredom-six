@@ -83,7 +83,9 @@
                         title="Chọn mục sản phẩm"
                         data-size="7"
                         data-show-tick="true"
-                        id="product-category">
+                        id="product-category"
+                        multiple
+                        >
 
                         <option value="0"></option>
                         @include('admin.partials.options', ['level'=>0])

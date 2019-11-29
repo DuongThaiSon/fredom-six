@@ -25,13 +25,12 @@
             <div class="col-12">
                 <div class="options d-flex justify-content-center">
                     <ul class="nav">
-                        @if ($category->name == "gift")
-                            <li class="text-muted">Bộ lọc</li>
-                            @foreach ($category->productAttributes as $item)
-                            <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
-                            </li>
-                            @endforeach
-                        @endif
+
+                        <li class="text-muted">Bộ lọc</li>
+                        @foreach ($category->productAttributes as $item)
+                        <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
+                        </li>
+                        @endforeach
                     </ul>
                     <div class="checkbox-option p-3" style="margin-left: 4%; width: fit-content;">
                         <div class="all-options d-flex">
@@ -82,18 +81,18 @@
                                     src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
-                                    @forelse ($prod->productAttributeOptions as $attribute)
-                                        @if ($attribute->productAttribute->type === 'color')
-                                        <a href="#" class="choose-color" data-color="{{ $attribute->value }}">
-                                            <div class="product-color" style="background: {{ $attribute->value }};">
-                                            </div>
-                                        </a>
-                                        @endif
-
-                                    @empty
-                                    @endforelse
-                                    <input type="hidden" name="color" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color') ? $prod->productAttributeOptions->firstWhere('productAttribute.type', 'color')->value : '' }}">
-                                    <input type="hidden" name="size" value="{{ $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ') ? $prod->productAttributeOptions->firstWhere('productAttribute.name', 'Kích cỡ')->value : '' }}">
+                                @php
+                                    $colors = $prod->productAttributeOptions->filter(function($q){
+                                        return $q->product_attribute_id == 2;
+                                    })->unique();
+                                @endphp
+                                @forelse ($colors as $color)
+                                    {{-- <a href="#" class="choose-color" data-color="{{ $color->value }}"> --}}
+                                        <div class="product-color" style="background: {{ $color->value }};" title="{{ $color->note }}">
+                                        </div>
+                                    {{-- </a> --}}
+                                @empty
+                                @endforelse
                             </div>
                         </div>
                         <div class="card-body">
@@ -153,9 +152,9 @@
 <script>
     $(".options-list").click(function () {
       if ($('.checkbox-option:visible').length)
-        $('.checkbox-option').fadeToggle(1500);
+        $('.checkbox-option').fadeToggle(500);
       else
-        $('.checkbox-option').fadeToggle(1500);
+        $('.checkbox-option').fadeToggle(500);
     })
 
 </script>

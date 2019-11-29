@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phương thức vận chuyển</label>
-                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->partner->name ??'' }} : {{ number_format($order->partner->price) ??'' }} vnđ"/>
+                        <input type="text" name="name" readonly class="form-control" placeholder="Tên khách hàng" value="{{ $order->partner->name ??'' }} : {{ number_format($order->partner->price ?? '0') ??'' }} vnđ"/>
                         <small class="form-text">Phương thức vận chuyển</small>
                     </div>
                     <div class="form-group">
@@ -81,9 +81,11 @@
                                 <tr class="text-muted">
                                     <th class="w-5">STT</th>
                                     <th class="w-30">Sản phẩm</th>
+                                    <th class="w-15">Màu</th>
+                                    <th class="w-15">Kích cỡ</th>
                                     <th class="w-5">Số lượng</th>
-                                    <th class="w-25">Giá</th>
-                                    <th class="w-30">Thành tiền</th>
+                                    <th class="w-15">Giá</th>
+                                    <th class="w-15">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody class="sort">
@@ -91,9 +93,11 @@
                                     <tr>
                                         <td class="w-5">{{ $loop->iteration ??'' }}</td>
                                         <td class="w-30">{{ $cartItem->product->name ??'' }}</td>
+                                        <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 2)->note ?? ''}}</th>
+                                        <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 3)->value ?? ''}}</th>
                                         <td class="w-5">{{ $cartItem->quantity }}</td>
-                                        <td class="w-25">{{ number_format($cartItem->price) }}&nbsp;đ</td>
-                                        <td class="w-30">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>
+                                        <td class="w-15">{{ number_format($cartItem->price) }}&nbsp;đ</td>
+                                        <td class="w-15">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -101,15 +105,14 @@
                                     </tr>
                                 @endforelse
                                     <tr>
-                                        <td >Tổng</td>
-                                        <td class="w-35"></td>
-                                        <td class="w-5">{{ $order->cartItems->sum('quantity') }}</td>
-                                        <td class="w-25"></td>
-                                        <td class="w-30">{{ number_format($order->sum ) }}&nbsp;đ</td>
+                                        <td colspan="4">Tổng</td>
+                                        <td >{{ $order->cartItems->sum('quantity') }}</td>
+                                        <td ></td>
+                                        <td >{{ number_format($order->sum ) }}&nbsp;đ</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4">Tổng giá trị</td>
-                                        <td >{{ number_format($order->sum + $order->partner->price) }}&nbsp;đ</td>
+                                        <td colspan="6">Tổng giá trị</td>
+                                        <td >{{ number_format($order->sum + ($order->partner->price ?? '0')) }}&nbsp;đ</td>
                                     </tr>
                             </tbody>
                         </table>

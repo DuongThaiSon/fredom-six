@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export class productAttributeCore {
     constructor() { }
 
@@ -139,6 +141,8 @@ export class productCore {
             e.preventDefault()
             let makeVariationUrl = $(this).attr("data-href")
             let makeVariationData = $(".attribute-selectpicker").val()
+            Swal.showLoading();
+
             $.ajax({
                 url: makeVariationUrl,
                 method: "POST",
@@ -148,6 +152,13 @@ export class productCore {
                 success: function (resolve) {
                     $(".product-variants-list").html(resolve)
                     _this.initVariantAction()
+                    Swal.fire({
+                        title: "Thành công!",
+                        type: "success",
+                        text: "Tạo biến thể thành công!",
+                        confirmButtonClass: "btn btn-success",
+                        buttonsStyling: false,
+                    });
                 }
             })
 

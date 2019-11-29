@@ -190,7 +190,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[0]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase">learn more</a>
+                        <a href="" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[1]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase">learn more</a>
+                        <a href="" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -311,7 +311,7 @@
                 <div class="card-body">
                     <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
                     <div class="card-text more">{!! $item->description !!}</div>
-                    <a href="{{ route('client.news.detail', $item->slug) }}" class="learn text-uppercase">Learn more</a>
+                    <a href="{{ route('client.news.detail', $item->slug) }}" class="learn text-uppercase"><b>Learn more</b></a>
                 </div>
             </div>
             @endforeach

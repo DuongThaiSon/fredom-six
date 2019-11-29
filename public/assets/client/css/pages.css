@@ -69,7 +69,11 @@ input:focus {
         height: 0.5px !important;
         background: #000000;
         margin-bottom: 40px; }
-
+      #about-detail .about-content p, #about-2 #accordion p {
+        text-align: justify;
+      }
+      
+       
 #news a {
   color: unset; }
   #news a:hover {

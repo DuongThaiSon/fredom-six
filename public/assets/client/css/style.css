@@ -16,7 +16,7 @@ body {
     height: 1px;
     width: 100%;
     background-color: #d0d0d0;
-    margin: 40px 0; }
+    margin: 30px 0; }
   body .clear {
     clear: both; }
   body .fixed-menu {
@@ -358,9 +358,8 @@ body {
     width: 100%; }
   #lookbook .lookbook-content {
     padding-top: 150px; }
-#lookbook .text-Area p {
-  margin-bottom: 0;
-  width: 390px;
+#lookbook .text-Area {
+  text-align: justify;
 }
 #customer {
   margin-top: 140px;
@@ -377,7 +376,7 @@ body {
       text-align: center;
       margin-bottom: 30px; }
     #customer .card-customer .card-text {
-      text-align: center; }
+      text-align: justify; }
     #customer .card-customer .card-name {
       font-size: 24px;
       font-weight: bold; }

@@ -386,7 +386,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
             Route::resource('variants', 'ProductVariantController');
         });
     });
-    Route::resource('products-filters', 'FilterController');
+    Route::post('products-filters/delete', [
+        'as' => 'admin.products-filters.delete',
+        'uses' => 'FilterController@delete'
+    ]);
+    Route::resource('products-filters', 'FilterController', [
+        'parameters' => ['products-filters' => 'filters']
+    ]);
     
     Route::get('products/import', [
         'as' => 'excel.index',

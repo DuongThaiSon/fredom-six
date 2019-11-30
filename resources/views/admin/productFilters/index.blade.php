@@ -56,7 +56,7 @@
                             <td>{{ $item->user->name }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="{{ route('admin.products-filters.edit', $filters->id) }}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
+                                    <a href="" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
                                         title="Sửa">
                                         <i class="material-icons">border_color</i>
                                     </a>                                   

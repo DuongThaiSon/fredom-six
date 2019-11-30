@@ -50,13 +50,31 @@
 
                     <!-- Button Toggle -->
                     <div class="mb-2">
-                      <label class="control-label">Hiển thị </label>
-                      <input type="checkbox" class="checkbox-toggle" name="is_public" id="is_public" checked/>
-                      <label class="label-checkbox" for="is_public">Hiển thị </label>
+                      <label class="control-label">Hiển thị</label>
+                      <input type="checkbox" class="checkbox-toggle" name="is_public" id="public"/>
+                      <label class="label-checkbox" for="public">Hiển thị</label>
+                      <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                        hiện thị trên giao diện trang web
+                        </small>
                     </div>
-                    <small class="form-text">
-                        Khi tính năng “Hiển thị” được bật, bài viết này có thể hiện thị trên giao diện trang web.
-                    </small>
+                    <div class="mb-2">
+                      <label class="control-label">Nổi bật</label>
+                      <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"/>
+                      <label class="label-checkbox" for="highlight">Nổi bật</label>
+                    </div>
+                    <small class="form-text">Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
+                      thị trên trang chủ hoặc các điểm chỉ định trên giao
+                      diện.
+                      </small>
+                    <div class="mb-2">
+                      <label class="control-label">Mới</label>
+                      <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"/>
+                      <label class="label-checkbox" for="new">Mới </label>
+                    </div>
+                    <small class="form-text">Khi tính năng “Mới” được bật, bài viết này sẽ đc hiển thị
+                      trên trang chủ hoặc các điểm chỉ định trên giao
+                      diện.
+                      </small>
 
                   </div>
 

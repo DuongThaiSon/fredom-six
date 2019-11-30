@@ -386,6 +386,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
             Route::resource('variants', 'ProductVariantController');
         });
     });
+    Route::resource('products-filters', 'FilterController');
+    
     Route::get('products/import', [
         'as' => 'excel.index',
         'uses' => 'ExcelController@index'

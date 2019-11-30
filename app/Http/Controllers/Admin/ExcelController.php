@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\ProductsExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Exports\UsersExport;
 use App\Imports\ProductsImport;
-use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExcelController extends Controller

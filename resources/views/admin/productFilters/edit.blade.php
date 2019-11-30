@@ -3,7 +3,7 @@
 <!-- Content -->
 <div id="main-content">
 <div class="container-fluid" style="background: #e5e5e5;">
-  <form method="POST" action="{{ route('admin.products-filters.store', $filter->id) }}" enctype="multipart/form-data">
+  <form method="POST" action="{{ route('admin.products-filters.update', $filter->id) }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
   <div id="content">
@@ -50,8 +50,12 @@
             data-show-tick="true"
             id="products-filters"
             multiple>
-              <option value="0">Đường phố</option>
-              @include('admin.partials.categories_options', ['level'=>0])
+              <option value="0"></option>
+              @php
+                  $selectedCategoryId = optional($filter->categories()->get()->pluck('id'));
+                  // print_r($selectedCategoryId);die;
+              @endphp
+              @include('admin.partials.filterOptions', ['level'=>0, 'selectedCategoryId' => $selectedCategoryId])
             </select>
             <small class="form-text">Chọn thuộc tính cho bộ lọc</small>
           <!-- Button Toggle -->
@@ -62,8 +66,8 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              {{isset($category)&&$category->is_public==1?'checked':''}}
-              value=""/>
+              {{isset($filter)&&$filter->is_public==1?'checked':''}}
+              />
             <label class="label-checkbox" for="public">Hiển thị</label>
             <small class="form-text">Khi tính năng được bật, thuộc tính sẽ được hiển thị trên bộ lọc.</small>
           </div>

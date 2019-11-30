@@ -83,9 +83,12 @@ class FilterController extends Controller
      */
     public function edit($id)
     {
-        $filter = Filter::findOrFail($id);
+        $filter = Filter::with('categories')->findOrFail($id);
         $categories = $this->service->allWithSub(0, $id);
-        return view('admin.productFilters.edit', compact('filter', 'categories'));
+        $selectedCategory = $filter->categories->pluck('id')->toArray();
+        
+        // print_r($selectedCategory);die;
+        return view('admin.productFilters.edit', compact('filter', 'categories', 'selectedCategory'));
     }
 
     /**
@@ -97,7 +100,18 @@ class FilterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $filter = Filter::findOrFail($id);
+        $attributes = $request->only([
+            'name'
+        ]);
+        $attributes['is_public'] = $request->has('is_public')?1:0;
+        $attributes['updated_by'] = Auth::id();
+        // print_r($attributes);die;
+        $filter->categories()->sync($request->category);
+        $filter->fill($attributes);
+        $filter->save();
+        
+        return redirect()->back()->with('success', 'Lưu dữ liệu thành công');
     }
 
     /**
@@ -110,5 +124,9 @@ class FilterController extends Controller
     {
         Filter::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
+    }
+    public function delete($id)
+    {
+        //
     }
 }

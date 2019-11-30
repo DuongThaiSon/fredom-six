@@ -38,6 +38,9 @@
                         <a href="{{ route('admin.product-attributes.index') }}" class="nav-link menu-product-attributes-index">Quản lý thuộc tính</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.products-filters.index') }}" class="nav-link menu-product-filter-category">Quản lý bộ lọc</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>
                     </li>
                     <li class="nav-item">

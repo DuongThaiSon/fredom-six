@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Category;
+use App\Models\Filter;
 use App\Models\ProductAttribute;
 use App\Models\Like;
 
@@ -57,17 +58,40 @@ class ProductController extends Controller
     }
     public function productCat($slug_cat = null, Request $request)
     {
-        $products = Product::whereHas('categories', function($q) use ($slug_cat) {
-            return $q->where('slug', $slug_cat);
-        })->get()->load([ 'productAttributeOptions']);
-        // print_r($products[0]->productAttributeOptions->filter(function($q) use ($color) {
-        //     return $q->product_attribute_id == $color->id;
-        // })->toArray());die;
+        // print_r($request->all());die;
+        $products = Product::query();
+        if($request->categories)
+        {
+            $categories = $request->categories;
+            $products = $products->whereHas('categories', function($q) use ( $categories) {
+                return $q->whereIn('id', $categories);
+            });
+            // print_r($products->toArray());die;
+        }
+        if($request->properties)
+        {
+            $properties = $request->properties; // STOP HERE ALREADY SEARCH PROPERTIES AND FILTER
+            // print_r($properties);die;
+            $products = $products->whereHas('productAttributeOptions', function($q) use ($properties) {
+                return $q->whereIn('product_attribute_option_id', $properties);
+            });
+        }
+        else
+        {
+            $products = $products->whereHas('categories', function($q) use ($slug_cat) {
+                return $q->where('slug', $slug_cat);
+            });
+        }
+        $products = $products->get()->load([ 'productAttributeOptions']);
+
         $category = Category::where([
             ['type', 'product'],
             ['slug', $slug_cat]
         ])->firstOrFail();
-        // print_r($category->toArray());die;
+        $category_id = $category->id;
+        $filters = Filter::where('is_public', 1)->get()->load(['categories' => function($q) use ($category_id) {
+            $q->where('parent_id', $category_id);
+        }]);
 
         // $category = Category::whereType('product');
         // if ($slug_cat) {
@@ -90,7 +114,7 @@ class ProductController extends Controller
         //     return $q;
         // });
 
-        return view('client.products.productCat', compact('category', 'products'));
+        return view('client.products.productCat', compact('category', 'products', 'filters', 'filterCategories'));
     }
 
     public function like(Request $request)

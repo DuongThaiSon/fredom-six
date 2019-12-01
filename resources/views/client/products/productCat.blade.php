@@ -27,14 +27,40 @@
                     <ul class="nav">
 
                         <li class="text-muted">Bộ lọc</li>
+
+
+                        @foreach ($filters as $filter)
+                        <li class="options-list font-weight-bold">{{ $filter->name }}<i class="fas fa-caret-down"></i>
+                        </li>
+                        @endforeach
                         @foreach ($category->productAttributes as $item)
                         <li class="options-list font-weight-bold">{{ $item->name }}<i class="fas fa-caret-down"></i>
                         </li>
                         @endforeach
                     </ul>
                     <div class="checkbox-option p-3" style="margin-left: 4%; width: fit-content;">
+
+                    <form action="{{ route('client.products.category', $category->slug) }}" method="GET" enctype="text/plain">
                         <div class="all-options d-flex">
                             <!-- styles -->
+                            @forelse ($filters as $filter)
+                            <div class="style-options flex-column flex-wrap align-self-start" style="margin-inline-end: 60px;">
+                                @forelse ($filter->categories as $filterCategory)
+                                <label class="checkbox-container">
+                                    <input type="checkbox" class="checkbox-product" name="categories[]" value="{{ $filterCategory->id }}">
+                                    <span class="checkmark"></span>
+                                    <span style="margin-left: 25px;">{{ $filterCategory->name }}</span>
+                                </label>
+                                @empty
+
+                                <div class="style-options flex-column flex-wrap align-self-start" style="margin-inline-end: 60px;">
+                                    none
+                                </div>
+                                @endforelse
+                            </div>
+                            @empty
+                            @endforelse
+
                             @forelse ($category->productAttributes as $attribute)
 
                             <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
@@ -42,7 +68,7 @@
 
                                 <label class="checkbox-container"
                                     style="{{ $attribute->type==="color"?'margin: 0 18px 18px 0':''}}">
-                                    <input type="checkbox" class="checkbox-product" value="{{ $attributeValue->id }}">
+                                    <input type="checkbox" class="checkbox-product" name="properties[]" value="{{ $attributeValue->id }}">
                                     <span class="checkmark"
                                         {{ $attribute->type==="color"?'style=background:'.$attributeValue->value:''}}></span>
                                     <span
@@ -50,18 +76,18 @@
                                 </label>
                                 @empty
 
+                                <div class="style-options flex-column flex-wrap align-self-start" style="margin-inline-end: 60px;">
+                                    none
+                                </div>
                                 @endforelse
                             </div>
                             @empty
-
                             @endforelse
                         </div>
-                        <form action="{{ route('client.products.category', $category->slug) }}" method="GET"
-                            enctype="text/plain">
-                            <button style="border-radius: 0.25rem !important;" class="btn btn-primary" type="submit" value="Tìm kiếm">Lọc sản phẩm</button>
-                            <input type="hidden" id="tags" data-role="tagsinput" value="" name="term"
-                                placeholder="Tìm kiếm">
-                        </form>
+                        <button style="border-radius: 0.25rem !important;" class="btn btn-primary" type="submit" value="Tìm kiếm">Lọc sản phẩm</button>
+                        {{-- <input type="hidden" id="tags" data-role="tagsinput" value="" name="term"
+                            placeholder="Tìm kiếm"> --}}
+                    </form>
                     </div>
                 </div>
             </div>

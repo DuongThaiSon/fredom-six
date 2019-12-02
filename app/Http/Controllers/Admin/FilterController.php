@@ -125,8 +125,13 @@ class FilterController extends Controller
         Filter::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
     }
-    public function delete($id)
+    public function deleteMany(Request $request)
     {
-        //
+        $filters = explode(",",$request->ids);
+        foreach ($filters as $filter) {
+            Filter::findOrFail($filter)->delete();
+        }
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
     }
+    
 }

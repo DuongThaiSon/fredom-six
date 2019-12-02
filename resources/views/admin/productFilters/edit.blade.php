@@ -41,7 +41,7 @@
             <select 
             required
             name="category[]"
-            data-selected-text-format="count > 2"
+            data-selected-text-format="count > 5"
             class="selectpicker form-control category-selectpicker"
             data-count-selected-text="{0} mục đã được chọn"
             data-style="select-with-transition"

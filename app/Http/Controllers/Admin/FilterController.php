@@ -38,7 +38,7 @@ class FilterController extends Controller
      */
     public function create()
     {
-        $categories = $this->service->allWithSub();
+        $categories = Category::whereType('product')->whereCanFilter(1)->get();
         return view('admin.productFilters.create', compact('categories'));
     }
 
@@ -84,7 +84,7 @@ class FilterController extends Controller
     public function edit($id)
     {
         $filter = Filter::with('categories')->findOrFail($id);
-        $categories = $this->service->allWithSub(0, $id);
+        $categories = Category::whereType('product')->whereCanFilter(1)->get();
         $selectedCategory = $filter->categories->pluck('id')->toArray();
 
         // print_r($selectedCategory);die;

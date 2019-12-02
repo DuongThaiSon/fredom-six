@@ -40,7 +40,7 @@
             <select
             required
             name="category[]"
-            data-selected-text-format="count > 2"
+            data-selected-text-format="count > 5"
             class="selectpicker form-control category-selectpicker"
             data-count-selected-text="{0} mục đã được chọn"
             data-style="select-with-transition"
@@ -49,8 +49,15 @@
             data-show-tick="true"
             id="products-filters"
             multiple>
-              <option value="0">Đường phố</option>
-              @include('admin.partials.categories_options', ['level' => 0])
+              <option value="0"></option>
+              @forelse ($categories as $categoryValue)
+              <option value="{{ $categoryValue->id }}" {{ isset ($category)&&$categoryValue->id===$category->parent_id?'selected':'' }}>
+                  {{ $categoryValue->name }}
+              </option>
+                 
+              @empty
+                  
+              @endforelse
             </select>
             <small class="form-text">Chọn thuộc tính cho bộ lọc</small>
           <!-- Button Toggle -->

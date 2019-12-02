@@ -75,6 +75,13 @@
                       trên trang chủ hoặc các điểm chỉ định trên giao
                       diện.
                       </small>
+                    <div class="mb-2">
+                      <label class="control-label">Bộ lọc</label>
+                      <input type="checkbox" class="checkbox-toggle" name="can_filter" id="filter" {{isset($category)&&$category->can_filter==1?'checked':''}}/>
+                      <label class="label-checkbox" for="filter">Bộ lọc</label>
+                      <small class="form-text">Khi tính năng “Bộ lọc” được bật, danh mục này sẽ được chọn trong phần quản lý bộ lọc
+                      </small>
+                    </div>
 
                   </div>
 

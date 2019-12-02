@@ -52,6 +52,9 @@ class ProductCategoryController extends Controller
     public function store(ProductCategoryRequest $request)
     {
         $attributes = $this->service->appendCreateData($request->all());
+        $attributes['can_filter'] = $request->can_filter?1:0;
+        $attributes['is_highlight'] = $request->is_highlight?1:0;
+        $attributes['is_new'] = $request->is_new?1:0;
         $category = Category::create($attributes);
 
         $response = [
@@ -103,6 +106,9 @@ class ProductCategoryController extends Controller
     {
         // TODO: create form request
         $attributes = $this->service->appendEditData($request->all());
+        $attributes['can_filter'] = $request->can_filter?1:0;
+        $attributes['is_highlight'] = $request->is_highlight?1:0;
+        $attributes['is_new'] = $request->is_new?1:0;
         $category->fill($attributes);
         $category->save();
         $category->productAttributes()->sync($request->product_attributes);

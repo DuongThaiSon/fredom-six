@@ -15,6 +15,7 @@ class Filter extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'filter_category')
-        ->withTimestamps();
+            ->whereCanFilter('1')
+            ->withTimestamps();
     }
 }

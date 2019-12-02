@@ -66,7 +66,7 @@ class MenuSeeder extends Seeder
                 'type' => '5',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => 'gifts',
+                'link' => 'khuyen-mai',
                 'order' => '5',
                 'created_by' => '1',
             ]

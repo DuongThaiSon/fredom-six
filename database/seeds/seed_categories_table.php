@@ -297,14 +297,300 @@ class seed_categories_table extends Seeder
         DB::table('categories')->insert(
             [
                 'id' => '22',
-                'name' => 'Gifts',
+                'name' => 'Khuyến mãi',
                 'avatar' => 'gift.png',
                 'is_public' => '1',
                 'is_new' => '1',
                 'type' => 'product',
                 'order' => '22',
-                'slug' => 'gifts',
+                'slug' => 'khuyen-mai',
                 'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '23',
+                'name' => 'New Arrival',
+                'avatar' => 'leatherBag.png',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '23',
+                'slug' => 'new-arrival',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '24',
+                'name' => 'Bộ lọc',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'type' => 'product',
+                'order' => '24',
+                'slug' => 'bo-loc',
+                'parent_id' => '0',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '25',
+                'name' => 'Phong cách',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '25',
+                'slug' => 'phong-cach',
+                'parent_id' => '24',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '26',
+                'name' => 'Văn phòng',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '26',
+                'slug' => 'phong-cach',
+                'parent_id' => '25',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '27',
+                'name' => 'Đường phố',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '27',
+                'slug' => 'duong-pho',
+                'parent_id' => '25',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '28',
+                'name' => 'Kiểu mũi',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '28',
+                'slug' => 'kieu-mui',
+                'parent_id' => '24',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '29',
+                'name' => 'Mũi nhọn',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '29',
+                'slug' => 'mui-nhon',
+                'parent_id' => '28',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '30',
+                'name' => 'Mũi cong',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '30',
+                'slug' => 'mui-cong',
+                'parent_id' => '28',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '31',
+                'name' => 'Kiểu gót',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '31',
+                'slug' => 'kieu-got',
+                'parent_id' => '24',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '32',
+                'name' => 'Gót nhọn',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '32',
+                'slug' => 'got-nhon',
+                'parent_id' => '31',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '33',
+                'name' => 'Gót vuông',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '33',
+                'slug' => 'got-vuong',
+                'parent_id' => '31',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '34',
+                'name' => 'Đế xuồng',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '34',
+                'slug' => 'de-xuong',
+                'parent_id' => '31',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '35',
+                'name' => 'Độ cao',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '35',
+                'slug' => 'do-cao',
+                'parent_id' => '24',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '36',
+                'name' => 'Bệt',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '36',
+                'slug' => 'bet',
+                'parent_id' => '35',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '37',
+                'name' => '3cm',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '37',
+                'slug' => '3cm',
+                'parent_id' => '35',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '38',
+                'name' => '5cm',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '38',
+                'slug' => '5cm',
+                'parent_id' => '35',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '39',
+                'name' => '7cm',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '39',
+                'slug' => '7cm',
+                'parent_id' => '35',
+                'created_by' => '1',
+                'created_at' => '2019-11-19 02:17:29'
+            ]
+        );
+        DB::table('categories')->insert(
+            [
+                'id' => '40',
+                'name' => '9cm',
+                'avatar' => '',
+                'is_public' => '1',
+                'is_new' => '1',
+                'can_filter' => '1',
+                'type' => 'product',
+                'order' => '40',
+                'slug' => '9cm',
+                'parent_id' => '35',
                 'created_by' => '1',
                 'created_at' => '2019-11-19 02:17:29'
             ]

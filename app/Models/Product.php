@@ -27,7 +27,7 @@ class Product extends Model
 
     public function updater()
     {
-        return $this->belongsTo('App\Models\User', 'updated_by');
+        return $this->belongsTo('App\Models\User', 'updated_by')->withDefault();
     }
 
     public function productAttributeOptions()

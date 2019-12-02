@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'Gallery', 'title' => __('Gallery')])
+@extends('admin.layouts.main', ['activePage' => 'galleries-manage', 'title' => __('Gallery')])
 @section('content')
  <div id="main-content">
           <!-- Search Group Button -->

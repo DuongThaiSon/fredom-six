@@ -89,10 +89,11 @@ class ProductController extends Controller
             ['slug', $slug_cat]
         ])->firstOrFail();
         $category_id = $category->id;
-        $filters = Filter::where('is_public', 1)->get()->load(['categories' => function($q) use ($category_id) {
-            $q->where('parent_id', $category_id);
-        }]);
+        $filters = Filter::where('is_public', 1)->get()->load(['categories']);
 
+        // print_r($filters[0]->categories);die;
+
+        // print_r($filters->toArray());die;
         // $category = Category::whereType('product');
         // if ($slug_cat) {
         //     $category->whereSlug($slug_cat);
@@ -114,7 +115,7 @@ class ProductController extends Controller
         //     return $q;
         // });
 
-        return view('client.products.productCat', compact('category', 'products', 'filters', 'filterCategories'));
+        return view('client.products.productCat', compact('category', 'products', 'filters'));
     }
 
     public function like(Request $request)

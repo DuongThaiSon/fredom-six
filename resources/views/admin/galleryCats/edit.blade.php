@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'GalleryCats', 'title' => __('Category Detail')])
+@extends('admin.layouts.main', ['activePage' => 'galleriesCat', 'title' => __('Category Detail')])
 @section('content')
  <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
@@ -222,8 +222,8 @@
       </div>
 @endsection
 @push('js')
- <script>
+ {{--  <script>
     CKEDITOR.replace("description");
     CKEDITOR.replace("detail");
-</script>
+</script>  --}}
 @endpush

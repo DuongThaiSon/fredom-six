@@ -15,10 +15,10 @@ class MenuSeeder extends Seeder
             [
                 'id' => '1',
                 'name' => 'New Arrival',
-                'type' => '0',
+                'type' => '5',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/new-arrival',
+                'link' => 'new-arrival',
                 'order' => '1',
                 'created_by' => '1',
             ]
@@ -39,10 +39,10 @@ class MenuSeeder extends Seeder
             [
                 'id' => '3',
                 'name' => 'Nữ',
-                'type' => '0',
+                'type' => '5',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/products/san-pham-nu.htm',
+                'link' => 'san-pham-nu',
                 'order' => '3',
                 'created_by' => '1',
             ]
@@ -51,10 +51,10 @@ class MenuSeeder extends Seeder
             [
                 'id' => '4',
                 'name' => 'Nam',
-                'type' => '0',
+                'type' => '5',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/products/san-pham-nam.htm',
+                'link' => 'san-pham-nam',
                 'order' => '4',
                 'created_by' => '1',
             ]
@@ -62,11 +62,11 @@ class MenuSeeder extends Seeder
         DB::table('menus')->insert(
             [
                 'id' => '5',
-                'name' => 'Gifts',
-                'type' => '0',
+                'name' => 'Khuyến Mãi',
+                'type' => '5',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/products/gifts.htm',
+                'link' => 'gifts',
                 'order' => '5',
                 'created_by' => '1',
             ]

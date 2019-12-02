@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'GalleryCats', 'title' => __('Gallery Category')])
+@extends('admin.layouts.main', ['activePage' => 'galleriesCat-manage', 'title' => __('Gallery Category')])
 @section('content')
  <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">

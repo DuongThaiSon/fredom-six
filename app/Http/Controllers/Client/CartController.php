@@ -81,7 +81,7 @@ class CartController extends Controller
             $values = array(
                 'id' => $variant->id,
                 'name' => $product->name,
-                'price' => $variant->discount>0?($variant->price-$variant->discount*$variant->price/100):$variant->price,
+                'price' => $product->discount>0?($variant->price-$product->discount*$variant->price/100):$variant->price,
                 'quantity' => $request->quantity,
                 'attributes' => array(
                     'avatar' => $variant->avatar,

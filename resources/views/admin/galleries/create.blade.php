@@ -139,7 +139,7 @@
                   <div class="col-12">
                     <legend>Nội dung tóm tắt</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="description"></textarea>
+                      <textarea class="form-control ck-classic" name="description"></textarea>
                     </div>
                   </div>
                 </div>
@@ -150,7 +150,7 @@
         </div>
   @endsection
   @push('js')
- <script>
+ {{--  <script>
     CKEDITOR.replace("description");
-</script>
+</script>  --}}
 @endpush

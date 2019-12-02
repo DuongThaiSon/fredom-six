@@ -63,26 +63,22 @@
                             </small>
                         </div>
                         <div class="mb-2">
-                            <label class="control-label">Nổi bật</label>
+                            <label class="control-label">Hiển thị</label>
                             <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight" {{isset($category)&&$category->is_highlight==1?'checked':''}}/>
-                            <label class="label-checkbox" for="highlight">Nổi bật</label>
+                            <label class="label-checkbox" for="highlight">Hiển thị</label>
+                            <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                            hiện thị trên giao diện trang web
+                            </small>
                         </div>
-                        <small class="form-text">Khi tính năng “Nổi bật” được bật, bài viết này sẽ đc hiển
-                            thị trên trang chủ hoặc các điểm chỉ định trên giao
-                            diện.
-                        </small>
                         <div class="mb-2">
-                            <label class="control-label">Mới</label>
+                            <label class="control-label">Hiển thị</label>
                             <input type="checkbox" class="checkbox-toggle" name="is_new" id="new" {{isset($category)&&$category->is_new==1?'checked':''}}/>
-                            <label class="label-checkbox" for="new">Mới </label>
+                            <label class="label-checkbox" for="new">Hiển thị</label>
+                            <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                            hiện thị trên giao diện trang web
+                            </small>
                         </div>
-                        <small class="form-text">Khi tính năng “Mới” được bật, bài viết này sẽ đc hiển thị
-                            trên trang chủ hoặc các điểm chỉ định trên giao
-                            diện.
-                        </small>
-
                     </div>
-
                     <div class="col-lg-6">
                     <legend>Tối ưu hóa SEO</legend>
                     <div class="form-group">

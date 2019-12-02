@@ -85,7 +85,7 @@
             <div class="col-12">
               <legend>Nội dung</legend>
               <div class="form-group">
-                <textarea class="form-control" name="detail" >{{ $component->detail }}</textarea>
+                <textarea class="form-control ck-classic" name="detail" >{{ $component->detail }}</textarea>
               </div>
             </div>
           </div>
@@ -96,8 +96,8 @@
   </div>
 @endsection
 @push('js')
- <script>
+ {{--  <script>
     CKEDITOR.replace("description");
     CKEDITOR.replace("detail");
-</script>
+</script>  --}}
 @endpush

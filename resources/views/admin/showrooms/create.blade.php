@@ -106,7 +106,7 @@
         </div>
 
         <!-- CK Editor -->
-        <hr>
+        {{--  <hr>  
           <div class="row">
             <div class="col-12">
               <legend>Nội dung</legend>
@@ -114,8 +114,8 @@
                 <textarea class="form-control" name="detail"></textarea>
               </div>
             </div>
-          </div>
-          <hr>
+          </div>  
+          <hr>--}}
         </div>
       </form>
     </div>

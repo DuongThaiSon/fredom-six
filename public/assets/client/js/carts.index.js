@@ -31,24 +31,22 @@ $(document).ready(function() {
         }
       });
 
-      $('.btn-add-cart').click(function (e) {
+    $('.btn-add-cart').click(function(e)
+      {
         e.preventDefault();
-
         let data = {
             id: $(this).attr('data-id'),
             quantity: 1,
-            size: $('input[name=size]').val(),
-            color: $('input[name=color]').val()
         };
         $.ajax({
           url: '/cart/add',
           method: 'POST',
           data: data,
-          success: function (scs) {
+          success: function(scs){
             $('.cart-items').text(scs.quantity);
             $('.cart-quantity').text(scs.quantity);
           },
-          error: function () {
+          error: function(){
 
           }
 

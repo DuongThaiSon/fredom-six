@@ -32,7 +32,7 @@
       <!-- Invoice-->
 <div class="container" id="cart-complete" style="margin-top: 150px;" >
     <div class="row">
-      <div class="col-lg-8 mx-auto">
+      <div class="col-lg-12 mx-auto">
           <div class="col-12 alert alert-success">Thông tin đã được gửi tới email của bạn. Dưới đây là hóa đơn thanh toán đơn hàng của bạn</div>
             <div class="form-group col-md-12 ">
               <div class="row">
@@ -61,7 +61,7 @@
             <div class="form-group col-md-12 ">
               <div class="row">
                 <div class="col-4" style="font-weight: bold;">Phương thức vận chuyển: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price) ?? ''}} vnđ</div>
+                <div class="col-8" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price ?? '0') ?? ''}} vnđ</div>
               </div>
             </div>
             <div class="form-group col-md-12 ">
@@ -78,10 +78,12 @@
 
                         <tr class="" style="background: #ffa500; color: white;">
                           <th style="border: 1px solid black !important" class="w-5">STT</th>
-                          <th style="border: 1px solid black !important" class="w-25">Sản phẩm</th>
-                          <th style="border: 1px solid black !important" class="w-20">Số lượng</th>
-                          <th style="border: 1px solid black !important" class="w-25">Giá</th>
-                          <th style="border: 1px solid black !important" class="w-25">Thành tiền</th>
+                          <th style="border: 1px solid black !important" class="w-35">Sản phẩm</th>
+                          <th style="border: 1px solid black !important" class="w-10">Màu</th>
+                          <th style="border: 1px solid black !important" class="w-10">Kích cỡ</th>
+                          <th style="border: 1px solid black !important" class="w-10">SL</th>
+                          <th style="border: 1px solid black !important" class="w-15">Giá</th>
+                          <th style="border: 1px solid black !important" class="w-15">Thành tiền</th>
 
                         </tr>
                       </thead>
@@ -89,10 +91,12 @@
                         @forelse ($order->cartItems as $cartItem)
                         <tr style="border: 1px solid black !important">
                           <td style="border: 1px solid black !important" class="w-5">{{ $loop->iteration }}</td>
-                          <td style="border: 1px solid black !important" class="w-25">{{ $cartItem->product->name ??'' }}</td>
-                          <td style="border: 1px solid black !important" class="w-20">{{ $cartItem->quantity ??'' }}</td>
-                          <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->price) ??'' }}&nbsp;đ</td>
-                          <td style="border: 1px solid black !important" class="w-25">{{ number_format($cartItem->quantity * $cartItem->price) ??'' }}&nbsp;đ</td>
+                          <td style="border: 1px solid black !important" class="w-35">{{ $cartItem->product->name ??'' }}</td>
+                          <td style="border: 1px solid black !important" class="w-10">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 2)->note ?? ''}}</td>
+                          <td style="border: 1px solid black !important" class="w-10">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 3)->value ?? '' }}</td>
+                          <td style="border: 1px solid black !important" class="w-10">{{ $cartItem->quantity ??'' }}</td>
+                          <td style="border: 1px solid black !important" class="w-15">{{ number_format($cartItem->price) ??'' }}&nbsp;đ</td>
+                          <td style="border: 1px solid black !important" class="w-15">{{ number_format($cartItem->quantity * $cartItem->price) ??'' }}&nbsp;đ</td>
                         </tr>
                         @empty
                         <tr>
@@ -103,13 +107,15 @@
                         @endforelse
                         <tr style="border: 1px solid black !important">
                           <th style="border: 1px solid black !important" colspan="2">Tổng</th>
-                          <th style="border: 1px solid black !important" class="w-20">{{ $order->cartItems->sum('quantity') }}</th>
-                          <th style="border: 1px solid black !important" class="w-25"></th>
-                          <th style="border: 1px solid black !important" class="w-25">{{ number_format($order->sum) }}&nbsp;đ</th>
+                          <th style="border: 1px solid black !important" class="w-10"></th>
+                          <th style="border: 1px solid black !important" class="w-10"></th>
+                          <td style="border: 1px solid black !important" class="w-10">{{ $order->cartItems->sum('quantity') }}</td>
+                          <td style="border: 1px solid black !important" class="w-15"></td>
+                          <th style="border: 1px solid black !important" class="w-15">{{ number_format($order->sum) }}&nbsp;đ</th>
                         </tr>
                         <tr style="border: 1px solid black !important">
-                            <th style="border: 1px solid black !important" colspan="4">Tổng giá trị *</th>
-                            <th style="border: 1px solid black !important" >{{ number_format($order->sum + $order->partner->price) }}&nbsp;đ</th>
+                            <th style="border: 1px solid black !important" colspan="6">Tổng giá trị *</th>
+                            <th style="border: 1px solid black !important" >{{ number_format($order->sum + ($order->partner->price ?? '0')) }}&nbsp;đ</th>
                         </tr>
                       </tbody>
                     </table>
@@ -118,8 +124,7 @@
               </div>
             </div>
       </div>
-
-    </div>
+</div>
 </div>
 </section>
 @endsection

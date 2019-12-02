@@ -3084,11 +3084,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productAttributeCore", function() { return productAttributeCore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCore", function() { return productCore; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategoriesCore", function() { return productCategoriesCore; });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 var productAttributeCore =
 /*#__PURE__*/
@@ -3245,6 +3248,7 @@ function () {
         e.preventDefault();
         var makeVariationUrl = $(this).attr("data-href");
         var makeVariationData = $(".attribute-selectpicker").val();
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
         $.ajax({
           url: makeVariationUrl,
           method: "POST",
@@ -3255,6 +3259,14 @@ function () {
             $(".product-variants-list").html(resolve);
 
             _this.initVariantAction();
+
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+              title: "Thành công!",
+              type: "success",
+              text: "Tạo biến thể thành công!",
+              confirmButtonClass: "btn btn-success",
+              buttonsStyling: false
+            });
           }
         });
       });
@@ -3359,7 +3371,7 @@ function () {
             },
             error: function error(err) {
               if (err.status === 403) {
-                Swal.fire({
+                sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
                   title: "Lỗi!",
                   type: "error",
                   confirmButtonClass: "btn btn-danger",
@@ -3429,7 +3441,7 @@ function () {
 
             _this.initVariantAction();
 
-            Swal.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
           }
         });
       });
@@ -3443,7 +3455,7 @@ function () {
       $(".btn-delete-variant").on("click.deleteVariant", function (e) {
         e.preventDefault();
         var deleteUrl = $(this).attr("data-href");
-        Swal.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
           title: 'Xóa biến thể',
           text: 'Bạn có chắc chắn muốn thực hiện hành động này?',
           showCancelButton: true,
@@ -3459,7 +3471,7 @@ function () {
                 _method: 'DELETE'
               },
               success: function success(resolve) {
-                Swal.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
+                sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
                 $(".product-variants-list").html(resolve);
 
                 _this.initVariantAction();
@@ -3973,7 +3985,7 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/products.edit.js */"./resources/js/admin/products.edit.js");
+module.exports = __webpack_require__(/*! D:\Projects\leotive-cms-v3\resources\js\admin\products.edit.js */"./resources/js/admin/products.edit.js");
 
 
 /***/ })

@@ -127,6 +127,7 @@ class ProductVariantController extends Controller
             'type' => 'VARIATION',
             'quantity' => $product->quantity,
             'price' => $product->price,
+            'avatar' => $product->avatar,
             'unit' => $product->unit,
             'order' => Product::max('order')+1,
             'created_by' => auth()->id(),
@@ -183,7 +184,7 @@ class ProductVariantController extends Controller
     private function saveAttributeProductValue($product, $attributeOptionIds, $variation)
     {
         $optionModels = ProductAttributeOption::find($attributeOptionIds);
-        foreach ($optionModels as $optionModel) {     
+        foreach ($optionModels as $optionModel) {
             ProductAttributeValue::firstOrCreate([
                 'product_id' => $product->id,
                 'product_attribute_id' => $optionModel->productAttribute->id,
@@ -230,7 +231,7 @@ class ProductVariantController extends Controller
             'price' => 'numeric',
             'product_code' => 'unique:'.(new Product)->getTable().',product_code,'.$variant->id,
             'quantity' => 'numeric',
-            'avatar' => 'sometimes|image' 
+            'avatar' => 'sometimes|image'
         ]);
 
         $attributes = $request->only([
@@ -272,14 +273,14 @@ class ProductVariantController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product, Product $variant)
-    {        
+    {
         $variant->delete();
         return view('admin.productVariants.index', [
             'products' => $product->variants()->get()->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id)),
             'product' => $product
         ]);
     }
-    
+
     /**
      * Reorder variant
      */

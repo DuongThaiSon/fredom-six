@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Review;
 use App\Models\Category;
+use App\Models\Filter;
 use App\Models\ProductAttribute;
 use App\Models\Like;
 
@@ -15,12 +16,12 @@ class ProductController extends Controller
     public function newArrival(Request $request)
 
     {
-        $productNew = Product::where([['is_new', 1],['is_public', 1]])->with(['categories','productAttributeValues', 'productAttributeValues.productAttribute'])->paginate(16);
+        $productNew = Product::where([['is_new', 1],['is_public', 1]])->with(['categories'])->paginate(16);
         $productNew = $productNew->map(function($q) {
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
-        
+
         return view('client.products.newArrival', compact('productNew'));
     }
     Public function detail($slug_cat = null, $slug_view = null)
@@ -34,8 +35,9 @@ class ProductController extends Controller
             $q->rate = $q->reviews()->avg('rate');
             return $q;
         });
-        
-        $product = Product::with(['productAttributeValues', 'productAttributeValues.productAttribute', 'comments', 'images'])->where('slug', $slug_view)->firstOrFail();
+        // print_r($products->toArray());die;
+        $product = Product::with(['comments', 'images'])->where('slug', $slug_view)->firstOrFail();
+        // print_r($product);die;
         $rating = $product->reviews()->avg('rate');
         return view('client.products.detail', compact('product', 'category', 'products', 'rating'));
     }
@@ -45,39 +47,74 @@ class ProductController extends Controller
             'email' => 'required|email',
             'detail' => 'required',
         ]);
-        $atrributes = $request->only([
+        $attributes = $request->only([
             'email', 'detail'
         ]);
 
-        $review = new Review($atrributes);
-        $review->fill($atrributes);
+        $review = new Review($attributes);
+        $review->fill($attributes);
         $review->save();
         return redirect()->back();
     }
     public function productCat($slug_cat = null, Request $request)
     {
-        $category = Category::whereType('product');
-        if ($slug_cat) {
-            $category->whereSlug($slug_cat);
-        }
-        if($request->term)
+        // print_r($request->all());die;
+        $products = Product::query();
+        if($request->categories)
         {
-            $ids = explode(",", $request->term);
-            $category = $category->with(['products' => function($q) use ($ids) {
-                $q->whereHas('productAttributeOptions', function ($q) use ($ids){
-                    return $q->whereIn('id', $ids);
-                });
-            }, 'productAttributes.productAttributeOptions']);
-        } else {
-            $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
+            $categories = $request->categories;
+            $products = $products->whereHas('categories', function($q) use ( $categories) {
+                return $q->whereIn('id', $categories);
+            });
+            // print_r($products->toArray());die;
         }
-        $category = $category->firstOrFail();
-        $products = $category->products->map(function($q) {
-            $q->rate = $q->reviews()->avg('rate');
-            return $q;
-        });
-        
-        return view('client.products.productCat', compact('category', 'products'));
+        if($request->properties)
+        {
+            $properties = $request->properties; // STOP HERE ALREADY SEARCH PROPERTIES AND FILTER
+            // print_r($properties);die;
+            $products = $products->whereHas('productAttributeOptions', function($q) use ($properties) {
+                return $q->whereIn('product_attribute_option_id', $properties);
+            });
+        }
+        else
+        {
+            $products = $products->whereHas('categories', function($q) use ($slug_cat) {
+                return $q->where('slug', $slug_cat);
+            });
+        }
+        $products = $products->get()->load([ 'productAttributeOptions']);
+
+        $category = Category::where([
+            ['type', 'product'],
+            ['slug', $slug_cat]
+        ])->firstOrFail();
+        $category_id = $category->id;
+        $filters = Filter::where('is_public', 1)->get()->load(['categories' => function($q) use ($category_id) {
+            $q->where('parent_id', $category_id);
+        }]);
+
+        // $category = Category::whereType('product');
+        // if ($slug_cat) {
+        //     $category->whereSlug($slug_cat);
+        // }
+        // if($request->term)
+        // {
+        //     $ids = explode(",", $request->term);
+        //     $category = $category->with(['products' => function($q) use ($ids) {
+        //         $q->whereHas('productAttributeOptions', function ($q) use ($ids){
+        //             return $q->whereIn('id', $ids);
+        //         });
+        //     }, 'productAttributes.productAttributeOptions']);
+        // } else {
+        //     $category = $category->with(['products', 'productAttributes.productAttributeOptions']);
+        // }
+        // $category = $category->firstOrFail();
+        // $products = $category->products->map(function($q) {
+        //     $q->rate = $q->reviews()->avg('rate');
+        //     return $q;
+        // });
+
+        return view('client.products.productCat', compact('category', 'products', 'filters', 'filterCategories'));
     }
 
     public function like(Request $request)

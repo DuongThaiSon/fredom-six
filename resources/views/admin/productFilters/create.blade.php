@@ -37,7 +37,7 @@
           </div>
           <div class="form-group">
             <label>Thuộc tính</label>
-            <select 
+            <select
             required
             name="category[]"
             data-selected-text-format="count > 2"
@@ -61,7 +61,7 @@
               class="checkbox-toggle"
               name="is_public"
               id="public"
-              value=""/>
+              value="1"/>
             <label class="label-checkbox" for="public">Hiển thị</label>
             <small class="form-text">Khi tính năng được bật, thuộc tính sẽ được hiển thị trên bộ lọc.</small>
           </div>

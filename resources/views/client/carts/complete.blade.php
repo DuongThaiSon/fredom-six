@@ -7,7 +7,7 @@
       <div class="steps">
         <div class="row">
           <div class="col-lg-4 col-4 ">
-            <div class="step-1 textlg-- col-12center">
+            <div class="step-1 text-center">
               <div class="orange-circle mx-auto text-white active"><span class="number">01</span></div>
               <p class="text-uppercase font-weight-bold">giỏ hàng</p>
             </div>
@@ -30,11 +30,11 @@
     </div>
 
       <!-- Invoice-->
-<div class="container" id="cart-complete" style="margin-top: 150px;" >
+<div class="container" id="cart-complete" style="margin-top: 100px;" >
     <div class="row">
       <div class="col-lg-12 mx-auto">
-          <div class="col-12 alert alert-success">Thông tin đã được gửi tới email của bạn. Dưới đây là hóa đơn thanh toán đơn hàng của bạn</div>
-            <div class="form-group col-md-12 ">
+          <div class="col-12 alert alert-success text-justify"> Cảm ơn bạn đã mua hàng tại Moolez. Thông đơn hàng đã được gửi tới email của bạn. Vui lòng kiểm tra Email.</div>
+            {{--  <div class="form-group col-md-12 ">
               <div class="row">
                 <div class="col-lg-4 col-12" style="font-weight: bold;">Tên người mua hàng: </div>
                 <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->first_name ?? ''}} {{ $order->last_name ?? '' }} </div>
@@ -60,8 +60,8 @@
             </div>
             <div class="form-group col-md-12 ">
               <div class="row">
-                <div class="col-4" style="font-weight: bold;">Phương thức vận chuyển: </div>
-                <div class="col-8" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price ?? '0') ?? ''}} vnđ</div>
+                <div class="col-lg-4 col-12" style="font-weight: bold;">Phương thức vận chuyển: </div>
+                <div class="col-lg-8 col-12" style="font-style: italic;">{{ $order->partner->name ?? ''}} : {{ number_format($order->partner->price ?? '0') ?? ''}} vnđ</div>
               </div>
             </div>
             <div class="form-group col-md-12 ">
@@ -122,7 +122,7 @@
                     <small>* Là tổng đơn hàng + tiền vận chuyển</small>
                   </div>
               </div>
-            </div>
+            </div>  --}}
       </div>
 </div>
 </div>

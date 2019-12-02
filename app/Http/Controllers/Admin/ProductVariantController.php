@@ -138,7 +138,7 @@ class ProductVariantController extends Controller
             return $q->note??$q->value;
         })->implode(" ");
         $data['name'] .= ' ' . $optionValues;
-        $data['product_code'] = Str::slug($data['name']);
+        $data['product_code'] = $product->product_code;
         $data['slug'] = Str::slug($data['name']);
         $variation = Product::create($data);
         $this->saveAttributeProductValue($product, $options, $variation);

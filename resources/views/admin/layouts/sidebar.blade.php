@@ -115,15 +115,15 @@
                         <a href="{{ route('admin.galleries.create') }}" class="nav-link menu-galleries"> Tạo album ảnh mới</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.galleries.index')}}" class="nav-link"> Quản lý album ảnh</a>
+                    <a href="{{route('admin.galleries.index')}}" class="nav-link menu-galleries-manage"> Quản lý album ảnh</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.gallery-categories.create')}}" class="nav-link">
+                    <a href="{{route('admin.gallery-categories.create')}}" class="nav-link menu-galleriesCat">
                         Thêm mới danh mục album ảnh</a
                     >
                     </li>
                     <li class="nav-item">
-                    <a href="{{route('admin.gallery-categories.index')}}" class="nav-link"> Quản lý danh mục album ảnh</a>
+                    <a href="{{route('admin.gallery-categories.index')}}" class="nav-link menu-galleriesCat-manage"> Quản lý danh mục album ảnh</a>
                     </li>
                 </ul>
                 </div>

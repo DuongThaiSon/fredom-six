@@ -65,9 +65,9 @@
       </div>
     </div>
     <div class="row  mt-4" style="color: #a3a3a3; font-size: 13px;">
-      <div class="col-4 col-12 pt-3">{!! $customer->detail ?? '' !!}</div>
-      <div class="col-5 col-12 pt-3">{!! $workTime->detail ?? '' !!}</div>
-      <div class="chart col-3 mb-5">
+      <div class="col-lg-4 col-12 pt-3">{!! strip_tags($customer->detail) ?? '' !!}</div>
+      <div class="col-lg-5 col-12 pt-3">{!! strip_tags($workTime->detail) ?? '' !!}</div>
+      <div class="chart col-lg-3 mb-5">
         <a href=""><img src="{{ asset('assets/client') }}/img/chart.png" alt=""></a>
       </div>
     </div>

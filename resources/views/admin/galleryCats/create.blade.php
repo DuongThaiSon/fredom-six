@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'GalleryCats', 'title' => __('Category Detail')])
+@extends('admin.layouts.main', ['activePage' => 'galleriesCat', 'title' => __('Category Detail')])
 @section('content')
  <div id="main-content">
           <div class="container-fluid" style="background: #e5e5e5;">
@@ -193,7 +193,7 @@
                   <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="description"></textarea>
+                      <textarea class="form-control ck-classic" name="description"></textarea>
                     </div>
                   </div>
                 </div>
@@ -204,7 +204,7 @@
         </div>
 @endsection
 @push('js')
- <script>
+ {{--  <script>
     CKEDITOR.replace("description");
-</script>
+</script>  --}}
 @endpush

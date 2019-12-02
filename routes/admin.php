@@ -388,7 +388,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     });
     Route::post('products-filters/delete', [
         'as' => 'admin.products-filters.delete',
-        'uses' => 'FilterController@delete'
+        'uses' => 'FilterController@deleteMany'
     ]);
     Route::resource('products-filters', 'FilterController', [
         'parameters' => ['products-filters' => 'filters']

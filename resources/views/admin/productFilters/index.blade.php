@@ -12,12 +12,12 @@
                         note_add
                     </i>
                 </a>
-                {{-- <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"
+                {{--  <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"
                     target="_blank" id="btn-del-all">
                     <i class="material-icons">
                         delete_forever
                     </i>
-                </button> --}}
+                </button>  --}}
             </div>
 
             <!-- TABLE -->
@@ -25,11 +25,11 @@
                 <table class="table-sm table-hover table mb-2" width="100%">
                     <thead>
                         <tr class="text-muted">
-                            <th class="text-center" width="5%">
+                            {{--  <th  width="5%" class="text-center">
                                 <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                                     <i class="material-icons text-muted">check_box_outline_blank</i>
                                 </a>
-                            </th>
+                            </th>  --}}
                             <th width="5%">#</th>
                             <th width="35%">Tên bộ lọc</th>
                             <th width="10%">Hiển thị</th>
@@ -41,9 +41,9 @@
                     <tbody class="sort">
                         @forelse ($filters as $item)
                         <tr id="item_" class="ui-state-default">
-                            <td class="text-center">
-                                <input type="checkbox" class="checkdel" value="" data-id="{{ $item->id }}" />
-                            </td>
+                            {{--  <td class="text-center">
+                                <input type="checkbox" class="checkdel form-check-input" name=id[] value="{{$item->id}}" delid="{{$item->id}}" data-id="{{ $item->id }}" />
+                            </td>  --}}
                             <td>{{ $loop->iteration }}</td>
                             <td class="editname">
                                 <a href="">{{ $item->name }}</a>
@@ -91,5 +91,9 @@
 
 @endsection
 @push('js')
-
+<script>
+    $(document).ready(function () {
+        core.deleteMultipleItems('/admin/products-filters/delete/');
+    });
+</script>
 @endpush

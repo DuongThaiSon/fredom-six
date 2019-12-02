@@ -54,7 +54,7 @@ class FilterController extends Controller
         $attributes = $request->only([
             'name'
         ]);
-        $attributes['is_public'] = array_key_exists('is_public', $attributes)?'1':'0';
+        $attributes['is_public'] = $request->has('is_public')?1:0;
         $attributes['created_by'] = Auth::id();
         $filters = Filter::create($attributes);
         $filters->categories()->sync($request->category);
@@ -125,8 +125,13 @@ class FilterController extends Controller
         Filter::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
     }
-    public function delete($id)
+    public function deleteMany(Request $request)
     {
-        //
+        $filters = explode(",",$request->ids);
+        foreach ($filters as $filter) {
+            Filter::findOrFail($filter)->delete();
+        }
+        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
     }
+    
 }

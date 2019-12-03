@@ -26,7 +26,7 @@
             <thead>
               <tr>
                 <th style="width: 40px;">ID</th>
-                <th>Gửi đi khi</th>
+                {{-- <th>Gửi đi khi</th> --}}
                 <th>Tiêu đề</th>
                 <th style="width: 100px;">Thao tác</th>
               </tr>
@@ -35,7 +35,7 @@
                 @foreach ($email_content as $eco)
               <tr>
                 <td>{{ $eco->id }}</td>
-                <td>{{ $eco->send_when }}</td>
+                {{-- <td>{{ $eco->send_when }}</td> --}}
                 <td>{{ $eco->name }}</td>
                 <td class="text-center">
                   <div class="btn-group">

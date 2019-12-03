@@ -127,12 +127,12 @@ class SettingController extends Controller
         $request->validate([
             'name' => 'required',
             'detail' => 'required',
-            'need_value' => 'required'
+            // 'need_value' => 'required'
         ],
         [
             'name.required' => 'Tiêu để không được để trống',
             'detail.required' => 'Nội dung không được để trống',
-            'need_value.required' => 'Giá trị không được để trống'
+            // 'need_value.required' => 'Giá trị không được để trống'
         ]);
         $attributes = $this->service->emailContent($request);
         $email_content = EmailContent::create($attributes);

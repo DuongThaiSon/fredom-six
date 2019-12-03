@@ -39,8 +39,8 @@
             </a>
           </div>
           <div class="row">
-            <div class="col">
-              <div class="form-group">
+            <div class="col-12">
+              {{-- <div class="form-group">
                 <label>Email được gửi khi</label>
                 <input
                   type="text"
@@ -66,7 +66,7 @@
                 <small class="form-text"
                   >Các giá trị cần có trong nội dung.Ví dụ:Tên,số điện thoại,địa chỉ...</small
                 >
-              </div>
+              </div> --}}
               <div class="form-group">
                 <label>Tiêu đề</label>
                 <input

@@ -3,6 +3,7 @@
 namespace App\Http\View\Composers;
 
 use App\Models\SeoTool;
+use App\Models\Setting;
 use Illuminate\View\View;
 
 class MainComposer
@@ -15,7 +16,8 @@ class MainComposer
      */
     public function compose(View $view)
     {
+        $settings = Setting::first();
         $scripts = SeoTool::get();
-        $view->with(compact('scripts'));
+        $view->with(compact('scripts', 'settings'));
     }
 }

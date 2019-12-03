@@ -50142,6 +50142,7 @@ $(document).ready(function () {
 
   $(".date-picker").flatpickr({});
   changeAttributeValueOnCheckboxToggle();
+  CKFinder.setupCKEditor();
 });
 
 function readUploadFileName(input) {

@@ -1,4 +1,35 @@
 @media only screen and (max-width: 767px) and (min-width: 300px) {
+  #product-option .options .nav {
+    display: none;
+  }
+  .filter-responsive {
+    display: block !important;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 700;
+    background: #000000;
+    width: 100%;
+    padding: 9px 18px;
+  }
+  #product-option .options .checkbox-option {
+    width: 100% !important;
+    margin-left: 0% !important;
+    top: 100%;
+  }
+  #product-option .all-options {
+    flex-direction: column !important;
+  }
+  .all-options .product-filter{
+    display: block !important;
+    font-weight: bold;
+  }
+  #product-option .style-options {
+    display: flex;
+    flex-direction: row !important;
+  }
+  #product-option .checkbox-container {
+    margin-right: 10px;
+  }
   h1 {
     font-size: 40px !important; }
 
@@ -572,7 +603,38 @@
   
 }
 
-@media only screen and (min-width: 768px) and (max-width: 990px ) {
+@media only screen and (min-width: 768px) and (max-width: 991px ) {
+  #product-option .options .nav {
+    display: none;
+  }
+  .filter-responsive {
+    display: block !important;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 700;
+    background: #000000;
+    width: 100%;
+    padding: 9px 18px;
+  }
+  #product-option .options .checkbox-option {
+    width: 100% !important;
+    margin-left: 0% !important;
+    top: 100%;
+  }
+  #product-option .all-options {
+    flex-direction: column !important;
+  }
+  .all-options .product-filter{
+    display: block !important;
+    font-weight: bold;
+  }
+  #product-option .style-options {
+    display: flex;
+    flex-direction: row !important;
+  }
+  #product-option .checkbox-container {
+    margin-right: 10px;
+  }
   .navbar .cart-icon, .navbar .search-header, .navbar .search {
     display: none;
   }  

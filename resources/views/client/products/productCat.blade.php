@@ -18,6 +18,12 @@
 <div id="showcase" style="overflow: hidden;">
     <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $category->avatar }}" style="width: 100%; background-position: top;" alt="">
 </div>
+{{--Filter --}}
+<div class="filter-responsive d-none">
+        <span class="ml-2"><i class="fas fa-filter"></i></span>
+        <a href="#" id="filter-button">Bô lọc</a>
+        <i class="fas fa-chevron-down float-right"></i>
+</div>
 <!-- product -->
 <section id="product-option">
     <div class="container">
@@ -42,10 +48,11 @@
 
                     <form action="{{ route('client.products.category', $category->slug) }}" method="GET" enctype="text/plain">
                         <div class="all-options d-flex">
-                            <!-- styles -->
+                            <!-- styles -->   
                             @forelse ($filters as $filter)
+                            <p class="d-none product-filter">Title</p>
                             <div class="style-options flex-column flex-wrap align-self-start" style="margin-inline-end: 60px;">
-                                @forelse ($filter->categories as $filterCategory)
+                                @forelse ($filter->categories as $filterCategory)                               
                                 <label class="checkbox-container">
                                     <input type="checkbox" class="checkbox-product" name="categories[]" value="{{ $filterCategory->id }}">
                                     <span class="checkmark"></span>
@@ -62,7 +69,7 @@
                             @endforelse
 
                             @forelse ($category->productAttributes as $attribute)
-
+                            <p class="d-none product-filter">Title</p>
                             <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
                                 @forelse ($attribute->productAttributeOptions as $attributeValue)
 

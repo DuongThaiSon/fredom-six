@@ -75,7 +75,7 @@
     <!-- navbar -->
     {{-- @include('client.layouts.header.nav') --}}
     <div id="navbar">
-        <nav class="navbar navbar-expand-md">
+        <nav class="navbar navbar-expand-lg">
         <div class="container">
             <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                 <i class="fas fa-bars text-white pr-2"></i>
@@ -87,19 +87,23 @@
             <ul class="navbar-nav ml-auto">
                 @foreach ($menuTop as $item)
                     <li class="nav-item pl-lg-5">
-                        <a href="{{ $item->type == 5 || $item->type == 8 ? route('client.products.category', ['slug_cat' => $item->link]) : ($item->type == 4 ? route('client.news.detail', ['slug_view' => $item->link]) : $item->link) }}" class="nav-link text-uppercase">{{ $item->name }}
-                            @if ($item->sub->count())
-                            <i class="fas fa-chevron-down"></i>
-                            @endif
+                        <a href="{{ $item->type == 5 || $item->type == 8 ? route('client.products.category', ['slug_cat' => $item->link]) : ($item->type == 4 ? route('client.news.detail', ['slug_view' => $item->link]) : $item->link) }}" class="nav-link text-uppercase float-left d-inline-block">{{ $item->name }}   
                         </a>
                         @if ($item->sub->count())
+                            <i class="fas fa-chevron-down toggle-icon"></i>
+                        @endif
+                        @if ($item->sub->count())
+                        <div class="clear"></div>
                         <div class="submenu">
                             <div style="background: #000000; width: 200px; height:17px;"></div>
                             @foreach ($item->sub as $subitem)
                             <div class="submenu-parent">
-                                <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : ($subitem->type == 4 ? route('client.news.detail', ['slug_view' => $subitem->link]) : $subitem->link) }}" class="submenu-item">
+                                <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : ($subitem->type == 4 ? route('client.news.detail', ['slug_view' => $subitem->link]) : $subitem->link) }}" class="submenu-item d-inline-block">
                                     <p class="m-0">{{ $subitem->name }}</p>
                                 </a>
+                                @if ($subitem->sub->count())
+                                <i class="fas fa-chevron-down d-none toggle-icon-sub"></i>
+                            @endif
                                 @if ($subitem->sub->count())
                                 <div class="second-submenu">
                                     @foreach ($subitem->sub as $secondsub)

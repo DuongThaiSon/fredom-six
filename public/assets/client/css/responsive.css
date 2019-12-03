@@ -1,8 +1,43 @@
-@media only screen and (max-width: 767px) and (min-width: 300px) {
+@media (max-width: 767px) and (min-width: 300px) {
+  /* #header #navbar .navbar-nav .nav-item:hover > .submenu {
+    display: none; }
+    #header #navbar .submenu .submenu-parent:hover .second-submenu {
+            display: none; } */
+  #header #navbar .submenu .submenu-item p {
+    font-size: 15px;
+  }
+  #navbar .submenu .submenu-parent .second-submenu {
+    position: unset !important;
+    margin-left: 40px;
+  }
+  #navbar .submenu .submenu-parent {
+    width: 100%;
+  }
+
+  #navbar .submenu .submenu-parent a {
+    width: 90% !important;
+  }
+
+  #navbar .submenu .submenu-parent i {
+   display: inline-block !important;
+   top: 1px;
+   font-size: 10px !important ;
+  }
+
+
+  #navbar i.fa-chevron-down {
+    margin-left: 10px;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 13px;
+  }
   #navbar .submenu {
     position: unset !important;
     width: 100% !important;
+    background: transparent !important;
   } 
+
+
   #navbar .submenu div:first-child {
     display: none !important;
   }
@@ -625,6 +660,48 @@
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px ) {
+  /* #header #navbar .navbar-nav .nav-item:hover > .submenu {
+    display: none; }
+    #header #navbar .submenu .submenu-parent:hover .second-submenu {
+            display: none; } */
+  #header #navbar .submenu .submenu-item p {
+    font-size: 15px;
+  }
+  #navbar .submenu .submenu-parent .second-submenu {
+    position: unset !important;
+    margin-left: 40px;
+  }
+  #navbar .submenu .submenu-parent {
+    width: 100%;
+  }
+
+  #navbar .submenu .submenu-parent a {
+    width: 90% !important;
+  }
+
+  #navbar .submenu .submenu-parent i {
+   display: inline-block !important;
+   top: 1px;
+   font-size: 10px !important ;
+  }
+
+
+  #navbar i.fa-chevron-down {
+    margin-left: 10px;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 13px;
+  }
+  #navbar .submenu {
+    position: unset !important;
+    width: 100% !important;
+    background: transparent !important;
+  } 
+
+
+  #navbar .submenu div:first-child {
+    display: none !important;
+  }
   #product-option .options .nav {
     display: none;
   }

@@ -42,6 +42,18 @@ body {
     margin-left: unset !important;
   }
 
+  #toTop {
+    padding: 5px 10px;
+    background: #000;
+    color: #BABABA;
+    position: fixed;
+    bottom: 100px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    z-index: 9999;
+    opacity: 0.9;
+  }
 #header .head-hotline {
   color: #a3a3a3;
   background-color: #000000;
@@ -511,4 +523,14 @@ body {
     line-height: 2.5; }
     .dropdown-menu.show {
       left: -25px !important;
+  }
+
+  #navbar i.fa-chevron-down {
+    position: relative;
+    top: 6px;
+    font-size: 10px;
+  }
+
+  #navbar i.fa-chevron-down:hover {
+    color: #e36b00;
   }

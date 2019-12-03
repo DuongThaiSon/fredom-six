@@ -22,7 +22,7 @@
 <div class="filter-responsive d-none">
         <span class="ml-2"><i class="fas fa-filter"></i></span>
         <a href="#" id="filter-button">Bô lọc</a>
-        <i class="fas fa-chevron-down float-right"></i>
+        <i class="fas fa-chevron-down float-right" style="line-height: 20px"></i>
 </div>
 <!-- product -->
 <section id="product-option">

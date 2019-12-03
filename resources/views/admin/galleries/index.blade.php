@@ -143,34 +143,7 @@
 
           </div>
           <!-- Pagination -->
-          <ul class="pagination float-left mt-4">
-              <li class="page-item">
-                <a class="page-link" style="padding-top:4px;">
-                  <i class="material-icons">
-                    chevron_left
-                  </i>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link">1</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link">...</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link">4</a>
-              </li>
-              <li class="page-item">
-                  <a class="page-link" style="padding-top:4px;">
-                      <i class="material-icons">
-                        chevron_right
-                      </i>
-                    </a>
-              </li>
-            </ul>
+          
 
             <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc" target="_blank" class="float-right mt-4">
                 <i class="material-icons">

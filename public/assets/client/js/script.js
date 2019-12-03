@@ -160,5 +160,5 @@ $(document).ready(function () {
   // });
 });
 $(".filter-responsive").on('click', function () {
-  $(".checkbox-option").slideToggle();
+  $(".checkbox-option").fadeToggle(500);
 })

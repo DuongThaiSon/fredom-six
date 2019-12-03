@@ -1,7 +1,28 @@
 @media only screen and (max-width: 767px) and (min-width: 300px) {
+  #navbar .submenu {
+    position: unset !important;
+    width: 100% !important;
+  } 
+  #navbar .submenu div:first-child {
+    display: none !important;
+  }
+
+  .head-hotline .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   #product-option .options .nav {
     display: none;
   }
+  #dropdownMenuLink {
+    display: none;
+  }
+
+  .line {
+    margin: 20px 0 !important;
+  }
+
   .filter-responsive {
     display: block !important;
     cursor: pointer;
@@ -14,7 +35,7 @@
   #product-option .options .checkbox-option {
     width: 100% !important;
     margin-left: 0% !important;
-    top: 100%;
+    top: -41px;
   }
   #product-option .all-options {
     flex-direction: column !important;
@@ -638,6 +659,10 @@
   .navbar .cart-icon, .navbar .search-header, .navbar .search {
     display: none;
   }  
+  #dropdownMenuLink {
+    display: none;
+  }
+
   h1 {
     font-size: 40px !important; }
   

@@ -442,7 +442,7 @@ var chooseOtherArticleCategory = function chooseOtherArticleCategory(url, getUrl
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\menus.edit.js */"./resources/js/admin/menus.edit.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/menus.edit.js */"./resources/js/admin/menus.edit.js");
 
 
 /***/ })

@@ -193,7 +193,7 @@
                   <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                      <textarea class="form-control ck-classic" name="description"></textarea>
+                      <textarea class="form-control ckeditor" name="description"></textarea>
                     </div>
                   </div>
                 </div>

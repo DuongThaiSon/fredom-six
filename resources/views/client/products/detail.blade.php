@@ -159,7 +159,7 @@
                 <div class="form-underline mt-3 w-100" style="width: 102% !important; margin-left: 6px;"></div>
                 <form action="">
                     <div class="row mt-2">
-                        <div class="col-lg-4 col-6 pr-0">
+                        <div class="col-lg-6 col-6 pr-0">
                             <!-- color -->
                             <div class="product-colors d-flex">
                                 {{-- @forelse ($product->productAttributeOptions as $attribute)
@@ -214,7 +214,7 @@
                     </div>
                     <div class="row">
                         <!-- quantity -->
-                        <div class="col-lg-4 col-12 p-0">
+                        <div class="col-lg-6 col-12 p-0">
                             <div class="number-input ml-2">
                                 <button type="button"
                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"

@@ -307,7 +307,7 @@
         <div id="new-slide" class="owl-carousel owl-theme">
             @foreach ($articles as $item)
             <div class="card-news card-border-0 news-item">
-                <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar}}" alt="" class="card-img-top">
+                <img src="/{{ env('UPLOAD_DIR_ARTICLE') }}/{{ $item->avatar}}" alt="" class="card-img-top"   style="filter: grayscale();">
                 <div class="card-body">
                     <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
                     <div class="card-text more">{!! $item->description !!}</div>

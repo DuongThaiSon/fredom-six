@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'dashboard', 'title' => __('Setting send mail')])
+@extends('admin.layouts.main', ['activePage' => 'sendMail', 'title' => __('Setting send mail')])
 @section('content')
 <!-- Content -->
 <div id="main-content">

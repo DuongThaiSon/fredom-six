@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title }}</title>
+    <link rel="shortcut icon" href="{{ asset('assets/client') }}/favicon.ico">
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/owl.theme.default.min.css" />

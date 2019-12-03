@@ -114,7 +114,7 @@ class SettingController extends Controller
     public function emailContent()
     {
         $email_content = EmailContent::paginate(10);
-        return view('admin.settings.emailContent', compact('email_content'));
+        return view('admin.settings.emailcontent', compact('email_content'));
     }
 
     public function addEmailContent()

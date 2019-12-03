@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/responsive.css" />
     <link rel="stylesheet" href="{{ asset('assets/client') }}/css/star-rating.css" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    @forelse ($scripts as $script)
+    {!! $script->script !!}
+    @empty
+    @endforelse
     @stack('css')
 </head>
 
@@ -53,10 +57,7 @@
     
     @stack('js')
 
-    @forelse ($scripts as $script)
-    {!! $script->script !!}
-    @empty
-    @endforelse
+    
 </body>
 
 </html>

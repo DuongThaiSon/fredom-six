@@ -25,18 +25,18 @@
                 <table class="table-sm mb-2" width="100%">
                     <thead class="thead-light">
                         <tr class="text-muted">
-                            <th style="width: 30px;"></th>
-                            <th style="width: 24px;">
+                          {{-- <th></th> --}}
+                          <th width="3%" class="text-center">
                             <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
                                 <i class="material-icons text-muted">check_box_outline_blank</i>
                             </a>
-                            </th>
-                            <th>ID</th>
-                            <th>TÊN MỤC</th>
-                            <th>Mục</th>
-                            <th style="width: 120px;">Ngày tạo</th>
-                            <th style="width: 120px;">Người đăng</th>
-                            <th style="width: 160px;">Thao tác</th>
+                          </th>
+                          <th width="4%">ID</th>
+                          <th width="25%">TÊN MỤC</th>
+                          <th width="20%">Mục</th>
+                          <th width="20%">Ngày tạo</th>
+                          <th width="15%">Người đăng</th>
+                          <th width="13%">Thao tác</th>
                         </tr>
                     </thead>
                 </table>

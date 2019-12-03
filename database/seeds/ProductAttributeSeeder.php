@@ -24,7 +24,7 @@ class ProductAttributeSeeder extends Seeder
         // );
         DB::table('product_attributes')->insert(
             array(
-                'id' => '1',
+                'id' => '2',
                 'name' => 'Màu sắc',
                 'type' => 'color',
                 'allow_multiple' => '1',
@@ -35,7 +35,7 @@ class ProductAttributeSeeder extends Seeder
         );
         DB::table('product_attributes')->insert(
             array(
-                'id' => '2',
+                'id' => '3',
                 'name' => 'Kích cỡ',
                 'type' => 'text',
                 'allow_multiple' => '1',

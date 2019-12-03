@@ -162,3 +162,25 @@ $(document).ready(function () {
 $(".filter-responsive").on('click', function () {
   $(".checkbox-option").fadeToggle(500);
 })
+
+// back to top
+$(window).scroll(function () {
+  if ($(this).scrollTop()) {
+    $('#toTop').fadeIn();
+  } else {
+    $('#toTop').fadeOut();
+  }
+});
+
+$("#toTop").click(function () {
+  $("html, body").animate({ scrollTop: 0 }, 500);
+});
+
+// if ($(window).width() < 1024) {
+//   $(".toggle-icon").click(function () {
+//     $(".submenu").slideToggle();
+//   })
+//   $(".toggle-icon-sub").click(function () {
+//     $(".second-submenu").slideToggle();
+//   })
+// }

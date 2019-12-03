@@ -319,6 +319,10 @@
         </div>
     </div>
 </section>
+
+<div id="toTop">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 @endsection
 @push('js')
 <script>

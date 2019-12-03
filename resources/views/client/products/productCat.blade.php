@@ -50,7 +50,7 @@
                         <div class="all-options d-flex">
                             <!-- styles -->   
                             @forelse ($filters as $filter)
-                            <p class="d-none product-filter">Title</p>
+                            <p class="d-none product-filter">{{ $filter->name }}</p>
                             <div class="style-options flex-column flex-wrap align-self-start" style="margin-inline-end: 60px;">
                                 @forelse ($filter->categories as $filterCategory)                               
                                 <label class="checkbox-container">
@@ -69,7 +69,7 @@
                             @endforelse
 
                             @forelse ($category->productAttributes as $attribute)
-                            <p class="d-none product-filter">Title</p>
+                            <p class="d-none product-filter">{{ $attribute->name }}</p>
                             <div class="style-options {{($attribute->type === "color")?"d-flex":"flex-column"}} flex-wrap align-self-start" style="margin-inline-end: 60px; {{($attribute->type === "color")?'max-width: 90px':''}}">
                                 @forelse ($attribute->productAttributeOptions as $attributeValue)
 

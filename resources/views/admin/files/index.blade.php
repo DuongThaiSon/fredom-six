@@ -8,8 +8,6 @@
 </div>
 @endsection
 @push('js')
-<script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
-<script>CKFinder.config( { connectorPath: '/ckfinder/connector' } );</script>
 <script>
 CKFinder.widget( 'ckfinder-widget', {
 	width: '100%',

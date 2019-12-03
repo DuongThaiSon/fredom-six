@@ -170,7 +170,7 @@
                 <div class="row">
                     <div class="col-12">
                     <legend>Nội dung mô tả</legend>
-                    <div class="form-group ck-classic">
+                    <div class="form-group ckeditor">
                         <textarea class="form-control" name="description">{{$category->description}}</textarea>
                     </div>
                     </div>

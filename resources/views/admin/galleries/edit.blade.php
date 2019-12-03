@@ -139,7 +139,7 @@
                             <div class="col-12">
                             <legend>Nội dung tóm tắt</legend>
                             <div class="form-group">
-                                <textarea class="form-control ck-classic" name="caption">{{$gallery->caption}}</textarea>
+                                <textarea class="form-control ckeditor" name="caption">{{$gallery->caption}}</textarea>
                             </div>
                             </div>
                         </div>

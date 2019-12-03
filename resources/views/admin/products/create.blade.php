@@ -327,7 +327,7 @@
                     <div class="col-12">
                     <legend>Size Chart</legend>
                     <div class="form-group">
-                        <textarea class="form-control ck-classic" name="size_chart"></textarea>
+                        <textarea class="form-control ckeditor" name="size_chart"></textarea>
                     </div>
                     </div>
                 </div>
@@ -336,7 +336,7 @@
                     <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                        <textarea class="form-control ck-classic" name="description"></textarea>
+                        <textarea class="form-control ckeditor" name="description"></textarea>
                     </div>
                     </div>
                 </div>
@@ -345,7 +345,7 @@
                     <div class="col-12">
                     <legend>Nội dung chi tiết</legend>
                     <div class="form-group">
-                        <textarea class="form-control ck-classic" name="detail"></textarea>
+                        <textarea class="form-control ckeditor" name="detail"></textarea>
                     </div>
                     </div>
                 </div>

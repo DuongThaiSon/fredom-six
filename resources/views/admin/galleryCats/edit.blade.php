@@ -211,7 +211,7 @@
                   <div class="col-12">
                     <legend>Nội dung mô tả</legend>
                     <div class="form-group">
-                      <textarea class="form-control ck-classic" name="decription">{{$category->description}}</textarea>
+                      <textarea class="form-control ckeditor" name="decription">{{$category->description}}</textarea>
                     </div>
                   </div>
                 </div>

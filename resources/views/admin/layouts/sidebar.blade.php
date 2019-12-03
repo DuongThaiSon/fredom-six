@@ -254,22 +254,22 @@
                 <div class="sub collapse" id="setting-sub-menu">
                 <ul class="flex-column nav">
                     <li class="nav-item">
-                    <a href="{{ route('admin.settings.infoSetting') }}" class="nav-link">Thông tin</a>
+                    <a href="{{ route('admin.settings.infoSetting') }}" class="nav-link menu-infoSetting">Thông tin</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.settings.seo') }}" class="nav-link ">Tối ưu SEO trang chủ</a>
+                    <a href="{{ route('admin.settings.seo') }}" class="nav-link menu-seo">Tối ưu SEO trang chủ</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('admin.seo-tools.index') }}" class="nav-link menu-seo-tools">Quản lý công cụ SEO</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.settings.sendMail') }}" class="nav-link">Tài khoản gửi email</a>
+                    <a href="{{ route('admin.settings.sendMail') }}" class="nav-link menu-sendMail">Tài khoản gửi email</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('admin.backups.index') }}" class="nav-link menu-backup">Sao lưu & Phục hồi dữ liệu</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('admin.settings.emailContent') }}" class="nav-link ">Nội dung email gửi đi</a>
+                    <a href="{{ route('admin.settings.emailContent') }}" class="nav-link menu-emailContent">Nội dung email gửi đi</a>
                     </li>
                 </ul>
                 </div>

@@ -96,7 +96,7 @@
                         @if ($item->sub->count())
                         <div class="clear"></div>
                         <div class="submenu">
-                            <div style="background: #000000; width: 200px; height:17px;"></div>
+                            <div style="background: #000000; width: 200px; height:26px;"></div>
                             @foreach ($item->sub as $subitem)
                             <div class="submenu-parent">
                                 <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : ($subitem->type == 1 ? route('client.news.category', ['slug_cat' => $subitem->link]) : $subitem->link) }}" class="submenu-item d-inline-block">

@@ -125,7 +125,7 @@
 <!-- gift -->
 <section id="gift">
     <div class="gift-image">
-        <a href="{{ route('client.products.category', ['slug_cat' => 'gifts']) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $gifts->avatar }}" alt=""></a>
+        <a href="{{ route('client.products.category', ['slug_cat' => 'khuyen-mai']) }}"><img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $gifts->avatar }}" alt=""></a>
         <h1 class="text-uppercase display-3">{{ $gifts->name }}</h1>
     </div>
 </section>
@@ -190,7 +190,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[0]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase"><b>learn more</b></a>
+                        <a href="{{ route('client.news.detail', ['slug_cat' => 'lookbook', 'slug_view' => $lookbook->articles[0]->slug]) }}" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -214,7 +214,7 @@
                     <div class="line"></div>
                     <div class="text-Area">{!! $lookbook->articles[1]->detail !!}</div>
                     <div class="learn">
-                        <a href="" class="text-uppercase"><b>learn more</b></a>
+                        <a href="{{ route('client.news.detail', ['slug_cat' => 'lookbook', 'slug_view' => $lookbook->articles[1]->slug]) }}" class="text-uppercase"><b>learn more</b></a>
                     </div>
                 </div>
             </div>
@@ -311,7 +311,7 @@
                 <div class="card-body">
                     <p class="card-title text-uppercase font-weight-bold pt-3">{{ $item->name }}</p>
                     <div class="card-text more">{!! $item->description !!}</div>
-                    <a href="{{ route('client.news.detail', $item->slug) }}" class="learn text-uppercase"><b>Learn more</b></a>
+                    <a href="{{ route('client.news.detail', ['slug_cat' => 'tin-tuc', 'slug_view' => $item->slug]) }}" class="learn text-uppercase"><b>Learn more</b></a>
                 </div>
             </div>
             @endforeach

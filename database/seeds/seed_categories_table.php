@@ -29,7 +29,7 @@ class seed_categories_table extends Seeder
         DB::table('categories')->insert(
             [
                 'id' => '2',
-                'name' => 'News',
+                'name' => 'Tin tức',
                 'avatar' => 'leotive5dae5ec779879.jpeg',
                 'description' => '<p>fasdfasdf</p>',
                 'is_public' => '1',
@@ -37,7 +37,7 @@ class seed_categories_table extends Seeder
                 'is_highlight' => '1',
                 'parent_id' => '0',
                 'type' => 'article',
-                'slug' => 'san-pham-nu',
+                'slug' => 'tin-tuc',
                 'order' => '1',
                 'created_by' => '1',
                 'created_at' => '2019-11-19 02:17:29'

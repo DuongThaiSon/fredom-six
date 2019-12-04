@@ -81,14 +81,14 @@
                 <i class="fas fa-bars text-white pr-2"></i>
             </button>
             <a href="/home" class="navbar-brand">
-            {{-- <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />--}}
+            {{-- <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" /> --}}
             {!! $logo->detail ?? '' !!} 
             </a>
             <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
                 @foreach ($menuTop as $item)
                     <li class="nav-item pl-lg-5">
-                        <a href="{{ $item->type == 5 || $item->type == 8 ? route('client.products.category', ['slug_cat' => $item->link]) : ($item->type == 4 ? route('client.news.detail', ['slug_view' => $item->link]) : $item->link) }}" class="nav-link text-uppercase float-left d-inline-block">{{ $item->name }}   
+                        <a href="{{ $item->type == 5 || $item->type == 8 ? route('client.products.category', ['slug_cat' => $item->link]) : ($item->type == 1 ? route('client.news.category', ['slug_cat' => $item->link]) : $item->link) }}" class="nav-link text-uppercase float-left d-inline-block">{{ $item->name }}   
                         </a>
                         @if ($item->sub->count())
                             <i class="fas fa-chevron-down toggle-icon"></i>
@@ -99,7 +99,7 @@
                             <div style="background: #000000; width: 200px; height:17px;"></div>
                             @foreach ($item->sub as $subitem)
                             <div class="submenu-parent">
-                                <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : ($subitem->type == 4 ? route('client.news.detail', ['slug_view' => $subitem->link]) : $subitem->link) }}" class="submenu-item d-inline-block">
+                                <a href="{{ $subitem->type == 8 || $subitem->type == 5 ? route('client.products.category', ['slug_cat' => $subitem->link]) : ($subitem->type == 1 ? route('client.news.category', ['slug_cat' => $subitem->link]) : $subitem->link) }}" class="submenu-item d-inline-block">
                                     <p class="m-0">{{ $subitem->name }}</p>
                                 </a>
                                 @if ($subitem->sub->count())
@@ -108,7 +108,7 @@
                                 @if ($subitem->sub->count())
                                 <div class="second-submenu">
                                     @foreach ($subitem->sub as $secondsub)
-                                        <a href="{{ $secondsub->type == 8 || $secondsub->type == 5 ? route('client.products.category', ['slug_cat' => $secondsub->link]) : ($secondsub->type == 4 ? route('client.news.detail', ['slug_view' => $secondsub->link]) : $secondsub->link) }}" class="second-submenu-item">
+                                        <a href="{{ $secondsub->type == 8 || $secondsub->type == 5 ? route('client.products.category', ['slug_cat' => $secondsub->link]) : ($secondsub->type == 1 ? route('client.news.category', ['slug_cat' => $secondsub->link]) : $secondsub->link) }}" class="second-submenu-item">
                                             <p class="m-0">{{ $secondsub->name }}</p>
                                         </a>
                                     @endforeach

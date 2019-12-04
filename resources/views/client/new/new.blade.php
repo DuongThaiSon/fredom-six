@@ -1,5 +1,5 @@
 
-@extends('client.layouts.main', ['title' => __('News')])
+@extends('client.layouts.main', ['title' => __('Tin tức')])
 @section('content')
   <!-- showcase -->
   <div id="showcase">
@@ -19,20 +19,7 @@
               <div class="row">
                 <div class="col-6"></div>
                 <div class="col-md-6 d-none d-md-block" style="padding-left: 70px;">
-                  {{--<div class="showcase-title">
-                     <h2 class="text-uppercase font-italic">the</h2>
-                    <h2 class="text-uppercase font-italic ml-3">most</h2>
-                    <h1 class="text-uppercase display-4">luxury</h1>
-                    <h1 class="text-uppercase display-4 mb-4"  style="margin-left: 120px;">
-                      bag
-                    </h1>
-                    <p>
-                      Use this text to share information about your brand with your
-                      customers. Describe a product, share annoucement, or welcome
-                      customers to your store
-                    </p> 
-                    <a href="{{ route('client.products.new') }}" class="btn text-uppercase">news arrivals</a> 
-                  </div>--}}
+                
                 </div>
               </div>
             </div>
@@ -47,7 +34,7 @@
   <section id="news">
     <div class="news-container">
       <!-- news-1 -->
-      @forelse ($news as $new)
+      @forelse ($category->articles as $new)
       <div class="row">
         <div class="col-12 col-lg-6">
           <div class="news-img">
@@ -62,7 +49,7 @@
               <span>{{ $new->updated_at}}</span>
             </div>
             <div class="title-detail text-justify">{!! $new->description !!}​</div>
-            <a href="{{ route('client.news.detail', $new->slug) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
+            <a href="{{ route('client.news.detail', ['slug_view' => $new->slug, 'slug_cat' => $category->slug]) }}" class="news-detail-link">Đọc tiếp <i class="fas fa-chevron-circle-right"></i></a>
           </div>
         </div>
       </div>
@@ -74,7 +61,7 @@
       <!-- pagination -->
       <div class="row mb-0 justify-content-end">
 
-        {{ $news->links() }}
+        {{-- {{ $news->links() }} --}}
       </div>
     </div>
     </div>

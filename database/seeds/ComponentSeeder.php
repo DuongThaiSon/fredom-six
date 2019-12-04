@@ -75,18 +75,7 @@ class ComponentSeeder extends Seeder
                 'order' => '5',
                 'created_by' => '1'
             ]
-        );
-        DB::table('components')->insert(
-            [
-                'id' => '5',
-                'name' => 'Bộ công thương',
-                'detail' => '',
-                'is_public' => '1',
-                'language' => 'vi',
-                'order' => '5',
-                'created_by' => '1'
-            ]
-        );
+        );       
         DB::table('components')->insert(
             [
                 'id' => '6',

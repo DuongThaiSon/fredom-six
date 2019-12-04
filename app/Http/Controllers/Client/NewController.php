@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Image;
 use App\Models\Gallery;
+use App\Models\Category;
 
 class NewController extends Controller
 {
@@ -15,19 +16,30 @@ class NewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug_cat = null, Request $request)
     {
-        $news = Article::where([
-            ['category_id', '=', '2'],
-            ['is_public', '=', '1']
-        ])->orderBy('id','desc')->paginate(3);
         $gallery = Gallery::findOrFail(2);
-        $slide = $gallery->images()->orderBy('order', 'desc')->get();
-        // $firstSlide = $slide = Image::where([
-        //     ['imageable_id', '=', '2'],
+        $slide = $gallery->images()->orderBy('order', 'desc')->get();        
+        
+        $category = Category::with('articles')->where([
+            ['type', 'article'],
+            ['slug', $slug_cat]
+        ])->firstOrFail();
+        // print_r($category->toArray());die;
+        return view('client.new.new', compact('slide', 'category'));
+        // $news = Article::where([
+        //     ['category_id', '=', '2'],
         //     ['is_public', '=', '1']
-        // ])->orderBy('id')->first();
-        return view('client.new.new', compact('news', 'slide'));
+        // ])->orderBy('id','desc')->paginate(3);
+        // $gallery = Gallery::findOrFail(2);
+        // $slide = $gallery->images()->orderBy('order', 'desc')->get();        
+        
+        // // $category = Category::where([
+        // //     ['type', 'article'],
+        // //     ['slug', $slug_cat]
+        // // ])->firstOrFail();
+        // // print_r($category->toArray());die;
+        // return view('client.new.new', compact('news', 'slide'));
     }
 
     /**
@@ -37,7 +49,7 @@ class NewController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -57,17 +69,24 @@ class NewController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug_view)
+    public function show($slug_cat = null, $slug_view = null)
     {
-        $detail = Article::where('slug', $slug_view)->firstOrFail();
-        $newests = Article::where([
-            ['id', '<>', $detail->id],
-            ['category_id', '=', '2'],
-            ['is_public', '=', '1'],
-            ['is_new', '=', '1']
-        ])->orderBy('id','desc')->limit(3)->get();
+        // $detail = Article::where('slug', $slug_view)->firstOrFail();
+        // $newests = Article::where([
+        //     ['id', '<>', $detail->id],
+        //     ['category_id', '=', '2'],
+        //     ['is_public', '=', '1'],
+        //     ['is_new', '=', '1']
+        // ])->orderBy('id','desc')->limit(3)->get();
+        $category = Category::where([
+            ['type', 'article'],
+            ['slug', $slug_cat]
+        ])->first();
+        $article = Article::where('slug', $slug_view)->firstOrFail();
+        $articles = $category->articles()->where('slug', '<>', $slug_view)->orderBy('id', 'desc')->take(3)->get();
 
-        return view('client.new.detail', compact('newests', 'detail'));
+        // print_r($articles->toArray());die;
+        return view('client.new.detail', compact('category', 'article', 'articles'));
     }
 
     /**

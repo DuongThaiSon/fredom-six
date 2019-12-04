@@ -30,17 +30,18 @@
 </section>
       <!-- Footer -->
 <section id="main-footer">
-  <div class="chart1 col-3 mb-5 d-lg-none">
+  {{-- <div class="chart1 col-3 mb-5 d-lg-none">
       <a href=""><img src="{{ asset('assets/client') }}/img/chart.png" alt="chart.png"></a>
-    </div>
+    </div> --}}
   
   <div class="container">
     <div class="row">
       <div class="col-lg-5 col-md-12 pt-5 mb-3">
         <div class="footer-logo">
-          <img class="mb-5" src="{{ asset('assets/client') }}/img/head-logo.png" alt="head-logo.png" />
+          {{-- <img class="mb-5" src="{{ asset('assets/client') }}/img/head-logo.png" alt="head-logo.png" /> --}}
+          {!! $logo->detail ?? '' !!}
         </div>
-        {!! $office->detail !!}
+        {!! $office->detail ?? '' !!}
       {{-- <p class="mt-5">
             {!! $copyright->detail !!}
         </p>  --}}
@@ -61,7 +62,7 @@
         @endforeach
         <div class="certification">
           {{-- <img class="mt-5" src="{{ asset('assets/client') }}/img/bo-cong-thuong.png" alt="bo-cong-thuong" /> --}}
-          {!! $bct->detail ?? '' !!}
+          {!! ($bct->detail) ?? '' !!}
         </div>
       </div>
     </div>

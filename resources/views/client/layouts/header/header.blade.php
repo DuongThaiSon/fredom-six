@@ -81,7 +81,8 @@
                 <i class="fas fa-bars text-white pr-2"></i>
             </button>
             <a href="/home" class="navbar-brand">
-            <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />
+            {{-- <img src="{{ asset('assets/client') }}/img/head-logo.png" alt="" />--}}
+            {!! $logo->detail ?? '' !!} 
             </a>
             <div class="collapse navbar-collapse pt-lg-4 mt-sm-1" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">

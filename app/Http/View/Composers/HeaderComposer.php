@@ -34,10 +34,11 @@ class HeaderComposer
     }
     public function compose(View $view)
     {
+        $logo = Component::find(6);
         $hotline = Setting::firstOrFail();
         // $menuTop = Menu::with('categories')->where([['category_id', 11], ['parent_id', 0]])->orderBy('order')->get();
         $menuTop = $this->getSubMenus(0);
 
-        $view->with(compact('menuTop', 'hotline'));
+        $view->with(compact('menuTop', 'hotline', 'logo'));
     }
 }

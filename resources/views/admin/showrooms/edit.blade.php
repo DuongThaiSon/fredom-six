@@ -123,7 +123,7 @@
             <div class="col-12">
               <legend>Nội dung</legend>
               <div class="form-group">
-                <textarea class="form-control" name="detail" >{{ $showroom->detail }}</textarea>
+                <textarea class="form-control ckeditor" name="detail" >{{ $showroom->detail }}</textarea>
               </div>
             </div>
           </div>
@@ -135,7 +135,7 @@
 @endsection
 @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
 </script>
 @endpush

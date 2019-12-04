@@ -58,7 +58,7 @@
                     <div class="col-12">
                         <legend>Nội dung mô tả</legend>
                         <div class="form-group">
-                            <textarea class="form-control" name="caption"></textarea>
+                            <textarea class="form-control ckeditor" name="caption"></textarea>
                         </div>
                     </div>
                 </div>
@@ -70,6 +70,6 @@
 @endsection
 @push('js')
 <script>
-    CKEDITOR.replace("caption");
+    // CKEDITOR.replace("caption");
 </script>
 @endpush

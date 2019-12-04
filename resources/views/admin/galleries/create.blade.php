@@ -42,11 +42,11 @@
                       <small class="form-text">Tên của gallery chứa dữ liệu</small>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <label>URL gallery</label>
                       <input type="text" name="link_to" required class="form-control" placeholder="URL gallery"/>
                       <small class="form-text">Dán đoạn link url đã copy từ youtube vào.</small>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                       <label>Nằm trong mục</label>

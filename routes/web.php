@@ -22,11 +22,15 @@ Route::group([
         'uses' => 'ArticleController@index'
     ]);
     Route::group(['prefix' => 'news'], function () {
-        Route::get('/',[
-            'as' => 'client.news.index',
+        // Route::get('/',[
+        //     'as' => 'client.news.index',
+        //     'uses' => 'NewController@index'
+        // ]);
+        Route::get('{slug_cat?}',[
+            'as' => 'client.news.category',
             'uses' => 'NewController@index'
         ]);
-        Route::get('/{slug_view?}',[
+        Route::get('{slug_cat}/{slug_view?}',[
             'as' => 'client.news.detail',
             'uses' => 'NewController@show'
         ]);

@@ -27,10 +27,10 @@ class MenuSeeder extends Seeder
             [
                 'id' => '2',
                 'name' => 'Tin tức',
-                'type' => '0',
+                'type' => '1',
                 'parent_id' => '0',
                 'category_id' => '11',
-                'link' => '/news',
+                'link' => 'tin-tuc',
                 'order' => '2',
                 'created_by' => '1',
             ]

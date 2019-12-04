@@ -156,6 +156,36 @@
                 Fanpage, thông tin này có thể sử dụng để thiết lập
                 Facebook Fanpage Likebox</small
               >
+              <div class="form-group">
+                <label>Instagram</label>
+                <input
+                  type="text"
+                  name="company_instagram_url"
+                  class="form-control"
+                  placeholder="https://www.instagram.com/moolezvn/"
+                  value="{{ $setting->company_instagram_url ?? ''}}"
+                />
+                <small class="form-text"
+                  >Địa chỉ trang Instagram của công ty. Thông tin sẽ hiển
+                  thị trên website là một đường dẫn tới trang Instagram
+                  Fanpage, thông tin này có thể sử dụng để thiết lập
+                  Instagram</small
+                >
+                <div class="form-group">
+                  <label>Youtube</label>
+                  <input
+                    type="text"
+                    name="company_youtube_url"
+                    class="form-control"
+                    placeholder="https://www.youtube.com/"
+                    value="{{ $setting->company_youtube_url ?? '' }}"
+                  />
+                  <small class="form-text"
+                    >Địa chỉ trang Youtube của công ty. Thông tin sẽ hiển
+                    thị trên website là một đường dẫn tới trang Youtube
+                    Fanpage, thông tin này có thể sử dụng để thiết lập
+                    Youtube </small
+                  >
             </div>
           </div>
         </div>

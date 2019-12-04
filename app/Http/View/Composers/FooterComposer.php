@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use App\Models\Category;
 use App\Models\Component;
 use App\Models\Menu;
+use App\Models\Setting;
 
 class FooterComposer
 {
@@ -17,12 +18,14 @@ class FooterComposer
      */
     public function compose(View $view)
     {
+        $setting = Setting::first();
+        $bct = Component::find(5);
         $customer = Component::find(3);
         $workTime = Component::find(4);
         $showroom = Component::find(2);
         $office = Component::find(1);
-        $menuOne = Menu::with('categories')->where([['category_id', 12], ['parent_id', 7]])->simplePaginate();
-        $menuTwo = Menu::with('categories')->where([['category_id', 12], ['parent_id', 15]])->simplePaginate();
-        $view->with(compact('office', 'menuOne', 'menuTwo', 'showroom', 'customer', 'workTime'));
+        $menuOne = Menu::with('categories')->where([['category_id', 12], ['parent_id', 7]])->get();
+        $menuTwo = Menu::with('categories')->where([['category_id', 12], ['parent_id', 15]])->get();
+        $view->with(compact('office', 'menuOne', 'menuTwo', 'showroom', 'customer', 'workTime', 'bct', 'setting'));
     }
 }

@@ -2,20 +2,20 @@
     <!-- Sidebar -->
     <section id="sidebar" class="d-flex flex-column">
         <div class="sidebar-header">
-        <a href="admin.html">
-            <img src="{{ asset('assets/admin') }}/img/logo.webp" alt="" />
+        <a href="{{ route('admin.dashboard.index') }}">
+            <img src="{{ asset('assets/admin') }}/img/logo.webp" alt="logo" />
         </a>
         </div>
 
         <div class="left-menu">
         <ul class="nav flex-column">
             <!-- Dashboard -->
-            <li class="nav-item">
-            <a href="admin.html" class="nav-link menu-dashboard" id="menu-dashboard">
+            {{-- <li class="nav-item">
+            <a href="{{ route('admin.dashboard.index') }}" class="nav-link menu-dashboard" id="menu-dashboard">
                 <i class="material-icons align-middle">dashboard</i><span>Tổng quan
                 hệ thống</span>
             </a>
-            </li>
+            </li> --}}
             <!-- Product -->
             <li class="nav-item has-child">
                 <a
@@ -262,15 +262,15 @@
                     <li class="nav-item">
                     <a href="{{ route('admin.seo-tools.index') }}" class="nav-link menu-seo-tools">Quản lý công cụ SEO</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                     <a href="{{ route('admin.settings.sendMail') }}" class="nav-link menu-sendMail">Tài khoản gửi email</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
-                    <a href="{{ route('admin.backups.index') }}" class="nav-link menu-backup">Sao lưu & Phục hồi dữ liệu</a>
+                    <a href="{{ route('admin.backups.index') }}" class="nav-link menu-backup">Sao lưu dữ liệu</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                     <a href="{{ route('admin.settings.emailContent') }}" class="nav-link menu-emailContent">Nội dung email gửi đi</a>
-                    </li>
+                    </li> --}}
                 </ul>
                 </div>
             </li>

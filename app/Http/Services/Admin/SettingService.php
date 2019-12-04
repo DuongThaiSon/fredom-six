@@ -16,7 +16,7 @@ Class SettingService
     {
         $attributes = [
             'company_website_url', 'company_name', 'company_address', 'company_tel', 
-            'company_hotline', 'company_mobile', 'company_email', 'company_facebook_url'
+            'company_hotline', 'company_mobile', 'company_email', 'company_facebook_url', 'company_instagram_url', 'company_youtube_url'
         ];
         $attributes = $request->only($attributes);
         return $attributes;

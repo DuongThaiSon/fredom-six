@@ -52,24 +52,25 @@
       </div>
       <div class="col-lg-3 col-md-12 mt-3 pl-lg-5" style="line-height: 2;">
         <div class="footer-icon d-flex mt-5 mb-5">
-          <a class="mr-2" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-2x"></i></a>
-          <a class="mr-2" target="_blank" href="https://www.instagram.com/moolezvn/"><i class="fab fa-pinterest fa-2x"></i></a>
-          <a target="_blank" href="https://www.facebook.com/moolezvietnam/"><i class="fab fa-facebook fa-2x"></i></a>
+          <a class="mr-2" target="_blank" href="{{ $setting->company_youtube_url ?? ''}}"><i class="fab fa-youtube-square fa-2x"></i></a>
+          <a class="mr-2" target="_blank" href="{{ $setting->company_instagram_url ?? ''}}"><i class="fab fa-instagram fa-2x"></i></a>
+          <a target="_blank" href="{{ $setting->company_facebook_url ?? ''}}"><i class="fab fa-facebook fa-2x"></i></a>
         </div>
         @foreach ($menuTwo as $item)
         <a href="{{ $item->link }}">{{ $item->name }}</a>
         @endforeach
         <div class="certification">
-          <img class="mt-5" src="{{ asset('assets/client') }}/img/bo-cong-thuong.png" alt="bo-cong-thuong" />
+          {{-- <img class="mt-5" src="{{ asset('assets/client') }}/img/bo-cong-thuong.png" alt="bo-cong-thuong" /> --}}
+          {!! $bct->detail ?? '' !!}
         </div>
       </div>
     </div>
     <div class="row  mt-4" style="color: #a3a3a3; font-size: 13px;">
       <div class="col-lg-4 col-12 pt-3">{!! strip_tags($customer->detail) ?? '' !!}</div>
       <div class="col-lg-5 col-12 pt-3">{!! strip_tags($workTime->detail) ?? '' !!}</div>
-      <div class="chart col-lg-3 mb-5">
+      {{-- <div class="chart col-lg-3 mb-5">
         <a href=""><img src="{{ asset('assets/client') }}/img/chart.png" alt=""></a>
-      </div>
+      </div> --}}
     </div>
   </div>
 </section>

@@ -15,12 +15,12 @@ class seed_setting_table extends Seeder
             array(
                 'company_name' => 'LEOTIVE',
                 'company_address'=> 'Company address',
-                'company_website_url'=> 'www.leotive.com',
+                'company_website_url'=> 'http://www.leotive.com',
                 'company_tel'=> '1900292976',
                 'company_hotline'=> '1900292976',
                 'company_mobile'=> '1900292976',
                 'company_email'=> 'hi@leotive.com',
-                'company_facebook_url'=> 'www.facebook.com/leotivepage/',
+                'company_facebook_url'=> 'http://www.facebook.com/leotivepage/',
                 'email_smtp_server'=> 'smtp.gmail.com',
                 'email_smtp_port'=> '578',
                 'email_smtp_user'=> 'no-reply@leotive.com',
@@ -32,7 +32,9 @@ class seed_setting_table extends Seeder
                 'seo_meta_keywords'=> 'LEOTIVE',
                 'seo_meta_copyright'=> 'LEOTIVE',
                 'seo_meta_author'=> 'LEOTIVE',
-                'seo_meta_page_topic'=> 'LEOTIVE'
+                'seo_meta_page_topic'=> 'LEOTIVE',
+                'company_instagram_url'=> 'https://www.instagram.com/',
+                'company_youtube_url'=> 'https://www.youtube.com/',
             )
         );
     }

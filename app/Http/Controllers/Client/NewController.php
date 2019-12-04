@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Image;
+use App\Models\Gallery;
 
 class NewController extends Controller
 {
@@ -20,10 +21,8 @@ class NewController extends Controller
             ['category_id', '=', '2'],
             ['is_public', '=', '1']
         ])->orderBy('id','desc')->paginate(3);
-        $slide = Image::where([
-            ['imageable_id', '=', '2'],
-            ['is_public', '=', '1']
-        ])->orderBy('order', 'desc')->get();
+        $gallery = Gallery::findOrFail(2);
+        $slide = $gallery->images()->orderBy('order', 'desc')->get();
         // $firstSlide = $slide = Image::where([
         //     ['imageable_id', '=', '2'],
         //     ['is_public', '=', '1']

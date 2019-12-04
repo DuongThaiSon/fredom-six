@@ -202,7 +202,7 @@
                   <div class="col-12">
                     <legend>Nội dung tóm tắt</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="description">{{ $video->description ?? '' }}</textarea>
+                      <textarea class="form-control ckeditor" name="description">{{ $video->description ?? '' }}</textarea>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@
                   <div class="col-12">
                     <legend>Mô tả video</legend>
                     <div class="form-group">
-                      <textarea class="form-control" name="detail">{{ $video->detail ?? '' }}</textarea>
+                      <textarea class="form-control ckeditor" name="detail">{{ $video->detail ?? '' }}</textarea>
                     </div>
                   </div>
                 </div>
@@ -222,7 +222,7 @@
 @endsection
 @push('js')
  <script>
-    CKEDITOR.replace("description");
-    CKEDITOR.replace("detail");
+    // CKEDITOR.replace("description");
+    // CKEDITOR.replace("detail");
 </script>
 @endpush

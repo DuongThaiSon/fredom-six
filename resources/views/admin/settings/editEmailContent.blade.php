@@ -89,7 +89,7 @@
             <div class="col-12">
               <legend>Chi tiết</legend>
               <div class="form-group">
-                <textarea class="form-control" name="detail">{{ $email_content->detail }}</textarea>
+                <textarea class="form-control ckeditor" name="detail">{{ $email_content->detail }}</textarea>
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@
 @push('js')
     <script>
       $("#setting-sub-menu").addClass("show");
-      CKEDITOR.replace("des");
-      CKEDITOR.replace("detail");
+      // CKEDITOR.replace("des");
+      // CKEDITOR.replace("detail");
     </script>
 @endpush

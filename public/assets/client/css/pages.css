@@ -143,6 +143,15 @@ input:focus {
   #news-detail .time {
     color: #aaaaaa;
     margin-bottom: 30px; }
+    #news-detail .more-news .news-img {
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    #news-detail .more-news .news-img img {
+      width: 340px;
+      height: 200px;
+    }
 
 #showcase .showcase-image {
   height: 600px;

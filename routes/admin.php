@@ -12,8 +12,10 @@
 Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::get('', [
-        'as' => 'dashboard.index',
-        'uses' => 'DashboardController@index'
+        // 'as' => 'dashboard.index',
+        // 'uses' => 'DashboardController@index'
+        'as' => 'users.admin',
+        'uses' => 'UserController@admin'
     ]);
 
     // video

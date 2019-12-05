@@ -43,16 +43,17 @@ let postComment = function() {
     $(".btn-comment").off();
     $('.btn-comment').on('click',function(e) {
         e.preventDefault();
-        if($('.comment-zone').val() == "")
+        let _this = $(this);
+        if(_this.parents('.comment-form').find('.comment-zone').val() == "")
         {
             alert('Bạn chưa nhập nội dung!');
             $('.comment-zone').focus();
         }
-        else if ($('input[name=rating]').val() == "")
+        else if (_this.parents('.comment-form').find('input[name=rating]').val() == "")
         {
             alert('Bạn chưa đánh giá sản phẩm!');
         }
-        else if ($('input[name=current-user]').val() == "")
+        else if (_this.parents('.comment-form').find('input[name=current-user]').val() == "")
         {
             alert('Có lỗi xảy ra!')
         }
@@ -60,9 +61,9 @@ let postComment = function() {
         {
             let data = {
 
-                comment: $('.comment-zone').val(),
-                rating: $('input[name=rating]').val(),
-                currentUser: $('input[name=current-user]').val()
+                comment: _this.parents('.comment-form').find('.comment-zone').val(),
+                rating: _this.parents('.comment-form').find('input[name=rating]').val(),
+                currentUser: _this.parents('.comment-form').find('input[name=current-user]').val()
             };
             let id = $('.btn-buy-now').data('id');
             $.ajax({
@@ -75,8 +76,8 @@ let postComment = function() {
                     // $('.ratingStars').removeClass('clickStars');
                     // $('.product-comment').remove();
                     alert('Cảm ơn bạn đã đánh giá sản phẩm!')
-                    $('.btn-comment').addClass('d-none');
-                    $('.btn-fix-review').removeClass('d-none');
+                    _this.parents('.comment-form').find('.btn-comment').addClass('d-none');
+                    _this.parents('.comment-form').find('.btn-fix-review').removeClass('d-none');
                     loadComment();
                 }
             })

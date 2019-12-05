@@ -83,14 +83,16 @@ class ProductController extends Controller
             });
         }
         $products = $products->get()->load([ 'productAttributeOptions']);
-
+        $products = $products->map(function($q) {
+            $q->rate = $q->reviews()->avg('rate');
+            return $q;
+        });
         $category = Category::where([
             ['type', 'product'],
             ['slug', $slug_cat]
         ])->firstOrFail();
         $category_id = $category->id;
         $filters = Filter::where('is_public', 1)->get()->load(['categories']);
-
         // print_r($filters[0]->categories);die;
 
         // print_r($filters->toArray());die;

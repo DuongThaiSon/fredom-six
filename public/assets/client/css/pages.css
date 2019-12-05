@@ -152,7 +152,9 @@ input:focus {
       width: 340px;
       height: 200px;
     }
-
+#showcase {
+  max-height: 600px;
+}
 #showcase .showcase-image {
   height: 600px;
   overflow: hidden; }
@@ -720,7 +722,9 @@ input[type=number]::-webkit-outer-spin-button {
   cursor: pointer; }
 #product-detail button {
   outline: none !important; }
-
+.view-comment{
+  display: flex;
+}
 .more-product {
   margin-top: 35px; }
   .more-product .code {

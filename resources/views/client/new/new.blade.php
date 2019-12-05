@@ -14,7 +14,7 @@
         <!-- slide -->
         @forelse ($slide as $image)
           <div class="carousel-item {{ $loop->first ? 'active':'' }} "
-            style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 900px;">
+            style="background:url('/{{ env('UPLOAD_DIR_GALLERY') }}/{{ $image->name }}'); background-size: cover; height: 600px;">
             <div class="container">
               <div class="row">
                 <div class="col-6"></div>

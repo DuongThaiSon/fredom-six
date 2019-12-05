@@ -4,7 +4,7 @@
         <h5>{{ $review->user->name ?? '' }}</h5>
     </div> --}}
     <div class="comment-detail col-12" >
-        <div class="d-flex">
+        <div class="view-comment">
             <h3 class="comment-time m-0 align-self-center">{{ $review->user->name }}</h3>
             <p class="comment-time m-0 align-self-center">- {{ $review->created_at }}</p>
             <div id='rating' class='rating m-0 ml-3'>

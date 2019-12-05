@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <label>Tiêu đề</label>
                         <input type="text" name="name" required class="form-control"
-                            placeholder="Google Analytics" value="{{ $seoTool->name ?? old('name') }}" />
+                            placeholder="Ví dụ: Google Analytics, Facbook Pixel, ..." value="{{ $seoTool->name ?? old('name') }}" />
                         <small class="form-text">Tiêu đề của công cụ SEO</small>
                     </div>
                     <div class="form-group">

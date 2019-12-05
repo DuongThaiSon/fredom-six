@@ -85,7 +85,7 @@
                                     <th class="w-15">Kích cỡ</th>
                                     <th class="w-5">Số lượng</th>
                                     <th class="w-15">Giá</th>
-                                    <th class="w-15">Thành tiền</th>
+                                    <th class="w-15  text-right">Thành tiền</th>
                                 </tr>
                             </thead>
                             <tbody class="sort">
@@ -96,8 +96,8 @@
                                         <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 2)->note ?? ''}}</th>
                                         <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 3)->value ?? ''}}</th>
                                         <td class="w-5">{{ $cartItem->quantity }}</td>
-                                        <td class="w-15">{{ number_format($cartItem->price) }}&nbsp;đ</td>
-                                        <td class="w-15">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>
+                                        <td class="w-15 text-right">{{ number_format($cartItem->price) }}&nbsp;đ</td>
+                                        <td class="w-15 text-right">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>
                                     </tr>
                                 @empty
                                     <tr>
@@ -105,14 +105,19 @@
                                     </tr>
                                 @endforelse
                                     <tr>
-                                        <td colspan="4">Tổng</td>
-                                        <td >{{ $order->cartItems->sum('quantity') }}</td>
-                                        <td ></td>
-                                        <td >{{ number_format($order->sum ) }}&nbsp;đ</td>
+                                        <td colspan="3">Tổng</td>
+                                        <td></td>
+                                        <td>{{ $order->cartItems->sum('quantity') }}</td>
+                                        <td></td>
+                                        <td  class="text-right">{{ number_format($order->sum ) }}&nbsp;đ</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="6">Tổng giá trị</td>
-                                        <td >{{ number_format($order->sum + ($order->partner->price ?? '0')) }}&nbsp;đ</td>
+                                        <td colspan="3">Phí vận chuyển</td>
+                                        <td colspan="4" class="text-right">{{ number_format($order->partner->price ?? '0')}}&nbsp;đ</td>
+                                    </tr>
+                                    <tr style="color: black; font-weight: bold;">
+                                        <td colspan="3">Tổng giá trị</td>
+                                        <td colspan="4" class="text-right">{{ number_format($order->sum + ($order->partner->price ?? '0')) }}&nbsp;đ</td>
                                     </tr>
                             </tbody>
                         </table>

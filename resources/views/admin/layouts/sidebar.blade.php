@@ -2,7 +2,7 @@
     <!-- Sidebar -->
     <section id="sidebar" class="d-flex flex-column">
         <div class="sidebar-header">
-        <a href="{{ route('admin.dashboard.index') }}">
+        <a href="">
             <img src="{{ asset('assets/admin') }}/img/logo.webp" alt="logo" />
         </a>
         </div>

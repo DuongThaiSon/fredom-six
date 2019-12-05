@@ -211,17 +211,19 @@ var fixReview = function fixReview() {
   $('.btn-fix-review').on('click', function (e) {
     e.preventDefault();
 
-    if ($('.comment-zone').val() == "") {
+    var _this = $(this);
+
+    if (_this.parents('.comment-form').find('.comment-zone').val() == "") {
       alert('Bạn chưa nhập nội dung!');
       $('.comment-zone').focus();
-    } else if ($('input[name=rating]').val() == "") {
+    } else if (_this.parents('.comment-form').find('input[name=rating]').val() == "") {
       alert('Bạn chưa đánh giá sản phẩm!');
-    } else if ($('input[name=current-user]').val() == "") {
+    } else if (_this.parents('.comment-form').find('input[name=current-user]').val() == "") {
       alert('Có lỗi xảy ra!');
     } else {
       var data = {
-        content: $('.comment-zone').val(),
-        rate: $('input[name=rating]').val(),
+        content: _this.parents('.comment-form').find('.comment-zone').val(),
+        rate: _this.parents('.comment-form').find('input[name=rating]').val(),
         _method: "PUT"
       };
       var id = $('.btn-buy-now').data('id');
@@ -235,7 +237,8 @@ var fixReview = function fixReview() {
           // $('.comment-zone').val("");
           // $('.ratingStars').removeClass('clickStars');
           // $('.product-comment').remove();
-          $('.btn-fix-review').attr('disabled', 'disabled');
+          _this.parents('.comment-form').find('.btn-fix-review').attr('disabled', 'disabled');
+
           alert('Bạn đã sửa đánh giá thành công!');
           loadComment();
         }

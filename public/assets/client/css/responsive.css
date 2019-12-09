@@ -3,6 +3,14 @@
     display: none; }
     #header #navbar .submenu .submenu-parent:hover .second-submenu {
             display: none; } */
+  .modal-body {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .modal {
+    z-index: 9999 !important;
+  }
   #header #navbar .submenu .submenu-item p {
     font-size: 15px;
   }

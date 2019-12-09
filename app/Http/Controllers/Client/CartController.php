@@ -163,8 +163,10 @@ class CartController extends Controller
             'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
         ]);
         $attributes['payment_status'] = 'Đặt hàng';
+        $attributes['total'] = Cart::getTotal();
+        
         $order = Order::create($attributes);
-
+            
         foreach (Cart::getContent() as $item) {
 
             $order->cartItems()->create([

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21c90d407b3a59c9e1c3ad30c251fab4",
+    "content-hash": "530cea688a0789476266498fa6db2cdf",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -88,6 +88,69 @@
                 "sdk"
             ],
             "time": "2019-11-15T19:21:02+00:00"
+        },
+        {
+            "name": "browner12/helpers",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/browner12/helpers.git",
+                "reference": "dcce8e96caa20d59b6ac8d352cb0c45cd8b57de5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/browner12/helpers/zipball/dcce8e96caa20d59b6ac8d352cb0c45cd8b57de5",
+                "reference": "dcce8e96caa20d59b6ac8d352cb0c45cd8b57de5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6.0",
+                "illuminate/contracts": "^6.0",
+                "illuminate/support": "^6.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "suggest": {
+                "moneyphp/money": "Money value object."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "browner12\\helpers\\HelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "browner12\\helpers\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Brown",
+                    "email": "browner12@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "generic helpers",
+            "homepage": "https://github.com/browner12/helpers",
+            "keywords": [
+                "browner12",
+                "helpers"
+            ],
+            "time": "2019-09-09T05:20:50+00:00"
         },
         {
             "name": "ckfinder/ckfinder-laravel-package",

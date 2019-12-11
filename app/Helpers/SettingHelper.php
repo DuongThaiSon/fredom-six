@@ -11,9 +11,9 @@ if (!function_exists('setting')) {
      *
      * @param $key
      * @param $default
-     * @return string
+     * @return mixed
      */
-    function setting($key, $default = null): string
+    function setting($key, $default = null)
     {
         $globalCache = env('CACHE_DRIVER', 'file') === 'file' || env('CACHE_DRIVER', 'file') === 'database' ? false : true;
         if ($globalCache && Cache::tags('settings')->has($key)) {

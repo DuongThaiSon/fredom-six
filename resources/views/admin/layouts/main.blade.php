@@ -35,7 +35,7 @@
 
     <!-- SCRIPT -->
     <!-- Jquery -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> --}}
     <script src="https://cdn.ckeditor.com/4.12.1/full-all/ckeditor.js"></script>
     {{-- <script src="/assets/admin/js/jquery-3.4.1.min.js"></script>
     <script src="/assets/admin/js/jquery-ui.js"></script> --}}

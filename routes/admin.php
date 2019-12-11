@@ -185,51 +185,60 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('article-categories', 'ArticleCategoryController');
 
     Route::group(['prefix' => 'settings'], function(){
-        Route::get('', [
-            'as' => 'settings.infoSetting',
-            'uses' => 'SettingController@infoSetting'
-        ]);
-        Route::post('post-info-setting', [
-            'as' => 'settings.postInfoSetting',
-            'uses' => 'SettingController@postInfoSetting'
-        ]);
-        Route::get('send-mail', [
-            'as' => 'settings.sendMail',
-            'uses' => 'SettingController@sendMail'
-        ]);
-        Route::post('send-mail', [
-            'as' => 'settings.postSendMail',
-            'uses' => 'SettingController@postSendMail'
-        ]);
-        Route::get('seo', [
-            'as' => 'settings.seo',
-            'uses' => 'SettingController@seo'
-        ]);
-        Route::post('seo', [
-            'as' => 'settings.postSeo',
-            'uses' => 'SettingController@postSeo'
-        ]);
-        Route::get('email-content', [
-            'as' => 'settings.emailContent',
-            'uses' => 'SettingController@emailContent'
-        ]);
-        Route::get('email-content/add', [
-            'as' => 'settings.addEmailContent',
-            'uses' => 'SettingController@addEmailContent'
-        ]);
-        Route::post('email-content/add', [
-            'as' => 'settings.postAddEmailContent',
-            'uses' => 'SettingController@postAddEmailContent'
-        ]);
-        Route::get('email-content/edit/{id}', [
-            'as' => 'settings.editEmailContent',
-            'uses' => 'SettingController@editEmailContent'
-        ]);
-        Route::post('email-content/edit/{id}', [
-            'as' => 'settings.postEditEmailContent',
-            'uses' => 'SettingController@postEditEmailContent'
-        ]);
+        // Route::get('', [
+        //     'as' => 'settings.infoSetting',
+        //     'uses' => 'SettingController@infoSetting'
+        // ]);
+        // Route::post('post-info-setting', [
+        //     'as' => 'settings.postInfoSetting',
+        //     'uses' => 'SettingController@postInfoSetting'
+        // ]);
+        // Route::get('send-mail', [
+        //     'as' => 'settings.sendMail',
+        //     'uses' => 'SettingController@sendMail'
+        // ]);
+        // Route::post('send-mail', [
+        //     'as' => 'settings.postSendMail',
+        //     'uses' => 'SettingController@postSendMail'
+        // ]);
+        // Route::get('seo', [
+        //     'as' => 'settings.seo',
+        //     'uses' => 'SettingController@seo'
+        // ]);
+        // Route::post('seo', [
+        //     'as' => 'settings.postSeo',
+        //     'uses' => 'SettingController@postSeo'
+        // ]);
+        // Route::get('email-content', [
+        //     'as' => 'settings.emailContent',
+        //     'uses' => 'SettingController@emailContent'
+        // ]);
+        // Route::get('email-content/add', [
+        //     'as' => 'settings.addEmailContent',
+        //     'uses' => 'SettingController@addEmailContent'
+        // ]);
+        // Route::post('email-content/add', [
+        //     'as' => 'settings.postAddEmailContent',
+        //     'uses' => 'SettingController@postAddEmailContent'
+        // ]);
+        // Route::get('email-content/edit/{id}', [
+        //     'as' => 'settings.editEmailContent',
+        //     'uses' => 'SettingController@editEmailContent'
+        // ]);
+        // Route::post('email-content/edit/{id}', [
+        //     'as' => 'settings.postEditEmailContent',
+        //     'uses' => 'SettingController@postEditEmailContent'
+        // ]);
+
+
     });
+    Route::resource('settings', 'SettingController');
+    Route::resource('email-contents', 'EmailContentController', [
+        'parameters' => [
+            'email-contents' => 'emailContent'
+        ]
+    ]);
+
 
     Route::group(['prefix' => 'components'], function (){
         Route::get('', [
@@ -362,7 +371,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'uses' => 'ProductController@deleteMany'
     ]);
     Route::group(['prefix' => 'products'], function() {
-        
+
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
             'uses' => 'ProductController@fetchAttributeOption'
@@ -371,7 +380,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'products.fetchOption',
             'uses' => 'ProductController@fetchOption'
         ]);
-        
+
         Route::group(['prefix' => '{product}'], function () {
             Route::post('process', [
                 'as' => 'products.processImage',
@@ -395,7 +404,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('products-filters', 'FilterController', [
         'parameters' => ['products-filters' => 'filters']
     ]);
-    
+
     Route::get('products/import', [
         'as' => 'excel.index',
         'uses' => 'ExcelController@index'

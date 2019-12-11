@@ -233,6 +233,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
     });
     Route::resource('settings', 'SettingController');
+    Route::resource('email-contents', 'EmailContentController', [
+        'parameters' => [
+            'email-contents' => 'emailContent'
+        ]
+    ]);
 
 
     Route::group(['prefix' => 'components'], function (){

@@ -55,7 +55,9 @@ class SettingController extends Controller
 
         return response()->json([
             'message' => 'Created new setting successfully.',
-            'data' => view('admin.settings.list', ['settings' => Setting::orderBy('order', 'desc')->paginate()])->render()
+            'data' => view('admin.settings.list', [
+                'settings' => Setting::orderBy('order', 'desc')->paginate()->setPath(route('admin.settings.index'))
+            ])->render()
         ], 200);
     }
 
@@ -108,7 +110,9 @@ class SettingController extends Controller
 
         return response()->json([
             'message' => 'Updated setting successfully.',
-            'data' => view('admin.settings.list', ['settings' => Setting::orderBy('order', 'desc')->paginate()])->render()
+            'data' => view('admin.settings.list', [
+                'settings' => Setting::orderBy('order', 'desc')->paginate()->setPath(route('admin.settings.index'))
+            ])->render()
         ], 200);
     }
 
@@ -124,7 +128,9 @@ class SettingController extends Controller
 
         return response()->json([
             'message' => 'Deleted setting successfully.',
-            'data' => view('admin.settings.list', ['settings' => Setting::orderBy('order', 'desc')->paginate()])->render()
+            'data' => view('admin.settings.list', [
+                'settings' => Setting::orderBy('order', 'desc')->paginate()->setPath(route('admin.settings.index'))
+            ])->render()
         ], 200);
     }
 }

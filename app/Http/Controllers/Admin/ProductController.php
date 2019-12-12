@@ -10,6 +10,7 @@ use App\Models\ProductAttribute;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Showroom;
 
 class ProductController extends Controller
 {
@@ -43,9 +44,10 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $showrooms = Showroom::get();
         $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub();
-        return view('admin.products.create', compact('categories', 'typeOptions'));
+        return view('admin.products.create', compact('categories', 'typeOptions', 'showrooms'));
     }
 
     /**
@@ -58,11 +60,30 @@ class ProductController extends Controller
     {
         $attributes = $this->service->productCreate($request->all());
         $product = Product::create($attributes);
+        $product->showrooms()->sync($request->showroom);
         $product->categories()->attach($request->category);
 
         return redirect()->route('admin.products.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
     }
 
+
+    public function createProduct(Request $request)
+    {
+        // 'name',
+        // 'category_name',
+        // 'avatar',
+        // 'description',
+        // 'detail',        
+        // 'price',
+        // 'discount',
+        // 'unit',
+        // 'weight',
+        // 'product_code',
+        // 'quantity',
+        // 'store_location',
+
+    }
+    
     /**
      * Display the specified resource.
      *
@@ -82,6 +103,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $showrooms = Showroom::get();
+        // print_r($showrooms[0]->district);die;
         $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub($product->id);
         $product->load(['attributes', 'categories.productAttributes', 'reviews' => function($q) {
@@ -94,8 +117,9 @@ class ProductController extends Controller
             $productAttributes = ProductAttribute::all();
         }
         $selectedProductAttributes = $product->attributes->pluck('id');
-        // print_r($selectedProductAttributes);die;
-        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions'));
+        $selectedShowroom = $product->showrooms->pluck('id')->toArray();
+        // print_r($selectedShowroom);die;
+        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions', 'showrooms'));
     }
 
     /**
@@ -107,7 +131,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $product->showrooms()->sync($request->showroom);
         $product->categories()->sync($request->category);
+        // print_r($product->toArray());die;
         $attributes = $this->service->appendEditData($request->all());
         $product = Product::findOrFail($request->id);
         $product = $product->fill($attributes);

@@ -118,6 +118,36 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Showrooms</label>
+                                <select
+                                required
+                                name="showroom[]"
+                                data-selected-text-format="count > 7"
+                                class="selectpicker form-control category-selectpicker"
+                                data-count-selected-text="{0} mục đã được chọn"
+                                data-style="select-with-transition"
+                                title="Chọn Showrooms cho sản phẩm"
+                                data-size="15"
+                                data-show-tick="true"
+                                id="product-showroom"
+                                multiple>
+                                  <option value="0"></option>
+                                  @php
+                                    $selectedShowroom = optional($product->showrooms()->get()->pluck('id'));
+                                    // print_r($selectedShowroom);die;
+                                    @endphp
+                                  @forelse ($showrooms as $showroomValue)
+                                  <option value="{{ $showroomValue->id }}" {{ isset($selectedShowroom)&&$selectedShowroom->contains($showroomValue->id)?'selected':'' }}>
+                                      {{ $showroomValue->name }} - {{ $showroomValue->regions }}
+                                  </option>
+                                     
+                                  @empty
+                                      
+                                  @endforelse
+                                </select>
+                                <small class="form-text">Chọn Showrooms cho sản phẩm</small>
+                              </div>
+                            <div class="form-group">
                                 <label>Giá sản phẩm</label>
                                 <input
                                 type="text"
@@ -177,6 +207,18 @@
                                 value="{{$product->unit ?? ''}}"
                                 />
                                 <small class="form-text">Đơn vị sản phẩm</small>
+                            </div>
+                            <div class="form-group">
+                                <label>Weight (Gram)</label>
+                                <input
+                                type="text"
+                                name="Weight"
+                                required
+                                class="form-control"
+                                placeholder="Cân nặng của sản phẩm tính theo gram"
+                                value="{{$product->weight ?? ''}}"
+                                />
+                                <small class="form-text">Cân nặng sản phẩm tính theo gram</small>
                             </div>
                             <div class="form-group">
                                 <label>Product code</label>

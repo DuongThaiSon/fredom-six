@@ -162,6 +162,9 @@ class CartController extends Controller
         $attributes = $request->only([
             'first_name', 'last_name', 'email', 'address', 'phone', 'city', 'ship', 'payment_choice'
         ]);
+        $district = explode(",", $attributes['address']);
+        $districtLast = last($district);
+        // print_r($districtLast);die;
         $attributes['payment_status'] = 'Đặt hàng';
         $attributes['total'] = Cart::getTotal();
         
@@ -176,7 +179,7 @@ class CartController extends Controller
             ]);};
 
         Cart::clear();
-
+      
         event(new OrderCreated($order));
         $encrypt = encrypt($order->id);
         return redirect()->route('client.carts.complete', $encrypt);

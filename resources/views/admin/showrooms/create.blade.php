@@ -58,9 +58,19 @@
           </div>
           <div class="form-group">
             <label>Địa chỉ</label>
-            <input type="text" name="address" class="form-control" placeholder="Địa chỉ"/>
+            <input type="text" name="address" class="form-control" placeholder="Số nhà, Tên đường, Phường xã" />
             <small class="form-text">Địa chỉ showroom</small>
+          </div>
           <div class="form-group">
+            <label>Quận</label>
+            <input type="text" name="district" class="form-control" placeholder="Quận"/>
+            <small class="form-text">Quận </small>
+          </div>
+          <div class="form-group">
+            <label>Thành Phố</label>
+            <input type="text" name="city" class="form-control" placeholder="Thành Phố"/>
+            <small class="form-text">Thành Phố</small>
+          </div>
             <label>Bản đồ</label>
             <input type="text" name="map" class="form-control" placeholder="Link bản đồ showroom"/>
             <small class="form-text">Bản đồ showroom</small>
@@ -89,33 +99,8 @@
             <small class="form-text">Ngôn ngữ của trang(Ví dụ:Tiếng Việt,Tiếng Anh)</small>
           </div>
 
-          <!-- Button Toggle -->
-          {{-- <div class="mb-2">
-            <label class="control-label">Trạng thái hiển thị</label>
-            <input
-              type="checkbox"
-              class="checkbox-toggle"
-              name="is_public"
-              id="public"
-              value=""/>
-            <label class="label-checkbox" for="public">Hiển thị</label>
-            <small class="form-text">Khi tính năng được bật, danh mục này sẽ được hiển thị trên trang chủ hoặc các điểm chỉ định trên giao diện.</small>
-          </div> --}}
-
         </div>
         </div>
-
-        <!-- CK Editor -->
-        {{--  <hr>  
-          <div class="row">
-            <div class="col-12">
-              <legend>Nội dung</legend>
-              <div class="form-group">
-                <textarea class="form-control ckeditor" name="detail"></textarea>
-              </div>
-            </div>
-          </div>  
-          <hr>--}}
         </div>
       </form>
     </div>

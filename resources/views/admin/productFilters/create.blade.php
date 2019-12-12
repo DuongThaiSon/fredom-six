@@ -60,6 +60,7 @@
               @endforelse
             </select>
             <small class="form-text">Chọn thuộc tính cho bộ lọc</small>
+          </div>
           <!-- Button Toggle -->
           <div class="mb-2">
             <label class="control-label">Trạng thái hiển thị</label>

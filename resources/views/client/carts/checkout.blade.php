@@ -45,39 +45,39 @@
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label for="name" class="font-weight-bold">HỌ *</label>
-                      <input type="text" name="first_name" class="form-control form-control-block" required>
+                      <input type="text" name="first_name" class="form-control form-control-block" placeholder="" required>
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label for="name" class="font-weight-bold">TÊN *</label>
-                      <input type="text" name="last_name" class="form-control form-control-block" required>
+                      <input type="text" name="last_name" class="form-control form-control-block" placeholder="" required>
                     </div>
                   </div>
                 </div>
                 <div class="col-lg-12 ">
                 <div class="form-group">
                   <label for="name" class="font-weight-bold">EMAIL *</label>
-                  <input type="email" name="email" class="form-control form-control-block" required>
+                  <input type="email" name="email" class="form-control form-control-block" placeholder="abc@gmail.com" required>
                 </div>
                 </div>
                 <div class="col-lg-12">
                 <div class="form-group">
                   <label for="name" class="font-weight-bold">ĐỊA CHỈ *</label>
-                  <input type="text" name="address" class="form-control form-control-block" required>
+                  <input type="text" name="address" class="form-control form-control-block" placeholder="Số nhà, Đường, Quận huyện" required>
                 </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label for="name" class="font-weight-bold">THÀNH PHỐ *</label>
-                      <input type="text" name="city" class="form-control form-control-block" required>
+                      <input type="text" name="city" class="form-control form-control-block" placeholder="Tỉnh hoặc Thành phố" required>
                     </div>
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
                       <label for="name" class="font-weight-bold">SỐ ĐIỆN THOẠI *</label>
-                      <input type="text" name="phone" class="form-control form-control-block" required>
+                      <input type="text" name="phone" class="form-control form-control-block" placeholder="Số điện thoại nhận hàng" required>
                     </div>
                   </div>
                 </div>

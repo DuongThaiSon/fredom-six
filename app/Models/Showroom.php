@@ -10,5 +10,10 @@ class Showroom extends Model
     
 	public function showroomCreatedBy() {
         return $this->belongsTo('App\Models\User', 'created_by');
-	}
+    }
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product', 'product_showrooms')
+        ->withTimestamps();
+    }
 }

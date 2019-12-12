@@ -52,6 +52,8 @@ class ProductService extends BaseModel
         'discount_start',
         'discount_end',
         'unit',
+        'weight',
+        'sku',
         'product_code',
         'quantity',
         'type'

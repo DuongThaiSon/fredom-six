@@ -83,6 +83,11 @@ class Product extends Model
             ->withPivot(['product_attribute_id', 'product_attribute_option_id'])
             ->orderBy('order', 'desc');
     }
+    public function showrooms()
+    {
+        return $this->belongsToMany('App\Models\Showroom', 'product_showrooms')
+            ->withTimestamps();
+    }
 }
 
 

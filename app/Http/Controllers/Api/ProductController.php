@@ -10,6 +10,7 @@ use App\Models\ProductAttribute;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\ProductAttributeValue;
 use App\Models\Showroom;
 use Auth;
 use Str;
@@ -21,18 +22,7 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function __construct(ProductService $service)
-    {
-        $this->service = $service;
-    }
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
-    // public function model()
-    // {
-    //     return Product::class;
-    // }
+
     /**
      * Display a listing of the resource.
      *
@@ -62,44 +52,89 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'sku' => 'required|unique'
+            'name' => 'required',
+            'sku' => 'required|unique:products',
+            'price' => 'required|numeric|min:0',
+            'product_code' => 'required',
+            'quantity' => 'required|numeric',
+            'category' => 'required',
+            'showroom' => 'required',
+            'unit' => 'required',
+            'weight' => 'required',
         ]);
+
+        // basic info
         $attributes = $request->only([
-            'name', 'meta_title', 'slug', 'size_chart', 'meta_description', 'meta_keyword', 'sku',
-            'meta_page_topic', 'avatar', 'description', 'detail', 'price', 'discount', 'unit', 'weight', 'product_code', 'quantity',
+            'name',
+            'size_chart',
+            'sku',
+            'avatar',
+            'description',
+            'detail',
+            'price',
+            'unit',
+            'weight',
+            'product_code',
+            'quantity',
         ]);
-        $attributes['created_by'] = $attributes['updated_by'] = $this->guard()->id();
-        $attributes['is_public'] = array_key_exists('is_public', $attributes)?'1':'0';
-        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes)?'1':'0';
-        $attributes['is_new'] = array_key_exists('is_new', $attributes)?'1':'0';
+        $attributes['created_by'] = $attributes['updated_by'] = $request->user()->id;
+        $attributes['is_public'] = $attributes['is_highlight'] = $attributes['is_new'] = 0;
         $attributes['order'] = Product::max('order') + 1;
-        if (!$request->has('slug')) {
-            $slug = Str::slug($attributes['name'], '-');
-            while (Product::where('slug', $slug)->get()->count() > 0) {
-                $slug .= '-'.rand(0, 9);
-            }
-            // $attributes['slug'] = $slug;
+        $slug = Str::slug($attributes['name'], '-');
+        while (Product::where('slug', $slug)->get()->count() > 0) {
+            $slug .= '-'.rand(0, 9);
         }
-        $attribute = $request->attribute;
-        print_r($attributes);die;
-        $categories = $request->category_name;
-        $showrooms = $request->store_location;
+        $attributes['slug'] = $slug;
+        $product = Product::create($attributes);
+
+        // category
         $categoryIds = [];
+        $categories = $request->category;
         foreach (explode(',', $categories) as $cat ) {
             $category = Category::firstOrCreate(['name' => $cat]);
             $categoryIds[] = $category->id;
         }
+        $product->categories()->attach($categoryIds);
 
-        // print_r($showrooms);die;
-        $product = Product::create($attributes);
-        
+        // showroom
         $showroomIds = [];
+        $showrooms = $request->showroom;
         foreach (explode(',',$showrooms) as $value) {
             $showroom = Showroom::firstOrCreate(['name' => $value]);
-            $showroomIds[] = $showroom->id; 
+            $showroomIds[] = $showroom->id;
         }
-        $product->showrooms()->sync($showroomIds);
-        $product->categories()->attach($categoryIds);
+        $product->showrooms()->attach($showroomIds);
+
+        // attribute
+        $attributes = json_decode($request->attribute);
+        foreach ($attributes as $attributeKey => $attributeValue) {
+            $attribute = ProductAttribute::firstOrCreate([
+                'name' => $attributeKey,
+                'type' => $attributeValue->type
+            ]);
+
+            $option = $attribute->productAttributeOptions()->firstOrCreate([
+                'value' => $attributeValue->option,
+                'note' => $attributeValue->note ?? ''
+            ]);
+
+            ProductAttributeValue::firstOrCreate([
+                'product_id' => $product->id,
+                'product_attribute_id' => $attribute->id,
+                'product_attribute_option_id' => $option->id,
+            ]);
+        }
+
+        $images = json_decode($request->additional_images);
+        foreach ($images as $image) {
+            $product->images()->create([
+                'url' => $image,
+                'is_public' => 1,
+                'order' => Image::max('order') + 1,
+                'created_by' => $request->user()->id,
+                'updated_by' => $request->user()->id,
+            ]);
+        }
 
         return response()->json([
             'message' => 'Product store successfully.',

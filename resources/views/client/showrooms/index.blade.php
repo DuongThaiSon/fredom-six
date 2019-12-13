@@ -8,7 +8,7 @@
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
                 <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
                     <p class="text-uppercase m-0 text-center" style="font-size: 24px;">
-                        {{ $showroommb->first()->regions }}</p>
+                        {{ $showroommb->first()->regions ?? '' }}</p>
                 </div>
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="showroom">
                         <p class="showroom-title">{{ $showmb->name }}</p>
                         <div class="showroom-img">
-                            <img src="{{ asset('/media/showroom') }}/{{ $showmb->avatar }}" alt="{{ $showmb->avatar }}">
+                            <img src="{{ asset('/media/images/showrooms') }}/{{ $showmb->avatar }}" alt="{{ $showmb->avatar }}">
                         </div>
                         <div class="showroom-detail">
                             <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i>
@@ -51,7 +51,7 @@
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
                 <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
                     <p class="text-uppercase m-0 text-center" style="font-size: 24px;">
-                        {{ $showroommt->first()->regions??'' }}</p>
+                        {{ $showroommt->first()->regions ?? ''??'' }}</p>
                 </div>
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
             </div>
@@ -62,7 +62,7 @@
                     <div class="showroom">
                         <p class="showroom-title">{{ $showmt->name }}</p>
                         <div class="showroom-img">
-                            <img src="{{ asset('/media/showroom') }}/{{ $showmt->avatar }}" alt="{{ $showmt->avatar }}">
+                            <img src="{{ asset('/media/images/showrooms') }}/{{ $showmt->avatar }}" alt="{{ $showmt->avatar }}">
                         </div>
                         <div class="showroom-detail">
                             <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i>
@@ -94,7 +94,7 @@
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
                 <div class="col-lg-2 col-md-6 col-8 align-self-center font-weight-bold">
                     <p class="text-uppercase m-0 text-center" style="font-size: 24px;">
-                        {{ $showroommn->first()->regions??'' }}</p>
+                        {{ $showroommn->first()->regions ?? ''??'' }}</p>
                 </div>
                 <div class="line-bold col-lg-5 col-md-3 col-2"></div>
             </div>
@@ -106,7 +106,7 @@
                     <div class="showroom">
                         <p class="showroom-title">{{ $showmn->name }}</p>
                         <div class="showroom-img">
-                            <img src="{{ asset('/media/showroom') }}/{{ $showmn->avatar }}" alt="{{ $showmn->avatar }}">
+                            <img src="{{ asset('/media/images/showrooms') }}/{{ $showmn->avatar }}" alt="{{ $showmn->avatar }}">
                         </div>
                         <div class="showroom-detail">
                             <p class="showroom-detail-address"><i class="fas fa-map-marker-alt"></i>

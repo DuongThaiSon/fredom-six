@@ -52,6 +52,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id_sse' => 'required|unique:products',
             'name' => 'required',
             'sku' => 'required|unique:products',
             'price' => 'required|numeric|min:0',
@@ -65,6 +66,7 @@ class ProductController extends Controller
 
         // basic info
         $attributes = $request->only([
+            'id_sse',
             'name',
             'size_chart',
             'sku',
@@ -89,17 +91,21 @@ class ProductController extends Controller
         // category
         $categoryIds = [];
         $categories = $request->category;
+        $categoryName = [];
         foreach (explode(',', $categories) as $cat ) {
             $category = Category::whereName($cat)->first();
             $categoryIds[] = $category->id;
+            $categoryName[] = $category->name;
         }
 
         // showroom
         $showroomIds = [];
         $showrooms = $request->showroom;
+        $showroomName = [];
         foreach (explode(',',$showrooms) as $value) {
             $showroom = Showroom::whereName($value)->first();
             $showroomIds[] = $showroom->id;
+            $showroomName[] = $showroom->name;
         }
         $product = Product::create($attributes);
         $product->categories()->attach($categoryIds);
@@ -138,7 +144,7 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product store successfully.',
-            'data' => $product
+            'data' => $product, $images, $showroomName, $categoryName, $attributes
         ], 201);
     }
 

@@ -85,24 +85,24 @@ class ProductController extends Controller
             $slug .= '-'.rand(0, 9);
         }
         $attributes['slug'] = $slug;
-        $product = Product::create($attributes);
 
         // category
         $categoryIds = [];
         $categories = $request->category;
         foreach (explode(',', $categories) as $cat ) {
-            $category = Category::firstOrCreate(['name' => $cat]);
+            $category = Category::whereName($cat)->first();
             $categoryIds[] = $category->id;
         }
-        $product->categories()->attach($categoryIds);
 
         // showroom
         $showroomIds = [];
         $showrooms = $request->showroom;
         foreach (explode(',',$showrooms) as $value) {
-            $showroom = Showroom::firstOrCreate(['name' => $value]);
+            $showroom = Showroom::whereName($value)->first();
             $showroomIds[] = $showroom->id;
         }
+        $product = Product::create($attributes);
+        $product->categories()->attach($categoryIds);
         $product->showrooms()->attach($showroomIds);
 
         // attribute

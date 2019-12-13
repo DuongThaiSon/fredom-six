@@ -67,10 +67,10 @@
                     </div>
                     <div class="form-group">
                         <label>Trạng thái</label>
-                        <select name="payment_status" class="form-control" id="sel1">
-                            <option value="Đặt hàng" {{ $order->payment_status == 'Đặt hàng' ? 'selected' : '' }}>Đặt hàng</option>
-                            <option value="Đang giao hàng" {{ $order->payment_status == 'Đang giao hàng' ? 'selected' : '' }}>Đang giao hàng</option>
-                            <option value="Hoàn thành" {{ $order->payment_status == 'Hoàn thành' ? 'selected' : '' }}>Hoàn thành</option>
+                        <select name="status" class="form-control" id="sel1">
+                            <option value="Đặt hàng" {{ $order->status == 'Đặt hàng' ? 'selected' : '' }}>Đặt hàng</option>
+                            <option value="Đang giao hàng" {{ $order->status == 'Đang giao hàng' ? 'selected' : '' }}>Đang giao hàng</option>
+                            <option value="Hoàn thành" {{ $order->status == 'Hoàn thành' ? 'selected' : '' }}>Hoàn thành</option>
                         </select>
                         <small class="form-text">Trạng thái </small>
                     </div>

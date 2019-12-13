@@ -37,24 +37,24 @@
                     <li class="nav-item">
                         <a href="{{ route('admin.product-attributes.index') }}" class="nav-link menu-product-attributes-index">Quản lý thuộc tính</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.products-filters.index') }}" class="nav-link menu-product-filter-category">Quản lý bộ lọc</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('admin.product-categories.create') }}" class="nav-link menu-product-categories-create">Thêm mới danh mục sản phẩm</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.product-categories.index') }}" class="nav-link menu-product-categories-index">Quản lý danh mục sản phẩm</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('admin.excel.index') }}" class="nav-link menu-Upload-products-excel">Upload sản phẩm bằng excel</a>
-                    </li>
+                    </li> --}}
                 </ul>
                 </div>
             </li>
 
             {{-- Partner --}}
-            <li class="nav-item has-child">
+            {{-- <li class="nav-item has-child">
                     <a
                         data-toggle="collapse"
                         data-target="#partner"
@@ -72,7 +72,7 @@
                         </li>
                         </ul>
                     </div>
-                    </li>
+                    </li> --}}
             <!-- News -->
 
             <li class="nav-item has-child">

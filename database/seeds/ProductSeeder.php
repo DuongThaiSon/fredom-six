@@ -17,11 +17,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Áo Silica',
                 'price' => '3000000',
                 'discount' => '10',
-                'avatar' => 'clothe.png',
+                'avatar' => '/media/images/products/clothe.png',
                 'unit' => 'cái',
                 'product_code' => 'AS',
+                'weight' => '100',
+                'sku' => 'AS1',
                 'description' => '<p>Áo silica</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -38,11 +59,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Quần Short',
                 'price' => '3000000',
                 'discount' => '10',
-                'avatar' => 'short.png',
+                'avatar' => '/media/images/products/short.png',
                 'unit' => 'cái',
                 'product_code' => 'QS',
+                'weight' => '100',
+                'sku' => 'QS2',
                 'description' => '<p>Quần short</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -59,11 +101,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Khuyên tai',
                 'price' => '3000000',
                 'discount' => '5',
-                'avatar' => 'item.png',
+                'avatar' => '/media/images/products/item.png',
                 'unit' => 'đôi',
                 'product_code' => 'KT',
+                'weight' => '100',
+                'sku' => 'KT3',
                 'description' => '<p>Khuyên tai</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -80,11 +143,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Đồng hồ',
                 'price' => '1000000',
                 'discount' => '10',
-                'avatar' => 'watch.png',
+                'avatar' => '/media/images/products/watch.png',
                 'unit' => 'cái',
                 'product_code' => 'DH',
+                'weight' => '100',
+                'sku' => 'DH4',
                 'description' => '<p>Đồng hồ</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -101,11 +185,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Kính',
                 'price' => '2000000',
                 'discount' => '10',
-                'avatar' => 'glasses.png',
+                'avatar' => '/media/images/products/glasses.png',
                 'unit' => 'cái',
                 'product_code' => 'K',
+                'weight' => '100',
+                'sku' => 'K5',
                 'description' => '<p>Kính</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -122,11 +227,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Mules',
                 'price' => '3000000',
                 'discount' => '10',
-                'avatar' => 'shoes.png',
+                'avatar' => '/media/images/products/shoes.png',
                 'unit' => 'đôi',
                 'product_code' => 'ML',
+                'weight' => '100',
+                'sku' => 'ML6',
                 'description' => '<p>Mules</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',
@@ -143,11 +269,32 @@ class ProductSeeder extends Seeder
                 'name' => 'Túi Orico',
                 'price' => '3000000',
                 'discount' => '10',
-                'avatar' => 'bag.png',
+                'avatar' => '/media/images/products/bag.png',
                 'unit' => 'cái',
                 'product_code' => 'TO',
+                'weight' => '100',
+                'sku' => 'TO7',
                 'description' => '<p>Túi Orio</p>',
-                'detail' => '<figure class="table"><table><tbody><tr><td><p>Chất liệu:&nbsp;</p><p>Màu sắc: Đen</p></td><td><p>Xuất xứ: Việt Nam</p><p>Kích thước:&nbsp;</p></td></tr></tbody></table></figure><p>&nbsp; &nbsp;Mô tả:&nbsp;</p>',
+                'detail' => '<table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <p>Chất liệu: Da trăn&nbsp; &nbsp; &nbsp;</p>
+
+                                    <p>M&agrave;u sắc: Đen</p>
+                                    </td>
+                                    <td>
+                                    <p>Xuất xứ: Việt Nam</p>
+
+                                    <p>K&iacute;ch thước: 39&nbsp;</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p>&nbsp;</p>
+
+                        <p>M&ocirc; tả:&nbsp;Sẽ thật tuyệt vời nếu n&agrave;ng kết hợp c&ugrave;ng trang phục v&agrave; phụ kiện c&ugrave;ng m&agrave;u hoặc c&oacute; gam m&agrave;u trắng, đen.....tới nơi l&agrave;m việc hay xuống phố.&nbsp;</p>',
                 'is_new' => '1',
                 'is_highlight' => '1',
                 'is_public' => '1',

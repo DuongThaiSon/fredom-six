@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-6 col-5 pr-0">
             <p class="hotline text-uppercase m-0">
-                <i class="fas fa-phone d-lg-none"></i><span class="phone">hotline:</span> {{ $hotline->company_hotline }}
+                <i class="fas fa-phone d-lg-none"></i><span class="phone">hotline:</span> {{ Setting('company_hotline') }}
             </p>
             </div>
             <div class="col-lg-6 col-7 pl-0">

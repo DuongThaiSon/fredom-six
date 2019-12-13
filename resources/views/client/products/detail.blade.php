@@ -36,8 +36,8 @@
                                 <ol class="carousel-indicators d-flex flex-column align-items-center m-0">
                                     <ul class="thumbnail mr-3" style="height: 95%;">
                                         @forelse ($product->images as $item)
-                                        <li data-target="#product_details_slider" data-slide-to="{{ $loop->index }}" class="thumbnail-products" data-src="{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}"
-                                            style="background-image: url(/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
+                                        <li data-target="#product_details_slider" data-slide-to="{{ $loop->index }}" class="thumbnail-products" data-src="{{ $item->url ?? ''}}"
+                                            style="background-image: url({{ $item->url ?? ''}}); background-size: 57px 65px; background-repeat: no-repeat;">
                                         </li>
                                         @empty
                                         @endforelse
@@ -52,11 +52,11 @@
                                     @forelse ($product->images as $item)
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }} py-3" style="max-height: 600px;">
                                         <a class="gallery_img"
-                                            href="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ??'' }}">
+                                            href="{{ $item->url ??'' }}">
                                             <img class="d-block w-75 mx-auto product-main-image"
                                                 style="height: 384px; margin-top: 90px; margin-bottom: 90px;"
-                                                src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->name ?? $product->avatar }}"
-                                                alt="{{ $item->name ??'' }}">
+                                                src="{{ $item->url ?? '' }}"
+                                                alt="{{ $item->url ??'' }}">
                                         </a>
                                     </div>
                                     @empty
@@ -215,10 +215,10 @@
                     <div class="row">
                         <!-- quantity -->
                         <div class="col-lg-6 col-12 p-0">
-                            <div class="number-input ml-2">
+                            <div class="number-input ">
                                 <button type="button"
                                     onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                    class="my-auto ml-2"></button>
+                                    class="my-auto "></button>
                                 <input class="number detail-quantity" value="1" type="number" oninput="format(this)"
                                     min="1" max="24" step="1" />
                                 <button type="button"
@@ -466,7 +466,7 @@
                             <div class="card">
                                 <div class="product-img">
                                     <a href="{{ route('client.products.detail', ['slug_view' => $item->slug, 'slug_cat' => $category->slug]) }}"><img
-                                            src="{{ asset('media/product') }}/{{ $item->avatar }}"
+                                            src="{{ $item->avatar }}"
                                             class="mx-auto d-flex justify-content-center" alt=""></a>
                                     <div class="product-colors justify-content-center d-flex">
                                         @php
@@ -575,9 +575,9 @@
 <script>
     var content = $(".details").find(".more").html();
 
-      var lessText = content.substr(0, 500);
-      var showText = content.substr(500, content.length - 500);
-      if(content.length > 500) {
+      var lessText = content.substr(0, 350);
+      var showText = content.substr(350, content.length - 350);
+      if(content.length > 350) {
           $(".details").find(".more").html(lessText).append("<a href='#' class='read-more-link'> ...Xem thêm</a>");
       } else {
           $(".details").find(".more").html(content);

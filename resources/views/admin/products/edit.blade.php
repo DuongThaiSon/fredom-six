@@ -73,7 +73,7 @@
                                 <small class="form-text">Tên sản phẩm</small>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Loại sản phẩm</label>
                                 <select
                                     disabled
@@ -87,7 +87,7 @@
 
                                     @endforelse
                                 </select>
-                            </div>
+                            </div> --}}
 
                             @php
                                 $selectedCategories = $product->categories->pluck('id')->toArray();
@@ -211,14 +211,26 @@
                             <div class="form-group">
                                 <label>Weight (Gram)</label>
                                 <input
-                                type="text"
-                                name="Weight"
+                                type="number"
+                                name="weight"
                                 required
                                 class="form-control"
                                 placeholder="Cân nặng của sản phẩm tính theo gram"
                                 value="{{$product->weight ?? ''}}"
                                 />
                                 <small class="form-text">Cân nặng sản phẩm tính theo gram</small>
+                            </div>
+                            <div class="form-group">
+                                <label>SKU</label>
+                                <input
+                                type="text"
+                                name="sku"
+                                required
+                                class="form-control"
+                                placeholder="SKU của sản phẩm"
+                                value="{{$product->sku ?? ''}}"
+                                />
+                                <small class="form-text">SKU của sản phẩm</small>
                             </div>
                             <div class="form-group">
                                 <label>Product code</label>

@@ -111,7 +111,7 @@
                         <div class="product-img">
                             <a href="{{ route('client.products.detail', ['slug_view' => $prod->slug, 'slug_cat' => $category->slug]) }}">
                                 <img
-                                    src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $prod->avatar }}"
+                                    src="{{ $prod->avatar }}"
                                     class="mx-auto d-flex justify-content-center" alt=""></a>
                             <div class="product-colors justify-content-center d-flex">
                                 @php

@@ -47,7 +47,7 @@ class ShowroomController extends Controller
         $fileName = '';
         if($request->hasFile('avatar')){
             $fileName = uniqid('showroom') . '.' .$request->avatar->extension();
-            $request->avatar->move(public_path('media/showroom'), $fileName);
+            $request->avatar->move(public_path('media/images/showrooms'), $fileName);
             
         }
         $attributes = $this->service->showroomCreate($request);
@@ -90,7 +90,7 @@ class ShowroomController extends Controller
     {
         if($request->hasFile('avatar')){
             $fileName = uniqid('showroom') . '.' .$request->avatar->extension();
-            $request->avatar->move(public_path('media/showroom'), $fileName);
+            $request->avatar->move(public_path('media/images/showrooms'), $fileName);
             
         }
         else{

@@ -29,15 +29,13 @@
         >
           <thead>
             <tr class="text-muted">
-              <th class="text-center">ID</th>
-              <th style="width: 100px;">Tên</th>
-              <th>Email</th>
-              <th>Số điện thoại</th>
-              <th>Địa chỉ</th>
-              {{-- <th>Ảnh đại diện</th> --}}
-              {{-- <th style="width: 44.8px;">Hiển thị</th> --}}
-              <th>Chi nhánh</th>
-              <th class="text-center">Thao tác</th>
+              <th width="3%" class="text-center">ID</th>
+              <th width="15%">Tên</th>
+              <th width="15%">Email</th>
+              <th width="10%">Số điện thoại</th>
+              <th width="32%">Địa chỉ</th>
+              <th width="15%">Chi nhánh</th>
+              <th width="10%" class="text-center">Thao tác</th>
           </tr>
           </thead>
           <tbody>
@@ -50,7 +48,7 @@
               <td>{{ $show->email }}</td>
               <td>{{ $show->phone }}</td>
               <td>{{ $show->address }}</td>
-              {{-- <td> <img src="/media/showroom/{{ $show->avatar }}" alt=""> </td> --}}
+              {{-- <td> <img src="/media/images/showrooms/{{ $show->avatar }}" alt=""> </td> --}}
               {{-- <td>
                 <button
                   type="button"
@@ -65,9 +63,19 @@
               {{-- <td>{{ isset($show->showroomCreatedBy)?$show->showroomCreatedBy->name:'' }}</td> --}}
               <td>{{ $show->regions }}</td>
               <td class="text-center">
-                <a href="{{ route('admin.showrooms.edit', $show->id) }}" data-toggle="tooltip" title="Sửa"
-                  ><i class="material-icons">border_color</i></a
-                >
+                <div class="btn-group">
+                    <a href="{{ route('admin.showrooms.edit', $show->id) }}" class="btn btn-sm p-1" style="padding:0;" data-toggle="tooltip"
+                        title="Sửa">
+                        <i class="material-icons">border_color</i>
+                    </a>                                   
+                    <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.showrooms.destroy', $show->id)}}" method="POST" enctype="multipart/form-data">
+                    @method('DELETE')
+                    @csrf
+                        <button class="btn btn-sm btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </form>
+                </div>
               </td>
             </tr>
             @endforeach

@@ -107,8 +107,8 @@
               <div class="form-group form-checkout m-4">
                 <label class="checkbox-container mb-3">
                   <input type="checkbox" value="COD" name="payment_choice" class="payment-choice">
-                  <span class="checkmark align-self-center"></span> <span style="margin-left: 35px;">Thanh toán khi nhận
-                    hàng - COD</span>
+                  <span class="checkmark align-self-center"></span> 
+                  <span style="margin-left: 35px;">Thanh toán khi nhận hàng - COD</span>
                 </label>
                 <label class="checkbox-container">
                   <input type="checkbox" value="VNPay" name="payment_choice" class="payment-choice">

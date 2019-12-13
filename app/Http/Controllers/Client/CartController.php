@@ -47,53 +47,53 @@ class CartController extends Controller
     }
     public function add(Request $request)
     {
-        $product = Product::with(['variants', 'categories'])->findOrFail($request->id);
+        $product = Product::with('categories')->findOrFail($request->id);
 
-        if ($request->size || $request->color) {
-            $request->color ? $attributeSelected[] = $request->color : '';
-            $request->size ? $attributeSelected[] = $request->size : '';
-            // print_r($attributeSelected);die;
-            $variantId = $product->variants()->get()->groupBy(['id', function($query) {
-                return $query->pivot->product_attribute_option_id;
-            }])->filter(function($query) use($attributeSelected) {
-                $results = true;
-                $attributeAvailable = $query->keys();
-                foreach ($attributeSelected as $queryValue) {
-                    $results = $results && $attributeAvailable->contains($queryValue);
-                }
+        // if ($request->size || $request->color) {
+        //     $request->color ? $attributeSelected[] = $request->color : '';
+        //     $request->size ? $attributeSelected[] = $request->size : '';
+        //     // print_r($attributeSelected);die;
+        //     $variantId = $product->variants()->get()->groupBy(['id', function($query) {
+        //         return $query->pivot->product_attribute_option_id;
+        //     }])->filter(function($query) use($attributeSelected) {
+        //         $results = true;
+        //         $attributeAvailable = $query->keys();
+        //         foreach ($attributeSelected as $queryValue) {
+        //             $results = $results && $attributeAvailable->contains($queryValue);
+        //         }
 
-                return $results;
-            });
-            $variant = Product::findOrFail($variantId->keys()->first());
-        }
-        else
-        {
-            $variant = $product->variants->first();
-        }
+        //         return $results;
+        //     });
+        //     $variant = Product::findOrFail($variantId->keys()->first());
+        // }
+        // else
+        // {
+        //     $variant = $product->variants->first();
+        // }
 
-        if($variant)
-        {
-            $attributes = $variant->variantAttributeValues()->get();
-            $attributeValues = [];
-            foreach ($attributes as $key => $attribute) {
-                $attributeValues[$attribute->productAttribute->name] = $attribute->product_attribute_id == 2 ? $attribute->note : $attribute->value;
-            }
-            $values = array(
-                'id' => $variant->id,
-                'name' => $product->name,
-                'price' => $product->discount>0?($variant->price-$product->discount*$variant->price/100):$variant->price,
-                'quantity' => $request->quantity,
-                'attributes' => array(
-                    'avatar' => $variant->avatar,
-                    'product_code' => $variant->product_code,
-                    'discount' => $variant->discount,
-                    'category_id' => $product->categories[0]->id,
-                    'category' => $product->categories[0]->name,
-                    'attributeOptions' => $attributeValues
-                )
-            );
-        }
-        else {
+        // if($variant)
+        // {
+        //     $attributes = $variant->variantAttributeValues()->get();
+        //     $attributeValues = [];
+        //     foreach ($attributes as $key => $attribute) {
+        //         $attributeValues[$attribute->productAttribute->name] = $attribute->product_attribute_id == 2 ? $attribute->note : $attribute->value;
+        //     }
+        //     $values = array(
+        //         'id' => $variant->id,
+        //         'name' => $product->name,
+        //         'price' => $product->discount>0?($variant->price-$product->discount*$variant->price/100):$variant->price,
+        //         'quantity' => $request->quantity,
+        //         'attributes' => array(
+        //             'avatar' => $variant->avatar,
+        //             'product_code' => $variant->product_code,
+        //             'discount' => $variant->discount,
+        //             'category_id' => $product->categories[0]->id,
+        //             'category' => $product->categories[0]->name,
+        //             'attributeOptions' => $attributeValues
+        //         )
+        //     );
+        // }
+        // else {
             $values = array(
                 'id' => $product->id,
                 'name' => $product->name,
@@ -108,7 +108,7 @@ class CartController extends Controller
                     // 'attributeOptions' => $attributeValues
                 )
             );
-        }
+        // }
 
         Cart::add($values);
 
@@ -165,7 +165,8 @@ class CartController extends Controller
         $district = explode(",", $attributes['address']);
         $districtLast = last($district);
         // print_r($districtLast);die;
-        $attributes['payment_status'] = 'Đặt hàng';
+        $attributes['status'] = 'Đặt hàng';
+        $attributes['is_freeship'] = '1';
         $attributes['total'] = Cart::getTotal();
         
         $order = Order::create($attributes);
@@ -179,7 +180,7 @@ class CartController extends Controller
             ]);};
 
         Cart::clear();
-      
+                
         event(new OrderCreated($order));
         $encrypt = encrypt($order->id);
         return redirect()->route('client.carts.complete', $encrypt);

@@ -141,7 +141,7 @@
                 <div class="col-lg-3 col-6 p-0">
                     @foreach ($products->products->take(2) as $item)
                     <div class="{{ $loop->iteration === 1?'clothe':'short' }}">
-                        <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
+                        <img src="{{ $item->avatar }}" alt="">
                         <div class="{{ $loop->iteration === 1?'clothe-name':'short-name' }}">
                             <p class="mb-0">{{ $item->name }}</p>
                             <a href="{{ route('client.products.detail', ['slug_cat' => 'mix-match', 'slug_view' => $item->slug]) }}" class="item-link">Xem sản
@@ -153,7 +153,7 @@
                 <div class="col-lg-3 col-6">
                     @foreach ($products->products->skip(2)->take(3) as $item)
                     <div class="{{ $loop->iteration === 1?'earing':($loop->iteration === 2?'watch':'glasses') }}">
-                        <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
+                        <img src="{{ $item->avatar }}" alt="">
                         <div class="{{ $loop->iteration === 1?'earing-name':($loop->iteration === 2?'watch-name':'glasses-name') }}">
                             <p class="mb-0">{{ $item->name }}</p>
                             <a href="{{ route('client.products.detail', ['slug_cat' => 'mix-match', 'slug_view' => $item->slug]) }}" class="item-link">Xem sản
@@ -166,7 +166,7 @@
                 <div class="col-lg-3 col-6 p-0">
                     @foreach ($products->products->skip(5)->take(2) as $item)
                     <div class="{{ $loop->iteration === 1?'shoes':'bag' }}">
-                        <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}" alt="">
+                        <img src="{{ $item->avatar }}" alt="">
                         <div class="{{ $loop->iteration === 1?'shoes-name':'bag-name' }}">
                             <p class="mb-0">{{ $item->name }}</p>
                             <a href="{{ route('client.products.detail', ['slug_cat' => 'mix-match', 'slug_view' => $item->slug]) }}" class="item-link">Xem sản

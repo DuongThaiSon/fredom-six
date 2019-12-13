@@ -51,7 +51,7 @@
             <td>
               <div class="product d-flex align-items-center">
                 <div class="product-image">
-                  <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->attributes->avatar }}" class="img-fluid" alt="">
+                  <img src="{{ $item->attributes->avatar }}" class="img-fluid" alt="">
                 </div>
                 <a href="#" style="width: 240px; font-size: 16px !important;"
                   class="font-weight-bold text-uppercase mb-0 ml-5 ">{{ $item->name }}</a>
@@ -150,7 +150,7 @@
                 <div class="card">
                   <div class="product-img">
                     <a href="{{ route('client.products.detail', ['slug_cat' => $item->categories[0]->slug, 'slug_view' => $item->slug]) }}"><img
-                        src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $item->avatar }}"
+                        src="{{ $item->avatar }}"
                         class="mx-auto d-flex justify-content-center" alt=""></a>
                     <div class="product-colors justify-content-center d-flex">
                         @php

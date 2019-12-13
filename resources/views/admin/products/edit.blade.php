@@ -38,9 +38,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#nav-image">Ảnh</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#nav-attribute">Thuộc tính</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#nav-review">Quản lý review</a>
                 </li>
@@ -384,7 +384,7 @@
                             <div class="form-group">
                                 <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new img-thumbnail" style="width: 400px; height: 300px;">
-                                        <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $product->avatar }}"  alt="...">
+                                        <img src="{{ $product->avatar }}"  alt="...">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
                                     <div>
@@ -443,7 +443,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="nav-attribute" role="tabpanel" aria-labelledby="nav-image-tab">
+                {{-- <div class="tab-pane fade show" id="nav-attribute" role="tabpanel" aria-labelledby="nav-image-tab">
                         <div class="row">
                             <div class="col-lg-6">
                                 <legend>Thuộc tính sản phẩm</legend>
@@ -486,7 +486,7 @@
                                 @include('admin.productVariants.index', ['products' => $product->variants->unique('id')->paginate(15)->withPath(route('admin.variants.index', $product->id))])
                             </div>
                         </div>
-                    </div>
+                </div> --}}
                 <div class="tab-pane fade show" id="nav-review" role="tabpanel" aria-labelledby="nav-image-tab">
                     <div class="row">
                         <div class="col-12">
@@ -545,7 +545,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="variant-edit-modal" tabindex="-1" role="dialog" aria-labelledby="variant-edit-modal-label"
+{{-- <div class="modal fade" id="variant-edit-modal" tabindex="-1" role="dialog" aria-labelledby="variant-edit-modal-label"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrol-lable modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
@@ -564,7 +564,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
 @push('js')
 <script src="/assets/admin/js/products.edit.js"></script>

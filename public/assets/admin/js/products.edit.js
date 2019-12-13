@@ -3210,9 +3210,8 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    this.initVariantAction();
-    this.submitEditVariantForm();
-    this.showSelectedAttribute();
+    this.initVariantAction(); // this.submitEditVariantForm()
+    // this.showSelectedAttribute()
   }
 
   _createClass(productCore, [{
@@ -3559,9 +3558,9 @@ $(document).ready(function () {
   var id = $("input[name=id]").val();
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCore"](id);
   guide.collectSelectedAttributeId();
-  guide.selectCategory();
-  guide.makeVariation();
-  guide.setVariantButtonStatus();
+  guide.selectCategory(); // guide.makeVariation()
+  // guide.setVariantButtonStatus()
+
   $(".attribute-selectpicker").selectpicker();
   var productId = $('input[name=id]').val(); // filePond.initFilePond('gallery-images', `/admin/gallery/${productId}`);
 
@@ -3985,7 +3984,7 @@ function updateViewViewStatus(updateUrl) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/products.edit.js */"./resources/js/admin/products.edit.js");
+module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\products.edit.js */"./resources/js/admin/products.edit.js");
 
 
 /***/ })

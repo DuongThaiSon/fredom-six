@@ -18,7 +18,7 @@ class ComponentController extends Controller
     }
     public function index()
     {
-        $components = Component::orderBy('id','desc')->with(['comCreatedBy'])->paginate();
+        $components = Component::orderBy('id','desc')->with(['comCreatedBy'])->simplePaginate();
         return view('admin.components.index', compact('components'));
     }
     public function create()

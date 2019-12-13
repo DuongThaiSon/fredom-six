@@ -55,7 +55,7 @@
                     />
                     <small class="form-text">Tên của tin bài</small>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>@importantfield Loại sản phẩm</label>
                     <select
                         required
@@ -70,7 +70,7 @@
 
                         @endforelse
                     </select>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label>@importantfield Nằm trong mục</label>
                     <select
@@ -178,12 +178,23 @@
                     <label>Weight (Gram)</label>
                     <input
                     type="text"
-                    name="Weight"
+                    name="weight"
                     required
                     class="form-control"
                     placeholder="Cân nặng của sản phẩm tính theo gram"
                     />
                     <small class="form-text">Cân nặng sản phẩm tính theo gram</small>
+                </div>
+                <div class="form-group">
+                    <label>SKU</label>
+                    <input
+                    type="text"
+                    name="sku"
+                    required
+                    class="form-control"
+                    placeholder="SKU của sản phẩm"                    
+                    />
+                    <small class="form-text">SKU của sản phẩm</small>
                 </div>
                 <div class="form-group">
                     <label>Product code</label>

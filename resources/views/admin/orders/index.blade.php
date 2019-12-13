@@ -50,7 +50,7 @@
                     <td>{{ $item->total_quantity }}</td>
                     <td>{{ number_format($item->total_price) }}&nbsp;đ</td>
                     <td>{{ $item->created_at }}</td>
-                    <td>{{ $item->payment_status }}</td>
+                    <td>{{ $item->status }}</td>
                     <td>
                         <div class="btn-group">
                             {{--  <a href="#" class="btn btn-sm p-1" data-toggle="tooltip" title="In">

@@ -134,7 +134,8 @@ class ProductController extends Controller
         $product->showrooms()->sync($request->showroom);
         $product->categories()->sync($request->category);
         // print_r($product->toArray());die;
-        $attributes = $this->service->appendEditData($request->all());
+        $attributes = $this->service->productEdit($request->all());
+        // print_r($attributes);die;
         $product = Product::findOrFail($request->id);
         $product = $product->fill($attributes);
         $product->save();

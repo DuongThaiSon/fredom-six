@@ -3210,9 +3210,8 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    this.initVariantAction();
-    this.submitEditVariantForm();
-    this.showSelectedAttribute();
+    this.initVariantAction(); // this.submitEditVariantForm()
+    // this.showSelectedAttribute()
   }
 
   _createClass(productCore, [{
@@ -3564,7 +3563,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/productCats.edit.js */"./resources/js/admin/productCats.edit.js");
+module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\productCats.edit.js */"./resources/js/admin/productCats.edit.js");
 
 
 /***/ })

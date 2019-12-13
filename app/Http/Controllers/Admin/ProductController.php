@@ -109,7 +109,7 @@ class ProductController extends Controller
         $categories = $this->service->allWithSub($product->id);
         $product->load(['attributes', 'categories.productAttributes', 'reviews' => function($q) {
             $q->orderBy('created_at', 'desc');
-        }, 'variants']);
+        }]);
         $selectedCategory = $product->categories->first();
         if ($product->categories->count()) {
             $productAttributes = $product->categories->first()->productAttributes;
@@ -209,6 +209,7 @@ class ProductController extends Controller
         $currentOrder = \App\Models\Image::max('order');
         $product->images()->create([
             'name' => $fileName,
+            'url' => "/media/images/products/{$fileName}",
             'size' => $file->getClientSize(),
             'mime' => $file->getClientMimeType(),
             'order' => $currentOrder?$currentOrder+1:1,

@@ -111,8 +111,8 @@ export class productCore {
     constructor(productId = null) {
         this.productId = productId
         this.initVariantAction()
-        this.submitEditVariantForm()
-        this.showSelectedAttribute()
+        // this.submitEditVariantForm()
+        // this.showSelectedAttribute()
     }
 
     collectSelectedAttributeId() {

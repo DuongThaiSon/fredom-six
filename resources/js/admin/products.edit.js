@@ -7,8 +7,8 @@ $(document).ready(function() {
     let guide = new productCore(id)
     guide.collectSelectedAttributeId()
     guide.selectCategory()
-    guide.makeVariation()
-    guide.setVariantButtonStatus()
+    // guide.makeVariation()
+    // guide.setVariantButtonStatus()
     $(".attribute-selectpicker").selectpicker();
 
     let productId = $('input[name=id]').val();

@@ -56,7 +56,7 @@
 
     <div class="container-fluid" style="background: #e5e5e5;">
         <div id="content">
-            <h1 class="mt-3 pl-4">Tin bài</h1>
+            <h1 class="mt-3 pl-4">Sản phẩm</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
                 <a href="{{route('admin.products.create')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"

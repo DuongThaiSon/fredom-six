@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +11,18 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js("resources/js/admin/main.js", "public/assets/admin/js")
+    .js("resources/js/admin/galleries.edit.js", "public/assets/admin/js")
+    .js("resources/js/admin/products.edit.js", "public/assets/admin/js")
+    .js("resources/js/admin/productCats.edit.js", "public/assets/admin/js")
+    .js("resources/js/admin/backups.index.js", "public/assets/admin/js")
+    .js("resources/js/client/products.detail.js", "public/assets/client/js")
+    .js("resources/js/admin/product-attributes.create.js", "public/assets/admin/js")
+    .js("resources/js/admin/menus.edit.js", "public/assets/admin/js")
+    .js("resources/js/admin/settings.index.js", "public/assets/admin/js")
+    .sass("resources/sass/admin/main.scss", "public/assets/admin/css")
+    .copy('node_modules/bootstrap-select/dist/css/bootstrap-select.min.css', 'public/assets/admin/css/bootstrap-select.min.css')
+    .copy('node_modules/jasny-bootstrap/dist/css/jasny-bootstrap.min.css', 'public/assets/admin/css/jasny-bootstrap.min.css')
+    .copy('node_modules/flatpickr/dist/flatpickr.min.css', 'public/assets/admin/css/flatpickr.min.css')
+    .copy('node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css', 'public/assets/admin/css/filepond-plugin-image-preview.min.css')
+    .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css');

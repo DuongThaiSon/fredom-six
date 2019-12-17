@@ -47,7 +47,7 @@ class CartController extends Controller
     }
     public function add(Request $request)
     {
-        $product = Product::with('categories')->findOrFail($request->id);
+        $product = Product::with(['categories', 'showrooms'])->findOrFail($request->id);
 
         // if ($request->size || $request->color) {
         //     $request->color ? $attributeSelected[] = $request->color : '';
@@ -100,11 +100,15 @@ class CartController extends Controller
                 'price' => $product->discount>0?($product->price-$product->discount*$product->price/100):$product->price,
                 'quantity' => $request->quantity,
                 'attributes' => array(
+                    'unit' => $product->unit,
+                    'barcode' => $product->barcode,
                     'avatar' => $product->avatar,
                     'product_code' => $product->product_code,
                     'discount' => $product->discount,
                     'category_id' => $product->categories[0]->id,
                     'category' => $product->categories[0]->name,
+                    'showroom_id' => $product->showrooms[0]->id,
+                    'showroom' => $product->showrooms[0]->name,
                     // 'attributeOptions' => $attributeValues
                 )
             );

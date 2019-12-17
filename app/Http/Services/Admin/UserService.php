@@ -38,7 +38,9 @@ class UserService
             'phone',
             'address',
             'skype',
-            'birthday'
+            'birthday',
+            'gender',
+            'note',
         ]);
         $this->handleAttributeExistance($request->keys());
         $listAttribute = Profile::whereIn('name', $request->keys())->get();
@@ -53,7 +55,7 @@ class UserService
     {
         $avatar = $this->uploadAvatar($request, $destinationDir);
         $attributes = [
-            'name', 'email', 'type'
+            'name', 'email', 'type', 'phone', 'gender', 'skype', 'note', 'address', 'birthday'
         ];
         $attributes = $request->only($attributes);
         $attributes['password'] = bcrypt($request['password']);

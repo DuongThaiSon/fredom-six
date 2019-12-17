@@ -62,10 +62,12 @@ class ProductController extends Controller
             'showroom' => 'required',
             'unit' => 'required',
             'weight' => 'required',
+            'barcode' => 'required',
         ]);
 
         // basic info
         $attributes = $request->only([
+            'barcode',
             'id_sse',
             'name',
             'size_chart',
@@ -144,7 +146,7 @@ class ProductController extends Controller
 
         return response()->json([
             'message' => 'Product store successfully.',
-            'data' => $product, $images, $showroomName, $categoryName, $attributes
+            'data' => compact('product', 'images', 'showroomName', 'categoryName', 'attributes')
         ], 201);
     }
 

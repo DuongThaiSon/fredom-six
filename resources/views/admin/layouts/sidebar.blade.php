@@ -259,9 +259,9 @@
                     {{-- <li class="nav-item">
                     <a href="{{ route('admin.settings.seo') }}" class="nav-link menu-seo">Tối ưu SEO trang chủ</a>
                     </li> --}}
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                     <a href="{{ route('admin.seo-tools.index') }}" class="nav-link menu-seo-tools">Quản lý công cụ SEO</a>
-                    </li> --}}
+                    </li>
                     {{-- <li class="nav-item">
                     <a href="{{ route('admin.settings.sendMail') }}" class="nav-link menu-sendMail">Tài khoản gửi email</a>
                     </li> --}}

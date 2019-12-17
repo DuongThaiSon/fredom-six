@@ -65,24 +65,6 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
     }
-
-
-    public function createProduct(Request $request)
-    {
-        // 'name',
-        // 'category_name',
-        // 'avatar',
-        // 'description',
-        // 'detail',        
-        // 'price',
-        // 'discount',
-        // 'unit',
-        // 'weight',
-        // 'product_code',
-        // 'quantity',
-        // 'store_location',
-
-    }
     
     /**
      * Display the specified resource.

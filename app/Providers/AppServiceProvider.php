@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Intervention\Image\Image;
-use Optix\Media\Facades\Conversion;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Blade;
@@ -29,19 +27,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Schema::defaultStringLength(191);
-        // register thumbnail image on upload
-        Conversion::register('thumb', function (Image $image) {
-            return $image->fit(64, 64);
-        });
-        \View::composer(
-            'client.layouts.main', 'App\Http\View\Composers\MainComposer'
-        );
-        \View::composer(
-            'client.layouts.footer.footer', 'App\Http\View\Composers\FooterComposer'
-        );
-        \View::composer(
-            'client.layouts.header.header', 'App\Http\View\Composers\HeaderComposer'
-        );
 
         /**
          * Paginate a standard Laravel Collection.

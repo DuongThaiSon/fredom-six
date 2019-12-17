@@ -12,10 +12,8 @@
 Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::get('', [
-        // 'as' => 'dashboard.index',
-        // 'uses' => 'DashboardController@index'
-        'as' => 'users.admin',
-        'uses' => 'UserController@admin'
+        'as' => 'dashboard.index',
+        'uses' => 'DashboardController@index'
     ]);
 
     // video
@@ -479,6 +477,13 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('seo-tools', 'SeoToolController');
 
     Route::resource('reviews', 'ReviewController');
+
+    Route::group(['prefix' => 'sitemap'], function () {
+        Route::get('', [
+            'as' => 'sitemap.index',
+            'uses' => 'SitemapController@index'
+        ]);
+    });
 });
 
 

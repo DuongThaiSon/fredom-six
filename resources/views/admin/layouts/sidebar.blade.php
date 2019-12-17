@@ -271,6 +271,9 @@
                     <li class="nav-item">
                     <a href="{{ route('admin.email-contents.index') }}" class="nav-link menu-emailContent">Nội dung email gửi đi</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.sitemap.index') }}" class="nav-link menu-sitemap">Sitemap</a>
+                    </li>
                 </ul>
                 </div>
             </li>

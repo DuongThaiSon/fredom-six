@@ -93,8 +93,12 @@
                                     <tr>
                                         <td class="w-5">{{ $loop->iteration ??'' }}</td>
                                         <td class="w-30">{{ $cartItem->product->name ??'' }}</td>
-                                        <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 2)->note ?? ''}}</th>
-                                        <th class="w-15">{{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 3)->value ?? ''}}</th>
+                                        <td class="w-15">
+                                            {{--  {{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 2)->note ?? ''}}  --}}
+                                        </td>
+                                        <td class="w-15">
+                                            {{--  {{ $cartItem->product->variantAttributeValues->firstWhere('product_attribute_id', 3)->value ?? ''}}  --}}
+                                        </td>
                                         <td class="w-5">{{ $cartItem->quantity }}</td>
                                         <td class="w-15 text-right">{{ number_format($cartItem->price) }}&nbsp;đ</td>
                                         <td class="w-15 text-right">{{ number_format($cartItem->quantity * $cartItem->price) }}&nbsp;đ</td>

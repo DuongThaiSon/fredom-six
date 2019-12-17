@@ -50,12 +50,15 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|min:8|',
+            'gender' => 'required'
         ]);
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
+        $attributes = $request->only([
+            'name', 'gender', 'email', 'phone', 'address', 'birthday'
         ]);
+        $attributes['password'] = bcrypt($request->password);
+        print_r($request->toArray());die;
+        $user = User::create($attributes);
+        
         return redirect()->route('client.loginform')->with('success', 'Đăng ký tài khoản thành công');
     }
     /**

@@ -52,6 +52,11 @@ class UserController extends Controller
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -68,6 +73,11 @@ class UserController extends Controller
                     
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -94,6 +104,11 @@ class UserController extends Controller
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -114,6 +129,11 @@ class UserController extends Controller
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -139,6 +159,11 @@ class UserController extends Controller
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -154,6 +179,11 @@ class UserController extends Controller
                     
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     // print_r($request);die;
                     $request = collect($request);
@@ -179,6 +209,11 @@ class UserController extends Controller
                     $userChange->password = bcrypt($request['password']);
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);
@@ -198,6 +233,11 @@ class UserController extends Controller
                     $userChange->email = $request->email;
                     $userChange->name = $request->name;
                     $userChange->type = $request->type;
+                    $userChange->phone = $request->phone;
+                    $userChange->address = $request->address;
+                    $userChange->birthday = $request->birthday;
+                    $userChange->gender = $request->gender;
+                    $userChange->note = $request->note;
                     $userChange->save();
                     $request = collect($request);
                     $this->service->updateUserProfile($request, $userChange);

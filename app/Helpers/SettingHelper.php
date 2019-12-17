@@ -2,7 +2,6 @@
 
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 if (!function_exists('setting')) {
 

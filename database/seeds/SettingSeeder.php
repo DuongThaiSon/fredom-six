@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class seed_setting_table extends Seeder
+class SettingSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -25,10 +25,10 @@ class seed_setting_table extends Seeder
             'mailer_host' => 'smtp.gmail.com',
             'mailer_port'=> '587',
             'mailer_from_name'=> 'LEOTIVE - Automatic email',
-            'mailer_from_address'=> 'phudt@leotive.com',
+            'mailer_from_address'=> 'noreply@leotive.com',
             'mailer_encryption'=> 'tls',
-            'mailer_username'=> 'phudt@leotive.com',
-            'mailer_password'=> 'Thanhphu1831990',
+            'mailer_username'=> 'noreply@leotive.com',
+            'mailer_password'=> 'leotive123',
             'mailer_sendmail' => '/usr/sbin/sendmail -bs',
             'seo_page_title'=> 'LEOTIVE',
             'seo_meta_description'=> 'LEOTIVE',

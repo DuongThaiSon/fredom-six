@@ -6,10 +6,10 @@
             <h1 class="mt-3 pl-4">Sitemap</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
-                <a href="{{route('admin.sitemap.index')}}" class="btn btn-sm btn-dark btn-create-backup" data-toggle="tooltip"
-                    title="Tạo sao lưu mới">
+                <a href="{{route('admin.sitemap.generate')}}" class="btn btn-sm btn-dark btn-generate-sitemap" data-toggle="tooltip"
+                    title="Cập nhật sitemap">
                     <i class="material-icons">
-                        note_add
+                        archive
                     </i>
                 </a>
                 {{-- <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"

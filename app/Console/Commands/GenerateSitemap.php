@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\SitemapGenerator;
 
@@ -39,7 +40,14 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        SitemapGenerator::create(config('app.url'))
-            ->writeToFile($this->sitemapPath);
+        try {
+            SitemapGenerator::create(asset(''))
+                ->writeToFile($this->sitemapPath);
+            $this->info("Generate complete!");
+        } catch(Exception $e) {
+            $this->error("Generate failed because: {$e->getMessage()}");
+        }
+
+        return;
     }
 }

@@ -18,6 +18,7 @@
      <link rel="stylesheet" href="/assets/admin/css/bootstrap-select.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/jasny-bootstrap.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/flatpickr.min.css" />
+     <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/datatables/datatables.min.css">
      <link rel="stylesheet" href="/assets/admin/css/style.css" />
      <link rel="stylesheet" href="/assets/admin/css/main.css" />
      @stack('css')
@@ -46,6 +47,8 @@
     ></script>
     @include('ckfinder::setup')
     <script type="text/javascript" src="/assets/admin/js/main.js"></script>
+    {{-- <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script> --}}
+
     @stack('js')
 </body>
 </html>

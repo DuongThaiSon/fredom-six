@@ -50192,7 +50192,8 @@ window.accounting = __webpack_require__(/*! accounting/accounting */ "./node_mod
 __webpack_require__(/*! ./simpleMoneyFormat */ "./resources/js/simpleMoneyFormat.js");
 
 window.flatpickr = __webpack_require__(/*! flatpickr */ "./node_modules/flatpickr/dist/flatpickr.js");
-window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js"); // window.dt = require( 'datatables.net' )(window, window.$);
+
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

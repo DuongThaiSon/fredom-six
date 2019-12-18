@@ -483,6 +483,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'sitemap.index',
             'uses' => 'SitemapController@index'
         ]);
+        Route::get('data', [
+            'as' => 'sitemap.data',
+            'uses' => 'SitemapController@data'
+        ]);
     });
 });
 

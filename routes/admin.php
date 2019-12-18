@@ -491,6 +491,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'sitemap.generate',
             'uses' => 'SitemapController@generate'
         ]);
+        Route::get('show', [
+            'as' => 'sitemap.show',
+            'uses' => 'SitemapController@show'
+        ]);
     });
 });
 

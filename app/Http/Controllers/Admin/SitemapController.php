@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\File;
 
 class SitemapController extends Controller
 {
@@ -45,5 +46,14 @@ class SitemapController extends Controller
             return response()->json($e->getMessage(), 500);
         }
         return response()->json([], 204);
+    }
+
+    public function show()
+    {
+        $sitemap = File::get(public_path('sitemap.xml'));
+        return response($sitemap)
+            ->withHeaders([
+                'Content-Type' => 'text/xml'
+            ]);
     }
 }

@@ -9,15 +9,15 @@
                 <a href="{{route('admin.sitemap.generate')}}" class="btn btn-sm btn-dark btn-generate-sitemap" data-toggle="tooltip"
                     title="Cập nhật sitemap">
                     <i class="material-icons">
-                        archive
+                        cached
                     </i>
                 </a>
-                {{-- <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"
-                    target="_blank" id="btn-del-all">
+                <a href="{{route('admin.sitemap.show')}}" class="btn btn-sm btn-dark btn-show-sitemap" data-toggle="tooltip"
+                    title="Xem chi tiết sitemap">
                     <i class="material-icons">
-                        delete_forever
+                        open_in_new
                     </i>
-                </button> --}}
+                </a>
             </div>
 
             <div class="table-responsive bg-white mt-4">

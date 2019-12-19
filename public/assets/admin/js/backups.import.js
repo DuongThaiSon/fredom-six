@@ -81,69 +81,70 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/admin/sitemap.index.js":
-/*!*********************************************!*\
-  !*** ./resources/js/admin/sitemap.index.js ***!
-  \*********************************************/
+/***/ "./resources/js/admin/backups.import.js":
+/*!**********************************************!*\
+  !*** ./resources/js/admin/backups.import.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  var sitemapDataUrl = $("#sitemap-table").data('href');
-  var table = $("#sitemap-table").DataTable({
-    ordering: false,
-    pagingType: "numbers",
-    serverSide: true,
-    ajax: sitemapDataUrl,
-    columns: [{
-      data: 'loc',
-      name: 'loc'
-    }, {
-      data: null,
-      name: 'priority',
-      render: function render(data) {
-        return "".concat(data.priority * 100, "%");
-      }
-    }, {
-      data: 'changefreq',
-      name: 'changefreq'
-    }, {
-      data: 'lastmod',
-      name: 'lastmod'
-    }]
-  });
-  $(".btn-generate-sitemap").on("click", function (e) {
+  $(".btn-request-restore").on("click.btnRequestRestore", function (e) {
     e.preventDefault();
-    var generateSitemapUrl = $(this).attr('href');
+    var formData = new FormData();
+    formData.append('import_file', $('input[name=import_file]')[0].files[0]);
+    var restoreUrl = $(this).parents('form').attr('action');
+    var indexUrl = $(this).attr('data-target');
     Swal.fire({
       title: 'Bạn có chắc muốn thực hiện hành động?',
+      text: "Cơ sở dữ liệu sẽ bị ghi đè bởi tệp đã chọn!",
+      type: 'warning',
       showCancelButton: true,
-      cancelButtonText: 'Huỷ',
-      showLoaderOnConfirm: true,
-      preConfirm: function preConfirm(login) {
-        return $.ajax({
-          url: generateSitemapUrl,
-          method: "POST",
-          success: function success(response) {
-            return response;
-          },
-          error: function error(_error) {
-            Swal.showValidationMessage("Request failed: ".concat(_error));
-          }
-        });
-      },
-      allowOutsideClick: function allowOutsideClick() {
-        return !Swal.isLoading();
-      }
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Khôi phục!',
+      cancelButtonText: "Huỷ"
     }).then(function (result) {
       if (result.value) {
-        table.ajax.reload();
-        Swal.fire('Thành công!', 'Sitemap đã được cập nhật.', 'success');
+        Swal.fire({
+          title: "Đang tạo sao lưu cho thời điểm hiện tại!",
+          text: "Xin chờ...",
+          onBeforeOpen: function onBeforeOpen() {
+            return Swal.showLoading();
+          },
+          allowOutsideClick: false
+        });
+        $.ajax({
+          url: restoreUrl,
+          data: formData,
+          method: "POST",
+          contentType: false,
+          processData: false,
+          accepts: {
+            json: 'application/json'
+          },
+          success: function success() {
+            Swal.fire({
+              title: 'Thành công',
+              type: 'success'
+            }).then(function (result) {
+              if (result.value) {
+                window.location.href = indexUrl;
+              }
+            });
+          },
+          error: function error(reject) {
+            errorText = reject.responseJSON.errors;
+            Swal.fire({
+              text: errorText[Object.keys(errorText)[0]],
+              type: 'error'
+            });
+          }
+        });
       }
     });
   });
@@ -151,14 +152,14 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 10:
-/*!***************************************************!*\
-  !*** multi ./resources/js/admin/sitemap.index.js ***!
-  \***************************************************/
+/***/ 5:
+/*!****************************************************!*\
+  !*** multi ./resources/js/admin/backups.import.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/sitemap.index.js */"./resources/js/admin/sitemap.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/backups.import.js */"./resources/js/admin/backups.import.js");
 
 
 /***/ })

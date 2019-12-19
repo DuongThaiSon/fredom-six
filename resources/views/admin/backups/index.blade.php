@@ -12,12 +12,12 @@
                         note_add
                     </i>
                 </a>
-                {{-- <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"
-                    target="_blank" id="btn-del-all">
+                <a href="{{route('admin.backups.import')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"
+                    title="Khôi phục cơ sở dữ liệu">
                     <i class="material-icons">
-                        delete_forever
+                        restore
                     </i>
-                </button> --}}
+                </a>
             </div>
 
             <div class="table-responsive bg-white mt-4" id="table-list-backup">

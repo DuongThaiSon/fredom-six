@@ -454,6 +454,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'backups.destroy',
             'uses' => 'BackupController@destroy'
         ]);
+        Route::get('import', [
+            'as' => 'backups.import',
+            'uses' =>'BackupController@import'
+        ]);
+        Route::post('restore', [
+            'as' => 'backups.restore',
+            'uses' =>'BackupController@restore'
+        ]);
+
     });
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']

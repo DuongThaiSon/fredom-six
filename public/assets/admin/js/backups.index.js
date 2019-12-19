@@ -190,6 +190,7 @@ var btnDeleteBackup = function btnDeleteBackup() {
     }).then(function (result) {
       if (result.value) {
         $("#table-list-backup").html(result.value);
+        btnDeleteBackup();
       }
     });
   });

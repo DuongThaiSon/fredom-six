@@ -1,4 +1,9 @@
-body {
+.wrapper.wrapper-full-page {
+    height: auto;
+    min-height: 100vh;
+    width: 100%;
+}
+/* body {
    background-color: #F5F6F8;
    background-image: url(../img/icon/Group.png);
    background-repeat: no-repeat;
@@ -107,4 +112,4 @@ button.change-pass {
    background: rgba(0, 0, 0, 0.9);
    border-radius: 4px;
    margin-top: 10px;
-}
+} */

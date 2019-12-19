@@ -104,6 +104,7 @@ let btnDeleteBackup = function() {
         }).then(result => {
             if (result.value) {
                 $("#table-list-backup").html(result.value);
+                btnDeleteBackup();
             }
         });
     });

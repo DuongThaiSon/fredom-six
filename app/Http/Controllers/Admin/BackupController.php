@@ -184,6 +184,7 @@ class BackupController extends Controller
         } else if ($extension === 'sql') {
             $fileToImport = storage_path('app/'.$uploadedPath);
         } else {
+            Storage::delete($uploadedPath);
             return response()->json([
                 'message' => 'The given data was invalid.',
                 'errors' => [
@@ -213,6 +214,7 @@ class BackupController extends Controller
             }
         } catch (Exception $e) {
             Log::error($e);
+            unlink($fileToImport);
             return response()->json([
                 'message' => 'Internal server error.',
                 'errors' => [
@@ -222,7 +224,7 @@ class BackupController extends Controller
                 ],
             ], 500);
         }
-
+        unlink($fileToImport);
         if ($message !== 'success') {
             return response()->json([
                 'message' => 'Error while restoring database.',

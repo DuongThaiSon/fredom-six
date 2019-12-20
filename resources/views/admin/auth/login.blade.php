@@ -25,24 +25,24 @@
                         <label for="input-email" class="mb-2">
                             <img src="/assets/admin/img/icon/mail_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Email</span>
                         </label>
-                        <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required>
+                        <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required tabindex="1">
                     </div>
                     <div class="col-12 form-group mb-3">
                         <label for="input-password" class="mb-2">
                             <img src="/assets/admin/img/icon/lock_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Password</span>
                         </label>
                         <div class="input-group">
-                            <input id="input-password" type="password" name="password" class="form-control" required>
+                            <input id="input-password" type="password" name="password" class="form-control" required tabindex="2">
                             <div class="input-group-append">
-                                <button class="input-group-text" id="toggle-reveal-password">
+                                <a class="input-group-text" id="toggle-reveal-password" tabindex="5">
                                     <i class="material-icons">remove_red_eye</i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 form-group my-3 text-right">
-                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}">Quên mật khẩu</a>
-                        <button type="submit" class="text-white font-weight-bold btn btn-primary rounded">Đăng Nhập</button>
+                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
+                        <button type="submit" class="text-white font-weight-bold btn btn-primary rounded" tabindex="3">Đăng Nhập</button>
                     </div>
 
                 </div>

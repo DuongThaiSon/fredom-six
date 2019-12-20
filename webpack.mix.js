@@ -27,4 +27,6 @@ mix.js("resources/js/admin/main.js", "public/assets/admin/js")
     .copy('node_modules/jasny-bootstrap/dist/css/jasny-bootstrap.min.css', 'public/assets/admin/css/jasny-bootstrap.min.css')
     .copy('node_modules/flatpickr/dist/flatpickr.min.css', 'public/assets/admin/css/flatpickr.min.css')
     .copy('node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css', 'public/assets/admin/css/filepond-plugin-image-preview.min.css')
+    .copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'public/assets/admin/vendor/fontawesome/css/all.min.css')
+    .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/assets/admin/vendor/fontawesome/webfonts')
     .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css');

@@ -534,6 +534,7 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ForgotPasswordController@sendResetLinkEmail'
     ]);
     Route::post('password/reset', [
+        'as' => 'password.update',
         'uses' => 'ResetPasswordController@reset'
     ]);
 

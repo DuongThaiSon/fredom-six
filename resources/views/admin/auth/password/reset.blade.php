@@ -23,29 +23,29 @@
                     @endif
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="col-12 form-group mb-3">
-                        <label for="input-email" class="mb-2">
-                            <img src="/assets/admin/img/icon/mail_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Email</span>
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="far fa-envelope" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Email</span>
                         </label>
                         <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required>
                     </div>
                     <div class="col-12 form-group mb-3">
-                        <label for="input-password" class="mb-2">
-                            <img src="/assets/admin/img/icon/lock_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Password</span>
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-unlock" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Password</span>
                         </label>
                         <div class="input-group">
                             <input id="input-password" type="password" name="password" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-12 form-group mb-3">
-                        <label for="input-password-confirmation" class="mb-2">
-                            <img src="/assets/admin/img/icon/lock_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Password Confirmation</span>
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-lock" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Password Confirmation</span>
                         </label>
                         <div class="input-group">
                             <input id="input-password-confirmation" type="password" name="password_confirmation" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-12 form-group my-3 text-right">
-                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}">Đăng Nhập</a>
+                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.login.showLoginForm') }}">Đăng Nhập</a>
                         <button type="submit" class="text-white font-weight-bold btn btn-primary rounded">Cập nhật</button>
                     </div>
                 </div>

@@ -22,14 +22,14 @@
                     </div>
                     @endif
                     <div class="col-12 form-group mb-3">
-                        <label for="input-email" class="mb-2">
-                            <img src="/assets/admin/img/icon/mail_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Email</span>
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="far fa-envelope" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Email</span>
                         </label>
                         <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required tabindex="1">
                     </div>
                     <div class="col-12 form-group mb-3">
-                        <label for="input-password" class="mb-2">
-                            <img src="/assets/admin/img/icon/lock_outline_24px_rounded.svg" alt="">&nbsp;<span class="text-dark font-weight-bold">Password</span>
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-lock" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Password</span>
                         </label>
                         <div class="input-group">
                             <input id="input-password" type="password" name="password" class="form-control" required tabindex="2">

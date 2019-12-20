@@ -18,6 +18,7 @@
      <link rel="stylesheet" href="/assets/admin/css/bootstrap-select.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/jasny-bootstrap.min.css" />
      <link rel="stylesheet" href="/assets/admin/css/flatpickr.min.css" />
+     <link rel="stylesheet" href="/assets/admin/vendor/fontawesome/css/all.min.css" />
      <link rel="stylesheet" type="text/css" href="/assets/admin/vendor/datatables/datatables.min.css">
      <link rel="stylesheet" href="/assets/admin/css/style.css" />
      <link rel="stylesheet" href="/assets/admin/css/main.css" />

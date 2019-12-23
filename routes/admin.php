@@ -12,10 +12,8 @@
 Route::group(['middleware'=>'auth:admin'], function(){
 
     Route::get('', [
-        // 'as' => 'dashboard.index',
-        // 'uses' => 'DashboardController@index'
-        'as' => 'users.admin',
-        'uses' => 'UserController@admin'
+        'as' => 'dashboard.index',
+        'uses' => 'DashboardController@index'
     ]);
 
     // video
@@ -456,6 +454,15 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'backups.destroy',
             'uses' => 'BackupController@destroy'
         ]);
+        Route::get('import', [
+            'as' => 'backups.import',
+            'uses' =>'BackupController@import'
+        ]);
+        Route::post('restore', [
+            'as' => 'backups.restore',
+            'uses' =>'BackupController@restore'
+        ]);
+
     });
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
@@ -479,6 +486,25 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('seo-tools', 'SeoToolController');
 
     Route::resource('reviews', 'ReviewController');
+
+    Route::group(['prefix' => 'sitemap'], function () {
+        Route::get('', [
+            'as' => 'sitemap.index',
+            'uses' => 'SitemapController@index'
+        ]);
+        Route::get('data', [
+            'as' => 'sitemap.data',
+            'uses' => 'SitemapController@data'
+        ]);
+        Route::post('generate', [
+            'as' => 'sitemap.generate',
+            'uses' => 'SitemapController@generate'
+        ]);
+        Route::get('show', [
+            'as' => 'sitemap.show',
+            'uses' => 'SitemapController@show'
+        ]);
+    });
 });
 
 
@@ -508,6 +534,7 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ForgotPasswordController@sendResetLinkEmail'
     ]);
     Route::post('password/reset', [
+        'as' => 'password.update',
         'uses' => 'ResetPasswordController@reset'
     ]);
 

@@ -9,6 +9,8 @@ use Exception;
 use League\Flysystem\Adapter\Local;
 use Log;
 use Storage;
+use Illuminate\Support\Str;
+use VIPSoft\Unzip\Unzip;
 
 class BackupController extends Controller
 {
@@ -49,8 +51,10 @@ class BackupController extends Controller
         $backups = [];
         foreach (config('backup.backup.destination.disks') as $disk_name) {
             $disk = Storage::disk($disk_name);
+            $dirName = config('backup.backup.name');
             $adapter = $disk->getDriver()->getAdapter();
             $files = $disk->allFiles();
+            $files = $disk->allFiles($dirName);
             // make an array of backup files, with their filesize and creation date
             foreach ($files as $k => $f) {
                 // only take the zip files into account
@@ -69,16 +73,6 @@ class BackupController extends Controller
         // reverse the backups, so the newest one would be on top
         $backups = array_reverse($backups);
         return $backups;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -117,40 +111,6 @@ class BackupController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @return \Illuminate\Http\Response
@@ -165,7 +125,7 @@ class BackupController extends Controller
             $backups = collect($backups)->paginate(15);
             return view('admin.backups.listBackup', compact('backups'));
         } else {
-            abort(404, trans('backpack::backup.backup_doesnt_exist'));
+            abort(404, __('Tệp sao lưu không tồn tại'));
         }
     }
 
@@ -187,5 +147,95 @@ class BackupController extends Controller
         } else {
             abort(404, __('Chỉ hỗ trợ download đối với tệp tin lưu nội bộ'));
         }
+    }
+
+    /**
+     * Import a backup sql file
+     */
+    public function import()
+    {
+        return view('admin.backups.import');
+    }
+
+    /**
+     * Restore sql backup
+     */
+    public function restore(Request $request)
+    {
+        $message = 'success';
+
+        $request->validate([
+            'import_file' => 'required|file'
+        ]);
+        // load import file
+        $extension = strtolower($request->import_file->getClientOriginalExtension());
+        $fileName = uniqid(date('d.m.Y')) . '.' . $extension;
+        $uploadedPath = $request->import_file->storeAs('backup-temp', $fileName);
+        $fileToImport = '';
+        if ($extension === 'zip') {
+            $zipFilePath = storage_path('app/'.$uploadedPath);
+            $unzipper  = new Unzip();
+            $unzipFiles = $unzipper->extract($zipFilePath, storage_path('app/backup-temp'));
+            Storage::delete($uploadedPath);
+            $fileToImport = storage_path('app/backup-temp/').$unzipFiles[0];
+            if (!Str::endsWith($fileToImport, '.sql')) {
+                return back()->withErrors(['Not a compressed sql file']);
+            }
+        } else if ($extension === 'sql') {
+            $fileToImport = storage_path('app/'.$uploadedPath);
+        } else {
+            Storage::delete($uploadedPath);
+            return response()->json([
+                'message' => 'The given data was invalid.',
+                'errors' => [
+                    'import_file' => [
+                        'The import file must be a file of type: sql, zip.'
+                    ],
+                ],
+            ], 422);
+            return back()->withErrors(['The import file must be a file of type: sql, zip.']);
+        }
+
+        // trying restore db
+
+        $restoreCommand = "backup:restore --filepath={$fileToImport}";
+        try {
+            ini_set('max_execution_time', 600);
+            Log::info('Leotive -- Called backup:restore from admin interface');
+            Artisan::call($restoreCommand);
+            $output = Artisan::output();
+            if (strpos($output, 'Backup failed because')) {
+                preg_match('/Backup failed because(.*?)$/ms', $output, $match);
+                $message = "Leotive -- restore process failed because ";
+                $message .= isset($match[1]) ? $match[1] : '';
+                Log::error($message.PHP_EOL.$output);
+            } else {
+                Log::info("Leotive -- restore process has started");
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+            unlink($fileToImport);
+            return response()->json([
+                'message' => 'Internal server error.',
+                'errors' => [
+                    'exception' => [
+                        $e->getMessage()
+                    ],
+                ],
+            ], 500);
+        }
+        unlink($fileToImport);
+        if ($message !== 'success') {
+            return response()->json([
+                'message' => 'Error while restoring database.',
+                'errors' => [
+                    'exception' => [
+                        $message
+                    ],
+                ],
+            ], 500);
+        }
+
+        return response()->json([], 204);
     }
 }

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3572,14 +3572,14 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 6:
+/***/ 7:
 /*!***************************************************************!*\
   !*** multi ./resources/js/admin/product-attributes.create.js ***!
   \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\leotive\leotive-cms-v3\resources\js\admin\product-attributes.create.js */"./resources/js/admin/product-attributes.create.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/product-attributes.create.js */"./resources/js/admin/product-attributes.create.js");
 
 
 /***/ })

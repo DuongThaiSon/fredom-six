@@ -1,50 +1,73 @@
 @extends('admin.layouts.main', ['title' => __('Login')])
 @section('content')
-<div id="login">
-            <img class="logo-icon-login" src="/assets/admin/img/icon/logo-login.png" alt="">
-            <img class="leotive" src="/assets/admin/img/icon/leotive.png" alt="">
-            <p class="title"> Admin Panel Login </p>
-            @if(Session::has('win'))
-                <div class="alert alert-success">{{ Session::get('win')}}</div>
-            @endif
-            <form role="form" action="/admin/login" method="POST">
-            @csrf
-             @if ($errors->any())
-                <div class="alert-danger">
-                    {{ $errors->first() }}
+<div class="container">
+    <div class="row">
+        <div class="bg-white mx-auto border rounded-lg col-6 shadow p-4">
+            <div class="row mb-3">
+                <div class="col-4">
+                    <img class="w-25" src="/assets/admin/img/logo_with_text_bottom.png" alt="">
                 </div>
-            @endif
-                <div class="form-group" id="email">
-                    <label for="exampleInputEmail1"><img src="/assets/admin/img/icon/mail_outline_24px_rounded.svg" value={{ old('email')}} alt=""> Email address</label>
-                    <input id="mail" type="email" name="email" class="form-control" aria-describedby="emailHelp">
-                    <img class="mail" src="/assets/admin/img/icon/highlight_off_24px.png" alt="">
+                <div class="col-8 d-flex align-items-center">
+                    <h4>Admin Panel Login</h4>
                 </div>
-                <div class="form-group" id="pass">
-                    <label for="exampleInputPassword1"><img src="/assets/admin/img/icon/lock_outline_24px_rounded.svg" alt=""> Password</label>
-                    <input id="pw" type="password" name="password" class="form-control">
-                    <img class="pw" src="/assets/admin/img/icon/hide-password.png" alt="">
+            </div>
+            <form action="{{ route('admin.login.showLoginForm') }}" method="POST">
+                <div class="row">
+                    @csrf
+                    @if ($errors->any())
+                    <div class="col-12">
+                        <div class="alert alert-danger rounded p-2">
+                            {{ $errors->first() }}
+                        </div>
+                    </div>
+                    @endif
+                    <div class="col-12 form-group mb-3">
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="far fa-envelope" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Email</span>
+                        </label>
+                        <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required tabindex="1">
+                    </div>
+                    <div class="col-12 form-group mb-3">
+                        <label for="input-email" class="mb-2 d-flex align-items-center">
+                            <i class="fas fa-lock" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Password</span>
+                        </label>
+                        <div class="input-group">
+                            <input id="input-password" type="password" name="password" class="form-control" required tabindex="2">
+                            <div class="input-group-append">
+                                <a class="input-group-text" id="toggle-reveal-password" tabindex="5">
+                                    <i class="material-icons">remove_red_eye</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group my-3 text-right">
+                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
+                        <button type="submit" class="text-white font-weight-bold btn btn-primary rounded" tabindex="3">Đăng Nhập</button>
+                    </div>
+
                 </div>
-                    <button type="submit" class="float-right lg text-white font-weight-bold">Đăng Nhập</button>
-                    <a class="forget float-right text-center text-white font-weight-bold" href="{{ route('admin.password.request') }}">Quên mật khẩu</a>
             </form>
         </div>
- @endsection
+    </div>
+</div>
+@endsection
 
- @push('css')
- <link rel="stylesheet" href="/assets/admin/css/login.css">
- @endpush
+@push('css')
+<link rel="stylesheet" href="/assets/admin/css/login.css">
+@endpush
 
- @push('js')
- <script>
-    $(document).ready(function() {
-      $('.pw').click(function() {
-        var x = document.getElementById("pw");
+@push('js')
+<script>
+$(document).ready(function() {
+    $('#toggle-reveal-password').click(function(e) {
+        e.preventDefault();
+        var x = document.getElementById("input-password");
         if (x.type === "password") {
             x.type = "text";
         } else {
             x.type = "password";
         }
-      });
     });
+});
 </script>
- @endpush
+@endpush

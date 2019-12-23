@@ -1,4 +1,5 @@
 {
+    "/assets/admin/js/backups.import.js": "/assets/admin/js/backups.import.js",
     "/assets/admin/js/backups.index.js": "/assets/admin/js/backups.index.js",
     "/assets/admin/js/galleries.edit.js": "/assets/admin/js/galleries.edit.js",
     "/assets/admin/js/main.js": "/assets/admin/js/main.js",
@@ -8,10 +9,12 @@
     "/assets/admin/js/productCats.edit.js": "/assets/admin/js/productCats.edit.js",
     "/assets/admin/js/products.edit.js": "/assets/admin/js/products.edit.js",
     "/assets/admin/js/settings.index.js": "/assets/admin/js/settings.index.js",
+    "/assets/admin/js/sitemap.index.js": "/assets/admin/js/sitemap.index.js",
     "/assets/client/js/products.detail.js": "/assets/client/js/products.detail.js",
     "/assets/admin/css/bootstrap-select.min.css": "/assets/admin/css/bootstrap-select.min.css",
     "/assets/admin/css/jasny-bootstrap.min.css": "/assets/admin/css/jasny-bootstrap.min.css",
     "/assets/admin/css/flatpickr.min.css": "/assets/admin/css/flatpickr.min.css",
     "/assets/admin/css/filepond-plugin-image-preview.min.css": "/assets/admin/css/filepond-plugin-image-preview.min.css",
+    "/assets/admin/vendor/fontawesome/css/all.min.css": "/assets/admin/vendor/fontawesome/css/all.min.css",
     "/assets/admin/css/filepond.min.css": "/assets/admin/css/filepond.min.css"
 }

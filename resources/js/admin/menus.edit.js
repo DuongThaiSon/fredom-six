@@ -9,7 +9,7 @@ $(document).ready(function(){
             $('.url-group').removeClass('d-none');
             $('.filter-result').empty();
         }
-        if ($(this).val() == 1 || $(this).val() == 2 || $(this).val() == 3 ) {
+        if ($(this).val() == 1 || $(this).val() == 2) {
             let data = {
                 type: "article",
             };
@@ -39,7 +39,7 @@ $(document).ready(function(){
                 }
             });
         }
-        if ($(this).val() == 5 || $(this).val() == 6 || $(this).val() == 7) {
+        if ($(this).val() == 5 || $(this).val() == 6 ) {
             let data = {
                 type: "product",
             };
@@ -71,6 +71,9 @@ $(document).ready(function(){
                 }
             });
         }
+        if ($(this).val() == 3 || $(this).val() == 7 ) {
+            $('.filter-result').empty();
+        }
     });
 
     $('.btn-submit').on('click', function(e) {
@@ -81,7 +84,7 @@ $(document).ready(function(){
     });
 
     let url = "";
-    if ($("select[name=type]").val() == 1 || $("select[name=type]").val() == 2 || $("select[name=type]").val() == 3 ) {
+    if ($("select[name=type]").val() == 1 || $("select[name=type]").val() == 2 ) {
         let data = {
             type: "article",
             menuable_id: $('input[name=menuable_id]').val()
@@ -118,7 +121,7 @@ $(document).ready(function(){
             }
         });
     }
-    if ($("select[name=type]").val() == 5 || $("select[name=type]").val() == 6 || $("select[name=type]").val() == 7) {
+    if ($("select[name=type]").val() == 5 || $("select[name=type]").val() == 6) {
         let data = {
             type: "product",
             menuable_id: $('input[name=menuable_id]').val()

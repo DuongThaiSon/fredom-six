@@ -109,7 +109,7 @@ class MenuController extends Controller
             $menu = $article->menus()->create($attributes);
         }
 
-        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 || $request->menuable_type == 3 || $request->menuable_type == 5 || $request->menuable_type == 6 || $request->menuable_type == 7) {
+        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 ||  $request->menuable_type == 5 || $request->menuable_type == 6 ) {
             $category = Category::find($request->menuable_id);
             $menu = $category->menus()->create($attributes);
         }
@@ -118,7 +118,9 @@ class MenuController extends Controller
             $product = Product::find($request->menuable_id);
             $menu = $product->menus()->create($attributes);
         }
-
+        elseif ($request->menuable_type == 0 || $request->menuable_type == 3 || $request->menuable_type == 7) {
+            $menu = Menu::create($attributes);
+        }
         // $menus = Menu::create($attributes);
         return redirect()->route('admin.menus.edit', ['category' => $request->category_id, 'menu' => $menu->id])->with('success','Lưu dữ liệu thành công');
 
@@ -195,7 +197,7 @@ class MenuController extends Controller
             $menu->save();
         }
 
-        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 || $request->menuable_type == 3 || $request->menuable_type == 5 || $request->menuable_type == 6 || $request->menuable_type == 7) {
+        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 || $request->menuable_type == 5 || $request->menuable_type == 6) {
             $category = Category::find($request->menuable_id);
             $menu = Menu::find($menu->id);
             $menu->menuable()->associate($category);
@@ -210,6 +212,19 @@ class MenuController extends Controller
             $menu->menuable()->associate($product);
             $menu->fill($attributes);
             $menu->save();
+        }
+
+        elseif ($request->menuable_type == 0 || $request->menuable_type == 3 || $request->menuable_type == 7) {
+            $menu = Menu::find($menu->id);
+            if(empty($menu->menuable_id))
+            {
+                $menu->update($attributes);
+            }
+            else {
+                $menu->menuable()->dissociate();
+                $menu->save();
+                $menu->update($attributes);
+            }
         }
 
         return redirect()->back()->with('success','Lưu dữ liệu thành công');

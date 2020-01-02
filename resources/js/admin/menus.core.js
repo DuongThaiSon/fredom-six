@@ -158,7 +158,7 @@ export function checkRequiredField(context) {
             isValidate = false;
         }
     });
-    if($("select[name=type]").val() != 0 && $('input[name=menuable_id]').val().length == 0) {
+    if($("select[name=type]").val() != 0 && $("select[name=type]").val() != 3 && $("select[name=type]").val() != 7 && $('input[name=menuable_id]').val().length == 0) {
         isValidate = false;
     }
     if(!isValidate) {

@@ -265,7 +265,7 @@ function checkRequiredField(context) {
     }
   });
 
-  if ($("select[name=type]").val() != 0 && $('input[name=menuable_id]').val().length == 0) {
+  if ($("select[name=type]").val() != 0 && $("select[name=type]").val() != 3 && $("select[name=type]").val() != 7 && $('input[name=menuable_id]').val().length == 0) {
     isValidate = false;
   }
 
@@ -307,7 +307,7 @@ $(document).ready(function () {
       $('.filter-result').empty();
     }
 
-    if ($(this).val() == 1 || $(this).val() == 2 || $(this).val() == 3) {
+    if ($(this).val() == 1 || $(this).val() == 2) {
       var data = {
         type: "article"
       };
@@ -338,7 +338,7 @@ $(document).ready(function () {
       });
     }
 
-    if ($(this).val() == 5 || $(this).val() == 6 || $(this).val() == 7) {
+    if ($(this).val() == 5 || $(this).val() == 6) {
       var _data = {
         type: "product"
       };
@@ -371,6 +371,10 @@ $(document).ready(function () {
         }
       });
     }
+
+    if ($(this).val() == 3 || $(this).val() == 7) {
+      $('.filter-result').empty();
+    }
   });
   $('.btn-submit').on('click', function (e) {
     e.preventDefault();
@@ -381,7 +385,7 @@ $(document).ready(function () {
   });
   var url = "";
 
-  if ($("select[name=type]").val() == 1 || $("select[name=type]").val() == 2 || $("select[name=type]").val() == 3) {
+  if ($("select[name=type]").val() == 1 || $("select[name=type]").val() == 2) {
     var data = {
       type: "article",
       menuable_id: $('input[name=menuable_id]').val()
@@ -418,7 +422,7 @@ $(document).ready(function () {
     });
   }
 
-  if ($("select[name=type]").val() == 5 || $("select[name=type]").val() == 6 || $("select[name=type]").val() == 7) {
+  if ($("select[name=type]").val() == 5 || $("select[name=type]").val() == 6) {
     var _data3 = {
       type: "product",
       menuable_id: $('input[name=menuable_id]').val()

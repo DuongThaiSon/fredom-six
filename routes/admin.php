@@ -9,7 +9,7 @@
 | is assigned the "web" middleware group. Enjoy building your Admin!
 |
 */
-Route::group(['middleware'=>'auth:admin'], function(){
+Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('', [
         'as' => 'dashboard.index',
@@ -17,7 +17,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // video
-    Route::group(['prefix' => 'videos'], function() {
+    Route::group(['prefix' => 'videos'], function () {
         Route::post('sort', [
             'as' => 'videos.sort',
             'uses' => 'VideoController@sort'
@@ -34,21 +34,21 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'videos.change-is-new',
             'uses' => 'VideoController@changeIsNew'
         ]);
-        Route::delete('delete',[
+        Route::delete('delete', [
             'as' => 'videos.deleteAll',
             'uses' => 'VideoController@deleteAll'
         ]);
-        Route::get('movetop/{video?}',[
+        Route::get('movetop/{video?}', [
             'as' => 'videos.movetop',
             'uses' => 'VideoController@movetop',
         ]);
     });
-    Route::resource('videos', 'VideoController',[
+    Route::resource('videos', 'VideoController', [
         'parameters' => ['videos' => 'id']
     ]);
 
     // video category
-    Route::group(['prefix' => 'video-categories'], function() {
+    Route::group(['prefix' => 'video-categories'], function () {
         Route::get('{id}/delete', [
             'as' => 'video-categories.delete',
             'uses' => 'VideoCategoryController@destroy'
@@ -61,7 +61,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::resource('video-categories', 'VideoCategoryController');
 
     // gallery
-    Route::group(['prefix' => 'galleries'], function() {
+    Route::group(['prefix' => 'galleries'], function () {
         Route::post('{gallery}/process', [
             'as' => 'galleries.processImage',
             'uses' => 'GalleryController@processImage'
@@ -101,17 +101,17 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
 
 
-        Route::get('movetop/{gallery?}',[
+        Route::get('movetop/{gallery?}', [
             'as' => 'galleries.movetop',
             'uses' => 'GalleryController@movetop',
         ]);
 
-        Route::delete('delete',[
+        Route::delete('delete', [
             'as' => 'galleries.deleteAll',
             'uses' => 'GalleryController@deleteAll'
         ]);
     });
-    Route::resource('galleries','GalleryController',[
+    Route::resource('galleries', 'GalleryController', [
         'parameters' => ['gallery' => 'id']
     ]);
 
@@ -130,17 +130,17 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'GalleryCategoryController@deleteAll'
         ]);
     });
-    Route::resource('gallery-categories', 'GalleryCategoryController',[
+    Route::resource('gallery-categories', 'GalleryCategoryController', [
         'parameters' => ['gallery-categories' => 'id']
     ]);
 
     // article
-    Route::group(['prefix' => 'articles'], function() {
+    Route::group(['prefix' => 'articles'], function () {
         Route::get('{id}/delete', [
             'as' => 'articles.delete',
             'uses' => 'ArticleController@destroy'
         ]);
-        Route::delete('delete',[
+        Route::delete('delete', [
             'as' => 'articles.deleteAll',
             'uses' => 'ArticleController@deleteAll'
         ]);
@@ -153,11 +153,11 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'articles.search',
             'uses' => 'ArticleController@search'
         ]);
-        Route::get('movetop/{article?}',[
+        Route::get('movetop/{article?}', [
             'as' => 'articles.movetop',
             'uses' => 'ArticleController@movetop',
         ]);
-        Route::get('category/{id}',[
+        Route::get('category/{id}', [
             'as' => 'article.cat',    // article theo category id
             'uses' => 'ArticleCategoryController@articles'
         ]);
@@ -166,23 +166,27 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'parameters' => ['articles' => 'id']
     ]);
 
-    Route::group(['prefix' => 'article-categories'], function() {
+    Route::group(['prefix' => 'article-categories'], function () {
         Route::get('{id}/delete', [
             'as' => 'article-categories.delete',
             'uses' => 'ArticleCategoryController@destroy'
         ]);
-        Route::post('sortcat', [
-            'as' => 'article-categories.sortcat',
-            'uses' => 'ArticleCategoryController@sortcat'
+        Route::post('reorder', [
+            'as' => 'article-categories.reorder',
+            'uses' => 'ArticleCategoryController@reorder'
         ]);
-        Route::delete('delete-all', [
-            'as' => 'article-categories.deleteAll',
-            'uses' => 'ArticleCategoryController@deleteAll'
+        Route::delete('destroy-many', [
+            'as' => 'article-categories.destroyMany',
+            'uses' => 'ArticleCategoryController@destroyMany'
         ]);
     });
-    Route::resource('article-categories', 'ArticleCategoryController');
+    Route::resource('article-categories', 'ArticleCategoryController', [
+        'parameters' => [
+            'article-categories' => 'category'
+        ]
+    ]);
 
-    Route::group(['prefix' => 'settings'], function(){
+    Route::group(['prefix' => 'settings'], function () {
         // Route::get('', [
         //     'as' => 'settings.infoSetting',
         //     'uses' => 'SettingController@infoSetting'
@@ -238,12 +242,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
 
-    Route::group(['prefix' => 'components'], function (){
+    Route::group(['prefix' => 'components'], function () {
         Route::get('', [
             'as' => 'components.index',
             'uses' => 'ComponentController@index'
         ]);
-        Route::get('add',[
+        Route::get('add', [
             'as' => 'components.create',
             'uses' => 'ComponentController@create'
         ]);
@@ -268,73 +272,73 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ComponentController@delete'
         ]);
     });
-    Route::resource('orders', 'OrderController',[
+    Route::resource('orders', 'OrderController', [
         'parameters' => ['orders' => 'id']
     ]);
 
-    Route::resource('showrooms', 'ShowroomController',[
+    Route::resource('showrooms', 'ShowroomController', [
         'parameters' => ['showrooms' => 'id']
     ]);
 
-    Route::group(['prefix' => 'password'], function() {
-        Route::get('',[
+    Route::group(['prefix' => 'password'], function () {
+        Route::get('', [
             'as' => 'password.change',
             'uses' => 'ChangePasswordController@getChangePassword'
         ]);
-        Route::post('',[
+        Route::post('', [
             'as' => 'password.change',
             'uses' => 'ChangePasswordController@postChangePassword'
         ]);
     });
 
-    Route::group(['prefix' => 'users'], function(){
-        Route::get('info/{id}',[
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('info/{id}', [
             'as' => 'users.info',
             'uses' => 'UserController@info'
         ]);
-        Route::post('info/change',[
+        Route::post('info/change', [
             'as' => 'info.change',
             'uses' => 'UserController@changeInfo'
         ]);
-        Route::get('add',[
+        Route::get('add', [
             'as' => 'users.add',
             'uses' => 'UserController@getAddUser'
         ]);
-        Route::post('add',[
+        Route::post('add', [
             'as' => 'users.postadd',
             'uses' => 'UserController@postAddUser'
         ]);
-        Route::get('admin',[
+        Route::get('admin', [
             'as' => 'users.admin',
             'uses' => 'UserController@admin'
         ]);
-        Route::delete('delete',[
-            'as' =>'users.delete',
+        Route::delete('delete', [
+            'as' => 'users.delete',
             'uses' => 'UserController@delete'
         ]);
-        Route::delete('deleteAll',[
+        Route::delete('deleteAll', [
             'as' => 'users.deleteAll',
             'uses' => 'UserController@deleteAll'
         ]);
     });
 
-    Route::group(['prefix' => 'contacts'], function() {
-        Route::get('',[
+    Route::group(['prefix' => 'contacts'], function () {
+        Route::get('', [
             'as' => 'contacts.index',
             'uses' => 'ContactController@index'
         ]);
-        Route::get('delete',[
+        Route::get('delete', [
             'as' => 'contacts.delete',
             'uses' => 'ContactController@delete'
         ]);
-        Route::delete('delete',[
+        Route::delete('delete', [
             'as' => 'contacts.deleteAll',
             'uses' => 'ContactController@deleteAll'
         ]);
     });
     Route::resource('menu-categories', 'MenuCategoryController', [
         'parameters' => ['menu-categories' => 'category']
-        ]);
+    ]);
     Route::group(['prefix' => 'menus'], function () {
         Route::post('/sort', [
             'as' => 'menus.sort',
@@ -342,7 +346,8 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
         Route::get('/list-articles', [
             'as' => 'menus.listArticle',
-            'uses' => 'MenuController@listArticle']);
+            'uses' => 'MenuController@listArticle'
+        ]);
         Route::get('/list-products', 'MenuController@listProduct');
         Route::get('/get-article/{id}', 'MenuController@getArticle');
         Route::get('/get-product/{id}', 'MenuController@getProduct');
@@ -368,7 +373,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'products.deleteMany',
         'uses' => 'ProductController@deleteMany'
     ]);
-    Route::group(['prefix' => 'products'], function() {
+    Route::group(['prefix' => 'products'], function () {
 
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
@@ -422,7 +427,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
         'as' => 'productCategories.deleteMany',
         'uses' => 'ProductCategoryController@deleteMany'
     ]);
-    Route::group(['prefix' => 'product-categories'], function() {
+    Route::group(['prefix' => 'product-categories'], function () {
         //
     });
     Route::resource('product-categories', 'ProductCategoryController', [
@@ -432,9 +437,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // product attribute
-    Route::group(['prefix' => 'product-attributes'], function() {
-
-    });
+    Route::group(['prefix' => 'product-attributes'], function () { });
     Route::resource('product-attributes', 'ProductAttributeController');
 
     Route::post('check-user', 'UserController@check');
@@ -448,7 +451,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::group(['prefix' => 'backups'], function () {
         Route::get('download', [
             'as' => 'backups.download',
-            'uses' =>'BackupController@download'
+            'uses' => 'BackupController@download'
         ]);
         Route::delete('delete', [
             'as' => 'backups.destroy',
@@ -456,13 +459,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
         Route::get('import', [
             'as' => 'backups.import',
-            'uses' =>'BackupController@import'
+            'uses' => 'BackupController@import'
         ]);
         Route::post('restore', [
             'as' => 'backups.restore',
-            'uses' =>'BackupController@restore'
+            'uses' => 'BackupController@restore'
         ]);
-
     });
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
@@ -512,7 +514,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
 
 // Guest routes
-Route::group(['namespace' => 'Auth'], function() {
+Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', [
         'as' => 'login.showLoginForm',
         'uses' => 'LoginController@showLoginForm'
@@ -538,11 +540,8 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ResetPasswordController@reset'
     ]);
 
-    Route::get('password/reset/{token}',[
+    Route::get('password/reset/{token}', [
         'as' => 'password.reset',
         'uses' => 'ResetPasswordController@showResetForm'
     ]);
 });
-
-
-

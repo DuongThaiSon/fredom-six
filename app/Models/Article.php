@@ -20,6 +20,11 @@ class Article extends Model
         return $this->belongsTo('App\Models\Category');
     }
 
+    public function menus()
+    {
+        return $this->morphMany('App\Models\Menu', 'menuable');
+    }
+
     protected $casts = [
         'is_public' => 'boolean',
         'is_highlight' => 'boolean',

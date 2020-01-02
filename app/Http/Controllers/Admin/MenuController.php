@@ -30,10 +30,10 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Category $category)
     {
-        $menuCats = $this->getSubMenus(0, $request->id);
-        $category_id = $request->id;
+        $menuCats = $this->getSubMenus(0, $category->id);
+        $category_id = $category->id;
         return view('admin.menus.index', compact('menuCats', 'category_id'));
     }
 
@@ -74,12 +74,11 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Category $category)
     {
-        $category_id = $request->category_id;
         $parent_id = $request->has('parent_id')?$request->parent_id:'0';
-        $menuCats = $this->getSubMenus(0, $category_id);
-        return view('admin.menus.create', compact('menuCats','category_id', 'parent_id'));
+        $menuCats = $this->getSubMenus(0, $category->id);
+        return view('admin.menus.create', compact('menuCats','category', 'parent_id'));
 
     }
 
@@ -94,16 +93,34 @@ class MenuController extends Controller
         $request->validate([
             'parent_id' => 'numeric|min:0',
             'name' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'menuable_type' => 'required',
+            'menuable_id' => 'sometimes'
         ]);
+
         $attributes = $request->only([
-            'name', 'parent_id', 'category_id', 'link', 'type'
+            'name', 'parent_id', 'category_id', 'type'
         ]) ;
         $attributes['created_by'] = Auth::user()->id;
         $attributes['order'] = Menu::max('order') ? (Menu::max('order') + 1) : 1;
 
-        $menus = Menu::create($attributes);
-        return redirect()->back()->with('success','Lưu dữ liệu thành công');
+        if ($request->menuable_type == 4) {
+            $article = Article::find($request->menuable_id);
+            $menu = $article->menus()->create($attributes);
+        }
+
+        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 || $request->menuable_type == 3 || $request->menuable_type == 5 || $request->menuable_type == 6 || $request->menuable_type == 7) {
+            $category = Category::find($request->menuable_id);
+            $menu = $category->menus()->create($attributes);
+        }
+
+        elseif ($request->menuable_type == 8) {
+            $product = Product::find($request->menuable_id);
+            $menu = $product->menus()->create($attributes);
+        }
+
+        // $menus = Menu::create($attributes);
+        return redirect()->route('admin.menus.edit', ['category' => $request->category_id, 'menu' => $menu->id])->with('success','Lưu dữ liệu thành công');
 
     }
 
@@ -124,15 +141,15 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Menu $menu)
+    public function edit(Request $request, Category $category, Menu $menu)
     {
-        {
+
             // $menu = Menu::findOrFail($id); // find 1 sao lại số nhiều nhỉ
             // $menu = Menu::find($menus->parent_id); // ??
             $menuCats = $this->getSubMenus(0, $menu->category_id, $menu->id);
 
             return view('admin.menus.edit', compact('menuCats', 'menu'));
-        }
+
     }
 
     /**
@@ -142,21 +159,58 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category, Menu $menu)
     {
+        // $request->validate([
+        //     'parent_id' => 'numeric|min:0',
+        //     'name' => 'required',
+        //     'category_id' => 'required'
+        // ]);
+        // $attributes = $request->only([
+        //     'name', 'parent_id', 'category_id', 'link', 'type'
+        // ]) ;
+        // $attributes['created_by'] = Auth::user()->id;
+        // $attributes['category_id'] = $request->category_id;
+        // $menus = Menu::findOrFail($id);
+        // $menu  = $menus->fill($attributes);
+        // $menu->save();
+            // print_r($request->all());die;
         $request->validate([
             'parent_id' => 'numeric|min:0',
             'name' => 'required',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'menuable_type' => 'required',
+            'menuable_id' => 'sometimes'
         ]);
+
         $attributes = $request->only([
-            'name', 'parent_id', 'category_id', 'link', 'type'
+            'name', 'parent_id', 'category_id', 'type'
         ]) ;
-        $attributes['created_by'] = Auth::user()->id;
-        $attributes['category_id'] = $request->category_id;
-        $menus = Menu::findOrFail($id);
-        $menu  = $menus->fill($attributes);
-        $menu->save();
+        if ($request->menuable_type == 4) {
+            $article = Article::find($request->menuable_id);
+            // $menu = $article->menus()->update($attributes);
+            $menu = Menu::find($menu->id);
+            $menu->menuable()->associate($article);
+            $menu->fill($attributes);
+            $menu->save();
+        }
+
+        elseif ($request->menuable_type == 1 || $request->menuable_type == 2 || $request->menuable_type == 3 || $request->menuable_type == 5 || $request->menuable_type == 6 || $request->menuable_type == 7) {
+            $category = Category::find($request->menuable_id);
+            $menu = Menu::find($menu->id);
+            $menu->menuable()->associate($category);
+            $menu->fill($attributes);
+            $menu->save();
+        }
+
+        elseif ($request->menuable_type == 8) {
+            $product = Product::find($request->menuable_id);
+            // $menu = $product->menus()->update($attributes);
+            $menu = Menu::find($menu->id);
+            $menu->menuable()->associate($product);
+            $menu->fill($attributes);
+            $menu->save();
+        }
 
         return redirect()->back()->with('success','Lưu dữ liệu thành công');
     }
@@ -186,87 +240,126 @@ class MenuController extends Controller
     public function listArticle(Request $request)
     {
 
-        $results = Article::with('category')->simplePaginate(5);
-        return view('admin.menus.list_articles', compact('results'))->render();
+        $results = Article::query();
+        $isChoose = 0;
+        if($request->keyword)
+        {
+            $results = $results->where('name', 'like', '%'.$request->keyword.'%');
+        }
+        if($request->menuable_id)
+        {
+            $results = $results->whereId($request->menuable_id);
+            $isChoose = 1;
+        }
+        $results = $results->with('category')->paginate(5);
+        $keyword = $request->keyword ?? '';
+
+        return view('admin.menus.list_articles', compact('results', 'keyword', 'isChoose'))->render();
     }
     /**
      *
      */
 
-    public function listProduct()
+    public function listProduct(Request $request)
     {
-        $results = Product::with('categories')->simplePaginate(5);
-        return view('admin.menus.list_products', compact('results'));
+        $results = Product::query();
+        $isChoose = 0;
+        if($request->keyword)
+        {
+            $results = $results->where('name', 'like', '%'.$request->keyword.'%');
+        }
+        if($request->menuable_id)
+        {
+            $results = $results->whereId($request->menuable_id);
+            $isChoose = 1;
+        }
+        $results = $results->with('categories')->paginate(5);
+        $keyword = $request->keyword ?? '';
+        return view('admin.menus.list_products', compact('results', 'keyword', 'isChoose'));
     }
+    // /**
+    //  *
+    //  */
+
+    // public function getArticle($id)
+    // {
+    //     $article = Article::with(['category'])->findOrFail($id)->toArray();
+    //     return response()->json(['results'=>$article]);
+    // }
+    // /**
+    //  *
+    //  */
+
+    // public function getProduct($id)
+    // {
+    //     $product = Product::with(['categories'])->findOrFail($id)->toArray();
+    //     // print_r($product);die;
+    //     return response()->json(['results'=>$product]);
+    // }
+
+    // public function searchArticles(Request $request)
+    // {
+    //     $results = Article::where('name', 'like', '%'.$request->keyword.'%')->with(['category'])->get()->paginate(5);
+    //     return view('admin.menus.list_articles', compact('results'))->render();
+    //     // $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with(['category'])->get();
+    //     // return response()->json(compact('articles'), 200);
+    // }
+
+    // public function searchProducts(Request $request)
+    // {
+    //     $results = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get()->paginate(5);
+    //     return view('admin.menus.list_products', compact('results'))->render();
+    //     // $products = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get();
+    //     // return response()->json(compact('products'), 200);
+    // }
     /**
-     *
+     * Gọi ra danh mục sản phẩm
      */
+    // public function listCategoryProduct()
+    // {
+    //     $categories = $this->service->allWithSub(null, true);
 
-    public function getArticle($id)
-    {
-        $article = Article::with(['category'])->findOrFail($id)->toArray();
-        return response()->json(['results'=>$article]);
-    }
-    /**
-     *
-     */
+    //     return view('admin.menus.category_table_products', compact('categories'))->render();
+    // }
+    // public function getProductCategory($id)
+    // {
+    //     $product = Category::findOrFail($id)->toArray();
+    //     return response()->json(['results'=>$product]);
+    // }
 
-    public function getProduct($id)
-    {
-        $product = Product::with(['categories'])->findOrFail($id)->toArray();
-        // print_r($product);die;
-        return response()->json(['results'=>$product]);
-    }
-
-    public function searchArticles(Request $request)
-    {
-        $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with(['category'])->get();
-        return response()->json(compact('articles'), 200);
-    }
-
-    public function searchProducts(Request $request)
-    {
-        $products = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get();
-        return response()->json(compact('products'), 200);
-    }
-    /**
-     * Gọi ra danh mục sản phẩm 
-     */
-    public function listCategoryProduct()
-    {
-        $categories = $this->service->allWithSub(null, true);
-        
-        return view('admin.menus.category_table_products', compact('categories'))->render();
-    }
-    public function getProductCategory($id)
-    {
-        $product = Category::findOrFail($id)->toArray();
-        return response()->json(['results'=>$product]);
-    }
-
-    private function getSubCategories($parent_id, $ignore_id=null)
+    private function getSubCategories($type, $parent_id, $ignore_id=null)
     {
         $Categories = Category::where('parent_id', $parent_id)
-            ->where('type', 'article')
+            ->where('type', $type)
             ->where('id', '<>', $ignore_id)
             ->orderBy('order', 'desc')
             ->get()
-            ->map(function($query) use($ignore_id) {
-                $query->sub = $this->getSubCategories($query->id, $ignore_id);
+            ->map(function($query) use ($ignore_id, $type) {
+                $query->sub = $this->getSubCategories($type, $query->id, $ignore_id);
                 return $query;
             });
 
         return $Categories;
     }
-    public function listCategoryArticle()
+    // public function listCategoryArticle()
+    // {
+    //     $categories = $this->getSubCategories(0);
+    //     // print_r($categories->toArray());die;
+    //     return view('admin.menus.category_table_articles', compact('categories'))->render();
+    // }
+    // public function getArticleCategory($id)
+    // {
+    //     $article = Category::findOrFail($id)->toArray();
+    //     return response()->json(['results'=>$article]);
+    // }
+
+    public function getCategory(Request $request)
     {
-        $categories = $this->getSubCategories(0);
+        // print_r($request->all());die;
+        // $categories = Category::whereType($request->type)->get();
+        $categories = $this->getSubCategories($request->type, 0);
         // print_r($categories->toArray());die;
-        return view('admin.menus.category_table_articles', compact('categories'))->render();
-    }
-    public function getArticleCategory($id)
-    {
-        $article = Category::findOrFail($id)->toArray();
-        return response()->json(['results'=>$article]);
+        $menu = $request->menuable_id ?? '';
+        return view('admin.menus.list_category', compact('categories', 'menu'));
     }
 }

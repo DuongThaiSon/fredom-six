@@ -290,7 +290,7 @@ var chooseColor = function chooseColor() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/client/products.detail.js */"./resources/js/client/products.detail.js");
+module.exports = __webpack_require__(/*! D:\Projects\CMS\leotive-cms-v3\resources\js\client\products.detail.js */"./resources/js/client/products.detail.js");
 
 
 /***/ })

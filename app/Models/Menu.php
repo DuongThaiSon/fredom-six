@@ -17,4 +17,9 @@ class Menu extends Model
     {
         return $this->belongsTo('App\Models\Category', 'category_id');
     }
+
+    public function menuable()
+    {
+        return $this->morphTo();
+    }
 }

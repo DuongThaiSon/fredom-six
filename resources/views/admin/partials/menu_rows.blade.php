@@ -16,26 +16,25 @@
                                 @for ($i = 0; $i < $level; $i++)
                                     --|
                                 @endfor
-                                <a href="#">{{$menu->name}}</a>
+                                <a href="{{ route('admin.menus.edit', ['category' => $menu->categories->id, 'menu' => $menu->id]) }}">{{$menu->name}}</a>
                             </td>
                             <td style="width: 20%">{{ $menu->categories->name }}</td>
                             <td style="width: 15%;">{{$menu->user->name?? ''}}</td>
                             <td style="width: 20%;">{{$menu->created_at}}</td>
-                            
+
                             <td style="width: 15%;">
                                 <div class="btn-group">
                                     <a href="{{route('admin.menus.create', ['parent_id' => $menu->id, 'category_id' => $category_id])}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
                                         <i class="material-icons">playlist_add</i>
                                     </a>
-                                    <a href="{{route('admin.menus.edit', $menu->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
+                                    <a href="{{ route('admin.menus.edit', ['category' => $menu->categories->id, 'menu' => $menu->id]) }}" class="btn btn-sm p-1" data-toggle="tooltip" title="Sửa dữ liệu">
                                         <i class="material-icons">mode_edit</i>
                                     </a>
-                                    <form style="margin-top: 0 !important; padding-top: 0 !important;" action="{{route('admin.menus.destroy', $menu->id)}}" method="POST">
+                                    <form action="#" method="POST" class="mt-0 pt-0">
                                     @method('DELETE')
                                     @csrf
-
-                                         <button class="btn btn-sm p-1" data-toggle="tooltip" title="Xoá" type="submit">
-                                            <i class="material-icons">delete</i>
+                                        <button class="btn btn-sm p-1 text-highlight" data-toggle="tooltip" title="Xoá" type="submit">
+                                            <i class="material-icons text-primary">delete</i>
                                         </button>
                                     </form>
                                 </div>

@@ -44,10 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $showrooms = Showroom::get();
         $typeOptions = Product::PRODUCT_TYPES;
         $categories = $this->service->allWithSub();
-        return view('admin.products.create', compact('categories', 'typeOptions', 'showrooms'));
+        return view('admin.products.create', compact('categories', 'typeOptions'));
     }
 
     /**
@@ -65,7 +64,7 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
     }
-    
+
     /**
      * Display the specified resource.
      *

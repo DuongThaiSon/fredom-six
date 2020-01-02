@@ -88,6 +88,11 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Showroom', 'product_showrooms')
             ->withTimestamps();
     }
+
+    public function menus()
+    {
+        return $this->morphMany('App\Models\Menu', 'menuable');
+    }
 }
 
 

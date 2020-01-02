@@ -3663,7 +3663,7 @@ var deleteSingleItem = function deleteSingleItem() {
 /*!******************************!*\
   !*** ./resources/js/core.js ***!
   \******************************/
-/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus */
+/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3673,98 +3673,109 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMultipleItems", function() { return deleteMultipleItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTableOrderable", function() { return makeTableOrderable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateViewViewStatus", function() { return updateViewViewStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSingleItem", function() { return deleteSingleItem; });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
+
+
+var swalWithSuccessConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-success'
+  },
+  buttonsStyling: false
+});
+var swalWithDangerConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-danger'
+  },
+  buttonsStyling: false
+});
 /**
  * Init behavior button
  */
 
 function initCheckboxButton() {
-  // Button check/uncheck all
-  $("#btn-ck-all").off(".checkAll");
-  $("#btn-ck-all").on("click.checkAll", renderButtonCheckAll); // Behavior check input
+  // Button check/unchecked all
+  $(".btn-check-all").off(".checkAll");
+  $(".btn-check-all").on("click.checkAll", renderButtonCheckAll); // Behavior check input
 
   $(".form-check-input").change(function () {
-    // Change appear button check all
-    changeAppearButtonCheckAll(); // If check a button and its category has sub
+    // If check a button and its category has sub
     // Let's check all its subs
-
     if ($(this).prop("checked") == true) {
       // Check its sub
       var checkBoxes = $(this).parents("table").parent().parent().find("ul .form-check-input");
       checkBoxes.prop("checked", true);
-    } // If uncheck a button and all buttons at same level are uncheck
-    // Let's uncheck its parent
+    } // If unchecked a button and all buttons at same level are unchecked
+    // Let's unchecked its parent
 
 
     if ($(this).prop("checked") == false) {
-      var checkLevel = $(this).attr("level-input");
+      var checkLevel = $(this).attr("data-level");
       var parent = $(this).parent().closest("ul").parent().find(".form-check-input").first();
 
-      var _checkBoxes = $(this).parent().closest("ul").find(".form-check-input[level-input=" + checkLevel + "]:checkbox:checked");
+      var _checkBoxes = $(this).parent().closest("ul").find(".form-check-input[data-level=" + checkLevel + "]:checkbox:checked");
 
       if (_checkBoxes.length == 0) {
         parent.prop("checked", false);
       }
-    }
+    } // Change appear button check all
+
+
+    changeAppearButtonCheckAll();
   });
 } // Change appear button check all
 
 function changeAppearButtonCheckAll() {
-  if ($("input.form-check-input:checkbox:checked").length == $("input.form-check-input:checkbox").length) {
-    $("#btn-ck-all i").text("check_box");
+  if ($("input.form-check-input:checkbox:checked").length === $("input.form-check-input:checkbox").length) {
+    $(".btn-check-all").prop("indeterminate", false);
+    $(".btn-check-all").prop("checked", true);
   } else if ($("input.form-check-input:checkbox:checked").length > 0) {
-    $("#btn-ck-all i").text("indeterminate_check_box");
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", true);
   } else {
-    $("#btn-ck-all i").text("check_box_outline_blank");
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", false);
   }
 }
 
 function renderButtonCheckAll() {
   var checkBoxes = $(".form-check-input");
   checkBoxes.prop("checked", !checkBoxes.prop("checked"));
-
-  if ($("input.form-check-input:checkbox:checked").length == $("input.form-check-input:checkbox").length) {
-    $("#btn-ck-all i").text("check_box");
-  } else if ($("input.form-check-input:checkbox:checked").length > 0) {
-    $("#btn-ck-all i").text("indeterminate_check_box");
-  } else {
-    $("#btn-ck-all i").text("check_box_outline_blank");
-  }
+  changeAppearButtonCheckAll();
 }
 /**
  * Click remove an item
  *
- * @param delete_url string
+ * @param deleteUrl string
  */
 
 
-function deleteAnItem(delete_url) {
-  var item_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+function deleteAnItem(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
   $(".delete-category").click(function (e) {
     e.preventDefault();
 
     var _this = $(this);
 
     var delete_id = $(this).attr("data-id");
-    Swal.fire({
+    swalWithDangerConfirmButton.fire({
       title: "Bạn chắc chứ?",
-      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(item_name, " n\xE0y!"),
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonClass: "btn btn-danger",
-      cancelButtonClass: "btn",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
       confirmButtonText: "Đúng, xóa nó đi",
-      cancelButtonText: "Thôi không xóa",
+      cancelButtonText: "Huỷ",
       buttonsStyling: false
     }).then(function (result) {
       if (result.value) {
-        Swal.fire({
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
           onOpen: function onOpen() {
-            Swal.showLoading();
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
           }
         });
         $.ajax({
-          url: delete_url + "/" + delete_id,
+          url: deleteUrl + "/" + delete_id,
           method: "POST",
           data: {
             _method: "DELETE"
@@ -3772,11 +3783,10 @@ function deleteAnItem(delete_url) {
           success: function success() {
             _this.closest("li").remove();
 
-            Swal.fire({
+            swalWithSuccessConfirmButton.fire({
               title: "Thành công",
               text: "Bài viết đã được xóa.",
-              type: "success",
-              confirmButtonClass: "btn btn-success",
+              icon: "success",
               buttonsStyling: false
             }).then(function () {
               location.reload();
@@ -3785,53 +3795,47 @@ function deleteAnItem(delete_url) {
           },
           error: function error(err) {
             if (err.status === 403) {
-              Swal.fire({
+              swalWithDangerConfirmButton.fire({
                 title: "Không được phép!",
-                type: "error",
-                confirmButtonClass: "btn btn-danger",
-                buttonsStyling: false,
+                icon: "error",
                 html: "\
                                         <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
                                         <hr>\
                                         <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
-              })["catch"](swal.noop);
+              });
             } else {
-              Swal.fire({
+              swalWithDangerConfirmButton.fire({
                 title: "Lỗi",
-                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
-                type: "error",
-                confirmButtonClass: "btn btn-danger",
-                buttonsStyling: false
-              })["catch"](swal.noop);
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error"
+              });
             }
           }
         });
       }
-    })["catch"](swal.noop);
+    });
   });
 }
 /**
  * Click remove selected items
  *
- * @param delete_url string
+ * @param string deleteUrl
+ * @param string itemName
  */
 
-function deleteMultipleItems(delete_url) {
-  var item_name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+function deleteMultipleItems(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
   $("#btn-del-all").click(function () {
-    var countchecked = $("input.form-check-input:checkbox:checked").length;
+    var checkedCounter = $("input.form-check-input:checkbox:checked").length;
 
-    if (countchecked > 0) {
-      Swal.fire({
+    if (checkedCounter > 0) {
+      swalWithDangerConfirmButton.fire({
         title: "Bạn chắc chứ?",
-        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(item_name, " \u0111\xE3 ch\u1ECDn!"),
-        type: "warning",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonClass: "btn btn-danger",
-        cancelButtonClass: "btn",
         confirmButtonText: "Đúng, xóa hết đi",
-        cancelButtonText: "Thôi không xóa",
-        buttonsStyling: false
+        cancelButtonText: "Huỷ"
       }).then(function (result) {
         if (result.value) {
           var delete_id = "";
@@ -3839,35 +3843,23 @@ function deleteMultipleItems(delete_url) {
             delete_id += $(this).attr("data-id") + ",";
           });
           delete_id = delete_id.slice(0, delete_id.length - 1);
-          Swal.fire({
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
             onOpen: function onOpen() {
-              Swal.showLoading();
+              sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
             }
           });
           $.ajax({
-            url: delete_url,
+            url: deleteUrl,
             method: "POST",
             data: {
               ids: delete_id,
               _method: "DELETE"
             },
             success: function success() {
-              // for (
-              //     ;
-              //     $("input.form-check-input:checkbox:checked")
-              //         .length > 0;
-              // ) {
-              //     let _this = $(
-              //         "input.form-check-input:checkbox:checked"
-              //     ).first();
-              //     _this.closest("li").remove();
-              // }
-              Swal.fire({
+              swalWithSuccessConfirmButton.fire({
                 title: "Thành công",
-                text: "\u0110\xE3 x\xF3a c\xE1c ".concat(item_name, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
-                type: "success",
-                confirmButtonClass: "btn btn-success",
-                buttonsStyling: false
+                text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                icon: "success"
               }).then(function () {
                 location.reload();
               });
@@ -3875,64 +3867,57 @@ function deleteMultipleItems(delete_url) {
             },
             error: function error(err) {
               if (err.status === 403) {
-                Swal.fire({
+                swalWithDangerConfirmButton.fire({
                   title: "Không được phép!",
-                  type: "error",
-                  confirmButtonClass: "btn btn-danger",
-                  buttonsStyling: false,
+                  icon: "error",
                   html: "\
                                     <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
                                     <hr>\
                                     <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
-                })["catch"](swal.noop);
+                });
               } else {
-                Swal.fire({
+                swalWithDangerConfirmButton.fire({
                   title: "Lỗi",
-                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(item_name, " con n\xE0o thu\u1ED9c ").concat(item_name, " c\u1EA7n x\xF3a!"),
-                  type: "error",
-                  confirmButtonClass: "btn btn-danger",
-                  buttonsStyling: false
-                })["catch"](swal.noop);
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                  icon: "error"
+                });
               }
             }
           });
         }
-      })["catch"](swal.noop);
+      });
     } else {
-      Swal.fire({
+      swalWithDangerConfirmButton.fire({
         title: "Err...",
-        text: "Ch\u01B0a ch\u1ECDn ".concat(item_name, " n\xE0o c\u1EA3."),
-        buttonsStyling: false,
-        confirmButtonClass: "btn btn-info"
-      })["catch"](swal.noop);
+        text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
+      });
     }
   });
 }
-function makeTableOrderable(order_url) {
-  $(".sort").sortable({
+function makeTableOrderable(orderUrl) {
+  var orderContainer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".sort";
+  $(orderContainer).sortable({
     handle: ".connect",
     placeholder: "ui-state-highlight",
     forcePlaceholderSize: true,
     update: function update(event, ui) {
       var sort = $(this).sortable("toArray");
       $.ajax({
-        url: order_url,
+        url: orderUrl,
         method: "POST",
         data: {
           sort: sort
         },
         error: function error(err) {
           if (err.status === 403) {
-            Swal.fire({
+            swalWithDangerConfirmButton.fire({
               title: "Lỗi!",
-              type: "error",
-              confirmButtonClass: "btn btn-danger",
-              buttonsStyling: false,
+              icon: "error",
               html: "\
                                 <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
                                 <hr>\
                                 <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
-            })["catch"](swal.noop);
+            });
           }
         }
       });
@@ -3973,6 +3958,71 @@ function updateViewViewStatus(updateUrl) {
       error: function error(err) {}
     });
   }, 500));
+}
+function deleteSingleItem() {
+  var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+  $(".btn-destroy").off("click.deleteSingleItem");
+  $(".btn-destroy").on("click.deleteSingleItem", function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var deleteUrl = $(this).attr("href");
+    swalWithDangerConfirmButton.fire({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Huỷ",
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          onOpen: function onOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+          }
+        });
+        $.ajax({
+          url: deleteUrl,
+          method: "POST",
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            _this.closest("li").remove();
+
+            swalWithSuccessConfirmButton.fire({
+              title: "Thành công",
+              icon: "success"
+            }).then(function () {
+              location.reload();
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                buttonsStyling: false,
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error",
+                buttonsStyling: false
+              });
+            }
+          }
+        });
+      }
+    });
+  });
 }
 
 /***/ }),

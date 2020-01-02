@@ -1,21 +1,21 @@
 @import "variables";
 @import "utilities/borders";
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
 
 @media (min-width: 30em) {
-    .filepond--item {
-        width: calc(50% - .5em);
-    }
+  .filepond--item {
+    width: calc(50% - 0.5em);
+  }
 }
 
 @media (min-width: 50em) {
-    .filepond--item {
-        width: calc(33.33% - .5em);
-    }
+  .filepond--item {
+    width: calc(33.33% - 0.5em);
+  }
 }
 
 .wrapper.wrapper-full-page {
-    height: auto;
-    min-height: 100vh;
-    width: 100%;
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
 }
-

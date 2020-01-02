@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -284,10 +284,10 @@ function checkRequiredField(context) {
 
 /***/ }),
 
-/***/ "./resources/js/admin/menus.edit.js":
-/*!******************************************!*\
-  !*** ./resources/js/admin/menus.edit.js ***!
-  \******************************************/
+/***/ "./resources/js/admin/menus.create.js":
+/*!********************************************!*\
+  !*** ./resources/js/admin/menus.create.js ***!
+  \********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -379,96 +379,18 @@ $(document).ready(function () {
       $('#menu-form').submit();
     }
   });
-  var url = "";
-
-  if ($("select[name=type]").val() == 1 || $("select[name=type]").val() == 2 || $("select[name=type]").val() == 3) {
-    var data = {
-      type: "article",
-      menuable_id: $('input[name=menuable_id]').val()
-    };
-    $.ajax({
-      url: '/admin/menus/get-category',
-      method: 'GET',
-      data: data,
-      success: function success(scs) {
-        $('.filter-result').html(scs);
-        $('.selectpicker').selectpicker();
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseCategory"]();
-      }
-    });
-  }
-
-  if ($("select[name=type]").val() == 4) {
-    url = "list-articles";
-    var _data2 = {
-      menuable_id: $('input[name=menuable_id]').val()
-    };
-    $.ajax({
-      url: '/admin/menus/' + url,
-      method: 'GET',
-      data: _data2,
-      success: function success(scs) {
-        $('#table-show-record').remove();
-        $('.filter-result').html(scs);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseRecord"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["buttonPaginationOnClick"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["searchArticle"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseOther"](url); //   $('input[name=link]').remove();
-      }
-    });
-  }
-
-  if ($("select[name=type]").val() == 5 || $("select[name=type]").val() == 6 || $("select[name=type]").val() == 7) {
-    var _data3 = {
-      type: "product",
-      menuable_id: $('input[name=menuable_id]').val()
-    };
-    $.ajax({
-      url: '/admin/menus/get-category',
-      method: 'GET',
-      data: _data3,
-      success: function success(scs) {
-        $('.filter-result').html(scs);
-        $('.selectpicker').selectpicker();
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseCategory"]();
-      }
-    });
-  }
-
-  if ($("select[name=type]").val() == 8) {
-    url = "list-products";
-    var _data4 = {
-      menuable_id: $('input[name=menuable_id]').val()
-    };
-    $.ajax({
-      url: '/admin/menus/' + url,
-      method: 'GET',
-      data: _data4,
-      success: function success(scs) {
-        $('#table-show-record').remove();
-        $('.filter-result').html(scs); // menus.chooseProduct(url);
-        // menus.buttonProductPaginationOnClick(url);
-        // menus.searchProduct(url);
-
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseRecord"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["buttonPaginationOnClick"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["searchArticle"](url);
-        _menus_core_js__WEBPACK_IMPORTED_MODULE_0__["chooseOther"](url);
-      }
-    });
-  }
 });
 
 /***/ }),
 
-/***/ 8:
-/*!************************************************!*\
-  !*** multi ./resources/js/admin/menus.edit.js ***!
-  \************************************************/
+/***/ 9:
+/*!**************************************************!*\
+  !*** multi ./resources/js/admin/menus.create.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\CMS\leotive-cms-v3\resources\js\admin\menus.edit.js */"./resources/js/admin/menus.edit.js");
+module.exports = __webpack_require__(/*! D:\Projects\CMS\leotive-cms-v3\resources\js\admin\menus.create.js */"./resources/js/admin/menus.create.js");
 
 
 /***/ })

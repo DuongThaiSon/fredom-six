@@ -332,9 +332,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ContactController@deleteAll'
         ]);
     });
-    Route::resource('menu-categories', 'MenuCategoryController', [
-        'parameters' => ['menu-categories' => 'category']
-        ]);
+
     Route::group(['prefix' => 'menus'], function () {
         Route::post('/sort', [
             'as' => 'menus.sort',
@@ -344,24 +342,60 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'menus.listArticle',
             'uses' => 'MenuController@listArticle']);
         Route::get('/list-products', 'MenuController@listProduct');
-        Route::get('/get-article/{id}', 'MenuController@getArticle');
-        Route::get('/get-product/{id}', 'MenuController@getProduct');
-        Route::get('/search-articles', [
-            'as' => 'menus.searchArticles',
-            'uses' => 'MenuController@searchArticles'
-        ]);
+        // Route::get('/get-article/{id}', 'MenuController@getArticle');
+        // Route::get('/get-product/{id}', 'MenuController@getProduct');
+        // Route::get('/search-articles', [
+        //     'as' => 'menus.searchArticles',
+        //     'uses' => 'MenuController@searchArticles'
+        // ]);
 
-        Route::get('/search-products', [
-            'as' => 'menus.searchProducts',
-            'uses' => 'MenuController@searchProducts'
-        ]);
-        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
-        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
-        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
-        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
+        // Route::get('/search-products', [
+        //     'as' => 'menus.searchProducts',
+        //     'uses' => 'MenuController@searchProducts'
+        // ]);
+        // Route::get('/list-category-product', 'MenuController@listCategoryProduct');
+        // Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
+        // Route::get('/list-category-article', 'MenuController@listCategoryArticle');
+        // Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
+        Route::get('/get-category', 'MenuController@getCategory');
+    });
+    Route::group(['prefix' => 'menu-categories'], function () {
+        Route::group(['prefix' => '{category}'], function () {
+
+            Route::resource('menus', 'MenuController');
+        });
     });
 
-    Route::resource('menus', 'MenuController');
+    Route::resource('menu-categories', 'MenuCategoryController', [
+        'parameters' => ['menu-categories' => 'category']
+        ]);
+    // Route::group(['prefix' => 'menus'], function () {
+    //     Route::post('/sort', [
+    //         'as' => 'menus.sort',
+    //         'uses' => 'MenuController@sort'
+    //     ]);
+    //     Route::get('/list-articles', [
+    //         'as' => 'menus.listArticle',
+    //         'uses' => 'MenuController@listArticle']);
+    //     Route::get('/list-products', 'MenuController@listProduct');
+    //     Route::get('/get-article/{id}', 'MenuController@getArticle');
+    //     Route::get('/get-product/{id}', 'MenuController@getProduct');
+    //     Route::get('/search-articles', [
+    //         'as' => 'menus.searchArticles',
+    //         'uses' => 'MenuController@searchArticles'
+    //     ]);
+
+    //     Route::get('/search-products', [
+    //         'as' => 'menus.searchProducts',
+    //         'uses' => 'MenuController@searchProducts'
+    //     ]);
+    //     Route::get('/list-category-product', 'MenuController@listCategoryProduct');
+    //     Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
+    //     Route::get('/list-category-article', 'MenuController@listCategoryArticle');
+    //     Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
+    // });
+
+    // Route::resource('menus', 'MenuController');
 
     // product
     Route::delete('delete-many/products', [

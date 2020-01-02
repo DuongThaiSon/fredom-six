@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3183,14 +3183,14 @@ function btnDeleteSetting() {
 
 /***/ }),
 
-/***/ 9:
+/***/ 10:
 /*!****************************************************!*\
   !*** multi ./resources/js/admin/settings.index.js ***!
   \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/settings.index.js */"./resources/js/admin/settings.index.js");
+module.exports = __webpack_require__(/*! D:\Projects\CMS\leotive-cms-v3\resources\js\admin\settings.index.js */"./resources/js/admin/settings.index.js");
 
 
 /***/ })

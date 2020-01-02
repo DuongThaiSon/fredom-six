@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu')])
+@extends('admin.layouts.main', ['activePage' => 'menus-categories', 'title' => __('Menu Categories')])
 @section('content')
         <!-- Content -->
         <div id="main-content">
@@ -23,20 +23,20 @@
                 <table class="table-sm table-hover table mb-2" width="100%">
                   <thead>
                     <tr class="text-muted">
-                      <th style="width: 34px;">ID</th>
-                      <th>TÊN DANH MỤC MENU</th>
-                      <th>NGƯỜI ĐĂNG</th>
-                      <th>NGÀY TẠO</th>
-                      <th style="width: 80px;">THAO TÁC</th>
+                      <th width="5%">ID</th>
+                      <th width="40%">TÊN DANH MỤC MENU</th>
+                      <th width="20%">NGƯỜI ĐĂNG</th>
+                      <th width="20%">NGÀY TẠO</th>
+                      <th width="15%">THAO TÁC</th>
                     </tr>
                   </thead>
                   <tbody>
                       @foreach ($categories as $cat)
-                          
-                     
+
+
                     <tr>
                       <td>{{ $cat->id }}</td>
-                      <td><a href="{{ route('admin.menus.index', ['id' => $cat->id]) }}">{{ $cat->name }}</a></td>
+                      <td><a href="{{ route('admin.menus.index', $cat->id) }}">{{ $cat->name }}</a></td>
                       <td>{{ $cat->user->name }}</td>
                       <td>{{ $cat->updated_at }}</td>
                       <td>
@@ -70,6 +70,6 @@
             </div>
           </div>
         </div>
-      
+
 
 @endsection

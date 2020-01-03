@@ -58,11 +58,9 @@ trait ManageCategory
      */
     public function create(array $attributes)
     {
-        if (array_key_exists('is_public', $attributes)) {
-            $attributes['is_public'] = 1;
-        } else {
-            $attributes['is_public'] = 0;
-        }
+        $attributes['is_public'] = array_key_exists('is_public', $attributes) ? 1 : 0;
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
+        $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }
@@ -91,11 +89,9 @@ trait ManageCategory
      */
     public function update(array $attributes, Category $category)
     {
-        if (array_key_exists('is_public', $attributes)) {
-            $attributes['is_public'] = 1;
-        } else {
-            $attributes['is_public'] = 0;
-        }
+        $attributes['is_public'] = array_key_exists('is_public', $attributes) ? 1 : 0;
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
+        $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }

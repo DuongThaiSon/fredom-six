@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductCategoryRequest;
+use App\Http\Requests\Admin\StoreProductCategoryRequest;
+use App\Http\Requests\Admin\UpdateProductCategoryRequest;
 use App\Models\Category;
 use App\Services\ProductCategoryService;
-use App\Models\ProductAttribute;
 
 class ProductCategoryController extends Controller
 {
@@ -46,10 +46,10 @@ class ProductCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Admin\StoreProductCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductCategoryRequest $request)
+    public function store(StoreProductCategoryRequest $request)
     {
         $attributes = $request->only([
             'parent_id', 'name', 'description', 'is_public', 'is_highlight', 'is_new', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'
@@ -72,7 +72,7 @@ class ProductCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function edit(Category $category)
@@ -85,11 +85,11 @@ class ProductCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Admin\UpdateProductCategoryRequest  $request
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateProductCategoryRequest $request, Category $category)
     {
         $attributes = $request->only([
             'parent_id', 'name', 'description', 'is_public', 'is_highlight', 'is_new', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\Category;
-use App\Http\Services\ProductCategoryService;
+use App\Services\ProductCategoryService;
 use App\Models\ProductAttribute;
 
 class ProductCategoryController extends Controller
@@ -28,7 +28,7 @@ class ProductCategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->service->allWithSub(null, true);
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = true);
         return view('admin.productCats.index', compact('categories'));
     }
 
@@ -39,7 +39,7 @@ class ProductCategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->service->allWithSub();
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
         return view('admin.productCats.create', compact('categories'));
     }
 
@@ -51,23 +51,11 @@ class ProductCategoryController extends Controller
      */
     public function store(ProductCategoryRequest $request)
     {
-        $attributes = $this->service->appendCreateData($request->all());
-        $attributes['can_filter'] = $request->can_filter?1:0;
-        $attributes['is_highlight'] = $request->is_highlight?1:0;
-        $attributes['is_new'] = $request->is_new?1:0;
-        $category = Category::create($attributes);
-
-        $response = [
-            'message' => 'Product Category created.',
-            'data'    => $category->toArray(),
-        ];
-
-        if ($request->wantsJson()) {
-
-            return response()->json($response);
-        }
-
-        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
+        $attributes = $request->only([
+            'parent_id', 'name', 'description', 'is_public', 'is_highlight', 'is_new', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'
+        ]);
+        $category = $this->service->create($attributes);
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('success', 'Category created.');
     }
 
     /**
@@ -89,10 +77,9 @@ class ProductCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $productAttributes = ProductAttribute::all();
-        $categories = $this->service->allWithSub($category->id);
-        $category->load(['productAttributes']);
-        return view('admin.productCats.edit', compact('categories', 'category', 'productAttributes'));
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = $category->id, $shouldLoadUpdater = false);
+
+        return view('admin.productCats.edit', compact('category', 'categories'));
     }
 
     /**
@@ -104,45 +91,45 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // TODO: create form request
-        $attributes = $this->service->appendEditData($request->all());
-        $attributes['can_filter'] = $request->can_filter?1:0;
-        $attributes['is_highlight'] = $request->is_highlight?1:0;
-        $attributes['is_new'] = $request->is_new?1:0;
-        $category->fill($attributes);
-        $category->save();
-        $category->productAttributes()->sync($request->product_attributes);
-
-        $response = [
-            'message' => 'Product Category updated.',
-            'data'    => $category->toArray(),
-        ];
-
-        if ($request->wantsJson()) {
-
-            return response()->json($response);
-        }
-
-        return redirect()->route('admin.product-categories.edit', $category->id)->with('message', $response['message']);
+        $attributes = $request->only([
+            'parent_id', 'name', 'description', 'is_public', 'is_highlight', 'is_new', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'
+        ]);
+        $category = $this->service->update($attributes, $category);
+        return redirect()->route('admin.product-categories.edit', $category->id)->with('success', 'Category updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if ($this->service->destroy($category)) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'message' => "failed_to_delete"
+            ], 400);
+        }
     }
 
-    public function deleteMany(Request $request)
+    public function destroyMany(Request $request)
     {
-        $products = explode(",",$request->ids);
-        foreach ($products as $product) {
-            Category::findOrFail($product)->delete();
+        if ($this->service->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'message' => "failed_to_delete"
+            ], 400);
         }
-        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->service->reorder($request->sort);
+
+        return response()->json([], 204);
     }
 }

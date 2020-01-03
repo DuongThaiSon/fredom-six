@@ -167,10 +167,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     ]);
 
     Route::group(['prefix' => 'article-categories'], function () {
-        Route::get('{id}/delete', [
-            'as' => 'article-categories.delete',
-            'uses' => 'ArticleCategoryController@destroy'
-        ]);
         Route::post('reorder', [
             'as' => 'article-categories.reorder',
             'uses' => 'ArticleCategoryController@reorder'
@@ -423,12 +419,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('products', 'ProductController');
 
     // product category
-    Route::delete('delete-many/product-categories', [
-        'as' => 'productCategories.deleteMany',
-        'uses' => 'ProductCategoryController@deleteMany'
-    ]);
     Route::group(['prefix' => 'product-categories'], function () {
-        //
+        Route::post('reorder', [
+            'as' => 'product-categories.reorder',
+            'uses' => 'ProductCategoryController@reorder'
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'product-categories.destroyMany',
+            'uses' => 'ProductCategoryController@destroyMany'
+        ]);
     });
     Route::resource('product-categories', 'ProductCategoryController', [
         'parameters' => [

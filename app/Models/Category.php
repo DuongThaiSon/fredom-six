@@ -8,6 +8,12 @@ class Category extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_public' => 'boolean',
+        'is_highlight' => 'boolean',
+        'is_new' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'created_by');

@@ -117,21 +117,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     // gallery category
     Route::group(['prefix' => 'gallery-categories'], function () {
-        Route::get('{id}/delete', [
-            'as' => 'gallery-categories.delete',
-            'uses' => 'GalleryCategoryController@destroy'
+        Route::post('reorder', [
+            'as' => 'gallery-categories.reorder',
+            'uses' => 'GalleryCategoryController@reorder'
         ]);
-        Route::post('sortcat', [
-            'as' => 'gallery-categories.sortcat',
-            'uses' => 'GalleryCategoryController@sortcat'
-        ]);
-        Route::delete('delete-all', [
-            'as' => 'gallery-categories.deleteAll',
-            'uses' => 'GalleryCategoryController@deleteAll'
+        Route::delete('destroy-many', [
+            'as' => 'gallery-categories.destroyMany',
+            'uses' => 'GalleryCategoryController@destroyMany'
         ]);
     });
     Route::resource('gallery-categories', 'GalleryCategoryController', [
-        'parameters' => ['gallery-categories' => 'id']
+        'parameters' => ['gallery-categories' => 'category']
     ]);
 
     // article

@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label>ID</label>
                             <input type="text" name="id" class="form-control" readonly="readonly" />
-                            <small class="form-text">ID là mã của tin bài, đây là một thuộc tính duy nhất</small>
+                            <small class="form-text">ID là mã của mục, đây là một thuộc tính duy nhất</small>
                         </div>
 
                         <div class="form-group">

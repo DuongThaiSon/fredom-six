@@ -49,16 +49,18 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     // video category
     Route::group(['prefix' => 'video-categories'], function () {
-        Route::get('{id}/delete', [
-            'as' => 'video-categories.delete',
-            'uses' => 'VideoCategoryController@destroy'
+        Route::post('reorder', [
+            'as' => 'video-categories.reorder',
+            'uses' => 'VideoCategoryController@reorder'
         ]);
-        Route::post('sortcat', [
-            'as' => 'video-categories.sortcat',
-            'uses' => 'VideoCategoryController@sortcat'
+        Route::delete('destroy-many', [
+            'as' => 'video-categories.destroyMany',
+            'uses' => 'VideoCategoryController@destroyMany'
         ]);
     });
-    Route::resource('video-categories', 'VideoCategoryController');
+    Route::resource('video-categories', 'VideoCategoryController', [
+        'parameters' => ['video-categories' => 'category']
+    ]);
 
     // gallery
     Route::group(['prefix' => 'galleries'], function () {

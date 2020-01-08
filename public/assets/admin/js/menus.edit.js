@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -435,7 +435,7 @@ var chooseOtherArticleCategory = function chooseOtherArticleCategory(url, getUrl
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!************************************************!*\
   !*** multi ./resources/js/admin/menus.edit.js ***!
   \************************************************/

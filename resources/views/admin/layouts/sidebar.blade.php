@@ -145,12 +145,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.video-categories.create')}}" class="nav-link">
+                                <a href="{{route('admin.video-categories.create')}}" class="nav-link menu-video-categories-create">
                                     Thêm mới danh mục video
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.video-categories.index')}}" class="nav-link">
+                                <a href="{{route('admin.video-categories.index')}}" class="nav-link menu-video-categories-index">
                                     Quản lý danh mục video
                                 </a>
                             </li>

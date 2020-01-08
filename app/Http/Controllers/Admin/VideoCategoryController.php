@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\Admin\StoreVideoCategoryRequest;
+use App\Http\Requests\Admin\UpdateVideoCategoryRequest;
 use App\Models\Category;
-use Illuminate\Support\Str;
-use App\Models\User;
-use Auth;
+use App\Services\VideoCategoryService;
 
 class VideoCategoryController extends Controller
 {
-    use AuthenticatesUsers;
+    public function __construct(VideoCategoryService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,24 +22,8 @@ class VideoCategoryController extends Controller
      */
     public function index()
     {
-        // $videoCat = Auth::user();
-        $categories = $this->getSubCategories(0);
-        // print_r($categories);die;
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = true);
         return view('admin.videoCats.index', compact('categories'));
-    }
-
-    private function getSubCategories($parent_id, $ignore_id=null)
-    {
-        $categories = Category::where('parent_id', $parent_id)
-            ->where('type', 'video')
-            ->where('id', '<>', $ignore_id)
-            ->orderBy('order', 'desc')
-            ->get()
-            ->map(function($query) use($ignore_id) {
-                $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;
-            });
-        return $categories;
     }
 
     /**
@@ -47,55 +33,30 @@ class VideoCategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->getSubCategories(0);
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
         return view('admin.videoCats.create', compact('categories'));
-
     }
 
     /**
      * Store a newly created resource in storage.
      *
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Admin\StoreVideoCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreVideoCategoryRequest $request)
     {
-        $request->validate([
-            'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
-            'avatar' => 'nullable|sometimes|image'
-        ]);
-
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 'meta_title',
-            'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
+            'parent_id', 'name', 'description', 'is_public', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'
         ]);
-        $attributes['type']         = 'video';
-        $user = Auth::user();
-        $attributes['created_by']   = $user->id;
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['order']        = Category::max('order') ? (Category::max('order') + 1) : 1;
-        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
-        if ($request->hasFile('avatar')){
-            $destinationDir = public_path('media/videoCategories');
-            $filename = uniqid('leotive').'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar']   = '/media/videoCategries/'.$filename;
-        };
-
-        $category = Category::create($attributes);
-
-        return redirect()->route('admin.video-categories.edit', $category->id)
-        ->with('success', 'Tao moi thanh cong');
-
+        $category = $this->service->create($attributes);
+        return redirect()->route('admin.video-categories.edit', $category->id)->with('success', 'Category created.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -106,101 +67,63 @@ class VideoCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::findOrFail($id);
-        $categories = $this->getSubCategories(0,$id);
-        return view('admin.videoCats.edit', compact('categories','category'));
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = $category->id, $shouldLoadUpdater = false);
+        return view('admin.videoCats.edit', compact('categories', 'category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Admin\UpdateVideoCategoryRequest  $request
+     * @param  \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateVideoCategoryRequest $request, Category $category)
     {
-        $request->validate([
-            'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories'.$id,
-            'avatar' => 'nullable|sometimes|image'
-        ]);
-
         $attributes = $request->only([
-            'parent_id','name','description', 'detail', 'slug', 'meta_title',
-            'meta_discription', 'meta_keyword','meta_page_topic', 'is_highlight'
+            'parent_id', 'name', 'description', 'is_public', 'meta_title', 'slug', 'meta_keyword', 'meta_description', 'meta_page_topic', 'avatar'
         ]);
-        $user                       = Auth::user();
-        $attributes['updated_by']   = $user->id;
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
-
-        if ($request->hasFile('avatar')){
-            $destinationDir = public_path('media/videoCategories');
-            $filename = uniqid('leotive').'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = '/media/videoCategories/'.$filename;
-        };
-        $categories= Category::findOrFail($id);
-        $category = $categories->fill($attributes);
-        $category->save();
-
-        return redirect()->route('admin.video-categories.edit', $category->id)
-
-        ->with('success', 'Cap nhat thanh cong');
+        $category = $this->service->update($attributes, $category);
+        return redirect()->route('admin.video-categories.edit', $category->id)->with('success', 'Category updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $categoryid = $this->getSubCategories($id);
-        $this->foreachlong($categoryid);
-        Category::findOrFail($id)->delete();
-        $categories = $this->getSubCategories(0);
-        $category = $categories->filter(function($value, $key) use ($id){
-            return $value->id == $id;
-        });
-        return redirect()->route('admin.video-categories.index')->with('xoá thành công');
+        if ($this->service->destroy($category)) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'message' => "failed_to_delete"
+            ], 400);
+        }
     }
-    public function sortcat(Request $request){
-        $cats = $request->sort;
-        $order = [];
-		foreach ($cats as $c) {
-            $id = str_replace('cat_', '', $c);
 
-                if($id != ''){
-                    $order[] = Category::findOrFail($id)->order;
-                } else {
-                    continue;
-                }
-        }
-		rsort($order);
-		foreach ($order as $k => $v) {
-            Category::where('id', str_replace('cat_', '', $cats[$k]))->update(['order' => $v]);
+    public function destroyMany(Request $request)
+    {
+        if ($this->service->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'message' => "failed_to_delete"
+            ], 400);
         }
     }
-    private function foreachlong($chil_id)
+
+    public function reorder(Request $request)
     {
-        foreach ($chil_id as $key => $child) {
-            $cat_child = $this->getSubCategories($child->id);
-            if(!empty($cat_child))
-            {
-                Category::findOrFail($child->id)->delete();
-            }
-            else
-            {
-                $this->foreachlong($cat_child);
-            }
-        }
+        $this->service->reorder($request->sort);
+
+        return response()->json([], 204);
     }
 }

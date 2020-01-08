@@ -181,51 +181,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     ]);
 
     Route::group(['prefix' => 'settings'], function () {
-        // Route::get('', [
-        //     'as' => 'settings.infoSetting',
-        //     'uses' => 'SettingController@infoSetting'
-        // ]);
-        // Route::post('post-info-setting', [
-        //     'as' => 'settings.postInfoSetting',
-        //     'uses' => 'SettingController@postInfoSetting'
-        // ]);
-        // Route::get('send-mail', [
-        //     'as' => 'settings.sendMail',
-        //     'uses' => 'SettingController@sendMail'
-        // ]);
-        // Route::post('send-mail', [
-        //     'as' => 'settings.postSendMail',
-        //     'uses' => 'SettingController@postSendMail'
-        // ]);
-        // Route::get('seo', [
-        //     'as' => 'settings.seo',
-        //     'uses' => 'SettingController@seo'
-        // ]);
-        // Route::post('seo', [
-        //     'as' => 'settings.postSeo',
-        //     'uses' => 'SettingController@postSeo'
-        // ]);
-        // Route::get('email-content', [
-        //     'as' => 'settings.emailContent',
-        //     'uses' => 'SettingController@emailContent'
-        // ]);
-        // Route::get('email-content/add', [
-        //     'as' => 'settings.addEmailContent',
-        //     'uses' => 'SettingController@addEmailContent'
-        // ]);
-        // Route::post('email-content/add', [
-        //     'as' => 'settings.postAddEmailContent',
-        //     'uses' => 'SettingController@postAddEmailContent'
-        // ]);
-        // Route::get('email-content/edit/{id}', [
-        //     'as' => 'settings.editEmailContent',
-        //     'uses' => 'SettingController@editEmailContent'
-        // ]);
-        // Route::post('email-content/edit/{id}', [
-        //     'as' => 'settings.postEditEmailContent',
-        //     'uses' => 'SettingController@postEditEmailContent'
-        // ]);
-
 
     });
     Route::resource('settings', 'SettingController');
@@ -390,26 +345,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
             Route::resource('variants', 'ProductVariantController');
         });
     });
-    Route::post('products-filters/delete', [
-        'as' => 'admin.products-filters.delete',
-        'uses' => 'FilterController@deleteMany'
-    ]);
-    Route::resource('products-filters', 'FilterController', [
-        'parameters' => ['products-filters' => 'filters']
-    ]);
-
-    Route::get('products/import', [
-        'as' => 'excel.index',
-        'uses' => 'ExcelController@index'
-    ]);
-    Route::post('products/import/update', [
-        'as' => 'excel.import',
-        'uses' => 'ExcelController@import'
-    ]);
-    Route::get('products/export', [
-        'as' => 'excel.export',
-        'uses' => 'ExcelController@export'
-    ]);
     Route::resource('products', 'ProductController');
 
     // product category

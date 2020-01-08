@@ -270,10 +270,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'parameters' => ['orders' => 'id']
     ]);
 
-    Route::resource('showrooms', 'ShowroomController', [
-        'parameters' => ['showrooms' => 'id']
-    ]);
-
     Route::group(['prefix' => 'password'], function () {
         Route::get('', [
             'as' => 'password.change',

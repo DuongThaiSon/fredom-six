@@ -23,6 +23,7 @@
                         </td>
                         <td width="4%" class="text-center align-middle">{{ $category->id }}</td>
                         <td width="25%" class="align-middle">
+                            {!! repeatStr('&nbsp;', $level) !!}
                             {!! repeatStr('<i class="material-icons text-dark"
                                 style="font-size:20px">subdirectory_arrow_right</i>', $level) !!}
                             <a href="#">{{$category->name}}</a>

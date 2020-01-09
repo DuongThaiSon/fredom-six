@@ -62,7 +62,7 @@
                             <label>Nằm trong mục</label>
                             <select name="parent_id" class="form-control">
                                 <option value="0"></option>
-                                @include('admin.partials.categories_options', ['level'=>0])
+                                @include('admin.partials.categoryOptions')
                             </select>
                             <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                         </div>

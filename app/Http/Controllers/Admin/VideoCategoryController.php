@@ -73,7 +73,8 @@ class VideoCategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = $this->service->getSubCategories($parentId = 0, $processId = $category->id, $shouldLoadUpdater = false);
-        return view('admin.videoCats.edit', compact('categories', 'category'));
+        $selectedId = $category->parent_id;
+        return view('admin.videoCats.edit', compact('categories', 'category', 'selectedId'));
     }
 
     /**

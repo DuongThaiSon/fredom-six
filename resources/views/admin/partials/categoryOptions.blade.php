@@ -1,11 +1,11 @@
 @forelse ($categories as $categoryValue)
 <option value="{{ $categoryValue->id }}"
-    {{ isset ($category)&&$categoryValue->id===$category->parent_id?'selected':'' }}>
-    {!! repeatStr('&nbsp;', $level) !!}
+    {{ isset ($selectedId)&&$categoryValue->id===$selectedId?'selected':'' }}>
+    {!! repeatStr('&nbsp;', $level = isset($level) ? $level : 0) !!}
     {!! repeatStr('&#8627;', $level) !!}
     {{ $categoryValue->name }}
 </option>
-@includewhen($categoryValue->sub->count(),'admin.partials.categories_options', [
+@includewhen($categoryValue->sub->count(),'admin.partials.categoryOptions', [
 'categories'=> $categoryValue->sub,
 'level' => $level +1
 ])

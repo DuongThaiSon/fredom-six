@@ -5,16 +5,17 @@
             <table class="table table-hover table-sm mb-0" width="100%">
                 <tbody data-link="row" class="rowlink">
                     <tr class="text-muted">
-                        <td width="5%" class="text-muted connect" data-toggle="tooltip"
-                            title="Giữ icon này kéo thả để sắp xếp" class="rowlink-skip">
+                        <td width="5%" class="text-muted connect rowlink-skip" data-toggle="tooltip"
+                            title="Giữ icon này kéo thả để sắp xếp">
                             <a href="{{route('admin.'.$category->type.'-categories.edit', $category->id)}}">
                                 <i class="material-icons">format_line_spacing</i>
                             </a>
                         </td>
                         <td width="3%" class="text-center align-middle rowlink-skip">
                             <div class="pretty p-icon p-curve p-smooth">
-                                <input type="checkbox" class="form-check-input" data-level="{{ $level }}"
-                                    value="{{ $category->id }}" data-id="{{ $category->id }}" />
+                                <input type="checkbox" class="form-check-input"
+                                    data-level="{{ $level = isset($level) ? $level : 0 }}" value="{{ $category->id }}"
+                                    data-id="{{ $category->id }}" />
                                 <div class="state">
                                     <i class="icon material-icons">done</i>
                                     <label></label>
@@ -51,7 +52,7 @@
             </table>
         </div>
         @includeWhen($category->sub->count(),
-        'admin.partials.categories_rows',['categories'=>$category->sub,'level'=>$level +1])
+        'admin.partials.categoryRows',['categories' => $category->sub, 'level' => $level + 1])
     </li>
     @empty
     <li>

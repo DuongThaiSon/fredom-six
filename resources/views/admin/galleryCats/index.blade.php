@@ -57,7 +57,7 @@
                         </thead>
                     </table>
                 </div>
-                @include('admin.partials.categories_rows',['level' => 0])
+                @include('admin.partials.categoryRows')
             </div>
         </div>
     </div>

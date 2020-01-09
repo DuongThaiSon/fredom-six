@@ -73,8 +73,8 @@ class ArticleCategoryController extends Controller
     public function edit(Category $category)
     {
         $categories = $this->service->getSubCategories($parentId = 0, $processId = $category->id, $shouldLoadUpdater = false);
-
-        return view('admin.articleCats.edit', compact('category', 'categories'));
+        $selectedId = $category->parent_id;
+        return view('admin.articleCats.edit', compact('category', 'categories', 'selectedId'));
     }
 
     /**

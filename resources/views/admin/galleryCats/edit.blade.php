@@ -62,7 +62,7 @@
                             <label>Album này nằm trong album</label>
                             <select name="parent_id" class="form-control">
                                 <option value="0"></option>
-                                @include('admin.partials.categories_options', ['level' => 0])
+                                @include('admin.partials.categoryOptions')
                             </select>
                             <small class="form-text">Đặt album cha cho album dữ liệu này, bạn có thể để trống để hiểu
                                 rằng đây là album lớn nhất</small>

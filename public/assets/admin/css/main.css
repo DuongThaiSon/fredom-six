@@ -705,7 +705,7 @@
 
 .pretty input:checked ~ .state.p-primary label:after,
 .pretty.p-toggle .state.p-primary label:after {
-  background-color: #428bca !important;
+  background-color: #000 !important;
 }
 
 .pretty input:checked ~ .state.p-primary .icon,
@@ -718,7 +718,7 @@
 
 .pretty input:checked ~ .state.p-primary-o label:before,
 .pretty.p-toggle .state.p-primary-o label:before {
-  border-color: #428bca;
+  border-color: #000;
 }
 
 .pretty input:checked ~ .state.p-primary-o label:after,
@@ -732,25 +732,25 @@
 .pretty.p-toggle .state.p-primary-o .icon,
 .pretty.p-toggle .state.p-primary-o .svg,
 .pretty.p-toggle .state.p-primary-o svg {
-  color: #428bca;
-  stroke: #428bca;
+  color: #000;
+  stroke: #000;
 }
 
 .pretty.p-default:not(.p-fill) input:checked ~ .state.p-primary-o label:after {
-  background-color: #428bca !important;
+  background-color: #000 !important;
 }
 
 .pretty.p-switch input:checked ~ .state.p-primary:before {
-  border-color: #428bca;
+  border-color: #000;
 }
 
 .pretty.p-switch.p-fill input:checked ~ .state.p-primary:before {
-  background-color: #428bca !important;
+  background-color: #000 !important;
 }
 
 .pretty.p-switch.p-slim input:checked ~ .state.p-primary:before {
-  border-color: #245682;
-  background-color: #245682 !important;
+  border-color: black;
+  background-color: black !important;
 }
 
 .pretty input:checked ~ .state.p-info label:after,

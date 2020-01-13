@@ -71,7 +71,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.articles.index')}}" class="nav-link menu-articles">
+                                <a href="{{route('admin.articles.index')}}" class="nav-link menu-articles-index">
                                     Quản lý tin bài
                                 </a>
                             </li>

@@ -134,35 +134,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     // article
     Route::group(['prefix' => 'articles'], function () {
-        Route::get('{id}/delete', [
-            'as' => 'articles.delete',
-            'uses' => 'ArticleController@destroy'
+        Route::post('update-view-status', [
+            'as' => 'articles.updateViewStatus',
+            'uses' => 'ArticleController@updateViewStatus'
         ]);
-        Route::delete('delete', [
-            'as' => 'articles.deleteAll',
-            'uses' => 'ArticleController@deleteAll'
+        Route::post('{article}/move-top', [
+            'as' => 'articles.moveTop',
+            'uses' => 'ArticleController@moveTop',
         ]);
-        Route::post('sort', [
-            'as' => 'articles.sort',
-            'uses' => 'ArticleController@sort'
+        Route::get('{article}/clone', [
+            'as' => 'articles.clone',
+            'uses' => 'ArticleController@clone',
         ]);
-        Route::post('update-view-status', 'ArticleController@updateViewStatus');
-        Route::get('search', [
-            'as' => 'articles.search',
-            'uses' => 'ArticleController@search'
+        Route::post('reorder', [
+            'as' => 'articles.reorder',
+            'uses' => 'ArticleController@reorder',
         ]);
-        Route::get('movetop/{article?}', [
-            'as' => 'articles.movetop',
-            'uses' => 'ArticleController@movetop',
-        ]);
-        Route::get('category/{id}', [
-            'as' => 'article.cat',    // article theo category id
-            'uses' => 'ArticleCategoryController@articles'
+        Route::delete('destroy-many', [
+            'as' => 'articles.destroyMany',
+            'uses' => 'ArticleController@destroyMany',
         ]);
     });
-    Route::resource('articles', 'ArticleController', [
-        'parameters' => ['articles' => 'id']
-    ]);
+    Route::resource('articles', 'ArticleController');
 
     Route::group(['prefix' => 'article-categories'], function () {
         Route::post('reorder', [
@@ -180,9 +173,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         ]
     ]);
 
-    Route::group(['prefix' => 'settings'], function () {
-
-    });
+    Route::group(['prefix' => 'settings'], function () { });
     Route::resource('settings', 'SettingController');
     Route::resource('email-contents', 'EmailContentController', [
         'parameters' => [
@@ -369,7 +360,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::resource('product-attributes', 'ProductAttributeController');
 
     Route::post('check-user', 'UserController@check');
-    Route::post('upload-image', 'MediaController@uploadImage');
 
     Route::get('files', [
         'as' => 'files',

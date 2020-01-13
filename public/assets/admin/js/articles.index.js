@@ -81,37 +81,40 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/admin/videoCats.index.js":
-/*!***********************************************!*\
-  !*** ./resources/js/admin/videoCats.index.js ***!
-  \***********************************************/
+/***/ "./resources/js/admin/articles.index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/admin/articles.index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
   var orderUrl = $("#table").data('reorder');
   var destroyManyUrl = $("#table").data('destroy-many');
+  var updateViewViewStatus = $("#table").data('update-view-status');
   core.makeTableOrderable(orderUrl);
   core.initCheckboxButton();
   core.deleteMultipleItems(destroyManyUrl);
   core.deleteSingleItem();
+  core.updateViewViewStatus(updateViewViewStatus);
+  core.moveTop();
 });
 
 /***/ }),
 
-/***/ 12:
-/*!*****************************************************!*\
-  !*** multi ./resources/js/admin/videoCats.index.js ***!
-  \*****************************************************/
+/***/ 8:
+/*!****************************************************!*\
+  !*** multi ./resources/js/admin/articles.index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/videoCats.index.js */"./resources/js/admin/videoCats.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/articles.index.js */"./resources/js/admin/articles.index.js");
 
 
 /***/ })

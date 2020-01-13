@@ -3663,7 +3663,7 @@ var deleteSingleItem = function deleteSingleItem() {
 /*!******************************!*\
   !*** ./resources/js/core.js ***!
   \******************************/
-/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem */
+/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem, moveTop */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3674,6 +3674,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTableOrderable", function() { return makeTableOrderable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateViewViewStatus", function() { return updateViewViewStatus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSingleItem", function() { return deleteSingleItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "moveTop", function() { return moveTop; });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -3681,13 +3682,15 @@ __webpack_require__.r(__webpack_exports__);
 
 var swalWithSuccessConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   customClass: {
-    confirmButton: 'rounded btn btn-success'
+    confirmButton: 'rounded btn btn-success',
+    cancelButton: 'rounded btn btn-secondary ml-2'
   },
   buttonsStyling: false
 });
 var swalWithDangerConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
   customClass: {
-    confirmButton: 'rounded btn btn-danger'
+    confirmButton: 'rounded btn btn-danger',
+    cancelButton: 'rounded btn btn-secondary ml-2'
   },
   buttonsStyling: false
 });
@@ -3926,36 +3929,34 @@ function makeTableOrderable(orderUrl) {
 }
 function updateViewViewStatus(updateUrl) {
   $(".btn-update-view-status").off(".updateViewStatus");
-  $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function () {
+  $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function (e) {
+    e.preventDefault();
+    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
     var context = $(this);
     var data = {
-      value: context.attr('data-value'),
-      id: context.attr('data-id'),
-      field: context.attr('data-field')
-    }; // console.log(data);
-
+      value: $(this).prop("checked") ? '0' : '1',
+      id: $(this).data("id"),
+      field: $(this).prop("name")
+    };
     $.ajax({
       url: updateUrl,
       method: "POST",
       data: data,
       success: function success(scs) {
-        console.log(scs.value);
-
         if (scs.value) {
-          console.log('in');
           context.attr('title', "Click để tắt");
-          context.attr('data-value', scs.value);
-          context.find(".material-icons").addClass("text-primary").text("check_circle_outline");
+          context.prop("checked", true);
         } else {
-          console.log('out');
           context.attr('title', "Click để bật");
-          context.attr('data-value', 0);
-          context.find(".material-icons").removeClass("text-primary").text("highlight_off");
+          context.prop("checked", false);
         }
 
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
         return;
       },
-      error: function error(err) {}
+      error: function error(err) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
+      }
     });
   }, 500));
 }
@@ -4023,6 +4024,23 @@ function deleteSingleItem() {
       }
     });
   });
+}
+function moveTop() {
+  $(".btn-move-top").off(".moveTop");
+  $(".btn-move-top").on("click.moveTop", _.throttle(function (e) {
+    e.preventDefault();
+    var moveTopUrl = $(this).attr("href");
+    $.ajax({
+      url: moveTopUrl,
+      method: "POST",
+      success: function success() {
+        location.reload();
+      },
+      error: function error(reject) {
+        console.log(reject);
+      }
+    });
+  }, 500));
 }
 
 /***/ }),

@@ -238,7 +238,7 @@ trait ManageCategory
         }
         $order = Category::find($ids)->sortByDesc('order')->pluck('order');
         foreach ($order as $key => $value) {
-            Category::where('id', str_replace('entry_', '', $categories[$key]))->update(['order' => $value]);
+            Category::where('id', str_replace($prefix, '', $categories[$key]))->update(['order' => $value]);
         }
 
         return true;

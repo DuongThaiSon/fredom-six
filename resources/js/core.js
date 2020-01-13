@@ -3,13 +3,15 @@ import Swal from "sweetalert2";
 
 const swalWithSuccessConfirmButton = Swal.mixin({
     customClass: {
-        confirmButton: 'rounded btn btn-success'
+        confirmButton: 'rounded btn btn-success',
+        cancelButton: 'rounded btn btn-secondary ml-2',
     },
     buttonsStyling: false
 })
 const swalWithDangerConfirmButton = Swal.mixin({
     customClass: {
-        confirmButton: 'rounded btn btn-danger'
+        confirmButton: 'rounded btn btn-danger',
+        cancelButton: 'rounded btn btn-secondary ml-2',
     },
     buttonsStyling: false
 })
@@ -276,39 +278,33 @@ export function makeTableOrderable(orderUrl, orderContainer = ".sort") {
 
 export function updateViewViewStatus(updateUrl) {
     $(".btn-update-view-status").off(".updateViewStatus");
-    $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function () {
+    $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function (e) {
+        e.preventDefault()
+        Swal.showLoading();
         let context = $(this);
         let data = {
-            value: context.attr('data-value'),
-            id: context.attr('data-id'),
-            field: context.attr('data-field')
+            value: $(this).prop("checked") ? '0' : '1',
+            id: $(this).data("id"),
+            field: $(this).prop("name"),
         }
-        // console.log(data);
 
         $.ajax({
             url: updateUrl,
             method: "POST",
             data: data,
             success: function (scs) {
-                console.log(scs.value);
-
                 if (scs.value) {
-                    console.log('in');
-
                     context.attr('title', "Click để tắt");
-                    context.attr('data-value', scs.value);
-                    context.find(".material-icons").addClass("text-primary").text("check_circle_outline");
+                    context.prop("checked", true)
                 } else {
-                    console.log('out');
-
                     context.attr('title', "Click để bật");
-                    context.attr('data-value', 0);
-                    context.find(".material-icons").removeClass("text-primary").text("highlight_off");
+                    context.prop("checked", false)
                 }
+                Swal.close()
                 return;
             },
             error: function (err) {
-
+                Swal.close()
             }
         })
     }, 500));
@@ -378,4 +374,23 @@ export function deleteSingleItem(itemName = "mục") {
                 }
             });
     });
+}
+
+export function moveTop() {
+    $(".btn-move-top").off(".moveTop");
+    $(".btn-move-top").on("click.moveTop", _.throttle(function (e) {
+        e.preventDefault();
+        let moveTopUrl = $(this).attr("href");
+
+        $.ajax({
+            url: moveTopUrl,
+            method: "POST",
+            success: function() {
+                location.reload()
+            },
+            error: function(reject) {
+                console.log(reject);
+            }
+        })
+    }, 500))
 }

@@ -63,7 +63,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->bigInteger('category_id')->nullable();
             $table->string('language', 3)->nullable();
             $table->bigInteger('created_by')->nullable();
@@ -111,7 +111,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
@@ -126,7 +126,7 @@ class LeotiveSystemSchema extends Migration
             $table->text('detail')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -160,7 +160,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
             $table->bigInteger('category_id')->nullable();
             $table->bigInteger('created_by')->nullable();
@@ -176,7 +176,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('mime')->nullable();
             $table->string('caption')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
             $table->bigInteger('imageable_id')->nullable();
             $table->string('imageable_type')->nullable();
@@ -223,7 +223,7 @@ class LeotiveSystemSchema extends Migration
             $table->bigInteger('category_id')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
@@ -256,7 +256,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
             $table->bigInteger('category_id')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();
@@ -319,7 +319,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
-            $table->bigInteger('order')->nullable();
+            $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();

@@ -4,9 +4,8 @@
         <div class="table-responsive bg-white">
             <table class="table table-hover table-sm mb-0" width="100%">
                 <tbody data-link="row" class="rowlink">
-                    <tr class="text-muted">
-                        <td width="5%" class="text-muted connect rowlink-skip" data-toggle="tooltip"
-                            title="Giữ icon này kéo thả để sắp xếp">
+                    <tr class="text-dark">
+                        <td width="5%" class="connect rowlink-skip">
                             <a href="{{route('admin.'.$category->type.'-categories.edit', $category->id)}}">
                                 <i class="material-icons">format_line_spacing</i>
                             </a>

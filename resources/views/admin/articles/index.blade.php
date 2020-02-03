@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody class="sort" data-link="row" class="rowlink">
-                        @foreach ($articles as $article )
+                        @forelse ($articles as $article )
                         <tr id="item_{{$article->id}}" class="ui-state-default">
                             <td class="text-muted connect rowlink-skip" data-toggle="tooltip"
                                 title="Giữ icon này kéo thả để sắp xếp">
@@ -157,8 +157,11 @@
                                 </div>
                             </td>
                         </tr>
-
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td class="text-dark" colspan="11">Không tìm thấy bản ghi</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 {{ $articles->links() }}

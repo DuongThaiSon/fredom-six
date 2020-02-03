@@ -10,9 +10,14 @@ $(document).ready(function() {
     $(".upload-variant-image").on("change.uploadVariantImage", function(e) {
         e.preventDefault()
         let formData = new FormData();
-        formData.append("uploadImage",$(this)[0].files[0]);
+        // formData.append("uploadImage",$(this)[0].files[0]);
+        let processImageUrl = $(this).data('href');
+        _.forEach($(this)[0].files, function(value) {
+            formData.append("uploadImage[]", value);
+        })
+
         $.ajax({
-            url: `/admin/galleries/${galleryId}/process`,
+            url: processImageUrl,
             data: formData,
             method: "POST",
             contentType: false,
@@ -24,7 +29,9 @@ $(document).ready(function() {
         })
     })
 
-    makeTableOrderable('/admin/galleries/sort-image')
+    let imageReorderUrl = $(".image-showcase").data('href')
+    makeTableOrderable(imageReorderUrl)
+    updateImageCaptions()
 })
 
 function initBtnDestroyImage() {
@@ -43,4 +50,18 @@ function initBtnDestroyImage() {
             }
         })
     })
+}
+
+function updateImageCaptions() {
+    $(".image-caption").off(".updateImageCaptions")
+    $(".image-caption").on("keyup.updateImageCaptions paste.updateImageCaptions", _.debounce(function() {
+        const caption = $(this).val()
+        const updateImageCaptionUrl = $(this).data("href")
+        $.ajax({
+            url: updateImageCaptionUrl,
+            data: {
+                caption: caption
+            }
+        })
+    }, 1500))
 }

@@ -3091,10 +3091,16 @@ $(document).ready(function () {
   initBtnDestroyImage();
   $(".upload-variant-image").on("change.uploadVariantImage", function (e) {
     e.preventDefault();
-    var formData = new FormData();
-    formData.append("uploadImage", $(this)[0].files[0]);
+    var formData = new FormData(); // formData.append("uploadImage",$(this)[0].files[0]);
+
+    var processImageUrl = $(this).data('href');
+
+    _.forEach($(this)[0].files, function (value) {
+      formData.append("uploadImage[]", value);
+    });
+
     $.ajax({
-      url: "/admin/galleries/".concat(galleryId, "/process"),
+      url: processImageUrl,
       data: formData,
       method: "POST",
       contentType: false,
@@ -3105,7 +3111,9 @@ $(document).ready(function () {
       }
     });
   });
-  Object(_core__WEBPACK_IMPORTED_MODULE_0__["makeTableOrderable"])('/admin/galleries/sort-image');
+  var imageReorderUrl = $(".image-showcase").data('href');
+  Object(_core__WEBPACK_IMPORTED_MODULE_0__["makeTableOrderable"])(imageReorderUrl);
+  updateImageCaptions();
 });
 
 function initBtnDestroyImage() {
@@ -3124,6 +3132,20 @@ function initBtnDestroyImage() {
       }
     });
   });
+}
+
+function updateImageCaptions() {
+  $(".image-caption").off(".updateImageCaptions");
+  $(".image-caption").on("keyup.updateImageCaptions paste.updateImageCaptions", _.debounce(function () {
+    var caption = $(this).val();
+    var updateImageCaptionUrl = $(this).data("href");
+    $.ajax({
+      url: updateImageCaptionUrl,
+      data: {
+        caption: caption
+      }
+    });
+  }, 1500));
 }
 
 /***/ }),

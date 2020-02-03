@@ -3,21 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VideoRequest;
-use App\Http\Services\VideoService;
+use App\Http\Requests\Admin\StoreVideoRequest;
+use App\Http\Requests\Admin\UpdateVideoRequest;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Video;
-use App\Models\User;
-use Auth;
+use App\Services\VideoCategoryService;
+use App\Services\VideoService;
 
 class VideoController extends Controller
 {
-    const PER_PAGE = 10;
-
-    public function __construct(VideoService $service)
+    public function __construct(VideoService $videoService, VideoCategoryService $videoCategoryService)
     {
-        $this->service = $service;
+        $this->videoService = $videoService;
+        $this->videoCategoryService = $videoCategoryService;
     }
 
     /**
@@ -27,67 +25,61 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::orderBy('order', 'desc')->with('Category')->paginate(self::PER_PAGE);
+        $videos = Video::orderBy('order', 'desc')->with(['category', 'user'])->simplePaginate();
         return view('admin.videos.index', compact('videos'));
-    }
-
-    /**
-     * Get the sub categories
-     *
-     * @param int $parent_id
-     * @return mix
-     */
-    private function getSubCategories($parent_id, $ignore_id=null)
-    {
-        $categories = Category::where('parent_id', $parent_id)
-        ->where('type','video')
-        ->where('id','<>', $ignore_id)
-        ->get()
-        ->map(function($query) use($ignore_id){
-            $query->sub = $this->getSubCategories($query->id, $ignore_id);
-            return $query;
-        });
-        return $categories;
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\ResponsSe
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        if(empty($request->id))
-        {
-            $categories = $this->getSubCategories(0);
-            return view('admin.videos.create', compact('categories'));
-        }
-        else
-        {
-            $id = $request->id;
-            $categories = $this->getSubCategories(0);
-            $video = Video::findOrFail($id);
-            $category = Category::find($video->category_id);
-            return view('admin.videos.create', compact('categories', 'video', 'category'));
-        }
+        $categories = $this->videoCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        return view('admin.videos.create', compact('categories'));
+    }
 
+    /**
+     * Show the form for clone an exists resource.
+     *
+     * @param \App\Models\Video
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Video $video)
+    {
+        $categories = $this->videoCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $selectedId = $video->category_id;
+        return view('admin.videos.create', compact('categories', 'video', 'selectedId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Admin\StoreVideoRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(VideoRequest $request)
+    public function store(StoreVideoRequest $request)
     {
 
-        $attributes  = $this->service->create($request, Video::max('order'), '/media/Videos/', $request->image);
-
-        $video = Video::create($attributes);
-
-        return redirect()->route('admin.videos.edit', $video->id)
-        ->with('success', 'Tao moi thanh cong');
+        $attributes = $request->only([
+            'category_id',
+            'name',
+            'url',
+            'is_public',
+            'is_highlight',
+            'is_new',
+            'meta_title',
+            'slug',
+            'meta_keyword',
+            'meta_description',
+            'meta_page_topic',
+            'description',
+            'detail',
+            'avatar',
+        ]);
+        $video = $this->videoService->create($attributes);
+        return redirect()->route('admin.videos.edit', $video->id)->with('success', 'Video created.');
     }
 
     /**
@@ -104,118 +96,95 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Video $video
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Video $video)
     {
-
-       $video = Video::findOrFail($id)->load('category');
-       $category = Category::find($video->category_id);
-       $categories = $this->getSubCategories(0);
-
-       return view('admin.videos.edit', compact('categories','video', 'category'));
+        $categories = $this->videoCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $selectedId = $video->category_id;
+        return view('admin.videos.edit', compact('video', 'categories', 'selectedId'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Admin\UpdateVideoRequest  $request
+     * @param  \App\Models\Video $video
      * @return \Illuminate\Http\Response
      */
-    public function update(VideoRequest $request, $id)
+    public function update(UpdateVideoRequest $request, Video $video)
     {
-
-        $attributes = $this->service->Edit($request, '/media/Videos/', $request->image);
-
-        $videos = Video::findOrFail($id);
-        $video = $videos->fill($attributes);
-        $video->save();
-
-        return redirect()->route('admin.videos.edit', $video->id)
-        ->with('success', 'Cap nhat thanh cong');
+        $attributes = $request->only([
+            'category_id',
+            'name',
+            'is_public',
+            'is_highlight',
+            'is_new',
+            'meta_title',
+            'slug',
+            'meta_keyword',
+            'meta_description',
+            'meta_page_topic',
+            'description',
+            'detail',
+            'avatar',
+        ]);
+        $video = $this->videoService->update($attributes, $video);
+        return redirect()->route('admin.videos.edit', $video->id)->with('success', 'Video updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Video $video
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Video $video)
     {
-
-        $video = Video::findOrFail($id);
-        $folder = public_path($video->avatar);
-        if (file_exists($folder))
-        {
-            unlink($folder);
+        if ($this->videoService->destroy($video)) {
+            return response()->json([], 204);
         }
-        $video->delete();
-        return redirect()->route('admin.videos.index')->with('DELETED COMPLE');
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
     }
 
-    public function deleteAll(Request $request)
+    public function destroyMany(Request $request)
     {
-        $ids = $request->ids;
-        if(empty($ids)) {
-            return 0;
-        }else {
-            foreach ($ids as $id) {
-                Video::findOrFail($id)->delete();
-            }
-            return 1;
+        if ($this->videoService->destroyMany($request->ids)) {
+            return response()->json([], 204);
         }
-        if (!$deleted) {
-            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->videoService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
+    }
+
+    /**
+     * Update video attribute [public, highlight, new]
+     */
+    public function updateViewStatus(Request $request)
+    {
+        $video = $this->videoService->updateViewStatus($request->id, $field = $request->field, $request->value);
+        return response()->json(['value' => $video->$field], 200);
+    }
+
+    public function moveTop(Video $video)
+    {
+        if ($this->videoService->moveTop($video)) {
+            return response()->json([], 204);
         }
-        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
-    }
 
-    public function sort(Request $request)
-    {
-
-        $this->service->SortData($request);
-    }
-
-    public function changeIsPublic(Request $request)
-    {
-
-        $this->service->IsPublic(Video::findOrFail($request->id), $request);
-        return response()->json(compact('video'), 200);
-
-    }
-
-    public function changeIsHighlight(Request $request)
-    {
-
-        $this->service->IsHighlight(Video::findOrFail($request->id), $request);;
-        return response()->json(compact('video'), 200);
-    }
-
-    public function changeIsNew(Request $request)
-    {
-
-        $this->service->IsNew(Video::findOrFail($request->id), $request);
-        return response()->json(compact('video'), 200);
-    }
-
-    public function movetop(Video $video, Request $request){
-        $condition = [];
-        $condition[] = ['order', '>', $video->order];
-
-        $otherVideos = Video::where($condition)->orderBy('order', 'asc')->get();
-
-        foreach ($otherVideos as $otherVideo){
-            $oldorder = $video->order;
-            $video->order = $otherVideo->order;
-            $otherVideo->order = $oldorder;
-            $video->save();
-            Video::where('id', $otherVideo->id)->update(['order' => $oldorder]);
-        }
-        if ($request->ajax()) {
-            return 0;
-        }
+        return response()->json([
+            'message' => "failed_to_move"
+        ], 500);
     }
 }

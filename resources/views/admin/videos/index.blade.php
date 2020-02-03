@@ -1,130 +1,166 @@
-@extends('admin.layouts.main', ['activePage' => 'videos', 'title' => __('List Video')])
+@extends('admin.layouts.main', ['activePage' => 'videos-index', 'title' => __('List Video')])
 @section('content')
 <div id="main-content">
-    <!-- Search Group Button -->
-    <div class="search-button-group">
-        <div class="row collapse" id="advancesearch">
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Mục</label>
-                    <select class="form-control search-change p-2">
-                        <option></option>
-                        <option>BẾP ĐIỆN TỪ</option>
-                    </select>
-                </div>
-
-                <div class="form-group col">
-                    <label>Người tạo</label>
-                    <select class="form-control search-change p-2">
-                        <option></option>
-                        <option>Admin</option>
-                    </select>
-                </div>
-
-                <div class="form-group col">
-                    <label>Từ ngày</label>
-                    <input id="to_date" type="text" class="form-control datepicker search-change p-2" />
-                </div>
-
-                <div class="form-group col">
-                    <label>Đến ngày</label>
-                    <input id="from_date" type="text" class="form-control datepicker search-change p-2" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Search Group Button -->
     <div class="container-fluid" style="background: #e5e5e5;">
         <div id="content">
             <h1 class="mt-3 pl-4">VIDEO</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
                 <a href="{{route('admin.videos.create')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"
-                    title="Thêm video mới">
-                    <i class="material-icons">note_add</i>
+                    title="Thêm bài viết mới">
+                    <i class="material-icons">
+                        note_add
+                    </i>
                 </a>
-                <button data-toggle="tooltip" title="Xóa toàn bộ video" class="btn btn-sm btn-dark delete-all" target="_blank">
-                    <i class="material-icons">delete_forever</i>
+                <button data-toggle="tooltip" title="Xóa toàn bộ mục được chọn" class="btn btn-sm btn-dark"
+                    target="_blank" id="btn-del-all">
+                    <i class="material-icons">
+                        delete_forever
+                    </i>
                 </button>
+                <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc" target="_blank"
+                    class="btn btn-sm btn-dark">
+                    <i class="material-icons">
+                        help_outline
+                    </i>
+                </a>
             </div>
             <!-- TABLE -->
-            <div class="table-responsive bg-white mt-4" id="table">
-                @csrf
+            <div class="table-responsive bg-white mt-4" id="table" data-reorder="{{ route('admin.videos.reorder') }}"
+                data-destroy-many="{{ route('admin.videos.destroyMany') }}"
+                data-update-view-status="{{ route('admin.videos.updateViewStatus') }}">
                 <table class="table-sm table-hover table-bordered mb-2" width="100%">
-                    <thead class="thead-light">
+                    <thead>
                         <tr class="text-muted">
-                            <th></th>
-                            <th>
-                                <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
-                                    <i class="material-icons text-muted">check_box_outline_blank</i>
-                                </a>
+                            <th width="5%"></th>
+                            <th width="3%" class="text-center">
+                                <div class="pretty p-icon p-curve p-bigger p-has-indeterminate p-smooth"
+                                    style="font-size: 15px">
+                                    <input type="checkbox" class="btn-check-all" />
+                                    <div class="state p-primary">
+                                        <i class="icon material-icons">done</i>
+                                        <label></label>
+                                    </div>
+                                    <div class="state p-is-indeterminate p-primary">
+                                        <i class="icon material-icons">remove</i>
+                                        <label></label>
+                                    </div>
+                                </div>
                             </th>
-                            <th>ID</th>
-                            <th>Tên mục album</th>
-                            <th>Mục</th>
-                            <th style="width: 40px;">Hiển thị</th>
-                            <th style="width: 40px;">Nổi bật</th>
-                            <th style="width: 40px;">Mới</th>
-                            <th style="width: 120px;">Ngày tạo</th>
-                            <th style="width: 120px;">Người đăng</th>
-                            <th style="width: 160px;">Thao tác</th>
+                            <th width="7%">ID</th>
+                            <th width="25%">Tên sản phẩm</th>
+                            <th width="15%">Mục</th>
+                            <th width="5%">Hiển thị</th>
+                            <th width="5%">Nổi bật</th>
+                            <th width="5%">Mới</th>
+                            <th width="10%">Ngày tạo</th>
+                            <th width="10%">Người đăng</th>
+                            <th width="10%" class="text-right">Thao tác</th>
                         </tr>
                     </thead>
-                    <tbody class="sort">
+                    <tbody class="sort" data-link="row" class="rowlink">
                         @foreach ($videos as $video)
-                            <tr id="item_{{$video->id}}" class="ui-state-default">
-                                <td class="text-muted connect" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
+                        <tr id="item_{{$video->id}}" class="ui-state-default">
+                            <td class="text-muted connect rowlink-skip" data-toggle="tooltip"
+                                title="Giữ icon này kéo thả để sắp xếp">
+                                <a href="{{route('admin.videos.edit', $video->id)}}">
                                     <i class="material-icons">format_line_spacing</i>
-                                </td>
-                                <td class="text-center">
-                                    <input type="checkbox" class="checkdel" name=id[] value="{{$video->id}}" />
-                                </td>
-                                <td>{{$video->id}}</td>
-                                <td class="editname">
-                                    <a href="#">{{$video->name}}</a>
-                                </td>
-                                <td>
-                                    <a href="#">{{$video->category()->first()->name ?? ''}}</a>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$video->id}}" value="{{$video->is_public}}"  data-toggle="tooltip"  title="{{ $video->is_public==1?'Click để tắt':'Click để bật' }}">
-                                        <i class="material-icons toggle-icon">{{isset($video)&&$video->is_public==1?'check_circle_outline':'close'}}</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm p-1 click-highlight" curentid="{{$video->id}}" value="{{$video->is_highlight}}"  data-toggle="tooltip"  title="{{ $video->is_highlight==1?'Click để tắt':'Click để bật' }}">
-                                        <i class="material-icons toggle-icon">{{isset($video)&&$video->is_highlight==1?'check_circle_outline':'close'}}</i>
-                                    </button>
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-sm p-1 click-new" curentid="{{$video->id}}" value="{{$video->is_new}}"  data-toggle="tooltip"  title="{{ $video->is_new==1?'Click để tắt':'Click để bật' }}">
-                                        <i class="material-icons toggle-icon"> {{isset($video)&&$video->is_new==1?'check_circle_outline':'close'}}</i>
-                                    </button>
-                                </td>
-                                <td>{{$video->created_at}}</td>
-                                <td>{{$video->user()->first()->name}}</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <a href="{{route('admin.videos.edit', $video->id)}}" class="btn btn-sm p-1"
-                                            data-toggle="tooltip" title="Sửa">
-                                            <i class="material-icons">border_color</i>
-                                        </a>
-                                        <a href="{{ route('admin.videos.create') }}?id={{ $video->id }}" class="btn btn-sm p-1 btn-copy" data-id="{{$video->id}}" data-toggle="tooltip" title="Copy dữ liệu">
-                                            <i class="material-icons">file_copy</i>
-                                        </a>
-                                        <a class="btn btn-sm p-1 move-top-button" video-id="{{$video->id}}" data-toggle="tooltip" title="Đưa lên đầu tiên">
-                                            <i class="material-icons">call_made</i>
-                                        </a>
-                                        <a href="{{route('admin.videos.delete', $video->id)}}" class="btn btn-sm p-1" data-toggle="tooltip" title="Đưa lên đầu tiên">
-                                            <i class="material-icons">delete</i>
-                                        </a>
+                                </a>
+                            </td>
+                            <td class="text-center rowlink-skip align-middle">
+                                <div class="pretty p-icon p-curve p-smooth">
+                                    <input type="checkbox" class="form-check-input" value="{{ $video->id }}"
+                                        data-id="{{ $video->id }}" />
+                                    <div class="state p-primary">
+                                        <i class="icon material-icons">done</i>
+                                        <label></label>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                            <td>{{$video->id}}</td>
+                            <td class="editname">
+                                <a href="{{route('admin.videos.edit', $video->id)}}">{{$video->name??''}}</a>
+                            </td>
+                            <td class="rowlink-skip">
+                                <a
+                                    href="{{route('admin.video-categories.edit', $video->category_id)}}">{{$video->category->name??''}}</a>
+                            </td>
+                            <td class="rowlink-skip align-middle">
+                                <div class="pretty p-icon p-toggle p-round p-bigger p-smooth">
+                                    <input type="checkbox" class="btn-update-view-status" data-id="{{ $video->id }}"
+                                        {{ $video->is_public ? 'checked' : '' }} name="is_public"
+                                        data-toggle="tooltip"
+                                        title="{{ $video->is_public ? 'Click để tắt' : 'Click để bật' }}" />
+                                    <div class="state p-on p-primary-o">
+                                        <i class="icon material-icons">check</i>
+                                        <label></label>
+                                    </div>
+                                    <div class="state p-off">
+                                        <i class="icon material-icons">clear</i>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="rowlink-skip align-middle">
+                                <div class="pretty p-icon p-toggle p-round p-bigger p-smooth">
+                                    <input type="checkbox" class="btn-update-view-status" data-id="{{ $video->id }}"
+                                        {{ $video->is_highlight ? 'checked' : '' }} name="is_highlight"
+                                        data-toggle="tooltip"
+                                        title="{{ $video->is_highlight ? 'Click để tắt' : 'Click để bật' }}" />
+                                    <div class="state p-on p-primary-o">
+                                        <i class="icon material-icons">check</i>
+                                        <label></label>
+                                    </div>
+                                    <div class="state p-off">
+                                        <i class="icon material-icons">clear</i>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="rowlink-skip align-middle">
+                                <div class="pretty p-icon p-toggle p-round p-bigger p-smooth">
+                                    <input type="checkbox" class="btn-update-view-status" data-id="{{ $video->id }}"
+                                        {{ $video->is_new ? 'checked' : '' }} name="is_new" data-toggle="tooltip"
+                                        title="{{ $video->is_new ? 'Click để tắt' : 'Click để bật' }}" />
+                                    <div class="state p-on p-primary-o">
+                                        <i class="icon material-icons">check</i>
+                                        <label></label>
+                                    </div>
+                                    <div class="state p-off">
+                                        <i class="icon material-icons">clear</i>
+                                        <label></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{$video->created_at}}</td>
+                            <td>{{$video->user->name??''}}</td>
+                            <td class="rowlink-skip text-right">
+                                <div class="btn-group">
+                                    <a href="{{route('admin.videos.edit', $video->id)}}" class="btn btn-sm p-1"
+                                        style="padding:0;" data-toggle="tooltip" title="Sửa">
+                                        <i class="material-icons">border_color</i>
+                                    </a>
+                                    <a href="{{ route('admin.videos.clone', $video->id) }}"
+                                        class="btn btn-sm p-1 btn-copy" data-id="{{$video->id}}" data-toggle="tooltip"
+                                        title="Tạo bản sao">
+                                        <i class="material-icons">file_copy</i>
+                                    </a>
+                                    <a class="btn btn-sm p-1 btn-move-top"
+                                        href="{{ route('admin.videos.moveTop', $video->id) }}" data-toggle="tooltip"
+                                        title="Đưa lên đầu tiên">
+                                        <i class="material-icons">call_made</i>
+                                    </a>
+                                    <a href="{{route('admin.videos.destroy', $video->id)}}"
+                                        class="btn btn-sm p-1 btn-destroy" data-toggle="tooltip" title="Xoá">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
-                 {{ $videos->links() }}
+                {{ $videos->links() }}
             </div>
             <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
                 class="float-right mt-4">
@@ -137,5 +173,5 @@
 </div>
 @endsection
 @push('js')
-<script src="{{ asset('assets/admin')}}/js/videos.js"></script>
+<script src="/assets/admin/js/videos.index.js"></script>
 @endpush

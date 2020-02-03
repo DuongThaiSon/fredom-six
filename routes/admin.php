@@ -18,34 +18,36 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     // video
     Route::group(['prefix' => 'videos'], function () {
-        Route::post('sort', [
-            'as' => 'videos.sort',
-            'uses' => 'VideoController@sort'
+        Route::post('{video}/process', [
+            'as' => 'videos.processImage',
+            'uses' => 'VideoController@processImage'
         ]);
-        Route::post('change-is-public', [
-            'as' => 'videos.change-is-public',
-            'uses' => 'VideoController@changeIsPublic'
+        Route::delete('{video}/revert/{image}', [
+            'as' => 'videos.revertImage',
+            'uses' => 'VideoController@revertImage'
         ]);
-        Route::post('change-is-highlight', [
-            'as' => 'videos.change-is-highlight',
-            'uses' => 'VideoController@changeIsHighlight'
+        Route::post('update-view-status', [
+            'as' => 'videos.updateViewStatus',
+            'uses' => 'VideoController@updateViewStatus'
         ]);
-        Route::post('change-is-new', [
-            'as' => 'videos.change-is-new',
-            'uses' => 'VideoController@changeIsNew'
+        Route::post('{video}/move-top', [
+            'as' => 'videos.moveTop',
+            'uses' => 'VideoController@moveTop',
         ]);
-        Route::delete('delete', [
-            'as' => 'videos.deleteAll',
-            'uses' => 'VideoController@deleteAll'
+        Route::get('{video}/clone', [
+            'as' => 'videos.clone',
+            'uses' => 'VideoController@clone',
         ]);
-        Route::get('movetop/{video?}', [
-            'as' => 'videos.movetop',
-            'uses' => 'VideoController@movetop',
+        Route::post('reorder', [
+            'as' => 'videos.reorder',
+            'uses' => 'VideoController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'videos.destroyMany',
+            'uses' => 'VideoController@destroyMany',
         ]);
     });
-    Route::resource('videos', 'VideoController', [
-        'parameters' => ['videos' => 'id']
-    ]);
+    Route::resource('videos', 'VideoController');
 
     // video category
     Route::group(['prefix' => 'video-categories'], function () {
@@ -101,9 +103,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'uses' => 'GalleryController@updateImageCaption',
         ]);
     });
-    Route::resource('galleries', 'GalleryController', [
-        'parameters' => ['gallery' => 'id']
-    ]);
+    Route::resource('galleries', 'GalleryController');
 
     // gallery category
     Route::group(['prefix' => 'gallery-categories'], function () {

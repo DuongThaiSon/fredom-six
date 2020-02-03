@@ -135,12 +135,12 @@
                     <div class="sub collapse" id="videosubmenu">
                         <ul class="flex-column nav">
                             <li class="nav-item">
-                                <a href="{{route('admin.videos.create')}}" class="nav-link">
+                                <a href="{{route('admin.videos.create')}}" class="nav-link menu-videos-create">
                                     Tạo video mới
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('admin.videos.index')}}" class="nav-link">
+                                <a href="{{route('admin.videos.index')}}" class="nav-link menu-videos-index">
                                     Quản lý video
                                 </a>
                             </li>

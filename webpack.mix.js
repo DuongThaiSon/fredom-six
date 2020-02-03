@@ -34,4 +34,11 @@ mix.js("resources/js/admin/main.js", "public/assets/admin/js")
     .copy('node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css', 'public/assets/admin/css/filepond-plugin-image-preview.min.css')
     .copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'public/assets/admin/vendor/fontawesome/css/all.min.css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/assets/admin/vendor/fontawesome/webfonts')
-    .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css');
+    .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css')
+    .webpackConfig({
+        resolve: {
+            alias: {
+                "bootstrap": path.resolve(__dirname, "node_modules/bootstrap/dist/js/bootstrap.min.js"),
+            }
+        }
+    });

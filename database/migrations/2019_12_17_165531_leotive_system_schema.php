@@ -150,7 +150,7 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('caption')->nullable();
+            $table->string('description')->nullable();
             $table->string('link_to')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);

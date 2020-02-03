@@ -72,45 +72,33 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'galleries.revertImage',
             'uses' => 'GalleryController@revertImage'
         ]);
-        Route::get('{id}/delete', [
-            'as' => 'galleries.delete',
-            'uses' => 'GalleryController@destroy'
+        Route::post('reorder-image', [
+            'as' => 'galleries.reorderImage',
+            'uses' => 'GalleryController@reorderImage'
         ]);
-
-        Route::post('sort', [
-            'as' => 'galleries.sort',
-            'uses' => 'GalleryController@sort'
+        Route::post('update-view-status', [
+            'as' => 'galleries.updateViewStatus',
+            'uses' => 'GalleryController@updateViewStatus'
         ]);
-
-        Route::post('sort-image', [
-            'as' => 'galleries.sortImage',
-            'uses' => 'GalleryController@sortImage'
+        Route::post('{gallery}/move-top', [
+            'as' => 'galleries.moveTop',
+            'uses' => 'GalleryController@moveTop',
         ]);
-
-        Route::post('change-is-public', [
-            'as' => 'galleries.change-is-public',
-            'uses' => 'GalleryController@changeIsPublic'
+        Route::get('{gallery}/clone', [
+            'as' => 'galleries.clone',
+            'uses' => 'GalleryController@clone',
         ]);
-
-        Route::post('change-is-highlight', [
-            'as' => 'galleries.change-is-highlight',
-            'uses' => 'GalleryController@changeIsHighlight'
+        Route::post('reorder', [
+            'as' => 'galleries.reorder',
+            'uses' => 'GalleryController@reorder',
         ]);
-
-        Route::post('change-is-new', [
-            'as' => 'galleries.change-is-new',
-            'uses' => 'GalleryController@changeIsNew'
+        Route::delete('destroy-many', [
+            'as' => 'galleries.destroyMany',
+            'uses' => 'GalleryController@destroyMany',
         ]);
-
-
-        Route::get('movetop/{gallery?}', [
-            'as' => 'galleries.movetop',
-            'uses' => 'GalleryController@movetop',
-        ]);
-
-        Route::delete('delete', [
-            'as' => 'galleries.deleteAll',
-            'uses' => 'GalleryController@deleteAll'
+        Route::get('update-image-caption/{image}', [
+            'as' => 'galleries.updateImageCaption',
+            'uses' => 'GalleryController@updateImageCaption',
         ]);
     });
     Route::resource('galleries', 'GalleryController', [

@@ -4,7 +4,6 @@ window.$ = window.jQuery = require('jquery');
 window.core = require("./core");
 require('jquery-ui/ui/widgets/sortable.js')
 require('popper.js');
-require('bootstrap');
 require('bootstrap-select');
 require('bootstrap-notify');
 require('jasny-bootstrap/dist/js/jasny-bootstrap');
@@ -12,6 +11,7 @@ window.accounting = require('accounting/accounting');
 require('./simpleMoneyFormat');
 window.flatpickr = require("flatpickr");
 window.Swal = require('sweetalert2');
+require('bootstrap');
 // window.dt = require( 'datatables.net' )(window, window.$);
 
 /**

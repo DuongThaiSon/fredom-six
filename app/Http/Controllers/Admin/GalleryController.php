@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\User;
+use App\Http\Requests\Admin\StoreGalleryRequest;
+use App\Http\Requests\Admin\UpdateGalleryRequest;
 use App\Models\Gallery;
 use App\Models\Image;
-use Illuminate\Support\Str;
-use Auth;
-use File;
-use Optix\Media\MediaUploader;
+use App\Services\GalleryCategoryService;
+use App\Services\GalleryService;
+use App\Services\ImageService;
 
 class GalleryController extends Controller
 {
-    const PER_PAGE =10;
+    public function __construct(GalleryService $galleryService, GalleryCategoryService $galleryCategoryService, ImageService $imageService)
+    {
+        $this->galleryService = $galleryService;
+        $this->galleryCategoryService = $galleryCategoryService;
+        $this->imageService = $imageService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,22 +28,8 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $galleries = Gallery::orderBy('order', 'desc')->with('Category')->paginate(self::PER_PAGE);
+        $galleries = Gallery::orderBy('order', 'desc')->with(['category', 'user'])->paginate();
         return view('admin.galleries.index',compact('galleries'));
-    }
-
-    private function getSubCategories($parent_id, $ignore_id=null)
-    {
-        $categories = Category::where('parent_id', $parent_id)
-            ->where('type', 'gallery')
-            ->where('id', '<>', $ignore_id)
-            ->get()
-            ->map(function($query) use($ignore_id) {
-                $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;
-            });
-
-        return $categories;
     }
 
     /**
@@ -48,58 +39,43 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        $categories = $this->getSubCategories(0);
+        $categories = $this->galleryCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
         return view('admin.galleries.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Admin\StoreGalleryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreGalleryRequest $request)
     {
-        $request->validate([
-            'category_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
-            'avatar' => 'nullable|sometimes|image'
-        ]);
-
         $attributes = $request->only([
-            'category_id', 'name', 'caption','link_to', 'slug', 'meta_title',
-            'meta_description', 'meta_keyword', 'meta_page_topic',
-            'is_highlight', 'is_public', 'is_new'
+            'category_id',
+            'name',
+            'caption',
+            'link_to',
+            'is_public',
+            'is_highlight',
+            'is_new',
+            'meta_title',
+            'slug',
+            'meta_keyword',
+            'meta_description',
+            'meta_page_topic',
+            'description',
+            'detail',
+            'avatar',
         ]);
-        $attributes['created_by']   = Auth::user()->id;
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public']    = isset($request->is_public)?1:0;
-        $attributes['is_new']       = isset($request->is_new)?1:0;
-        $attributes['order']        = Gallery::max('order') ? (Gallery::max('order') + 1) : 1;
-        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
-
-        if($request->hasFile('avatar')){
-            $destinationDir = env('UPLOAD_DIR_GALLERY', '/media/images/galleries');
-            if (!file_exists($destinationDir)) {
-                mkdir($destinationDir, 0777, true);
-                $gitignore = '.gitignore';
-                $text = "*\n!.gitignore\n";
-                file_put_contents($destinationDir.'/'.$gitignore, $text);
-            }
-            $filename = uniqid('leotive').'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = $filename;
-        }
-
-        $gallery = Gallery::create($attributes);
-
-        return redirect()->route('admin.galleries.edit', $gallery->id)->with('Success');
+        $gallery = $this->galleryService->create($attributes);
+        return redirect()->route('admin.galleries.edit', $gallery->id)->with('success', 'Gallery created.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Gallery $gallery
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -110,231 +86,147 @@ class GalleryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Gallery $gallery
      * @return \Illuminate\Http\Response
      */
     public function edit(Gallery $gallery)
     {
-        $category = Category::find($gallery->category_id);
-        $categories = $this->getSubCategories(0);
-        return view('admin.galleries.edit', compact('gallery','categories', 'category'));
-
+        $categories = $this->galleryCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $selectedId = $gallery->category_id;
+        return view('admin.galleries.edit', compact('gallery', 'categories', 'selectedId'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\Admin\UpdateGalleryRequest  $request
+     * @param  \App\Models\Gallery $gallery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateGalleryRequest $request, Gallery $gallery)
     {
         $attributes = $request->only([
             'category_id',
             'name',
-            'link_to',
             'caption',
-            'slug',
-            'meta_title',
-            'meta_discription',
-            'meta_keyword',
-            'meta_page_topic',
-            'is_highlight',
+            'link_to',
             'is_public',
+            'is_highlight',
             'is_new',
+            'meta_title',
+            'slug',
+            'meta_keyword',
+            'meta_description',
+            'meta_page_topic',
+            'description',
+            'detail',
+            'avatar',
         ]);
-        $user = Auth::user();
-        $attributes['updated_by']   = $user->id;
-        $attributes['is_highlight'] = isset($request->is_highlight)?1:0;
-        $attributes['is_public']    = isset($request->is_public)?1:0;
-        $attributes['is_new']       = isset($request->is_new)?1:0;
-        $attributes['slug']         = Str::slug($request->name,'-').$request->id;
-
-
-        if($request->hasFile('avatar')){
-            $destinationDir = env('UPLOAD_DIR_GALLERY', '/media/images/galleries');
-            if (!file_exists($destinationDir)) {
-                mkdir($destinationDir, 0777, true);
-                $gitignore = '.gitignore';
-                $text = "*\n!.gitignore\n";
-                file_put_contents($destinationDir.'/'.$gitignore, $text);
-            }
-            $filename = uniqid('leotive').'.'.$request->avatar->extension();
-            $request->avatar->move($destinationDir, $filename);
-            $attributes['avatar'] = $filename;
-        }
-        $galleries = Gallery::findOrFail($id);
-        $gallery = $galleries->fill($attributes);
-        $gallery->save();
-        if ($request->has('image_captions')) {
-            $image_captions = $request->image_captions;
-            foreach ($gallery->images()->get() as $item) {
-                $item->caption = $image_captions[$item->id];
-                $item->save();
-            }
-        }
-
-        return redirect()->route('admin.galleries.edit', $gallery->id)->with('Success');
+        $gallery = $this->galleryService->update($attributes, $gallery);
+        return redirect()->route('admin.galleries.edit', $gallery->id)->with('success', 'Gallery updated.');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Gallery $gallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Gallery $gallery)
     {
-        $gallery = Gallery::findOrFail($id);
-
-        $folder = public_path($gallery->avatar);
-        if (file_exists($folder))
-        {
-            unlink($folder);
+        if ($this->galleryService->destroy($gallery)) {
+            return response()->json([], 204);
         }
-        $gallery->delete();
-        return redirect()->route('admin.galleries.index')->with('Delete Comple');
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
     }
 
+    public function destroyMany(Request $request)
+    {
+        if ($this->galleryService->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
 
     public function processImage(Request $request, Gallery $gallery)
     {
         $request->validate([
-            'uploadImage' => 'required|image'
+            'uploadImage.*' => 'required|image'
         ]);
 
-        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/galleries')); // upload path
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
-            $gitignore = '.gitignore';
-            $text = "*\n!.gitignore\n";
-            file_put_contents($destinationPath.'/'.$gitignore, $text);
+        // print_r($request->uploadImage);die;
+        foreach ($request->uploadImage as $file) {
+            $this->galleryService->processImage($file, $gallery);
         }
-
-        $file = $request->file('uploadImage');
-        $extension = $file->getClientOriginalExtension(); // getting image extension
-        $fileName = uniqid(date('d.m.Y')) . '.' . $extension; // renameing image
-        // $file->move($destinationPath, $fileName); // upload origin file to given path
-        $uploadImage = \Image::make($file); //
-        $uploadImage->save($destinationPath.'/'.$fileName); // upload file with reduce quality
-        $currentOrder = \App\Models\Image::max('order');
-        $gallery->images()->create([
-            'name' => $fileName,
-            'size' => $file->getClientSize(),
-            'mime' => $file->getClientMimeType(),
-            'order' => $currentOrder?$currentOrder+1:1,
-            'created_by' => auth()->guard('admin')->id(),
-            'updated_by' => auth()->guard('admin')->id()
-        ]);
+        // $file = $request->file('uploadImage');
+        // $this->galleryService->processImage($file, $gallery);
 
         return view('admin.galleries.imageShowcase', compact('gallery'));
     }
 
     public function revertImage(Gallery $gallery, Image $image)
     {
-        $destinationPath = public_path(env('UPLOAD_DIR_GALLERY', 'media/galleries'));
-        $fileName = $image->name;
-        if (file_exists($destinationPath.'/'.$fileName)) {
-            unlink($destinationPath.'/'.$fileName);
-        }
-        $image->delete();
+        $this->galleryService->revertImage($image);
         return view('admin.galleries.imageShowcase', compact('gallery'));
     }
 
-    public function sort(Request $request)
+    public function reorder(Request $request)
     {
-        $items = $request->sort;
-		$order = array();
-		foreach ($items as $c) {
-			$id      = str_replace('item_', '', $c);
-			$order[] = Gallery::findOrFail($id)->order;
-		}
-		rsort($order);
-		foreach ($order as $k => $v) {
-            Gallery::where('id', str_replace('item_', '', $items[$k]))->update(['order' => $v]);
-        }
+        $this->galleryService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
     }
 
-    public function sortImage(Request $request)
+    /**
+     * Update gallery attribute [public, highlight, new]
+     */
+    public function updateViewStatus(Request $request)
     {
-        $items = $request->sort;
-		$order = array();
-		foreach ($items as $c) {
-			$id      = str_replace('item_', '', $c);
-			$order[] = Image::findOrFail($id)->order;
-		}
-		rsort($order);
-		foreach ($order as $k => $v) {
-            Image::where('id', str_replace('item_', '', $items[$k]))->update(['order' => $v]);
-        }
+        $gallery = $this->galleryService->updateViewStatus($request->id, $field = $request->field, $request->value);
+        return response()->json(['value' => $gallery->$field], 200);
     }
 
-    public function changeIsPublic(Request $request) {
-        $id = $request->id;
-        $gallery =  Gallery::findOrFail($id);
-        $gallery->is_public = ($request->value == 1) ? '0' : '1';
-        $gallery->save();
-        return response()->json(compact('gallery'), 200);
-
-    }
-
-    public function changeIsHighlight(Request $request) {
-
-        $id = $request->id;
-        $gallery =  Gallery::findOrFail($id);
-        $gallery->is_highlight = ($request->value == 1) ? '0' : '1';
-        $gallery->save();
-        return response()->json(compact('gallery'), 200);
-    }
-
-    public function changeIsNew(Request $request) {
-
-        $id = $request->id;
-        $gallery =  Gallery::findOrFail($id);
-        $gallery->is_new = ($request->value == 1) ? '0' : '1';
-        $gallery->save();
-        return response()->json(compact('gallery'), 200);
-    }
-
-    public function CopyData($id)
+    public function reorderImage(Request $request)
     {
-        $this->service->Copy(Article::findOrFail($id));
-
-        return redirect()->route('admin.articles.index')->with('COPPIED');
+        $this->imageService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
     }
 
-    public function movetop(Gallery $gallery, Request $request){
-        $condition = [];
-        $condition[] = ['order', '>', $gallery->order];
-
-        $otherGallerys = Gallery::where($condition)->orderBy('order', 'asc')->get();
-
-        foreach ($otherGallerys as $otherGallery){
-            $oldorder = $gallery->order;
-            $gallery->order = $otherGallery->order;
-            $otherGallery->order = $oldorder;
-            $gallery->save();
-            Gallery::where('id', $otherGallery->id)->update(['order' => $oldorder]);
-        }
-        if ($request->ajax()) {
-            return 0;
-        }
-    }
-
-    public function deleteAll(Request $request)
+    /**
+     * Show the form for clone an exists resource.
+     *
+     * @param \App\Models\Gallery
+     * @return \Illuminate\Http\Response
+     */
+    public function clone(Gallery $gallery)
     {
-        $ids = $request->ids;
-        if(empty($ids)) {
-            return 0;
-        }else {
-            foreach ($ids as $id) {
-                Gallery::findOrFail($id)->delete();
-            }
-            return 1;
+        $categories = $this->galleryCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $selectedId = $gallery->category_id;
+        return view('admin.galleries.create', compact('categories', 'gallery', 'selectedId'));
+    }
+
+    public function moveTop(Gallery $gallery)
+    {
+        if ($this->galleryService->moveTop($gallery)) {
+            return response()->json([], 204);
         }
-        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+
+        return response()->json([
+            'message' => "failed_to_move"
+        ], 500);
+    }
+
+    public function updateImageCaption(Image $image, Request $request)
+    {
+        $request->validate([
+            'caption' => 'required'
+        ]);
+        $this->imageService->updateCaption($image, $request->caption);
+        return response()->json([], 204);
     }
 }

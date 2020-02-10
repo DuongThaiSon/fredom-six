@@ -14,10 +14,10 @@
 use Illuminate\Support\Facades\File;
 
 Route::view('/', 'welcome');
-Route::get('/sitemap', function() {
-    $sitemap = File::get(public_path('sitemap.xml'));
-    return response($sitemap)
-        ->withHeaders([
-            'Content-Type' => 'text/xml'
-        ]);
-});
+// Route::get('/sitemap', function() {
+//     $sitemap = File::get(public_path('sitemap.xml'));
+//     return response($sitemap)
+//         ->withHeaders([
+//             'Content-Type' => 'text/xml'
+//         ]);
+// });

@@ -58,7 +58,7 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);
             $table->boolean('is_new')->nullable()->default(true);
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
@@ -105,7 +105,7 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_new')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('type')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
@@ -155,7 +155,7 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);
             $table->boolean('is_new')->nullable()->default(true);
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
@@ -250,7 +250,7 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->boolean('is_new')->nullable()->default(true);
             $table->boolean('is_highlight')->nullable()->default(false);
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
@@ -313,7 +313,7 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_highlight')->nullable()->default(false);
             $table->boolean('is_new')->nullable()->default(true);
             $table->boolean('is_taxable')->nullable()->default(true);
-            $table->string('slug')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('quantity')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

@@ -81,84 +81,37 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/admin/sitemap.index.js":
-/*!*********************************************!*\
-  !*** ./resources/js/admin/sitemap.index.js ***!
-  \*********************************************/
+/***/ "./resources/js/admin/menus.index.js":
+/*!*******************************************!*\
+  !*** ./resources/js/admin/menus.index.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  var sitemapDataUrl = $("#sitemap-table").data('href');
-  var table = $("#sitemap-table").DataTable({
-    ordering: false,
-    pagingType: "numbers",
-    serverSide: true,
-    ajax: sitemapDataUrl,
-    columns: [{
-      data: 'loc',
-      name: 'loc'
-    }, {
-      data: null,
-      name: 'priority',
-      render: function render(data) {
-        return "".concat(data.priority * 100, "%");
-      }
-    }, {
-      data: 'changefreq',
-      name: 'changefreq'
-    }, {
-      data: 'lastmod',
-      name: 'lastmod'
-    }]
-  });
-  $(".btn-generate-sitemap").on("click", function (e) {
-    e.preventDefault();
-    var generateSitemapUrl = $(this).attr('href');
-    Swal.fire({
-      title: 'Bạn có chắc muốn thực hiện hành động?',
-      showCancelButton: true,
-      cancelButtonText: 'Huỷ',
-      showLoaderOnConfirm: true,
-      preConfirm: function preConfirm(login) {
-        return $.ajax({
-          url: generateSitemapUrl,
-          method: "POST",
-          success: function success(response) {
-            return response;
-          },
-          error: function error(_error) {
-            Swal.showValidationMessage("Request failed: ".concat(_error));
-          }
-        });
-      },
-      allowOutsideClick: function allowOutsideClick() {
-        return !Swal.isLoading();
-      }
-    }).then(function (result) {
-      if (result.value) {
-        table.ajax.reload();
-        Swal.fire('Thành công!', 'Sitemap đã được cập nhật.', 'success');
-      }
-    });
-  });
+  var orderUrl = $("#table").data('reorder');
+  var destroyManyUrl = $("#table").data('destroy-many');
+  core.makeTableOrderable(orderUrl);
+  core.initCheckboxButton();
+  core.deleteMultipleItems(destroyManyUrl);
+  core.deleteSingleItem(); // core.updateViewViewStatus(updateViewViewStatus);
 });
 
 /***/ }),
 
-/***/ 17:
-/*!***************************************************!*\
-  !*** multi ./resources/js/admin/sitemap.index.js ***!
-  \***************************************************/
+/***/ 14:
+/*!*************************************************!*\
+  !*** multi ./resources/js/admin/menus.index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/sitemap.index.js */"./resources/js/admin/sitemap.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/menus.index.js */"./resources/js/admin/menus.index.js");
 
 
 /***/ })

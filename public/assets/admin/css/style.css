@@ -279,8 +279,8 @@ body h5 {
     padding: 30px 3px 50px 20px;
 }
 #page-content #main-content #content form {
-    margin-top: 38px !important;
-    padding-top: 21px !important;
+    /* margin-top: 38px !important;
+    padding-top: 21px !important; */
 }
 #page-content #main-content #content form input,
 #page-content #main-content #content form select {
@@ -513,4 +513,8 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
     height: 48px;
     border: 1px solid #929bad;
     border-radius: 6px;
+}
+
+.text-red {
+    color: red;
 }

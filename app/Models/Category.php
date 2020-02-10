@@ -63,4 +63,9 @@ class Category extends Model
         return $this->belongsToMany('App\Models\ProductAttribute', 'product_category_attribute')
         ->withTimestamps();
     }
+
+    public function menus()
+    {
+        return $this->morphMany('App\Models\Menu', 'menuable');
+    }
 }

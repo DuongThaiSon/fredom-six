@@ -40,7 +40,7 @@
                                 <legend>Thông tin cơ bản</legend>
 
                                 <div class="form-group">
-                                    <label>Tên gallery</label>
+                                    <label>Tên gallery @importantfield</label>
                                     <input type="text" name="name" required class="form-control"
                                         placeholder="Tên gallery" value="{{$gallery->name}}" />
                                     <small class="form-text">Tên của gallery chứa dữ liệu</small>

@@ -46,11 +46,6 @@
                     <div class="row">
                         <div class="col-md-6">
                             <legend>Thông tin cơ bản</legend>
-                            <div class="form-group">
-                                <label>ID</label>
-                                <input type="text" name="id" class="form-control" value="{{ $category->id }}" />
-                                <small class="form-text">Mã của mục</small>
-                            </div>
 
                             <div class="form-group">
                                 <label>Tên mục @importantfield</label>

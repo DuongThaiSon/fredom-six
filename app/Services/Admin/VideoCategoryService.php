@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Admin;
 
 use App\Services\Plugins\HandleUpload;
 use App\Services\Plugins\ManageCategory;
 use Illuminate\Support\Facades\Auth;
 
-class ArticleCategoryService
+class VideoCategoryService
 {
     use HandleUpload, ManageCategory;
 
     /**
-     * Specify Category type
-     */
-    protected $categoryType = 'article';
+	 * Specify Category type
+	 */
+	protected $categoryType = 'video';
 
     /**
      * Get the guard to be used during authentication.
@@ -30,6 +30,6 @@ class ArticleCategoryService
      */
     protected function destinationUploadDir()
     {
-        return public_path(env('UPLOAD_DIR_ARTICLE', 'media/images/articles'));
+        return public_path(env('UPLOAD_DIR_VIDEO', 'media/images/videos'));
     }
 }

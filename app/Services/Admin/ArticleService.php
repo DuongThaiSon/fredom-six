@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Admin;
 
-use App\Models\Video;
+use App\Models\Article;
 use App\Services\Plugins\BaseModel;
 use App\Services\Plugins\HandleUpload;
 use App\Services\Plugins\ManageItem;
 use Illuminate\Support\Facades\Auth;
 
-class VideoService extends BaseModel
+class ArticleService extends BaseModel
 {
     use HandleUpload, ManageItem;
 
@@ -27,7 +27,7 @@ class VideoService extends BaseModel
      */
     protected function destinationUploadDir()
     {
-        return public_path(env('UPLOAD_DIR_VIDEO', 'media/images/videos'));
+        return public_path(env('UPLOAD_DIR_ARTICLE', 'media/images/articles'));
     }
 
     /**
@@ -37,6 +37,6 @@ class VideoService extends BaseModel
      */
     public function model()
     {
-        return Video::class;
+        return Article::class;
     }
 }

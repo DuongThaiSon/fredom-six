@@ -8,9 +8,9 @@ use App\Http\Requests\Admin\StoreGalleryRequest;
 use App\Http\Requests\Admin\UpdateGalleryRequest;
 use App\Models\Gallery;
 use App\Models\Image;
-use App\Services\GalleryCategoryService;
-use App\Services\GalleryService;
-use App\Services\ImageService;
+use App\Services\Admin\GalleryCategoryService;
+use App\Services\Admin\GalleryService;
+use App\Services\Admin\ImageService;
 
 class GalleryController extends Controller
 {

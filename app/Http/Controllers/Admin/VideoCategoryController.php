@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreVideoCategoryRequest;
 use App\Http\Requests\Admin\UpdateVideoCategoryRequest;
 use App\Models\Category;
-use App\Services\VideoCategoryService;
+use App\Services\Admin\VideoCategoryService;
 
 class VideoCategoryController extends Controller
 {

@@ -7,10 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreArticleRequest;
 use App\Http\Requests\Admin\UpdateArticleRequest;
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Models\Article;
-use App\Services\ArticleCategoryService;
-use App\Services\ArticleService;
+use App\Services\Admin\ArticleCategoryService;
+use App\Services\Admin\ArticleService;
 
 class ArticleController extends Controller
 {

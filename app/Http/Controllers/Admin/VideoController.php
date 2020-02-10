@@ -7,8 +7,8 @@ use App\Http\Requests\Admin\StoreVideoRequest;
 use App\Http\Requests\Admin\UpdateVideoRequest;
 use Illuminate\Http\Request;
 use App\Models\Video;
-use App\Services\VideoCategoryService;
-use App\Services\VideoService;
+use App\Services\Admin\VideoCategoryService;
+use App\Services\Admin\VideoService;
 
 class VideoController extends Controller
 {

@@ -3,24 +3,19 @@
 <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">
         <div id="content">
-            <a href="{{ route('admin.menus.index', ['category' => $category->id]) }}" class="btn btn-sm btn-dark"
-                data-toggle="tooltip" title="">
-                <i class="material-icons">
-                    keyboard_arrow_left
-                </i>
-                <span class="pt-5">Quay lại</span>
-            </a>
-            <h1 class="mt-3 pl-4">THÔNG TIN MENU</h1>
-            @if ($errors->any())
-            @component('admin.partials.alert')
-                @slot('type', 'danger')
-                {{ $errors->first() }}
-            @endcomponent
-            @endif
+            <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC MENU</h1>
             <!-- Save group button -->
             <form action="{{ route('admin.menus.store', ['category' => $categoryId]) }}" method="POST"
                 enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5" id="submit-menu-form">
                 @csrf
+                @if ($errors->any())
+                <div class="alert bg-danger" role="alert">
+                    <svg class="glyph stroked cancel">
+                        <use xlink:href="#stroked-cancel"></use>
+                    </svg>{{ $errors->first() }}<a href="#" class="pull-right"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </div>
+                @endif
                 <div class="save-group-buttons">
                     <a class="btn btn-sm btn-dark" href="{{ route('admin.menus.index', $categoryId) }}">
                         <i class="material-icons"> menu_open </i>
@@ -47,12 +42,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Nằm trong Menu</label>
+                            <label>Nằm trong danh mục</label>
                             <select name="parent_id" class="form-control">
                                 <option value="0"></option>
                                 @include('admin.partials.menuOptions')
                             </select>
-                            <small class="form-text">Menu cha của menu</small>
+                            <small class="form-text">Danh mục của menu</small>
                         </div>
 
                         <div class="form-group">
@@ -65,7 +60,7 @@
                             </select>
                             <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                         </div>
-                        <div class="form-group url-group">
+                        <div class="form-group">
                             <label>URL</label>
                             <input type="text" name="link" class="form-control" placeholder="URL Link" />
                             <small class="form-text">Khi click vào menu này sẽ chuyển hướng đến URL chỉ định</small>
@@ -87,5 +82,5 @@
 </div>
 @endsection
 @push('js')
-<script src="{{ asset('assets/admin') }}/js/menus.create.js"></script>
+<script src="{{ asset('assets/admin') }}/js/menus.edit.js"></script>
 @endpush

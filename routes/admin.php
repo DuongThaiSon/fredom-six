@@ -59,6 +59,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'video-categories.destroyMany',
             'uses' => 'VideoCategoryController@destroyMany'
         ]);
+        Route::get('{category}/make-child', [
+            'as' => 'video-categories.makeChild',
+            'uses' => 'VideoCategoryController@makeChild',
+        ]);
     });
     Route::resource('video-categories', 'VideoCategoryController', [
         'parameters' => ['video-categories' => 'category']
@@ -115,6 +119,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'gallery-categories.destroyMany',
             'uses' => 'GalleryCategoryController@destroyMany'
         ]);
+        Route::get('{category}/make-child', [
+            'as' => 'gallery-categories.makeChild',
+            'uses' => 'GalleryCategoryController@makeChild',
+        ]);
     });
     Route::resource('gallery-categories', 'GalleryCategoryController', [
         'parameters' => ['gallery-categories' => 'category']
@@ -153,6 +161,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::delete('destroy-many', [
             'as' => 'article-categories.destroyMany',
             'uses' => 'ArticleCategoryController@destroyMany'
+        ]);
+        Route::get('{category}/make-child', [
+            'as' => 'article-categories.makeChild',
+            'uses' => 'ArticleCategoryController@makeChild',
         ]);
     });
     Route::resource('article-categories', 'ArticleCategoryController', [
@@ -365,6 +377,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::delete('destroy-many', [
             'as' => 'product-categories.destroyMany',
             'uses' => 'ProductCategoryController@destroyMany'
+        ]);
+        Route::get('{category}/make-child', [
+            'as' => 'product-categories.makeChild',
+            'uses' => 'ProductCategoryController@makeChild',
         ]);
     });
     Route::resource('product-categories', 'ProductCategoryController', [

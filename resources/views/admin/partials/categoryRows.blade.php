@@ -32,7 +32,7 @@
                         <td width="15%" class="align-middle">{{$category->user()->first()->name?? ''}}</td>
                         <td width="13%" class="text-right rowlink-skip">
                             <div class="btn-group">
-                                <a href="{{route('admin.'.$category->type.'-categories.create')}}"
+                                <a href="{{route('admin.'.$category->type.'-categories.makeChild', $category->id)}}"
                                     class="btn btn-sm p-1" data-toggle="tooltip" title="Thêm mục con">
                                     <i class="material-icons">playlist_add</i>
                                 </a>

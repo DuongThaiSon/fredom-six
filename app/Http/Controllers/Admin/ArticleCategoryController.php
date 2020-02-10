@@ -38,6 +38,13 @@ class ArticleCategoryController extends Controller
         return view('admin.articleCats.create', compact('categories'));
     }
 
+    public function makeChild(Category $category)
+    {
+        $selectedId = $category->id;
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        return view('admin.articleCats.create', compact('categories', 'selectedId'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Admin;
 
 use App\Services\Plugins\HandleUpload;
 use App\Services\Plugins\ManageCategory;
 use Illuminate\Support\Facades\Auth;
 
-class ProductCategoryService
+class GalleryCategoryService
 {
     use HandleUpload, ManageCategory;
 
     /**
 	 * Specify Category type
 	 */
-	protected $categoryType = 'product';
+	protected $categoryType = 'gallery';
 
     /**
      * Get the guard to be used during authentication.
@@ -30,6 +30,6 @@ class ProductCategoryService
      */
     protected function destinationUploadDir()
     {
-        return public_path(env('UPLOAD_DIR_PRODUCT', 'media/images/products'));
+        return public_path(env('UPLOAD_DIR_GALLERY', 'media/images/galleries'));
     }
 }

@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreMenuRequest;
 use App\Http\Requests\Admin\UpdateMenuRequest;
-use App\Services\MenuService;
+use App\Services\Admin\MenuService;
 use App\Models\Category;
 use App\Models\Menu;
-use App\Services\ArticleCategoryService;
-use App\Services\ArticleService;
-use App\Services\ProductCategoryService;
-use App\Services\ProductService;
+use App\Services\Admin\ArticleCategoryService;
+use App\Services\Admin\ArticleService;
+use App\Services\Admin\ProductCategoryService;
+use App\Services\Admin\ProductService;
 
 class MenuController extends Controller
 {

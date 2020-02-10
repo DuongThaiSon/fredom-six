@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreGalleryCategoryRequest;
 use App\Http\Requests\Admin\UpdateGalleryCategoryRequest;
 use App\Models\Category;
-use App\Services\GalleryCategoryService;
+use App\Services\Admin\GalleryCategoryService;
 
 class GalleryCategoryController extends Controller
 {

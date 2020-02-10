@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreArticleCategoryRequest;
 use App\Http\Requests\Admin\UpdateArticleCategoryRequest;
 use App\Models\Category;
-use App\Services\ArticleCategoryService;
+use App\Services\Admin\ArticleCategoryService;
 
 class ArticleCategoryController extends Controller
 {

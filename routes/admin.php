@@ -9,7 +9,7 @@
 | is assigned the "web" middleware group. Enjoy building your Admin!
 |
 */
-Route::group(['middleware'=>'auth:admin'], function(){
+Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::get('', [
         'as' => 'dashboard.index',
@@ -17,51 +17,59 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // video
-    Route::group(['prefix' => 'videos'], function() {
-        Route::post('sort', [
-            'as' => 'videos.sort',
-            'uses' => 'VideoController@sort'
+    Route::group(['prefix' => 'videos'], function () {
+        Route::post('{video}/process', [
+            'as' => 'videos.processImage',
+            'uses' => 'VideoController@processImage'
         ]);
-        Route::post('change-is-public', [
-            'as' => 'videos.change-is-public',
-            'uses' => 'VideoController@changeIsPublic'
+        Route::delete('{video}/revert/{image}', [
+            'as' => 'videos.revertImage',
+            'uses' => 'VideoController@revertImage'
         ]);
-        Route::post('change-is-highlight', [
-            'as' => 'videos.change-is-highlight',
-            'uses' => 'VideoController@changeIsHighlight'
+        Route::post('update-view-status', [
+            'as' => 'videos.updateViewStatus',
+            'uses' => 'VideoController@updateViewStatus'
         ]);
-        Route::post('change-is-new', [
-            'as' => 'videos.change-is-new',
-            'uses' => 'VideoController@changeIsNew'
+        Route::post('{video}/move-top', [
+            'as' => 'videos.moveTop',
+            'uses' => 'VideoController@moveTop',
         ]);
-        Route::delete('delete',[
-            'as' => 'videos.deleteAll',
-            'uses' => 'VideoController@deleteAll'
+        Route::get('{video}/clone', [
+            'as' => 'videos.clone',
+            'uses' => 'VideoController@clone',
         ]);
-        Route::get('movetop/{video?}',[
-            'as' => 'videos.movetop',
-            'uses' => 'VideoController@movetop',
+        Route::post('reorder', [
+            'as' => 'videos.reorder',
+            'uses' => 'VideoController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'videos.destroyMany',
+            'uses' => 'VideoController@destroyMany',
         ]);
     });
-    Route::resource('videos', 'VideoController',[
-        'parameters' => ['videos' => 'id']
-    ]);
+    Route::resource('videos', 'VideoController');
 
     // video category
-    Route::group(['prefix' => 'video-categories'], function() {
-        Route::get('{id}/delete', [
-            'as' => 'video-categories.delete',
-            'uses' => 'VideoCategoryController@destroy'
+    Route::group(['prefix' => 'video-categories'], function () {
+        Route::post('reorder', [
+            'as' => 'video-categories.reorder',
+            'uses' => 'VideoCategoryController@reorder'
         ]);
-        Route::post('sortcat', [
-            'as' => 'video-categories.sortcat',
-            'uses' => 'VideoCategoryController@sortcat'
+        Route::delete('destroy-many', [
+            'as' => 'video-categories.destroyMany',
+            'uses' => 'VideoCategoryController@destroyMany'
+        ]);
+        Route::get('{category}/make-child', [
+            'as' => 'video-categories.makeChild',
+            'uses' => 'VideoCategoryController@makeChild',
         ]);
     });
-    Route::resource('video-categories', 'VideoCategoryController');
+    Route::resource('video-categories', 'VideoCategoryController', [
+        'parameters' => ['video-categories' => 'category']
+    ]);
 
     // gallery
-    Route::group(['prefix' => 'galleries'], function() {
+    Route::group(['prefix' => 'galleries'], function () {
         Route::post('{gallery}/process', [
             'as' => 'galleries.processImage',
             'uses' => 'GalleryController@processImage'
@@ -70,166 +78,102 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'as' => 'galleries.revertImage',
             'uses' => 'GalleryController@revertImage'
         ]);
-        Route::get('{id}/delete', [
-            'as' => 'galleries.delete',
-            'uses' => 'GalleryController@destroy'
+        Route::post('reorder-image', [
+            'as' => 'galleries.reorderImage',
+            'uses' => 'GalleryController@reorderImage'
         ]);
-
-        Route::post('sort', [
-            'as' => 'galleries.sort',
-            'uses' => 'GalleryController@sort'
+        Route::post('update-view-status', [
+            'as' => 'galleries.updateViewStatus',
+            'uses' => 'GalleryController@updateViewStatus'
         ]);
-
-        Route::post('sort-image', [
-            'as' => 'galleries.sortImage',
-            'uses' => 'GalleryController@sortImage'
+        Route::post('{gallery}/move-top', [
+            'as' => 'galleries.moveTop',
+            'uses' => 'GalleryController@moveTop',
         ]);
-
-        Route::post('change-is-public', [
-            'as' => 'galleries.change-is-public',
-            'uses' => 'GalleryController@changeIsPublic'
+        Route::get('{gallery}/clone', [
+            'as' => 'galleries.clone',
+            'uses' => 'GalleryController@clone',
         ]);
-
-        Route::post('change-is-highlight', [
-            'as' => 'galleries.change-is-highlight',
-            'uses' => 'GalleryController@changeIsHighlight'
+        Route::post('reorder', [
+            'as' => 'galleries.reorder',
+            'uses' => 'GalleryController@reorder',
         ]);
-
-        Route::post('change-is-new', [
-            'as' => 'galleries.change-is-new',
-            'uses' => 'GalleryController@changeIsNew'
+        Route::delete('destroy-many', [
+            'as' => 'galleries.destroyMany',
+            'uses' => 'GalleryController@destroyMany',
         ]);
-
-
-        Route::get('movetop/{gallery?}',[
-            'as' => 'galleries.movetop',
-            'uses' => 'GalleryController@movetop',
-        ]);
-
-        Route::delete('delete',[
-            'as' => 'galleries.deleteAll',
-            'uses' => 'GalleryController@deleteAll'
+        Route::get('update-image-caption/{image}', [
+            'as' => 'galleries.updateImageCaption',
+            'uses' => 'GalleryController@updateImageCaption',
         ]);
     });
-    Route::resource('galleries','GalleryController',[
-        'parameters' => ['gallery' => 'id']
-    ]);
+    Route::resource('galleries', 'GalleryController');
 
     // gallery category
     Route::group(['prefix' => 'gallery-categories'], function () {
-        Route::get('{id}/delete', [
-            'as' => 'gallery-categories.delete',
-            'uses' => 'GalleryCategoryController@destroy'
+        Route::post('reorder', [
+            'as' => 'gallery-categories.reorder',
+            'uses' => 'GalleryCategoryController@reorder'
         ]);
-        Route::post('sortcat', [
-            'as' => 'gallery-categories.sortcat',
-            'uses' => 'GalleryCategoryController@sortcat'
+        Route::delete('destroy-many', [
+            'as' => 'gallery-categories.destroyMany',
+            'uses' => 'GalleryCategoryController@destroyMany'
         ]);
-        Route::delete('delete-all', [
-            'as' => 'gallery-categories.deleteAll',
-            'uses' => 'GalleryCategoryController@deleteAll'
+        Route::get('{category}/make-child', [
+            'as' => 'gallery-categories.makeChild',
+            'uses' => 'GalleryCategoryController@makeChild',
         ]);
     });
-    Route::resource('gallery-categories', 'GalleryCategoryController',[
-        'parameters' => ['gallery-categories' => 'id']
+    Route::resource('gallery-categories', 'GalleryCategoryController', [
+        'parameters' => ['gallery-categories' => 'category']
     ]);
 
     // article
-    Route::group(['prefix' => 'articles'], function() {
-        Route::get('{id}/delete', [
-            'as' => 'articles.delete',
-            'uses' => 'ArticleController@destroy'
+    Route::group(['prefix' => 'articles'], function () {
+        Route::post('update-view-status', [
+            'as' => 'articles.updateViewStatus',
+            'uses' => 'ArticleController@updateViewStatus'
         ]);
-        Route::delete('delete',[
-            'as' => 'articles.deleteAll',
-            'uses' => 'ArticleController@deleteAll'
+        Route::post('{article}/move-top', [
+            'as' => 'articles.moveTop',
+            'uses' => 'ArticleController@moveTop',
         ]);
-        Route::post('sort', [
-            'as' => 'articles.sort',
-            'uses' => 'ArticleController@sort'
+        Route::get('{article}/clone', [
+            'as' => 'articles.clone',
+            'uses' => 'ArticleController@clone',
         ]);
-        Route::post('update-view-status', 'ArticleController@updateViewStatus');
-        Route::get('search', [
-            'as' => 'articles.search',
-            'uses' => 'ArticleController@search'
+        Route::post('reorder', [
+            'as' => 'articles.reorder',
+            'uses' => 'ArticleController@reorder',
         ]);
-        Route::get('movetop/{article?}',[
-            'as' => 'articles.movetop',
-            'uses' => 'ArticleController@movetop',
-        ]);
-        Route::get('category/{id}',[
-            'as' => 'article.cat',    // article theo category id
-            'uses' => 'ArticleCategoryController@articles'
+        Route::delete('destroy-many', [
+            'as' => 'articles.destroyMany',
+            'uses' => 'ArticleController@destroyMany',
         ]);
     });
-    Route::resource('articles', 'ArticleController', [
-        'parameters' => ['articles' => 'id']
+    Route::resource('articles', 'ArticleController');
+
+    Route::group(['prefix' => 'article-categories'], function () {
+        Route::post('reorder', [
+            'as' => 'article-categories.reorder',
+            'uses' => 'ArticleCategoryController@reorder'
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'article-categories.destroyMany',
+            'uses' => 'ArticleCategoryController@destroyMany'
+        ]);
+        Route::get('{category}/make-child', [
+            'as' => 'article-categories.makeChild',
+            'uses' => 'ArticleCategoryController@makeChild',
+        ]);
+    });
+    Route::resource('article-categories', 'ArticleCategoryController', [
+        'parameters' => [
+            'article-categories' => 'category'
+        ]
     ]);
 
-    Route::group(['prefix' => 'article-categories'], function() {
-        Route::get('{id}/delete', [
-            'as' => 'article-categories.delete',
-            'uses' => 'ArticleCategoryController@destroy'
-        ]);
-        Route::post('sortcat', [
-            'as' => 'article-categories.sortcat',
-            'uses' => 'ArticleCategoryController@sortcat'
-        ]);
-        Route::delete('delete-all', [
-            'as' => 'article-categories.deleteAll',
-            'uses' => 'ArticleCategoryController@deleteAll'
-        ]);
-    });
-    Route::resource('article-categories', 'ArticleCategoryController');
-
-    Route::group(['prefix' => 'settings'], function(){
-        // Route::get('', [
-        //     'as' => 'settings.infoSetting',
-        //     'uses' => 'SettingController@infoSetting'
-        // ]);
-        // Route::post('post-info-setting', [
-        //     'as' => 'settings.postInfoSetting',
-        //     'uses' => 'SettingController@postInfoSetting'
-        // ]);
-        // Route::get('send-mail', [
-        //     'as' => 'settings.sendMail',
-        //     'uses' => 'SettingController@sendMail'
-        // ]);
-        // Route::post('send-mail', [
-        //     'as' => 'settings.postSendMail',
-        //     'uses' => 'SettingController@postSendMail'
-        // ]);
-        // Route::get('seo', [
-        //     'as' => 'settings.seo',
-        //     'uses' => 'SettingController@seo'
-        // ]);
-        // Route::post('seo', [
-        //     'as' => 'settings.postSeo',
-        //     'uses' => 'SettingController@postSeo'
-        // ]);
-        // Route::get('email-content', [
-        //     'as' => 'settings.emailContent',
-        //     'uses' => 'SettingController@emailContent'
-        // ]);
-        // Route::get('email-content/add', [
-        //     'as' => 'settings.addEmailContent',
-        //     'uses' => 'SettingController@addEmailContent'
-        // ]);
-        // Route::post('email-content/add', [
-        //     'as' => 'settings.postAddEmailContent',
-        //     'uses' => 'SettingController@postAddEmailContent'
-        // ]);
-        // Route::get('email-content/edit/{id}', [
-        //     'as' => 'settings.editEmailContent',
-        //     'uses' => 'SettingController@editEmailContent'
-        // ]);
-        // Route::post('email-content/edit/{id}', [
-        //     'as' => 'settings.postEditEmailContent',
-        //     'uses' => 'SettingController@postEditEmailContent'
-        // ]);
-
-
-    });
+    Route::group(['prefix' => 'settings'], function () { });
     Route::resource('settings', 'SettingController');
     Route::resource('email-contents', 'EmailContentController', [
         'parameters' => [
@@ -238,12 +182,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
 
-    Route::group(['prefix' => 'components'], function (){
+    Route::group(['prefix' => 'components'], function () {
         Route::get('', [
             'as' => 'components.index',
             'uses' => 'ComponentController@index'
         ]);
-        Route::get('add',[
+        Route::get('add', [
             'as' => 'components.create',
             'uses' => 'ComponentController@create'
         ]);
@@ -268,107 +212,134 @@ Route::group(['middleware'=>'auth:admin'], function(){
             'uses' => 'ComponentController@delete'
         ]);
     });
-    Route::resource('orders', 'OrderController',[
+    Route::resource('orders', 'OrderController', [
         'parameters' => ['orders' => 'id']
     ]);
 
-    Route::resource('showrooms', 'ShowroomController',[
-        'parameters' => ['showrooms' => 'id']
-    ]);
-
-    Route::group(['prefix' => 'password'], function() {
-        Route::get('',[
+    Route::group(['prefix' => 'password'], function () {
+        Route::get('', [
             'as' => 'password.change',
             'uses' => 'ChangePasswordController@getChangePassword'
         ]);
-        Route::post('',[
+        Route::post('', [
             'as' => 'password.change',
             'uses' => 'ChangePasswordController@postChangePassword'
         ]);
     });
 
-    Route::group(['prefix' => 'users'], function(){
-        Route::get('info/{id}',[
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('info/{id}', [
             'as' => 'users.info',
             'uses' => 'UserController@info'
         ]);
-        Route::post('info/change',[
+        Route::post('info/change', [
             'as' => 'info.change',
             'uses' => 'UserController@changeInfo'
         ]);
-        Route::get('add',[
+        Route::get('add', [
             'as' => 'users.add',
             'uses' => 'UserController@getAddUser'
         ]);
-        Route::post('add',[
+        Route::post('add', [
             'as' => 'users.postadd',
             'uses' => 'UserController@postAddUser'
         ]);
-        Route::get('admin',[
+        Route::get('admin', [
             'as' => 'users.admin',
             'uses' => 'UserController@admin'
         ]);
-        Route::delete('delete',[
-            'as' =>'users.delete',
+        Route::delete('delete', [
+            'as' => 'users.delete',
             'uses' => 'UserController@delete'
         ]);
-        Route::delete('deleteAll',[
+        Route::delete('deleteAll', [
             'as' => 'users.deleteAll',
             'uses' => 'UserController@deleteAll'
         ]);
     });
 
-    Route::group(['prefix' => 'contacts'], function() {
-        Route::get('',[
+    Route::group(['prefix' => 'contacts'], function () {
+        Route::get('', [
             'as' => 'contacts.index',
             'uses' => 'ContactController@index'
         ]);
-        Route::get('delete',[
+        Route::get('delete', [
             'as' => 'contacts.delete',
             'uses' => 'ContactController@delete'
         ]);
-        Route::delete('delete',[
+        Route::delete('delete', [
             'as' => 'contacts.deleteAll',
             'uses' => 'ContactController@deleteAll'
         ]);
     });
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('list-article-categories', [
+            'as' => 'menus.listArticleCategories',
+            'uses' => 'MenuController@listArticleCategories',
+        ]);
+        Route::get('show-article-category', [
+            'as' => 'menus.showArticleCategory',
+            'uses' => 'MenuController@showArticleCategory',
+        ]);
+        Route::get('list-product-categories', [
+            'as' => 'menus.listProductCategories',
+            'uses' => 'MenuController@listProductCategories',
+        ]);
+        Route::get('show-product-category', [
+            'as' => 'menus.showProductCategory',
+            'uses' => 'MenuController@showProductCategory',
+        ]);
+        Route::get('list-articles', [
+            'as' => 'menus.listArticles',
+            'uses' => 'MenuController@listArticles',
+        ]);
+        Route::get('list-articles-datatables', [
+            'as' => 'menus.listArticlesDatatables',
+            'uses' => 'MenuController@listArticlesDatatables',
+        ]);
+        Route::get('show-article', [
+            'as' => 'menus.showArticle',
+            'uses' => 'MenuController@showArticle',
+        ]);
+        Route::get('list-products', [
+            'as' => 'menus.listProducts',
+            'uses' => 'MenuController@listProducts',
+        ]);
+        Route::get('list-products-datatables', [
+            'as' => 'menus.listProductsDatatables',
+            'uses' => 'MenuController@listProductsDatatables',
+        ]);
+        Route::get('show-product', [
+            'as' => 'menus.showProduct',
+            'uses' => 'MenuController@showProduct',
+        ]);
+        Route::post('reorder', [
+            'as' => 'menus.reorder',
+            'uses' => 'MenuController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'menus.destroyMany',
+            'uses' => 'MenuController@destroyMany',
+        ]);
+    });
+    Route::group(['prefix' => 'menu-categories/{category}'], function () {
+        Route::get('make-child/{menu}', [
+            'as' => 'menus.makeChild',
+            'uses' => 'MenuController@makeChild',
+        ]);
+        Route::resource('menus', 'MenuController');
+    });
     Route::resource('menu-categories', 'MenuCategoryController', [
         'parameters' => ['menu-categories' => 'category']
-        ]);
-    Route::group(['prefix' => 'menus'], function () {
-        Route::post('/sort', [
-            'as' => 'menus.sort',
-            'uses' => 'MenuController@sort'
-        ]);
-        Route::get('/list-articles', [
-            'as' => 'menus.listArticle',
-            'uses' => 'MenuController@listArticle']);
-        Route::get('/list-products', 'MenuController@listProduct');
-        Route::get('/get-article/{id}', 'MenuController@getArticle');
-        Route::get('/get-product/{id}', 'MenuController@getProduct');
-        Route::get('/search-articles', [
-            'as' => 'menus.searchArticles',
-            'uses' => 'MenuController@searchArticles'
-        ]);
-
-        Route::get('/search-products', [
-            'as' => 'menus.searchProducts',
-            'uses' => 'MenuController@searchProducts'
-        ]);
-        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
-        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
-        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
-        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
-    });
-
-    Route::resource('menus', 'MenuController');
+    ]);
 
     // product
     Route::delete('delete-many/products', [
         'as' => 'products.deleteMany',
         'uses' => 'ProductController@deleteMany'
     ]);
-    Route::group(['prefix' => 'products'], function() {
+    Route::group(['prefix' => 'products'], function () {
 
         Route::post('fetch-attribute-option', [
             'as' => 'products.fetchAttributeOption',
@@ -395,35 +366,22 @@ Route::group(['middleware'=>'auth:admin'], function(){
             Route::resource('variants', 'ProductVariantController');
         });
     });
-    Route::post('products-filters/delete', [
-        'as' => 'admin.products-filters.delete',
-        'uses' => 'FilterController@deleteMany'
-    ]);
-    Route::resource('products-filters', 'FilterController', [
-        'parameters' => ['products-filters' => 'filters']
-    ]);
-
-    Route::get('products/import', [
-        'as' => 'excel.index',
-        'uses' => 'ExcelController@index'
-    ]);
-    Route::post('products/import/update', [
-        'as' => 'excel.import',
-        'uses' => 'ExcelController@import'
-    ]);
-    Route::get('products/export', [
-        'as' => 'excel.export',
-        'uses' => 'ExcelController@export'
-    ]);
     Route::resource('products', 'ProductController');
 
     // product category
-    Route::delete('delete-many/product-categories', [
-        'as' => 'productCategories.deleteMany',
-        'uses' => 'ProductCategoryController@deleteMany'
-    ]);
-    Route::group(['prefix' => 'product-categories'], function() {
-        //
+    Route::group(['prefix' => 'product-categories'], function () {
+        Route::post('reorder', [
+            'as' => 'product-categories.reorder',
+            'uses' => 'ProductCategoryController@reorder'
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'product-categories.destroyMany',
+            'uses' => 'ProductCategoryController@destroyMany'
+        ]);
+        Route::get('{category}/make-child', [
+            'as' => 'product-categories.makeChild',
+            'uses' => 'ProductCategoryController@makeChild',
+        ]);
     });
     Route::resource('product-categories', 'ProductCategoryController', [
         'parameters' => [
@@ -432,13 +390,10 @@ Route::group(['middleware'=>'auth:admin'], function(){
     ]);
 
     // product attribute
-    Route::group(['prefix' => 'product-attributes'], function() {
-
-    });
+    Route::group(['prefix' => 'product-attributes'], function () { });
     Route::resource('product-attributes', 'ProductAttributeController');
 
     Route::post('check-user', 'UserController@check');
-    Route::post('upload-image', 'MediaController@uploadImage');
 
     Route::get('files', [
         'as' => 'files',
@@ -448,7 +403,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
     Route::group(['prefix' => 'backups'], function () {
         Route::get('download', [
             'as' => 'backups.download',
-            'uses' =>'BackupController@download'
+            'uses' => 'BackupController@download'
         ]);
         Route::delete('delete', [
             'as' => 'backups.destroy',
@@ -456,13 +411,12 @@ Route::group(['middleware'=>'auth:admin'], function(){
         ]);
         Route::get('import', [
             'as' => 'backups.import',
-            'uses' =>'BackupController@import'
+            'uses' => 'BackupController@import'
         ]);
         Route::post('restore', [
             'as' => 'backups.restore',
-            'uses' =>'BackupController@restore'
+            'uses' => 'BackupController@restore'
         ]);
-
     });
     Route::resource('backups', 'BackupController', [
         'only' => ['index', 'store']
@@ -512,7 +466,7 @@ Route::group(['middleware'=>'auth:admin'], function(){
 
 
 // Guest routes
-Route::group(['namespace' => 'Auth'], function() {
+Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', [
         'as' => 'login.showLoginForm',
         'uses' => 'LoginController@showLoginForm'
@@ -538,11 +492,8 @@ Route::group(['namespace' => 'Auth'], function() {
         'uses' => 'ResetPasswordController@reset'
     ]);
 
-    Route::get('password/reset/{token}',[
+    Route::get('password/reset/{token}', [
         'as' => 'password.reset',
         'uses' => 'ResetPasswordController@showResetForm'
     ]);
 });
-
-
-

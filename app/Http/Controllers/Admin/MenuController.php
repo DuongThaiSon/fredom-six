@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Services\MenuService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
-use App\Http\Requests\ProductCategoryRequest;
-use App\Http\Services\ProductCategoryService;
-use App\Models\Article;
-use App\Models\Product;
+use App\Http\Requests\Admin\StoreMenuRequest;
+use App\Http\Requests\Admin\UpdateMenuRequest;
+use App\Services\Admin\MenuService;
 use App\Models\Category;
-use Auth;
+use App\Models\Menu;
+use App\Services\Admin\ArticleCategoryService;
+use App\Services\Admin\ArticleService;
+use App\Services\Admin\ProductCategoryService;
+use App\Services\Admin\ProductService;
 
 class MenuController extends Controller
 {
@@ -20,9 +21,18 @@ class MenuController extends Controller
      *
      * @return void
      */
-    public function __construct(ProductCategoryService $service)
-    {
-        $this->service = $service;
+    public function __construct(
+        MenuService $menuService,
+        ArticleCategoryService $articleCategoryService,
+        ArticleService $articleService,
+        ProductCategoryService $productCategoryService,
+        ProductService $productService
+    ) {
+        $this->menuService = $menuService;
+        $this->articleCategoryService = $articleCategoryService;
+        $this->articleService = $articleService;
+        $this->productCategoryService = $productCategoryService;
+        $this->productService = $productService;
     }
 
     /**
@@ -30,81 +40,46 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Category $category)
     {
-        $menuCats = $this->getSubMenus(0, $request->id);
-        $category_id = $request->id;
-        return view('admin.menus.index', compact('menuCats', 'category_id'));
+        $menus = $this->menuService->getMenu($parentId = 0, $categoryId = $category->id, $ignoreId = null);
+        return view('admin.menus.index', compact('menus', 'categoryId'));
     }
-
-    private function getSubMenus($parent_id, $category_id, $ignore_id=null)
-    {
-        // dd($category_id);
-        $menuCats = Menu::where('category_id', $category_id)
-            ->where('parent_id', $parent_id)
-            ->where('id', '<>', $ignore_id)
-            ->orderBy('order', 'desc')
-            ->with(['user'])
-            ->get()
-            ->map(function($query) use($ignore_id, $category_id) {
-                $query->sub = $this->getSubMenus($query->id, $category_id,$ignore_id);
-                return $query;
-            });
-
-        return $menuCats;
-    }
-
-    // private function getSubCategories($parent_id, $ignore_id=null)
-    // {
-    //     $menuCats = Menu::where('parent_id', $parent_id)
-    //         ->where('id', '<>', $ignore_id)
-    //         ->where('category_id', 15)
-    //         ->with(['user'])
-    //         ->get()
-    //         ->map(function($query) use($ignore_id) {
-    //             $query->sub = $this->getSubCategories($query->id, $ignore_id);
-    //             return $query;
-    //         });
-
-    //     return $menuCats;
-    // }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Category $category)
     {
-        $category_id = $request->category_id;
-        $parent_id = $request->has('parent_id')?$request->parent_id:'0';
-        $menuCats = $this->getSubMenus(0, $category_id);
-        return view('admin.menus.create', compact('menuCats','category_id', 'parent_id'));
+        $menus = $this->menuService->getMenu($selectedId = 0, $categoryId = $category->id, $ignoreId = null);
+        $menuType = $this->menuService->getMenuType();
+        return view('admin.menus.create', compact('menus', 'categoryId', 'selectedId', 'menuType'));
+    }
 
+    public function makeChild(Category $category, Menu $menu)
+    {
+        $menus = $this->menuService->getMenu($parentId = 0, $categoryId = $category->id, $ignoreId = null);
+        $menuType = $this->menuService->getMenuType();
+        $selectedId = $menu->id;
+        return view('admin.menus.create', compact('menus', 'categoryId', 'selectedId', 'menuType'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Admin\StoreMenuRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMenuRequest $request)
     {
-        $request->validate([
-            'parent_id' => 'numeric|min:0',
-            'name' => 'required',
-            'category_id' => 'required'
-        ]);
         $attributes = $request->only([
-            'name', 'parent_id', 'category_id', 'link', 'type'
-        ]) ;
-        $attributes['created_by'] = Auth::user()->id;
-        $attributes['order'] = Menu::max('order') ? (Menu::max('order') + 1) : 1;
+            'name', 'parent_id', 'category_id', 'link', 'type', 'object_id'
+        ]);
 
-        $menus = Menu::create($attributes);
-        return redirect()->back()->with('success','Lưu dữ liệu thành công');
-
+        $menu = $this->menuService->create($attributes);
+        return redirect()->route('admin.menus.edit', ['category' => $request->category_id, 'menu' => $menu->id])->with('success', 'Menu created.');
     }
 
     /**
@@ -124,15 +99,32 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Menu $menu)
+    public function edit(Category $category, Menu $menu)
     {
-        {
-            // $menu = Menu::findOrFail($id); // find 1 sao lại số nhiều nhỉ
-            // $menu = Menu::find($menus->parent_id); // ??
-            $menuCats = $this->getSubMenus(0, $menu->category_id, $menu->id);
-
-            return view('admin.menus.edit', compact('menuCats', 'menu'));
+        $menus = $this->menuService->getMenu($parentId = 0, $categoryId = $category->id, $ignoreId = $menu->id);
+        $menuType = $this->menuService->getMenuType();
+        $selectedId = $menu->parent_id;
+        switch ($menu->type) {
+            case Menu::$LINK_TO_ARTICLE_CATEGORY:
+            case Menu::$SYNC_WITH_ARTICLE_CATEGORY:
+                $object = $this->articleCategoryService->find($menu->object_id);
+                break;
+            case Menu::$LINK_TO_ARTICLE:
+                $object = $this->articleService->find($menu->object_id);
+                break;
+            case Menu::$LINK_TO_PRODUCT_CATEGORY:
+            case Menu::$SYNC_WITH_PRODUCT_CATEGORY:
+                $object = $this->productCategoryService->find($menu->object_id);
+                break;
+            break;
+            case Menu::$LINK_TO_PRODUCT:
+                $object = $this->productService->find($menu->object_id);
+                break;
+            default:
+                $object = false;
+                break;
         }
+        return view('admin.menus.edit', compact('menuType', 'menu', 'menus', 'selectedId', 'categoryId', 'object'));
     }
 
     /**
@@ -142,131 +134,113 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateMenuRequest $request, Category $category, Menu $menu)
+    {
+        $attributes = $request->only([
+            'name', 'parent_id', 'category_id', 'link', 'type', 'object_id'
+        ]);
+        $this->menuService->update($attributes, $menu);
+
+        return redirect()->back()->with('success', 'Lưu dữ liệu thành công');
+    }
+
+    public function destroy(Article $menu)
+    {
+        if ($this->menuService->destroy($menu)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function destroyMany(Request $request)
+    {
+        if ($this->menuService->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->menuService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
+    }
+
+    public function listArticleCategories()
+    {
+        $categories = $this->articleCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = true);
+        return view('admin.menus.categories', compact('categories'));
+    }
+
+    public function showArticleCategory(Request $request)
     {
         $request->validate([
-            'parent_id' => 'numeric|min:0',
-            'name' => 'required',
-            'category_id' => 'required'
+            'object_id' => 'required'
         ]);
-        $attributes = $request->only([
-            'name', 'parent_id', 'category_id', 'link', 'type'
-        ]) ;
-        $attributes['created_by'] = Auth::user()->id;
-        $attributes['category_id'] = $request->category_id;
-        $menus = Menu::findOrFail($id);
-        $menu  = $menus->fill($attributes);
-        $menu->save();
 
-        return redirect()->back()->with('success','Lưu dữ liệu thành công');
+        $object = $this->articleCategoryService->find($request->object_id);
+        return view('admin.menus.selected', compact('object'))->render();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function listArticles()
     {
-        $menus = Menu::findOrFail($id);
-        $menus->delete();
-        return redirect()->back()->with('success', 'Xoá dữ liệu thành công');
-    }
-    /**
-     * Move menu by order
-     */
-    public function sort(Request $request)
-    {
-        $this->service->sortData($request->get('sort'));
-    }
-    /**
-     *
-     */
-    public function listArticle(Request $request)
-    {
-
-        $results = Article::with('category')->simplePaginate(5);
-        return view('admin.menus.list_articles', compact('results'))->render();
-    }
-    /**
-     *
-     */
-
-    public function listProduct()
-    {
-        $results = Product::with('categories')->simplePaginate(5);
-        return view('admin.menus.list_products', compact('results'));
-    }
-    /**
-     *
-     */
-
-    public function getArticle($id)
-    {
-        $article = Article::with(['category'])->findOrFail($id)->toArray();
-        return response()->json(['results'=>$article]);
-    }
-    /**
-     *
-     */
-
-    public function getProduct($id)
-    {
-        $product = Product::with(['categories'])->findOrFail($id)->toArray();
-        // print_r($product);die;
-        return response()->json(['results'=>$product]);
+        return view('admin.menus.items')->render();
     }
 
-    public function searchArticles(Request $request)
+    public function listArticlesDatatables()
     {
-        $articles = Article::where('name', 'like', '%'.$request->keyword.'%')->with(['category'])->get();
-        return response()->json(compact('articles'), 200);
+        return $this->articleService->datatablesList();
     }
 
-    public function searchProducts(Request $request)
+    public function showArticle(Request $request)
     {
-        $products = Product::where('name', 'like', '%'.$request->keyword.'%')->with(['categories'])->get();
-        return response()->json(compact('products'), 200);
-    }
-    /**
-     * Gọi ra danh mục sản phẩm 
-     */
-    public function listCategoryProduct()
-    {
-        $categories = $this->service->allWithSub(null, true);
-        
-        return view('admin.menus.category_table_products', compact('categories'))->render();
-    }
-    public function getProductCategory($id)
-    {
-        $product = Category::findOrFail($id)->toArray();
-        return response()->json(['results'=>$product]);
+        $request->validate([
+            'object_id' => 'required'
+        ]);
+
+        $object = $this->articleService->find($request->object_id);
+        return view('admin.menus.selected', compact('object'))->render();
     }
 
-    private function getSubCategories($parent_id, $ignore_id=null)
+    public function listProductCategories()
     {
-        $Categories = Category::where('parent_id', $parent_id)
-            ->where('type', 'article')
-            ->where('id', '<>', $ignore_id)
-            ->orderBy('order', 'desc')
-            ->get()
-            ->map(function($query) use($ignore_id) {
-                $query->sub = $this->getSubCategories($query->id, $ignore_id);
-                return $query;
-            });
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = true);
+        return view('admin.menus.categories', compact('categories'));
+    }
 
-        return $Categories;
-    }
-    public function listCategoryArticle()
+    public function showProductCategory(Request $request)
     {
-        $categories = $this->getSubCategories(0);
-        // print_r($categories->toArray());die;
-        return view('admin.menus.category_table_articles', compact('categories'))->render();
+        $request->validate([
+            'object_id' => 'required'
+        ]);
+
+        $object = $this->productCategoryService->find($request->object_id);
+        return view('admin.menus.selected', compact('object'))->render();
     }
-    public function getArticleCategory($id)
+
+    public function listProducts()
     {
-        $article = Category::findOrFail($id)->toArray();
-        return response()->json(['results'=>$article]);
+        return view('admin.menus.items')->render();
+    }
+
+    public function listProductsDatatables()
+    {
+        return $this->productService->datatablesList();
+    }
+
+    public function showProduct(Request $request)
+    {
+        $request->validate([
+            'object_id' => 'required'
+        ]);
+
+        $object = $this->productService->find($request->object_id);
+        return view('admin.menus.selected', compact('object'))->render();
     }
 }

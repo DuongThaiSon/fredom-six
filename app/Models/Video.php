@@ -16,4 +16,10 @@ class Video extends Model
     {
         return $this->belongsTo('App\Models\User', 'created_by');
     }
+
+    protected $casts = [
+        'is_public' => 'boolean',
+        'is_highlight' => 'boolean',
+        'is_new' => 'boolean',
+    ];
 }

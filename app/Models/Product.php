@@ -25,7 +25,7 @@ class Product extends Model
         ->withTimestamps();
     }
 
-    public function updater()
+    public function user()
     {
         return $this->belongsTo('App\Models\User', 'updated_by')->withDefault();
     }

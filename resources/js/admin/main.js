@@ -1,6 +1,6 @@
 require("../bootstrap");
 
-$(document).ready(function() {
+$(document).ready(function () {
     var pageId = $("#page-id").val();
     // Add active class
     $(".menu-" + pageId)
@@ -14,11 +14,14 @@ $(document).ready(function() {
         .parents("li")
         .addClass("active");
 
+    // bootstrap tooltip
+    $('[data-toggle="tooltip"]').tooltip()
+
     // sidebar toggle
-    $("#sidebarCollapse").on("click", function() {
+    $("#sidebarCollapse").on("click", function () {
         $("#sidebar").toggleClass("active");
         $("#page-content").toggleClass("active");
-        $(".has-child").hover(function() {
+        $(".has-child").hover(function () {
             $("#page-content").toggleClass("index");
         });
         $(this).toggleClass("active");
@@ -26,13 +29,13 @@ $(document).ready(function() {
             $(".collapse").removeClass("show");
         }
         $(".sub").toggleClass("collapse");
-        $(".nav-link.collapsed").attr("data-toggle", function(i, attr) {
+        $(".nav-link.collapsed").attr("data-toggle", function (i, attr) {
             return attr == "collapse" ? "false" : "collapse";
         });
     });
 
     // read filename on custom input file
-    $('.custom-file-input').change(function() {
+    $('.custom-file-input').change(function () {
         let fileName = readUploadFileName(this);
         $(this).parents(".custom-file").find(".custom-file-label").text(fileName);
     })
@@ -46,7 +49,7 @@ $(document).ready(function() {
     changeAttributeValueOnCheckboxToggle();
 
     CKFinder.setupCKEditor();
-    
+
 });
 
 function readUploadFileName(input) {
@@ -59,7 +62,7 @@ function readUploadFileName(input) {
 
 function changeAttributeValueOnCheckboxToggle() {
     $(".checkbox-toggle").off(".checkboxToggle")
-    $(".checkbox-toggle").on("change.checkboxToggle", function() {
+    $(".checkbox-toggle").on("change.checkboxToggle", function () {
         let checkbox = $(this);
         checkbox.attr('checked', !checkbox.attr('checked'))
     })

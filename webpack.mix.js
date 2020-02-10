@@ -19,6 +19,13 @@ mix.js("resources/js/admin/main.js", "public/assets/admin/js")
     .js("resources/js/admin/backups.import.js", "public/assets/admin/js")
     .js("resources/js/client/products.detail.js", "public/assets/client/js")
     .js("resources/js/admin/product-attributes.create.js", "public/assets/admin/js")
+    .js("resources/js/admin/articles.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/videos.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/articleCats.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/productCats.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/galleryCats.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/videoCats.index.js", "public/assets/admin/js")
+    .js("resources/js/admin/menus.index.js", "public/assets/admin/js")
     .js("resources/js/admin/menus.edit.js", "public/assets/admin/js")
     .js("resources/js/admin/settings.index.js", "public/assets/admin/js")
     .js("resources/js/admin/sitemap.index.js", "public/assets/admin/js")
@@ -29,4 +36,11 @@ mix.js("resources/js/admin/main.js", "public/assets/admin/js")
     .copy('node_modules/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css', 'public/assets/admin/css/filepond-plugin-image-preview.min.css')
     .copy('node_modules/@fortawesome/fontawesome-free/css/all.min.css', 'public/assets/admin/vendor/fontawesome/css/all.min.css')
     .copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/assets/admin/vendor/fontawesome/webfonts')
-    .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css');
+    .copy('node_modules/filepond/dist/filepond.min.css', 'public/assets/admin/css/filepond.min.css')
+    .webpackConfig({
+        resolve: {
+            alias: {
+                "bootstrap": path.resolve(__dirname, "node_modules/bootstrap/dist/js/bootstrap.min.js"),
+            }
+        }
+    });

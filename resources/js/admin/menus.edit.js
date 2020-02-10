@@ -1,384 +1,259 @@
-$(document).ready(function(){
+import { swalWithDangerConfirmButton } from "../core";
+
+$(document).ready(function () {
+    const CUSTOM_LINK = 0;
+    const LINK_TO_ARTICLE_CATEGORY = 1;
+    const SYNC_WITH_ARTICLE_CATEGORY = 2;
+    const SYNC_WITH_ALL_ARTICLE_CATEGORIES = 3;
+    const LINK_TO_ARTICLE = 4;
+    const LINK_TO_PRODUCT_CATEGORY = 5;
+    const SYNC_WITH_PRODUCT_CATEGORY = 6;
+    const SYNC_WITH_ALL_PRODUCT_CATEGORIES = 7;
+    const LINK_TO_PRODUCT = 8;
+    const listArticleCategoriesUrl = $('#listArticleCategories').val();
+    const showArticleCategoryUrl = $('#showArticleCategory').val();
+    const listProductCategoriesUrl = $('#listProductCategories').val();
+    const showProductCategoryUrl = $('#showProductCategory').val();
+    const listArticlesUrl = $('#listArticles').val();
+    const listArticlesDatatablesUrl = $('#listArticlesDatatables').val();
+    const showArticleUrl = $('#showArticle').val();
+    const listProductsUrl = $('#listProducts').val();
+    const showProductUrl = $('#showProduct').val();
+    const listProductsDatatablesUrl = $('#listProductsDatatables').val();
+    validateFormInput()
+    chooseAnotherRecord()
+
     $("select[name=type]").on('change', function (e) {
         e.preventDefault();
-        let url = "";
-        if ($(this).val() == 4) {
-            url = "list-articles";
-            // ajaxCall(url, 'get-article', 'articles');
-            $.ajax({
-                url: '/admin/menus/'+url,
-                method: 'GET',
-                success: function(scs){
-                    $('#table-show-record').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecord(url, 'get-article', 'articles');
-                    buttonPaginationOnClick(url, 'get-article', 'articles');
-                    searchArticle(url, 'get-article', 'articles');
-                //   $('input[name=link]').remove();
-                }
-            });
-        }
-        if ($(this).val() == 8) {
-            url = "list-products";
-            // ajaxCall(url, 'get-product', 'products');
-            $.ajax({
-                url: '/admin/menus/'+url,
-                method: 'GET',
-                success: function(scs){
-                    $('#table-show-record').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecordProduct(url, 'get-product', 'products');
-                    buttonPaginationOnClick(url, 'get-product', 'products');
-                    searchProduct(url, 'get-product', 'products');
-                //   $('input[name=link]').remove();
-                }
-            });
-        }
-        if ($(this).val() == 5) {
-            url = "list-category-product"; // ajaxCall(url, 'get-product', 'products');
-      
-            $.ajax({
-              url: '/admin/menus/' + url,
-              method: 'GET',
-              success: function success(scs) {
-                // $('#table-show-record').remove();
-                $('.filter-result').html(scs);
-                chooseRecordCategoryProduct(url, 'get-category-product', 'category-product');
-                // buttonPaginationOnClick(url, 'get-product', 'products');
-                // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
-              }
-            });
-          }
-        if ($(this).val() == 1) {
-            url = "list-category-article"; // ajaxCall(url, 'get-product', 'products');
-        
-            $.ajax({
-                url: '/admin/menus/' + url,
-                method: 'GET',
-                success: function success(scs) {
-                // $('#table-show-record').remove();
-                $('.filter-result').html(scs);
-                chooseRecordCategoryProduct(url, 'get-category-article', 'category-article');
-                // buttonPaginationOnClick(url, 'get-product', 'products');
-                // searchProduct(url, 'get-product', 'products'); //   $('input[name=link]').remove();
-                }
-            });
+        const selectedType = parseInt($(this).val());
+        switch (selectedType) {
+            case LINK_TO_ARTICLE_CATEGORY:
+            case SYNC_WITH_ARTICLE_CATEGORY:
+                showListing(listArticleCategoriesUrl);
+                break;
+            case LINK_TO_ARTICLE:
+                showListing(listArticlesUrl).done(function () {
+                    initDatatables(listArticlesDatatablesUrl)
+                });
+                break;
+            case LINK_TO_PRODUCT_CATEGORY:
+            case SYNC_WITH_PRODUCT_CATEGORY:
+                showListing(listProductCategoriesUrl);
+                break;
+            case LINK_TO_PRODUCT:
+                showListing(listProductsUrl).done(function () {
+                    initDatatables(listProductsDatatablesUrl)
+                });
+                break;
+            case CUSTOM_LINK:
+            case SYNC_WITH_ALL_ARTICLE_CATEGORIES:
+            case SYNC_WITH_ALL_PRODUCT_CATEGORIES:
+                hideResultZone();
+                break;
+            default:
+                console.log('No action.')
+                break;
         }
     });
 
-  });
+    const hideResultZone = function () {
+        $('.result-zone').html('');
+    }
 
-//   let ajaxCall = function(url, getUrl, type) {
-//     $.ajax({
-//         url: '/admin/menus/'+url,
-//         method: 'GET',
-//         success: function(scs){
-//             $('#table-show-record').remove();
-//             $('.filter-result').html(scs);
-//             chooseRecord(url, getUrl, type);
-//             buttonPaginationOnClick(url, getUrl, type);
-//             searchArticle(url, getUrl, type);
-//         //   $('input[name=link]').remove();
-//         }
-//       });
-//    };
+    const showListing = function (listingUrl) {
+        const ajax = $.ajax({
+            url: listingUrl,
+            success: function (scs) {
+                $('.result-zone').html(scs);
+                chooseRecord();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+        return ajax;
+    }
 
-   let chooseRecord = function(url, getUrl, type) {
-        $('.choose-record').on('click', function(e){
+    const chooseRecord = function () {
+        $('.choose-record').off('click.chooseRecord')
+        $('.choose-record').on('click.chooseRecord', function (e) {
             e.preventDefault();
-            let id = $(this).attr('data-id');
-            let slug = $(this).attr('data-slug');
-            $('input[name=link]').val(slug);
+            const selectedType = parseInt($("#list-option").val());
+            let showRecordUrl;
+            switch (selectedType) {
+                case LINK_TO_ARTICLE_CATEGORY:
+                case SYNC_WITH_ARTICLE_CATEGORY:
+                    showRecordUrl = showArticleCategoryUrl;
+                    break;
+                case LINK_TO_ARTICLE:
+                    showRecordUrl = showArticleUrl;
+                    break;
+                case LINK_TO_PRODUCT_CATEGORY:
+                case SYNC_WITH_PRODUCT_CATEGORY:
+                    showRecordUrl = showProductCategoryUrl;
+                    break;
+                case LINK_TO_PRODUCT:
+                    showRecordUrl = showProductUrl;
+                    break;
+                default:
+                    console.log('No action.')
+                    break;
+            }
+            const objectId = $(this).data('id');
 
             $.ajax({
-                url: '/admin/menus/'+ getUrl +'/' + id,
-                method: 'get',
-                success: function(scs){
-                resData = scs.results;
-                $('#table').remove();
-                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
-                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
-                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
-                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                            <th>`+ resData.category['name'] +`</th></tr></tbody></table>
-                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
-                    $('.filter-result').append(html);
-                    chooseOther(url, getUrl, type);
-                    buttonPaginationOnClick(url, getUrl, type);
+                url: `${showRecordUrl}?object_id=${objectId}`,
+                success: function (resolve) {
+                    $('.result-zone').html(resolve)
+                    chooseAnotherRecord()
+                }
+            });
+        });
+    };
+
+    function initDatatables(fetchUrl) {
+        $('#datatables').DataTable({
+            ordering: false,
+            searching: true,
+            processing: false,
+            serverSide: true,
+            ajax: fetchUrl,
+            columns: [
+                {
+                    data: 'id',
+                    name: 'id'
                 },
-                error: function(e){
-
-                }
-            });
-        });
-    };
-
-    let chooseOther = function(url, getUrl, type) {
-        $('.button-choose-other').click(function(e) {
-            e.preventDefault();
-            $('input[name=link]').val("");
-            $.ajax({
-                url: '/admin/menus/'+ url ,
-                method: 'GET',
-                success: function(scs){
-                    $('#table').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecord(url, getUrl, type);
-                    buttonPaginationOnClick(url, getUrl, type);
-                }
-            });
-        });
-    };
-
-    let buttonPaginationOnClick = function(url, getUrl, type) {
-        $('.pagination a').on('click', function(e){
-            e.preventDefault();
-            let _url = $(this).attr('href');
-            $.ajax({
-                url: _url,
-                method: 'GET',
-                success: function(scs){
-                    $('.filter-result').html(scs);
-                    chooseRecord(url, getUrl, type);
-                    buttonPaginationOnClick(url, getUrl, type);
-                }
-            });
-        })
-    };
-
-    let searchArticle = function(url, getUrl, type) {
-        $('.search-input').on('keyup',
-            _.debounce(function(e) {
-                e.preventDefault();
-                let keyword = $(this).val();
-                $.ajax({
-                    url: '/admin/menus/search-articles',
-                    method: 'GET',
-                    data: {
-                        keyword: keyword
-                    },
-                    success: function(scs){
-                        $('.article-item').remove();
-                        _.forEach(scs.articles, function(value) {
-                            let element = rowHTML(value.id, value.name, value.category['name'] ,value.slug);
-                            $('.article-table-body').append(element);
-                        });
-                        chooseRecord(url, getUrl, type);
-                    }
-                });
-            }, 500)
-        );
-    };
-
-    let rowHTML = function(id = '', name = '', category_name = '' ,slug = '') {
-        return `
-        <tr class="article-item">
-            <td>${id}</td>
-            <td class="choose-record" data-id="${id}">${name}</td>
-            <th>${category_name}</th>
-            <td>
-                <div class="btn-group">
-                    <a class="btn-sm btn-success choose-record" href="#" data-id="${id}"
-                        class="btn btn-sm p-1" data-toggle="tooltip" title="Chọn" data-slug="${slug}"
-                        data-type="article">
-                        <i class="material-icons">radio_button_checked</i><span style="padding-left:5px">Chọn</span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        `;
-    };
-
-
-    let chooseRecordProduct = function(url, getUrl, type) {
-        $('.choose-record').on('click', function(e){
-            e.preventDefault();
-            let id = $(this).attr('data-id');
-            let slug = $(this).attr('data-slug');
-            $('input[name=link]').val(slug);
-
-            $.ajax({
-                url: '/admin/menus/'+ getUrl +'/' + id,
-                method: 'get',
-                success: function(scs){
-                resData = scs.results;
-                $('#table').remove();
-                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
-                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
-                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
-                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                            <th>`+ resData.categories[0]['name'] +`</th></tr></tbody></table>
-                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
-                    $('.filter-result').append(html);
-                    chooseOtherProduct(url, getUrl, type);
-                    buttonPaginationOnClickProduct(url, getUrl, type);
+                {
+                    data: 'name',
+                    name: 'name'
                 },
-                error: function(e){
-
-                }
-            });
-        });
-    };
-
-    let chooseOtherProduct = function(url, getUrl, type) {
-        $('.button-choose-other').click(function(e) {
-            e.preventDefault();
-            $('input[name=link]').val("");
-            $.ajax({
-                url: '/admin/menus/'+ url ,
-                method: 'GET',
-                success: function(scs){
-                    $('#table').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecordProduct(url, getUrl, type);
-                    buttonPaginationOnClickProduct(url, getUrl, type);
-                }
-            });
-        });
-    };
-
-    let buttonPaginationOnClickProduct = function(url, getUrl, type) {
-        $('.pagination a').on('click', function(e){
-            e.preventDefault();
-            let _url = $(this).attr('href');
-            $.ajax({
-                url: _url,
-                method: 'GET',
-                success: function(scs){
-                    $('.filter-result').html(scs);
-                    chooseRecordProduct(url, getUrl, type);
-                    buttonPaginationOnClickProduct(url, getUrl, type);
-                }
-            });
-        })
-    };
-
-    let searchProduct = function(url, getUrl, type) {
-        $('.search-input').on('keyup',
-            _.debounce(function(e) {
-                e.preventDefault();
-                let keyword = $(this).val();
-                $.ajax({
-                    url: '/admin/menus/search-products',
-                    method: 'GET',
-                    data: {
-                        keyword: keyword
+                {
+                    data: 'updated_at',
+                    name: 'updated_at'
+                },
+                {
+                    data: 'user',
+                    name: 'user.name'
+                },
+                {
+                    data: null,
+                    render: function (data) {
+                        return `
+                        <a href="#" data-id="${data.id}" class="btn btn-sm p-1 choose-record" style="padding:0;" data-toggle="tooltip" title="Chọn">
+                            <i class="material-icons">library_add</i> Chọn
+                        </a>
+                        `;
                     },
-                    success: function(scs){
-                        $('.product-item').remove();
-                        _.forEach(scs.products, function(value) {
-                            let element = rowHTML(value.id, value.name, value.categories[0]['name'] ,value.slug);
-                            $('.product-table-body').append(element);
-                        });
-                        chooseRecordProduct(url, getUrl, type);
-                    }
-                });
-            }, 500)
-        );
-    };
-
-    let rowHTMLProduct = function(id = '', name = '', category_name = '' ,slug = '') {
-        return `
-        <tr class="article-item">
-            <td>${id}</td>
-            <td class="choose-record" data-id="${id}">${name}</td>
-            <th>${category_name}</th>
-            <td>
-                <div class="btn-group">
-                    <a class="btn-sm btn-success choose-record" href="#" data-id="${id}"
-                        class="btn btn-sm p-1" data-toggle="tooltip" title="Chọn" data-slug="${slug}"
-                        data-type="article">
-                        <i class="material-icons">radio_button_checked</i><span style="padding-left:5px">Chọn</span>
-                    </a>
-                </div>
-            </td>
-        </tr>
-        `;
-    };
-
-    let chooseRecordCategoryProduct = function(url, getUrl, type) {
-        $('.choose-record').on('click', function(e){
-            e.preventDefault();
-            let id = $(this).attr('data-id');
-            let slug = $(this).attr('data-slug');
-            $('input[name=link]').val(slug);
-
-            $.ajax({
-                url: '/admin/menus/'+ getUrl +'/' + id,
-                method: 'get',
-                success: function(scs){
-                resData = scs.results;
-                $('#table').remove();
-                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
-                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
-                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
-                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                            </tr></tbody></table>
-                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
-                    $('.filter-result').append(html);
-                    chooseOtherProductCategory(url, getUrl, type);
-                    // buttonPaginationOnClickProduct(url, getUrl, type);
+                    searchable: false
                 }
-            });
-        });
-    };
+            ],
+            pagingType: "simple_numbers",
+            lengthMenu: [
+                [10, 25],
+                [10, 25]
+            ],
+            responsive: true,
+            language: {
+                paginate: {
+                    first: 'Đầu',
+                    previous: 'Trước',
+                    next: 'Sau',
+                    last: 'Cuối'
+                },
+                loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+                search: "_INPUT_",
+                searchPlaceholder: "Tìm kiếm nhanh",
+                lengthMenu: 'Hiển thị <select>' +
+                    '<option value="10">10</option>' +
+                    '<option value="25">25</option>' +
+                    '</select> bản ghi',
+                emptyTable: "Không tìm thấy bản ghi",
+                zeroRecords: "Không tìm thấy bản ghi",
+                info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+                infoEmpty: "Không có mục nào để hiển thị",
+                infoFiltered: " - lọc từ _MAX_ bản ghi"
 
-    let chooseOtherProductCategory = function(url, getUrl, type) {
-        $('.button-choose-other').click(function(e) {
-            e.preventDefault();
-            $('input[name=link]').val("");
-            $.ajax({
-                url: '/admin/menus/'+ url ,
-                method: 'GET',
-                success: function(scs){
-                    $('#table').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecordCategoryProduct(url, getUrl, type);
-                    // buttonPaginationOnClickProduct(url, getUrl, type);
-                }
-            });
+            },
+            // Event fired when table is draw
+            fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                chooseRecord()
+            }
         });
-    };
-    let chooseRecordCategoryArticle = function(url, getUrl, type) {
-        $('.choose-record').on('click', function(e){
-            e.preventDefault();
-            let id = $(this).attr('data-id');
-            let slug = $(this).attr('data-slug');
-            $('input[name=link]').val(slug);
+    }
 
-            $.ajax({
-                url: '/admin/menus/'+ getUrl +'/' + id,
-                method: 'get',
-                success: function(scs){
-                resData = scs.results;
-                $('#table').remove();
-                var html = `<div class="table-responsive bg-white mt-4" id="table"><table id="table-show-record" class="table-sm table-hover table mb-2" width="100%">`;
-                    html+= `<thead><tr class="text-muted"><th>ID</th><th>TÊN BÀI VIẾT</th><th>TÊN MỤC</th></tr></thead>`;
-                    html+= ` <tbody><tr><td>`+ resData.id + `</td>
-                            <td><a target="_blank" href="/admin/`+ type +`/`+ resData.id +`/edit">`+ resData.name +`</a></td>
-                            </tr></tbody></table>
-                            <button class="btn btn-sm btn-info button-choose-other">Chọn bài viết khác</button></div>`;
-                    $('.filter-result').append(html);
-                    chooseOtherArticleCategory(url, getUrl, type);
-                    // buttonPaginationOnClickArticle(url, getUrl, type);
-                }
-            });
-        });
-    };
-
-    let chooseOtherArticleCategory = function(url, getUrl, type) {
-        $('.button-choose-other').click(function(e) {
+    function chooseAnotherRecord() {
+        $('.choose-another').off('click.chooseAnother')
+        $('.choose-another').on('click.chooseAnother', function (e) {
             e.preventDefault();
-            $('input[name=link]').val("");
-            $.ajax({
-                url: '/admin/menus/'+ url ,
-                method: 'GET',
-                success: function(scs){
-                    $('#table').remove();
-                    $('.filter-result').html(scs);
-                    chooseRecordCategoryArticle(url, getUrl, type);
-                    // buttonPaginationOnClickArticle(url, getUrl, type);
-                }
-            });
+            const selectedType = parseInt($("#list-option").val());
+            switch (selectedType) {
+                case LINK_TO_ARTICLE_CATEGORY:
+                case SYNC_WITH_ARTICLE_CATEGORY:
+                    showListing(listArticleCategoriesUrl);
+                    break;
+                case LINK_TO_ARTICLE:
+                    showListing(listArticlesUrl).done(function () {
+                        initDatatables(listArticlesDatatablesUrl)
+                    });
+                    break;
+                case LINK_TO_PRODUCT_CATEGORY:
+                case SYNC_WITH_PRODUCT_CATEGORY:
+                    showListing(listProductCategoriesUrl);
+                    break;
+                case LINK_TO_PRODUCT:
+                    showListing(listProductsUrl).done(function () {
+                        initDatatables(listProductsDatatablesUrl)
+                    });
+                    break;
+                default:
+                    console.log('No action.')
+                    break;
+            }
         });
-    };
+    }
+
+    function validateFormInput() {
+        $("#submit-menu-form").off("submit.validateFormInput")
+        $("#submit-menu-form").on("submit.validateFormInput", function (e) {
+            const selectedType = parseInt($("#list-option").val());
+            const objectId = $("#object_id").val()
+            const url = $("input[name=link]").val()
+            if ((selectedType === LINK_TO_ARTICLE_CATEGORY ||
+                selectedType === SYNC_WITH_ARTICLE_CATEGORY ||
+                selectedType === LINK_TO_PRODUCT_CATEGORY ||
+                selectedType === SYNC_WITH_PRODUCT_CATEGORY) && !objectId) {
+                swalWithDangerConfirmButton.fire({
+                    title: "Lỗi",
+                    text: "Hãy chọn một mục",
+                    icon: "error",
+                })
+                return false;
+            }
+            if (selectedType === LINK_TO_ARTICLE && !objectId) {
+                swalWithDangerConfirmButton.fire({
+                    title: "Lỗi",
+                    text: "Hãy chọn một bài viết",
+                    icon: "error",
+                })
+                return false;
+            }
+            if (selectedType === LINK_TO_PRODUCT && !objectId) {
+                swalWithDangerConfirmButton.fire({
+                    title: "Lỗi",
+                    text: "Hãy chọn một sản phẩm",
+                    icon: "error",
+                })
+                return false;
+            }
+            if (selectedType === CUSTOM_LINK && !url) {
+                swalWithDangerConfirmButton.fire({
+                    title: "Lỗi",
+                    text: "URL không được để trống",
+                    icon: "error",
+                })
+                return false;
+            }
+            return true;
+        })
+    }
+});

@@ -8,6 +8,12 @@ class Category extends Model
 {
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_public' => 'boolean',
+        'is_highlight' => 'boolean',
+        'is_new' => 'boolean',
+    ];
+
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'created_by');
@@ -18,12 +24,12 @@ class Category extends Model
         return $this->hasMany('App\Models\Video');
     }
 
-    public function subCat()
+    public function categories()
     {
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
 
-    public function gallery()
+    public function galleries()
     {
         return $this->hasMany('App\Models\Gallery');
     }
@@ -31,6 +37,11 @@ class Category extends Model
     public function articles()
     {
         return $this->hasMany('App\Models\Article');
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class);
     }
 
     /**

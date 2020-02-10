@@ -24,7 +24,7 @@
         "spatie/laravel-backup": "^6.7",
         "spatie/laravel-sitemap": "^5.5",
         "vipsoft/unzip": "^1.2",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "^9.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

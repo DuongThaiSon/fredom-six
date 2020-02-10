@@ -24,7 +24,7 @@ class Category extends Model
         return $this->hasMany('App\Models\Video');
     }
 
-    public function subCat()
+    public function categories()
     {
         return $this->belongsTo('App\Models\Category', 'parent_id');
     }
@@ -37,6 +37,11 @@ class Category extends Model
     public function articles()
     {
         return $this->hasMany('App\Models\Article');
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class);
     }
 
     /**

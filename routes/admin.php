@@ -260,37 +260,67 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'uses' => 'ContactController@deleteAll'
         ]);
     });
+
+    Route::group(['prefix' => 'menus'], function () {
+        Route::get('list-article-categories', [
+            'as' => 'menus.listArticleCategories',
+            'uses' => 'MenuController@listArticleCategories',
+        ]);
+        Route::get('show-article-category', [
+            'as' => 'menus.showArticleCategory',
+            'uses' => 'MenuController@showArticleCategory',
+        ]);
+        Route::get('list-product-categories', [
+            'as' => 'menus.listProductCategories',
+            'uses' => 'MenuController@listProductCategories',
+        ]);
+        Route::get('show-product-category', [
+            'as' => 'menus.showProductCategory',
+            'uses' => 'MenuController@showProductCategory',
+        ]);
+        Route::get('list-articles', [
+            'as' => 'menus.listArticles',
+            'uses' => 'MenuController@listArticles',
+        ]);
+        Route::get('list-articles-datatables', [
+            'as' => 'menus.listArticlesDatatables',
+            'uses' => 'MenuController@listArticlesDatatables',
+        ]);
+        Route::get('show-article', [
+            'as' => 'menus.showArticle',
+            'uses' => 'MenuController@showArticle',
+        ]);
+        Route::get('list-products', [
+            'as' => 'menus.listProducts',
+            'uses' => 'MenuController@listProducts',
+        ]);
+        Route::get('list-products-datatables', [
+            'as' => 'menus.listProductsDatatables',
+            'uses' => 'MenuController@listProductsDatatables',
+        ]);
+        Route::get('show-product', [
+            'as' => 'menus.showProduct',
+            'uses' => 'MenuController@showProduct',
+        ]);
+        Route::post('reorder', [
+            'as' => 'menus.reorder',
+            'uses' => 'MenuController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'menus.destroyMany',
+            'uses' => 'MenuController@destroyMany',
+        ]);
+    });
+    Route::group(['prefix' => 'menu-categories/{category}'], function () {
+        Route::get('make-child/{menu}', [
+            'as' => 'menus.makeChild',
+            'uses' => 'MenuController@makeChild',
+        ]);
+        Route::resource('menus', 'MenuController');
+    });
     Route::resource('menu-categories', 'MenuCategoryController', [
         'parameters' => ['menu-categories' => 'category']
     ]);
-    Route::group(['prefix' => 'menus'], function () {
-        Route::post('/sort', [
-            'as' => 'menus.sort',
-            'uses' => 'MenuController@sort'
-        ]);
-        Route::get('/list-articles', [
-            'as' => 'menus.listArticle',
-            'uses' => 'MenuController@listArticle'
-        ]);
-        Route::get('/list-products', 'MenuController@listProduct');
-        Route::get('/get-article/{id}', 'MenuController@getArticle');
-        Route::get('/get-product/{id}', 'MenuController@getProduct');
-        Route::get('/search-articles', [
-            'as' => 'menus.searchArticles',
-            'uses' => 'MenuController@searchArticles'
-        ]);
-
-        Route::get('/search-products', [
-            'as' => 'menus.searchProducts',
-            'uses' => 'MenuController@searchProducts'
-        ]);
-        Route::get('/list-category-product', 'MenuController@listCategoryProduct');
-        Route::get('/get-category-product/{id}', 'MenuController@getProductCategory');
-        Route::get('/list-category-article', 'MenuController@listCategoryArticle');
-        Route::get('/get-category-article/{id}', 'MenuController@getArticleCategory');
-    });
-
-    Route::resource('menus', 'MenuController');
 
     // product
     Route::delete('delete-many/products', [

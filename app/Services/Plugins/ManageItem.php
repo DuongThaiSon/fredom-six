@@ -3,6 +3,7 @@
 namespace App\Services\Plugins;
 
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 trait ManageItem
 {
@@ -20,7 +21,7 @@ trait ManageItem
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }
-        if (!$attributes['slug']) {
+        if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
             while ($this->model->where('slug', $slug)->get()->count() > 0) {
                 $slug .= '-' . rand(0, 9);
@@ -51,7 +52,7 @@ trait ManageItem
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }
-        if (!$attributes['slug']) {
+        if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
             while ($this->model->where('slug', $slug)->get()->count() > 0) {
                 $slug .= '-' . rand(0, 9);
@@ -168,5 +169,28 @@ trait ManageItem
         $entity->save();
         $this->resetModel();
         return $entity;
+    }
+
+    public function datatablesList()
+    {
+        $list = $this->model
+            ->orderBy('order', 'desc')
+            ->with('user');
+
+        return DataTables::of($list)
+            ->setRowClass(function ($article) {
+                return 'ui-state-default';
+            })
+            ->addColumn('user', function ($row) {
+                return $row->user ? $row->user->name : '';
+            })
+            ->make(true);
+    }
+
+    public function find($id)
+    {
+        $model = $this->model->findOrFail($id);
+        $this->resetModel();
+        return $model;
     }
 }

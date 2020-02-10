@@ -1,7 +1,7 @@
 <ul style="list-style-type: none;" class="sort ui-sortable">
     @forelse ($categories as $category )
     <li id="entry_{{ $category->id}}" class="ui-state-default border-0">
-        <div class="table-responsive bg-white">
+        <div class="bg-white">
             <table class="table table-hover table-sm mb-0" width="100%">
                 <tbody data-link="row" class="rowlink">
                     <tr class="text-dark">

@@ -12,7 +12,7 @@ require('./simpleMoneyFormat');
 window.flatpickr = require("flatpickr");
 window.Swal = require('sweetalert2');
 require('bootstrap');
-// window.dt = require( 'datatables.net' )(window, window.$);
+window.dt = require( 'datatables.net' );
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

@@ -7,7 +7,7 @@
             <h1 class="mt-3 pl-4">QUẢN LÝ MENU</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
-                <a href="{{ route('admin.menus.create', ['category_id' => $category_id]) }}" class="btn btn-sm btn-dark"
+                <a href="{{ route('admin.menus.create', ['category' => $categoryId]) }}" class="btn btn-sm btn-dark"
                     data-toggle="tooltip" title="Thêm mới">
                     <i class="material-icons">
                         note_add
@@ -17,45 +17,42 @@
 
             <!-- TABLE -->
             <div class="card-body">
-                <div class="table-responsive bg-white mt-4" id="table">
+                <div class="table-responsive bg-white mt-4" id="table" data-reorder="{{ route('admin.menus.reorder') }}"
+                    data-destroy-many="{{ route('admin.menus.destroyMany') }}">
                     <table class="table-sm table-hover mb-2" width="100%">
                         <thead>
                             <tr class="text-muted">
-                                <th style="width: 4%;"></th>
-                                {{-- <th style="width: 3%;" class="text-center">
-                        <a id="btn-ck-all" href="#" data-toggle="tooltip" title="Chọn / bỏ chọn toàn bộ">
-                            <i class="material-icons text-muted">check_box_outline_blank</i>
-                        </a>
-                        </th> --}}
-                                <th style="width: 6%;">ID</th>
-                                <th style="width: 20%;">TÊN MENU</th>
-                                <th style="width: 20%">THUỘC DANH MỤC </th>
-                                <th style="width: 15%;">Người đăng</th>
-                                <th style="width: 20%;">Ngày tạo</th>
-                                <th style="width: 15%">Thao tác</th>
+                                <th width="5%"></th>
+                                {{-- <th width="3%" class="text-center">
+                                    <div class="pretty p-icon p-curve p-bigger p-has-indeterminate p-smooth"
+                                        style="font-size: 15px">
+                                        <input type="checkbox" class="btn-check-all" />
+                                        <div class="state p-primary">
+                                            <i class="icon material-icons">done</i>
+                                            <label></label>
+                                        </div>
+                                        <div class="state p-is-indeterminate p-primary">
+                                            <i class="icon material-icons">remove</i>
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </th> --}}
+                                <th width="5%">ID</th>
+                                <th width="25%">TÊN MENU</th>
+                                <th width="20%">THUỘC DANH MỤC </th>
+                                <th width="15%">Người cập nhật</th>
+                                <th width="20%">Ngày cập nhật</th>
+                                <th width="10%" class="text-right">Thao tác</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                @include('admin.partials.menu_rows',['level' => 0])
+                @include('admin.partials.menuRows')
             </div>
-            <a target="_blank"
-                href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
-                class="float-right mt-4">
-                <i class="material-icons">
-                    help_outline
-                </i>
-            </a>
         </div>
     </div>
 </div>
 @endsection
 @push('js')
-<script src="{{ asset('assets/admin') }}/js/menus.js"></script>
-<script>
-    $(document).ready(function () {
-      core.makeTableOrderable('/admin/menus/sort');
-      // core.initCheckboxButton();
-  })
-</script>
+<script src="{{ asset('assets/admin') }}/js/menus.index.js"></script>
 @endpush

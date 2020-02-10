@@ -3663,11 +3663,13 @@ var deleteSingleItem = function deleteSingleItem() {
 /*!******************************!*\
   !*** ./resources/js/core.js ***!
   \******************************/
-/*! exports provided: initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem, moveTop */
+/*! exports provided: swalWithSuccessConfirmButton, swalWithDangerConfirmButton, initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem, moveTop */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithSuccessConfirmButton", function() { return swalWithSuccessConfirmButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithDangerConfirmButton", function() { return swalWithDangerConfirmButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCheckboxButton", function() { return initCheckboxButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAnItem", function() { return deleteAnItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMultipleItems", function() { return deleteMultipleItems; });

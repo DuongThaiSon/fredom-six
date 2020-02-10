@@ -5,12 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Http\Services\Traits\RequestDataCreate;
-use App\Http\Services\Traits\RequestDataEdit;
-use App\Http\Services\Traits\CategoryTrait;
-use App\Http\Services\MenuCategoryService;
-use Auth;
-use Illuminate\Support\Str;
+use App\Services\MenuCategoryService;
 
 class MenuCategoryController extends Controller
 {
@@ -30,7 +25,7 @@ class MenuCategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('type', 'menu')->with('user')->get();
+        $categories = $this->service->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = true);
         return view('admin.menuCats.index', compact('categories'));
     }
 
@@ -41,7 +36,6 @@ class MenuCategoryController extends Controller
      */
     public function create()
     {
-        $categories = $this->service->allWithSub();
         return view('admin.menuCats.create', compact('categories'));
     }
 
@@ -54,25 +48,15 @@ class MenuCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'parent_id' => 'min:0',
-            'name' => 'required|unique:categories',
+            'name' => 'required',
         ]);
-
-        $attributes = $request->only([
-             'name',
-        ]);
-        $attributes['parent_id'] = '0';
-        $attributes['type'] = 'menu';
-        $attributes['created_by'] = Auth::user()->id;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['order'] = Category::max('order') ? (Category::max('order') + 1) : 1;
-        $attributes['slug'] = Str::slug($request->name,'-').$request->id;
-
-        $category = Category::create($attributes);
-        return redirect()->route('admin.menu-categories.index')->with('message', 'Lưu dữ liệu thành công');
+        $attributes = $request->only('name');
+        $attributes['parent_id'] = 0;
+        $this->service->create($attributes);
+        return redirect()->route('admin.menu-categories.index');
     }
 
-    
+
     /**
      * Display the specified resource.
      *
@@ -90,10 +74,9 @@ class MenuCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $categories = Category::findOrFail($id);
-        return view('admin.menuCats.edit', compact('categories'));
+        return view('admin.menuCats.edit', compact('category'));
     }
 
     /**
@@ -103,23 +86,14 @@ class MenuCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        print_r($request->all());die;
         $request->validate([
-            'name' => 'required|unique:categories'
+            'name' => 'required',
+            'slug' => 'required|unique:categories',
         ]);
-        $attributes = $request->only([
-            'name', 
-        ]);
-
-        $attributes['updated_by'] = Auth::user()->id;
-        $attributes['is_public'] = isset($request->is_public)?1:0;
-        $attributes['slug'] = Str::slug($request->name,'-').$request->id;
-        $categories = Category::findOrFail($id);
-        $categories->fill($attributes);
-        $categories->save();
-        return redirect()->route('admin.menu-categories.edit', $categories->id)->with('message', 'Lưu dữ liệu thành công');
+        $category = $this->service->update($request->only(['name', 'slug']), $category);
+        return redirect()->route('admin.menu-categories.index');
     }
 
     /**
@@ -128,8 +102,14 @@ class MenuCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        if ($this->service->destroy($category)) {
+            return response()->json([], 204);
+        } else {
+            return response()->json([
+                'message' => "failed_to_delete"
+            ], 400);
+        }
     }
 }

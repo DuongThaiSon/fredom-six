@@ -64,7 +64,7 @@ trait ManageCategory
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }
-        if (!$attributes['slug']) {
+        if (!array_key_exists('slug', $attributes) || !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
             while (Category::where('slug', $slug)->get()->count() > 0) {
                 $slug .= '-' . rand(0, 9);
@@ -95,7 +95,7 @@ trait ManageCategory
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
         }
-        if (!$attributes['slug']) {
+        if (!array_key_exists('slug', $attributes) || !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
             while (Category::where('slug', $slug)->get()->count() > 0) {
                 $slug .= '-' . rand(0, 9);
@@ -242,5 +242,13 @@ trait ManageCategory
         }
 
         return true;
+    }
+
+    /**
+     * Find a category
+     */
+    public function find($id)
+    {
+        return Category::whereType($this->getCategoryType())->whereId($id)->firstOrFail();
     }
 }

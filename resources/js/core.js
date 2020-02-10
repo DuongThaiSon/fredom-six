@@ -1,14 +1,14 @@
 "use strict";
 import Swal from "sweetalert2";
 
-const swalWithSuccessConfirmButton = Swal.mixin({
+export const swalWithSuccessConfirmButton = Swal.mixin({
     customClass: {
         confirmButton: 'rounded btn btn-success',
         cancelButton: 'rounded btn btn-secondary ml-2',
     },
     buttonsStyling: false
 })
-const swalWithDangerConfirmButton = Swal.mixin({
+export const swalWithDangerConfirmButton = Swal.mixin({
     customClass: {
         confirmButton: 'rounded btn btn-danger',
         cancelButton: 'rounded btn btn-secondary ml-2',

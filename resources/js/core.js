@@ -16,6 +16,19 @@ export const swalWithDangerConfirmButton = Swal.mixin({
     buttonsStyling: false
 })
 
+const croppieOptions = {
+    enableExif: true,
+    viewport: {
+        width: 300,
+        height: 300,
+        type: 'square'
+    },
+    boundary: {
+        width: 350,
+        height: 350
+    }
+}
+
 /**
  * Init behavior button
  */
@@ -393,4 +406,71 @@ export function moveTop() {
             }
         })
     }, 500))
+}
+
+export function initUploadAvatarZone() {
+    $("#imageUpload").off("click.initUploadAvatarZone")
+    $("#imageUpload").on("click.initUploadAvatarZone", function (e) {
+        e.preventDefault()
+        $('.upload-avatar-modal').modal('show')
+        const croppieImage = $('#croppie-zone').croppie(croppieOptions);
+        $('.upload-avatar-modal').on('shown.bs.modal', function () {
+            appendCroppieImage(croppieImage)
+        });
+        $('.upload-avatar-modal').on('hidden.bs.modal', function (e) {
+            croppieImage.croppie('destroy')
+            $("#croppie-select-image-area").removeClass('d-none')
+            $("#croppie-edit-image").addClass("d-none")
+        })
+    })
+}
+
+function appendCroppieImage(croppieImage) {
+    $("#croppie-select-image-area").off(".appendCroppieImage")
+    $("#croppie-select-image-area").on("click.appendCroppieImage", function (e) {
+        e.preventDefault()
+        $("input#croppie-select-image").trigger("click")
+        $("input#croppie-select-image").on("change.appendCroppieImage", function () {
+            readFileInput(this).then(result => {
+                $("#croppie-select-image-area").addClass('d-none')
+                $("#croppie-edit-image").removeClass("d-none")
+                croppieImage.croppie('bind', {
+                    url: result
+                });
+                initSaveCropAction(croppieImage)
+            })
+        })
+    })
+}
+
+function readFileInput(input) {
+    return new Promise((resolve, reject) => {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                resolve(e.target.result)
+            }
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            reject('Invalid')
+        }
+    })
+}
+
+function initSaveCropAction(croppieImage) {
+    $(".btn-croppie-save-image").off(".initSaveCropAction")
+    $(".btn-croppie-save-image").on("click.initSaveCropAction", function (e) {
+        e.preventDefault()
+        croppieImage.croppie('result', 'base64').then(function (image) {
+            $("#imagePreview").css('background-image', `url(${image})`);
+            $("input[name=avatar]").val(image)
+            $('.upload-avatar-modal').modal('hide')
+        })
+    })
+    $(".btn-croppie-cancel").off(".initSaveCropAction")
+    $(".btn-croppie-cancel").on("click.initSaveCropAction", function (e) {
+        e.preventDefault()
+        $("#croppie-select-image-area").removeClass('d-none')
+        $("#croppie-edit-image").addClass("d-none")
+    })
 }

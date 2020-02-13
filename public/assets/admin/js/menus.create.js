@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -387,14 +387,14 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 9:
+/***/ 16:
 /*!**************************************************!*\
   !*** multi ./resources/js/admin/menus.create.js ***!
   \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Projects\CMS\leotive-cms-v3\resources\js\admin\menus.create.js */"./resources/js/admin/menus.create.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/menus.create.js */"./resources/js/admin/menus.create.js");
 
 
 /***/ })

@@ -36,8 +36,8 @@
                 {{ Auth::user()->name}}
             </button>
             <div class="dropdown-menu">
-                <a href="" class="dropdown-item">Thay đổi thông tin cá nhân</a>
-                <a href="{{ route('admin.password.change') }}" class="dropdown-item">Đổi mật khẩu</a>
+                <a href="{{ route('admin.users.profile.index') }}" class="dropdown-item">Thông tin cá nhân</a>
+                <a href="{{ route('admin.users.profile.showChangePasswordForm') }}" class="dropdown-item">Đổi mật khẩu</a>
                 <a href="signin.html" class="btn btn-sm dropdown-item" id="power-button"  onclick="event.preventDefault();document.getElementById('logout').submit();">Thoát</a>
             </div>
             <a href="signin.html" class="btn-sm mx-4"   onclick="event.preventDefault();document.getElementById('logout').submit();">

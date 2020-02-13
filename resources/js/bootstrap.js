@@ -6,12 +6,14 @@ require('jquery-ui/ui/widgets/sortable.js')
 require('popper.js');
 require('bootstrap-select');
 require('bootstrap-notify');
+require('croppie/croppie.min.js')
 require('jasny-bootstrap/dist/js/jasny-bootstrap');
 window.accounting = require('accounting/accounting');
 require('./simpleMoneyFormat');
 window.flatpickr = require("flatpickr");
 window.Swal = require('sweetalert2');
 require('bootstrap');
+require( 'datatables.net-bs4' );
 window.dt = require( 'datatables.net' );
 
 /**

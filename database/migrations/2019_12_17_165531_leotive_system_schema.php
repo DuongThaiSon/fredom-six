@@ -22,7 +22,7 @@ class LeotiveSystemSchema extends Migration
             $table->string('api_token')->nullable();
             $table->string('avatar')->nullable();
             $table->boolean('is_active')->default(false);
-            $table->string('type')->nullable()->default('MEMBER');
+            $table->string('type')->nullable()->default('member');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('birthday')->nullable();

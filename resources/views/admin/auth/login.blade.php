@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="col-12 form-group my-3 text-right">
-                        <a class="font-weight-bold btn btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
+                        <a class="font-weight-bold btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
                         <button type="submit" class="text-white font-weight-bold btn btn-primary rounded" tabindex="3">Đăng Nhập</button>
                     </div>
 

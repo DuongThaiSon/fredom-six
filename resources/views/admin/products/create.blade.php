@@ -92,7 +92,7 @@
 
                     </select>
                 </div>
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>Showrooms</label>
                     <select
                     required
@@ -111,14 +111,14 @@
                       <option value="{{ $showroomValue->id }}" >
                           {{ $showroomValue->name }} - {{ $showroomValue->regions }}
                       </option>
-                         
+
                       @empty
-                          
+
                       @endforelse
                     </select>
                     <small class="form-text">Chọn Showrooms cho sản phẩm</small>
-                  </div>
-                
+                </div> --}}
+
                 <div class="form-group">
                     <label>Giá sản phẩm</label>
                     <input
@@ -192,7 +192,7 @@
                     name="sku"
                     required
                     class="form-control"
-                    placeholder="SKU của sản phẩm"                    
+                    placeholder="SKU của sản phẩm"
                     />
                     <small class="form-text">SKU của sản phẩm</small>
                 </div>
@@ -398,7 +398,7 @@
                     </div>
                     </div>
                 </div>
-            
+
             </form>
         </div>
     </div>

@@ -7,6 +7,7 @@
     "/assets/admin/js/galleryCats.index.js": "/assets/admin/js/galleryCats.index.js",
     "/assets/admin/js/main.js": "/assets/admin/js/main.js",
     "/assets/admin/css/main.css": "/assets/admin/css/main.css",
+    "/assets/admin/js/menus.create.js": "/assets/admin/js/menus.create.js",
     "/assets/admin/js/menus.edit.js": "/assets/admin/js/menus.edit.js",
     "/assets/admin/js/menus.index.js": "/assets/admin/js/menus.index.js",
     "/assets/admin/js/product-attributes.create.js": "/assets/admin/js/product-attributes.create.js",
@@ -15,6 +16,11 @@
     "/assets/admin/js/products.edit.js": "/assets/admin/js/products.edit.js",
     "/assets/admin/js/settings.index.js": "/assets/admin/js/settings.index.js",
     "/assets/admin/js/sitemap.index.js": "/assets/admin/js/sitemap.index.js",
+    "/assets/admin/js/users.admins.create.js": "/assets/admin/js/users.admins.create.js",
+    "/assets/admin/js/users.admins.index.js": "/assets/admin/js/users.admins.index.js",
+    "/assets/admin/js/users.members.create.js": "/assets/admin/js/users.members.create.js",
+    "/assets/admin/js/users.members.index.js": "/assets/admin/js/users.members.index.js",
+    "/assets/admin/js/users.profile.edit.js": "/assets/admin/js/users.profile.edit.js",
     "/assets/admin/js/videoCats.index.js": "/assets/admin/js/videoCats.index.js",
     "/assets/admin/js/videos.index.js": "/assets/admin/js/videos.index.js",
     "/assets/client/js/products.detail.js": "/assets/client/js/products.detail.js",
@@ -23,5 +29,7 @@
     "/assets/admin/css/flatpickr.min.css": "/assets/admin/css/flatpickr.min.css",
     "/assets/admin/css/filepond-plugin-image-preview.min.css": "/assets/admin/css/filepond-plugin-image-preview.min.css",
     "/assets/admin/vendor/fontawesome/css/all.min.css": "/assets/admin/vendor/fontawesome/css/all.min.css",
-    "/assets/admin/css/filepond.min.css": "/assets/admin/css/filepond.min.css"
+    "/assets/admin/css/croppie.css": "/assets/admin/css/croppie.css",
+    "/assets/admin/css/filepond.min.css": "/assets/admin/css/filepond.min.css",
+    "/assets/admin/css/dataTables.bootstrap4.min.css": "/assets/admin/css/dataTables.bootstrap4.min.css"
 }

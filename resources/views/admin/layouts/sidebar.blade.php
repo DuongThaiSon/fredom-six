@@ -218,10 +218,10 @@
                     <div class="sub collapse" id="menu-admin-user">
                         <ul class="flex-column nav">
                             <li class="nav-item">
-                                <a href="{{ route('admin.users.add')}}" class="nav-link">Thêm mới người dùng</a>
+                                <a href="{{ route('admin.users.admins.index')}}" class="nav-link menu-users-admins">Danh sách quản trị viên</a>
                             </li>
                             <li>
-                                <a href="{{ route('admin.users.admin')}}" class="nav-link">Danh sách thành viên</a>
+                                <a href="{{ route('admin.users.members.index')}}" class="nav-link menu-users-members">Danh sách thành viên</a>
                             </li>
                         </ul>
                     </div>

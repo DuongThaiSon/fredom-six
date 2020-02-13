@@ -227,35 +227,59 @@ Route::group(['middleware' => 'auth:admin'], function () {
         ]);
     });
 
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('info/{id}', [
-            'as' => 'users.info',
-            'uses' => 'UserController@info'
+    Route::group([
+            'prefix' => 'users',
+            'namespace' => 'User',
+            'as' => 'users.'
+        ], function () {
+        Route::group(['prefix' => 'members'], function () {
+            Route::get('list', [
+                'as' => 'members.list',
+                'uses' => 'MemberController@list'
+            ]);
+            Route::delete('destroy-many', [
+                'as' => 'members.destroyMany',
+                'uses' => 'MemberController@destroyMany',
+            ]);
+        });
+        Route::resource('members', 'MemberController', [
+            'parameters' => ['members' => 'id']
         ]);
-        Route::post('info/change', [
-            'as' => 'info.change',
-            'uses' => 'UserController@changeInfo'
+        Route::group(['prefix' => 'admins'], function () {
+            Route::get('list', [
+                'as' => 'admins.list',
+                'uses' => 'AdminController@list'
+            ]);
+            Route::delete('destroy-many', [
+                'as' => 'admins.destroyMany',
+                'uses' => 'AdminController@destroyMany',
+            ]);
+        });
+        Route::resource('admins', 'AdminController', [
+            'parameters' => ['admins' => 'id']
         ]);
-        Route::get('add', [
-            'as' => 'users.add',
-            'uses' => 'UserController@getAddUser'
-        ]);
-        Route::post('add', [
-            'as' => 'users.postadd',
-            'uses' => 'UserController@postAddUser'
-        ]);
-        Route::get('admin', [
-            'as' => 'users.admin',
-            'uses' => 'UserController@admin'
-        ]);
-        Route::delete('delete', [
-            'as' => 'users.delete',
-            'uses' => 'UserController@delete'
-        ]);
-        Route::delete('deleteAll', [
-            'as' => 'users.deleteAll',
-            'uses' => 'UserController@deleteAll'
-        ]);
+        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+            Route::get('index', [
+                'as' => 'index',
+                'uses' => 'ProfileController@index'
+            ]);
+            Route::get('edit', [
+                'as' => 'edit',
+                'uses' => 'ProfileController@edit'
+            ]);
+            Route::post('update', [
+                'as' => 'update',
+                'uses' => 'ProfileController@update'
+            ]);
+            Route::get('password', [
+                'as' => 'showChangePasswordForm',
+                'uses' => 'ProfileController@showChangePasswordForm'
+            ]);
+            Route::post('password', [
+                'as' => 'changePassword',
+                'uses' => 'ProfileController@changePassword'
+            ]);
+        });
     });
 
     Route::group(['prefix' => 'contacts'], function () {

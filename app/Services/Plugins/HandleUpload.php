@@ -33,6 +33,16 @@ trait HandleUpload
         return false;
     }
 
+    protected function uploadImageBase64(string $data, $destinationPath)
+    {
+        $this->ensureDestinationDirectoryExists($destinationPath);
+
+        $fileName = uniqid("leotive") . '.' . 'jpg'; // renaming file
+        $uploadImage = Image::make($data);
+        $uploadImage->save($destinationPath.'/'.$fileName);
+        return $fileName;
+    }
+
     private function ensureDestinationDirectoryExists($destinationPath)
     {
         if (!file_exists($destinationPath)) {

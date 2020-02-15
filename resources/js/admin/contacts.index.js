@@ -24,6 +24,7 @@ $(document).ready(function () {
                     d.status = $("select[name=filter_status]").val()
                 }
             },
+            order: [[ 6, "desc" ]],
             columns: [
                 {
                     className: 'rowlink-skip',

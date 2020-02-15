@@ -174,7 +174,7 @@
 
                 <!--Contact-->
                 <li class="nav-item">
-                    <a href="{{ route('admin.contacts.index')}}" class="nav-link" id="menu-contact">
+                    <a href="{{ route('admin.contacts.index')}}" class="nav-link menu-contacts-index">
                         <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
                     </a>
                 </li>

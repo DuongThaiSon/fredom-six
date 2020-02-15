@@ -282,20 +282,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
         });
     });
 
-    Route::group(['prefix' => 'contacts'], function () {
-        Route::get('', [
-            'as' => 'contacts.index',
-            'uses' => 'ContactController@index'
+    Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
+        Route::get('list', [
+            'as' => 'list',
+            'uses' => 'ContactController@list'
         ]);
-        Route::get('delete', [
-            'as' => 'contacts.delete',
-            'uses' => 'ContactController@delete'
-        ]);
-        Route::delete('delete', [
-            'as' => 'contacts.deleteAll',
-            'uses' => 'ContactController@deleteAll'
+        Route::delete('destroy-many', [
+            'as' => 'destroyMany',
+            'uses' => 'ContactController@destroyMany'
         ]);
     });
+    Route::resource('contacts', 'ContactController');
 
     Route::group(['prefix' => 'menus'], function () {
         Route::get('list-article-categories', [

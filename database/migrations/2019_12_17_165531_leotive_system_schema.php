@@ -139,8 +139,9 @@ class LeotiveSystemSchema extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('title')->nullable();
-            $table->string('content')->nullable();
-            $table->string('language', 3)->nullable();
+            $table->text('content')->nullable();
+            $table->text('note')->nullable();
+            $table->string('status')->nullable();
             $table->bigInteger('created_by')->nullable();
             $table->bigInteger('updated_by')->nullable();
             $table->timestamps();

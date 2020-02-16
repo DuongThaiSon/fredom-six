@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3072,10 +3072,10 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
-/***/ "./resources/js/admin/users.admins.create.js":
-/*!***************************************************!*\
-  !*** ./resources/js/admin/users.admins.create.js ***!
-  \***************************************************/
+/***/ "./resources/js/admin/contacts.index.js":
+/*!**********************************************!*\
+  !*** ./resources/js/admin/contacts.index.js ***!
+  \**********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3084,7 +3084,305 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
 
 $(document).ready(function () {
-  Object(_core__WEBPACK_IMPORTED_MODULE_0__["initUploadAvatarZone"])();
+  initDatatables();
+  initContactStatusFilter();
+  var destroyManyUrl = $("#table").data("destroy-many");
+  var contactStatus = {
+    'new': 'Mới',
+    'seen': 'Đã xem',
+    'not_contactable': 'Không thể liên hệ',
+    'solved': 'Đã giải quyết'
+  };
+
+  function initDatatables() {
+    var fetchUrl = $('#table').data('list');
+    $('#table').DataTable({
+      ordering: true,
+      searching: true,
+      processing: false,
+      serverSide: true,
+      ajax: {
+        url: fetchUrl,
+        data: function data(d) {
+          d.status = $("select[name=filter_status]").val();
+        }
+      },
+      order: [[6, "desc"]],
+      columns: [{
+        className: 'rowlink-skip',
+        data: null,
+        searchable: false,
+        orderable: false,
+        render: function render(data) {
+          return "\n                            <a href=\"#contactDetailModal\" data-toggle=\"modal\" data-id=\"".concat(data.id, "\"></a>\n                            <div class=\"pretty p-icon p-curve p-smooth\">\n                                <input type=\"checkbox\" class=\"form-check-input\" value=\"").concat(data.id, "\"\n                                    data-id=\"").concat(data.id, "\" />\n                                <div class=\"state p-primary\">\n                                    <i class=\"icon material-icons\">done</i>\n                                    <label></label>\n                                </div>\n                            </div>");
+        }
+      }, {
+        data: 'id',
+        name: 'id'
+      }, {
+        data: 'name',
+        name: 'name'
+      }, {
+        data: 'phone',
+        name: 'phone'
+      }, {
+        data: 'email',
+        name: 'email'
+      }, {
+        data: null,
+        orderable: false,
+        name: 'status',
+        render: function render(data) {
+          return contactStatus[data.status];
+        }
+      }, {
+        data: 'created_at',
+        name: 'created_at'
+      }, {
+        data: null,
+        orderable: false,
+        className: 'rowlink-skip text-right',
+        render: function render(data) {
+          return "\n                            <a href=\"/admin/contacts/".concat(data.id, "\"\n                                class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                <i class=\"material-icons\">delete</i>\n                            </a>");
+        },
+        searchable: false
+      }],
+      pagingType: "first_last_numbers",
+      lengthMenu: [[10, 25], [10, 25]],
+      responsive: true,
+      language: {
+        paginate: {
+          first: 'Đầu',
+          previous: 'Trước',
+          next: 'Sau',
+          last: 'Cuối'
+        },
+        loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+        search: "_INPUT_",
+        searchPlaceholder: "Tìm kiếm nhanh",
+        lengthMenu: 'Hiển thị <select>' + '<option value="10">10</option>' + '<option value="25">25</option>' + '</select> bản ghi',
+        emptyTable: "Không tìm thấy bản ghi",
+        zeroRecords: "Không tìm thấy bản ghi",
+        info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+        infoEmpty: "Không có mục nào để hiển thị",
+        infoFiltered: " - lọc từ _MAX_ bản ghi"
+      },
+      // Event fired when table is draw
+      fnInfoCallback: function fnInfoCallback(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+        $('#table tbody').rowlink();
+        $('[data-toggle="tooltip"]').tooltip();
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+        deleteSingleItem();
+        deleteMultipleItems(destroyManyUrl);
+        initContactFormData();
+      }
+    });
+  }
+
+  function deleteSingleItem() {
+    var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+    $('#table a.btn-destroy').off('click.deleteSingleItem');
+    $('#table a.btn-destroy').on('click.deleteSingleItem', function (e) {
+      e.preventDefault();
+
+      var _this = $(this);
+
+      var deleteUrl = $(this).attr("href");
+      _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+        title: "Bạn chắc chứ?",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+        icon: "warning",
+        confirmButtonText: "Đúng, xóa nó đi",
+        cancelButtonText: "Huỷ",
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire({
+            onOpen: function onOpen() {
+              Swal.showLoading();
+            }
+          });
+          $.ajax({
+            url: deleteUrl,
+            method: "POST",
+            data: {
+              _method: "DELETE"
+            },
+            success: function success() {
+              $('#table').DataTable().draw('page');
+              _core__WEBPACK_IMPORTED_MODULE_0__["swalWithSuccessConfirmButton"].fire({
+                title: "Thành công",
+                icon: "success"
+              });
+              Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                  title: "Không được phép!",
+                  icon: "error",
+                  buttonsStyling: false,
+                  html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                });
+              } else {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                  title: "Lỗi",
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                  icon: "error",
+                  buttonsStyling: false
+                });
+              }
+            }
+          });
+        }
+      });
+    });
+  }
+
+  function deleteMultipleItems(deleteUrl) {
+    var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+    $("#btn-del-all").click(function () {
+      var checkedCounter = $("input.form-check-input:checkbox:checked").length;
+
+      if (checkedCounter > 0) {
+        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+          title: "Bạn chắc chứ?",
+          text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Đúng, xóa hết đi",
+          cancelButtonText: "Huỷ"
+        }).then(function (result) {
+          if (result.value) {
+            var delete_id = "";
+            $("input.form-check-input:checkbox:checked").each(function (index) {
+              delete_id += $(this).attr("data-id") + ",";
+            });
+            delete_id = delete_id.slice(0, delete_id.length - 1);
+            Swal.fire({
+              onOpen: function onOpen() {
+                Swal.showLoading();
+              }
+            });
+            $.ajax({
+              url: deleteUrl,
+              method: "POST",
+              data: {
+                ids: delete_id,
+                _method: "DELETE"
+              },
+              success: function success() {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithSuccessConfirmButton"].fire({
+                  title: "Thành công",
+                  text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                  icon: "success"
+                }).then(function () {
+                  $('#table').DataTable().draw('page');
+                });
+                Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+              },
+              error: function error(err) {
+                if (err.status === 403) {
+                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                    title: "Không được phép!",
+                    icon: "error",
+                    html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                  });
+                } else {
+                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                    title: "Lỗi",
+                    text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                    icon: "error"
+                  });
+                }
+              }
+            });
+          }
+        });
+      } else {
+        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+          title: "Err...",
+          text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
+        });
+      }
+    });
+  }
+
+  function initContactFormData() {
+    $("#contactDetailModal").off('show.bs.modal');
+    $("#contactDetailModal").on('show.bs.modal', function (e) {
+      var source = $(e.relatedTarget);
+      var contactId = source.data('id');
+
+      var _modal = $(this);
+
+      $.ajax({
+        url: "/admin/contacts/".concat(contactId, "/edit"),
+        success: function success(resolve) {
+          _modal.find(".modal-title").text(resolve.contact.title);
+
+          _modal.find("input[name=id]").val(resolve.contact.id);
+
+          _modal.find("input[name=name]").val(resolve.contact.name);
+
+          _modal.find("input[name=email]").val(resolve.contact.email);
+
+          _modal.find("input[name=phone]").val(resolve.contact.phone);
+
+          _modal.find("input[name=address]").val(resolve.contact.address);
+
+          _modal.find("textarea[name=content]").val(resolve.contact.content);
+
+          _modal.find("textarea[name=note]").val(resolve.contact.note);
+
+          _modal.find("select[name=status]").val(resolve.contact.status);
+        }
+      });
+    });
+    $("#contactDetailModal").off('hide.bs.modal');
+    $("#contactDetailModal").on('hide.bs.modal', function (e) {
+      $('#table').DataTable().draw('page');
+    });
+    $(".btn-update-contact").off("click.initContactFormData");
+    $(".btn-update-contact").on("click.initContactFormData", function (e) {
+      e.preventDefault();
+
+      var _modal = $("#contactDetailModal");
+
+      var formData = {
+        note: _modal.find("textarea[name=note]").val(),
+        status: _modal.find("select[name=status]").val(),
+        _method: "PUT"
+      };
+
+      var contactId = _modal.find("input[name=id]").val();
+
+      $.ajax({
+        url: "/admin/contacts/".concat(contactId),
+        method: 'POST',
+        data: formData,
+        success: function success() {
+          $('#table').DataTable().draw('page');
+
+          _modal.modal('hide');
+        }
+      });
+    });
+  }
+
+  function initContactStatusFilter() {
+    $("select[name=filter_status]").off(".initContactStatusFilter");
+    $("select[name=filter_status]").on("change.initContactStatusFilter", function () {
+      console.log($(this).val());
+      $('#table').DataTable().draw();
+    });
+  }
 });
 
 /***/ }),
@@ -3558,14 +3856,14 @@ function initSaveCropAction(croppieImage) {
 
 /***/ }),
 
-/***/ 21:
-/*!*********************************************************!*\
-  !*** multi ./resources/js/admin/users.admins.create.js ***!
-  \*********************************************************/
+/***/ 14:
+/*!****************************************************!*\
+  !*** multi ./resources/js/admin/contacts.index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/users.admins.create.js */"./resources/js/admin/users.admins.create.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/contacts.index.js */"./resources/js/admin/contacts.index.js");
 
 
 /***/ })

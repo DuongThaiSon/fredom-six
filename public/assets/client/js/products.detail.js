@@ -1,1 +1,298 @@
-!function(n){var t={};function e(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return n[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}e.m=n,e.c=t,e.d=function(n,t,r){e.o(n,t)||Object.defineProperty(n,t,{enumerable:!0,get:r})},e.r=function(n){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(n,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(n,"__esModule",{value:!0})},e.t=function(n,t){if(1&t&&(n=e(n)),8&t)return n;if(4&t&&"object"==typeof n&&n&&n.__esModule)return n;var r=Object.create(null);if(e.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:n}),2&t&&"string"!=typeof n)for(var o in n)e.d(r,o,function(t){return n[t]}.bind(null,o));return r},e.n=function(n){var t=n&&n.__esModule?function(){return n.default}:function(){return n};return e.d(t,"a",t),t},e.o=function(n,t){return Object.prototype.hasOwnProperty.call(n,t)},e.p="/",e(e.s=67)}({67:function(n,t,e){n.exports=e(68)},68:function(n,t){$(document).ready((function(){e(),r(),o(),a(),i(),s(),l(),$(".write-review").click((function(n){$("#review-tab").tab("show")})),$(".thumbnail-products").on("click",(function(n){n.preventDefault();var t=$(this).data("src");$(".product-main-image").attr("src","/"+t),$(".gallery_img").attr("href","/"+t)}))}));var e=function(){var n=$("#rating .rate-product");$(':radio[name="rating"]');n.hover((function(){$(this).prevAll().addBack().addClass("hoverStars")}),(function(){$(this).prevAll().addBack().removeClass("hoverStars")})),n.on("click",(function(){var n=$(this);n.siblings().removeClass("clickStars"),n.prevAll().addBack().addClass("clickStars")}))},r=function(){$(".btn-comment").off(),$(".btn-comment").on("click",(function(n){n.preventDefault();var t=$(this);if(""==t.parents(".comment-form").find(".comment-zone").val())alert("Bạn chưa nhập nội dung!"),$(".comment-zone").focus();else if(""==t.parents(".comment-form").find("input[name=rating]").val())alert("Bạn chưa đánh giá sản phẩm!");else if(""==t.parents(".comment-form").find("input[name=current-user]").val())alert("Có lỗi xảy ra!");else{var e={comment:t.parents(".comment-form").find(".comment-zone").val(),rating:t.parents(".comment-form").find("input[name=rating]").val(),currentUser:t.parents(".comment-form").find("input[name=current-user]").val()},r=$(".btn-buy-now").data("id");$.ajax({url:"/products/".concat(r,"/reviews"),method:"POST",data:e,success:function(n){alert("Cảm ơn bạn đã đánh giá sản phẩm!"),t.parents(".comment-form").find(".btn-comment").addClass("d-none"),t.parents(".comment-form").find(".btn-fix-review").removeClass("d-none"),a()}})}}))},o=function(){$(".rate-product").on("click",(function(n){n.preventDefault(),$("input[name=rating]").val($(this).data("star"))}))},a=function(){var n=$(".btn-buy-now").data("id");$.ajax({url:"/products/".concat(n,"/reviews"),method:"GET",success:function(n){$(".list-comments").html(n),c()}})},c=function n(){$(".pagination a").on("click",(function(t){t.preventDefault();var e=$(this).attr("href");$.ajax({url:e,method:"GET",success:function(t){$(".product-comment").remove(),$(".list-comments").html(t),n()}})}))},i=function(){$(".btn-fix-review").on("click",(function(n){n.preventDefault();var t=$(this);if(""==t.parents(".comment-form").find(".comment-zone").val())alert("Bạn chưa nhập nội dung!"),$(".comment-zone").focus();else if(""==t.parents(".comment-form").find("input[name=rating]").val())alert("Bạn chưa đánh giá sản phẩm!");else if(""==t.parents(".comment-form").find("input[name=current-user]").val())alert("Có lỗi xảy ra!");else{var e={content:t.parents(".comment-form").find(".comment-zone").val(),rate:t.parents(".comment-form").find("input[name=rating]").val(),_method:"PUT"},r=$(".btn-buy-now").data("id"),o=$("input[name=current-user]").val();$.ajax({url:"/products/".concat(r,"/reviews/").concat(o),method:"POST",data:e,success:function(n){t.parents(".comment-form").find(".btn-fix-review").attr("disabled","disabled"),alert("Bạn đã sửa đánh giá thành công!"),a()}})}}))},s=function(){$(".like-button").on("click",(function(n){n.preventDefault();var t={product_id:$("input[name=product_id]").val(),user_id:$("input[name=user_id]").val()};console.log(t),$.ajax({url:$(".like-button").data("href"),method:"POST",data:t,success:function(n){alert("Cảm ơn bạn đã thích sản phẩm của chúng tôi!"),$(".like-button").addClass("is-like"),$(".like-button").attr("disabled","disabled")}})}))},l=function(){$(".choose-color").on("click",(function(n){n.preventDefault(),$(".choose-color").each((function(n){$(this).hasClass("click-choose-color")&&$(this).removeClass("click-choose-color")})),$(this).addClass("click-choose-color"),$("input[name=color]").val($(this).data("color"))}))}}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/client/products.detail.js":
+/*!************************************************!*\
+  !*** ./resources/js/client/products.detail.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  rateStar();
+  postComment();
+  productStarRate();
+  loadComment();
+  fixReview();
+  likeMePls();
+  chooseColor();
+  $('.write-review').click(function (e) {
+    $('#review-tab').tab("show");
+  });
+  $('.thumbnail-products').on('click', function (e) {
+    e.preventDefault();
+    var a = $(this).data('src');
+    $('.product-main-image').attr('src', '/' + a);
+    $('.gallery_img').attr('href', '/' + a);
+  });
+});
+
+var rateStar = function rateStar() {
+  var stars = $('#rating .rate-product'),
+      radios = $(':radio[name="rating"]');
+  stars.hover(function () {
+    var $this = $(this);
+    $this.prevAll().addBack().addClass('hoverStars');
+  }, function () {
+    var $this = $(this);
+    $this.prevAll().addBack().removeClass('hoverStars');
+  });
+  stars.on('click', function () {
+    var $this = $(this);
+    $this.siblings().removeClass('clickStars');
+    $this.prevAll().addBack().addClass('clickStars');
+  });
+};
+
+var postComment = function postComment() {
+  $(".btn-comment").off();
+  $('.btn-comment').on('click', function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    if (_this.parents('.comment-form').find('.comment-zone').val() == "") {
+      alert('Bạn chưa nhập nội dung!');
+      $('.comment-zone').focus();
+    } else if (_this.parents('.comment-form').find('input[name=rating]').val() == "") {
+      alert('Bạn chưa đánh giá sản phẩm!');
+    } else if (_this.parents('.comment-form').find('input[name=current-user]').val() == "") {
+      alert('Có lỗi xảy ra!');
+    } else {
+      var data = {
+        comment: _this.parents('.comment-form').find('.comment-zone').val(),
+        rating: _this.parents('.comment-form').find('input[name=rating]').val(),
+        currentUser: _this.parents('.comment-form').find('input[name=current-user]').val()
+      };
+      var id = $('.btn-buy-now').data('id');
+      $.ajax({
+        url: "/products/".concat(id, "/reviews"),
+        method: "POST",
+        data: data,
+        success: function success(scs) {
+          // $('input[name=rating]').val("");
+          // $('.comment-zone').val("");
+          // $('.ratingStars').removeClass('clickStars');
+          // $('.product-comment').remove();
+          alert('Cảm ơn bạn đã đánh giá sản phẩm!');
+
+          _this.parents('.comment-form').find('.btn-comment').addClass('d-none');
+
+          _this.parents('.comment-form').find('.btn-fix-review').removeClass('d-none');
+
+          loadComment();
+        }
+      });
+    }
+  });
+};
+
+var productStarRate = function productStarRate() {
+  $('.rate-product').on('click', function (e) {
+    e.preventDefault();
+    $('input[name=rating]').val($(this).data('star'));
+  });
+};
+
+var loadComment = function loadComment() {
+  var id = $('.btn-buy-now').data('id');
+  $.ajax({
+    url: "/products/".concat(id, "/reviews"),
+    method: "GET",
+    success: function success(scs) {
+      $('.list-comments').html(scs);
+      buttonPaginationOnClick();
+    }
+  });
+};
+
+var buttonPaginationOnClick = function buttonPaginationOnClick() {
+  $('.pagination a').on('click', function (e) {
+    e.preventDefault();
+    var url = $(this).attr('href');
+    $.ajax({
+      url: url,
+      method: 'GET',
+      success: function success(scs) {
+        $('.product-comment').remove();
+        $('.list-comments').html(scs);
+        buttonPaginationOnClick();
+      }
+    });
+  });
+};
+
+var fixReview = function fixReview() {
+  $('.btn-fix-review').on('click', function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    if (_this.parents('.comment-form').find('.comment-zone').val() == "") {
+      alert('Bạn chưa nhập nội dung!');
+      $('.comment-zone').focus();
+    } else if (_this.parents('.comment-form').find('input[name=rating]').val() == "") {
+      alert('Bạn chưa đánh giá sản phẩm!');
+    } else if (_this.parents('.comment-form').find('input[name=current-user]').val() == "") {
+      alert('Có lỗi xảy ra!');
+    } else {
+      var data = {
+        content: _this.parents('.comment-form').find('.comment-zone').val(),
+        rate: _this.parents('.comment-form').find('input[name=rating]').val(),
+        _method: "PUT"
+      };
+      var id = $('.btn-buy-now').data('id');
+      var user_id = $('input[name=current-user]').val();
+      $.ajax({
+        url: "/products/".concat(id, "/reviews/").concat(user_id),
+        method: "POST",
+        data: data,
+        success: function success(scs) {
+          // $('input[name=rating]').val("");
+          // $('.comment-zone').val("");
+          // $('.ratingStars').removeClass('clickStars');
+          // $('.product-comment').remove();
+          _this.parents('.comment-form').find('.btn-fix-review').attr('disabled', 'disabled');
+
+          alert('Bạn đã sửa đánh giá thành công!');
+          loadComment();
+        }
+      });
+    }
+  });
+};
+
+var likeMePls = function likeMePls() {
+  $('.like-button').on('click', function (e) {
+    e.preventDefault();
+    var data = {
+      product_id: $('input[name=product_id]').val(),
+      user_id: $('input[name=user_id]').val()
+    };
+    console.log(data);
+    $.ajax({
+      url: $('.like-button').data('href'),
+      method: 'POST',
+      data: data,
+      success: function success(scs) {
+        alert('Cảm ơn bạn đã thích sản phẩm của chúng tôi!');
+        $('.like-button').addClass('is-like');
+        $(".like-button").attr('disabled', 'disabled');
+      }
+    });
+  });
+};
+
+var chooseColor = function chooseColor() {
+  $('.choose-color').on('click', function (e) {
+    e.preventDefault();
+    $('.choose-color').each(function (e) {
+      if ($(this).hasClass('click-choose-color')) {
+        $(this).removeClass('click-choose-color');
+      }
+    });
+    $(this).addClass('click-choose-color');
+    $('input[name=color]').val($(this).data('color'));
+  });
+};
+
+/***/ }),
+
+/***/ 6:
+/*!******************************************************!*\
+  !*** multi ./resources/js/client/products.detail.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/client/products.detail.js */"./resources/js/client/products.detail.js");
+
+
+/***/ })
+
+/******/ });

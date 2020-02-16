@@ -122,8 +122,8 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('type', 13)->nullable();
-            $table->string('value')->nullable();
-            $table->text('detail')->nullable();
+            $table->string('key')->nullable();
+            $table->text('value')->nullable();
             $table->boolean('is_public')->nullable()->default(true);
             $table->string('language', 3)->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);

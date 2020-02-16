@@ -181,7 +181,7 @@
 
                 <!-- Component -->
                 <li class="nav-item">
-                    <a href="{{ route('admin.components.index')}}" class="nav-link" id="menu-component">
+                    <a href="{{ route('admin.components.index')}}" class="nav-link menu-components">
                         <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
                     </a>
                 </li>

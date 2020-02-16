@@ -5,55 +5,60 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Component;
-use App\Http\Services\Admin\ComponentService;
-use App\Http\Requests\ComponentRequest;
-use Auth;
-
+use App\Services\Admin\ComponentService;
 
 class ComponentController extends Controller
 {
-    public function __construct(ComponentService $service)
+    public function __construct(ComponentService $componentService)
     {
-        $this->service = $service;
+        $this->componentService = $componentService;
     }
-    public function index()
+
+    public function index(Request $request)
     {
-        $components = Component::orderBy('id','desc')->with(['comCreatedBy'])->simplePaginate();
+        if ($request->wantsJson()) {
+            return $this->componentService->allWithDatatables();
+        }
         return view('admin.components.index', compact('components'));
     }
-    public function create()
+
+    public function store(Request $request)
     {
-       return view('admin.components.add');
+        $request->validate([
+            'name' => 'required',
+            'key' => 'sometimes|unique:components',
+            'value' => 'required'
+        ]);
+        $attributes = $request->only([
+            'name', 'key', 'value', 'is_public'
+        ]);
+        $component = $this->componentService->create($attributes);
+        return response()->json([], 204);
     }
-    public function store(ComponentRequest $request)
-    {
-        $attributes = $this->service->componentCreate($request);
-        $component = Component::create($attributes);
-        return redirect()->route('admin.components.index')->with('success', 'Tạo dữ liệu thành công !');
-    }
-    public function show($id)
+
+    public function edit($id)
     {
         $component = Component::findOrFail($id);
-        return view('admin.components.edit', compact('component'));
-    }
-    public function update(ComponentRequest $request, $id)
-    {
-        $component = Component::findOrFail($id);
-        $attributes = $this->service->componentEdit($request);
-        $component->fill($attributes);
-        $component->save();
-        return redirect()->back()->with('success', 'Lưu dữ liệu thành công !');
-    }
-    public function changePublic(Request $request)
-    {
-        $component = Component::find($request->id);
-        $component->is_public = ($request->value == 0) ? '1':'0';
-        $component->save();
         return response()->json(compact('component'), 200);
     }
-    public function delete($id)
+
+    public function update(Request $request, $id)
     {
-        Component::findOrFail($id)->delete();
-        return redirect()->route('admin.components.index')->with('DELETEED COMPLE');
+        $request->validate([
+            'name' => 'required',
+            'key' => "required|unique:components,key,{$id}",
+            'value' => 'required'
+        ]);
+        $attributes = $request->only([
+            'name', 'key', 'value', 'is_public'
+        ]);
+        $component = $this->componentService->update($attributes, $id);
+        return response()->json([], 204);
+    }
+
+    public function destroy($id)
+    {
+        $this->componentService->destroy($id);
+        return response()->json([], 204);
     }
 }

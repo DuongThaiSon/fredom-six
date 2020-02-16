@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3778,7 +3778,7 @@ function initSaveCropAction(croppieImage) {
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /*!********************************************************!*\
   !*** multi ./resources/js/admin/users.admins.index.js ***!
   \********************************************************/

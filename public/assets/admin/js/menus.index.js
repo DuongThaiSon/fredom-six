@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 15);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -104,7 +104,7 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 15:
+/***/ 16:
 /*!*************************************************!*\
   !*** multi ./resources/js/admin/menus.index.js ***!
   \*************************************************/

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 20);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -151,7 +151,7 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 19:
+/***/ 20:
 /*!***************************************************!*\
   !*** multi ./resources/js/admin/sitemap.index.js ***!
   \***************************************************/

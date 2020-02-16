@@ -3,6 +3,7 @@
     "/assets/admin/js/articles.index.js": "/assets/admin/js/articles.index.js",
     "/assets/admin/js/backups.import.js": "/assets/admin/js/backups.import.js",
     "/assets/admin/js/backups.index.js": "/assets/admin/js/backups.index.js",
+    "/assets/admin/js/components.index.js": "/assets/admin/js/components.index.js",
     "/assets/admin/js/contacts.index.js": "/assets/admin/js/contacts.index.js",
     "/assets/admin/js/galleries.edit.js": "/assets/admin/js/galleries.edit.js",
     "/assets/admin/js/galleryCats.index.js": "/assets/admin/js/galleryCats.index.js",

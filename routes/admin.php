@@ -181,37 +181,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
         ]
     ]);
 
+    Route::resource('components', 'ComponentController', [
+        'parameters' => ['components' => 'id']
+    ]);
 
-    Route::group(['prefix' => 'components'], function () {
-        Route::get('', [
-            'as' => 'components.index',
-            'uses' => 'ComponentController@index'
-        ]);
-        Route::get('add', [
-            'as' => 'components.create',
-            'uses' => 'ComponentController@create'
-        ]);
-        Route::post('add', [
-            'as' => 'components.store',
-            'uses' => 'ComponentController@store'
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'components.show',
-            'uses' => 'ComponentController@show'
-        ]);
-        Route::post('edit/{id}', [
-            'as' => 'components.update',
-            'uses' => 'ComponentController@update'
-        ]);
-        Route::get('public', [
-            'as' => 'components.changePublic',
-            'uses' => 'ComponentController@changePublic'
-        ]);
-        Route::get('delete/{id}', [
-            'as' => 'components.delete',
-            'uses' => 'ComponentController@delete'
-        ]);
-    });
     Route::resource('orders', 'OrderController', [
         'parameters' => ['orders' => 'id']
     ]);

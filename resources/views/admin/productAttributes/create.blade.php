@@ -73,18 +73,17 @@
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="control-label">Kiểu dữ liệu
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="type" value="text" class="custom-control-input" checked>
-                                <label class="custom-control-label font-weight-normal" for="customRadio1">Text</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="type" value="color" class="custom-control-input" >
-                                <label class="custom-control-label font-weight-normal" for="customRadio2">Color</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="type" value="date" class="custom-control-input" >
-                                <label class="custom-control-label font-weight-normal" for="customRadio3">Date</label>
+                            <label class="control-label">Kiểu dữ liệu</label>
+                            <div class="mt-2">
+                                @forelse ($attributeTypes as $type)
+                                <div class="pretty p-default p-round p-smooth">
+                                    <input type="radio" name="type" value="{{ $type }}" {{ $loop->first ? 'checked' : '' }}>
+                                    <div class="state p-primary-o">
+                                        <label>{{ Str::title($type) }}</label>
+                                    </div>
+                                </div>
+                                @empty
+                                @endforelse
                             </div>
                         </div>
                     </div>

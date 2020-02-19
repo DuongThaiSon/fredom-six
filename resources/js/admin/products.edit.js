@@ -5,7 +5,6 @@ import Swal from 'sweetalert2';
 $(document).ready(function() {
     let id = $("input[name=id]").val()
     let guide = new productCore(id)
-    guide.collectSelectedAttributeId()
     guide.selectCategory()
     // guide.makeVariation()
     // guide.setVariantButtonStatus()

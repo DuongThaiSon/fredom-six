@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3132,26 +3132,7 @@ function () {
         validated = false;
       }
 
-      if ($("input[name=can_select]").attr("checked")) {
-        $(".selection-item-value").each(function () {
-          if (_.trim($(this).val()) < 1) {
-            validated = false;
-          }
-        });
-      }
-
       return validated;
-    }
-  }, {
-    key: "conditionToggleSelectZone",
-    value: function conditionToggleSelectZone() {
-      var checkAttr = $("input[name=can_select]");
-
-      if (checkAttr.attr("checked")) {
-        $(".select-zone").removeClass("d-none");
-      } else {
-        $(".select-zone").addClass("d-none");
-      }
     }
   }, {
     key: "addSelectionItem",
@@ -3211,32 +3192,28 @@ function () {
 
     this.productId = productId;
     this.initVariantAction(); // this.submitEditVariantForm()
-    // this.showSelectedAttribute()
+
+    this.unformatPriceAtSubmit();
   }
 
   _createClass(productCore, [{
-    key: "collectSelectedAttributeId",
-    value: function collectSelectedAttributeId() {
-      var _this = this;
-
-      $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        _this.showSelectedAttribute();
+    key: "unformatPriceAtSubmit",
+    value: function unformatPriceAtSubmit() {
+      $(".touch-product-form").off("submit.unformatPriceAtSubmit");
+      $(".touch-product-form").on("submit.unformatPriceAtSubmit", function (e) {
+        var currentPrice = $("input[name=price]").val();
+        $("input[name=price]").val(accounting.unformat(currentPrice));
       });
     }
   }, {
-    key: "showSelectedAttribute",
-    value: function showSelectedAttribute() {
-      var result = '';
-      var selected = $('.attribute-selectpicker').find('option:selected');
-      selected.each(function (index, element) {
-        result += $(element).text();
-
-        if (index < selected.length - 1) {
-          result += ', ';
-        }
+    key: "getSelectedAttributeOption",
+    value: function getSelectedAttributeOption() {
+      var result = [];
+      var selectpicker = $('.attribute-selectpicker');
+      selectpicker.each(function (index, element) {
+        result = _.concat(result, $(element).val());
       });
-      $(".selected-value").text(result);
-      this.setVariantButtonStatus();
+      return result;
     }
   }, {
     key: "makeVariation",
@@ -3557,7 +3534,6 @@ __webpack_require__.r(__webpack_exports__);
 $(document).ready(function () {
   var id = $("input[name=id]").val();
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCore"](id);
-  guide.collectSelectedAttributeId();
   guide.selectCategory(); // guide.makeVariation()
   // guide.setVariantButtonStatus()
 
@@ -4128,7 +4104,7 @@ function initSaveCropAction(croppieImage) {
 
 /***/ }),
 
-/***/ 2:
+/***/ 3:
 /*!***************************************************!*\
   !*** multi ./resources/js/admin/products.edit.js ***!
   \***************************************************/

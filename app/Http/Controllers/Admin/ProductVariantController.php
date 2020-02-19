@@ -14,11 +14,11 @@ use DB;
 
 class ProductVariantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+
+    }
+
     public function index(Product $product)
     {
         return view('admin.productVariants.index', [

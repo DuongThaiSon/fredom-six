@@ -3192,32 +3192,28 @@ function () {
 
     this.productId = productId;
     this.initVariantAction(); // this.submitEditVariantForm()
-    // this.showSelectedAttribute()
+
+    this.unformatPriceAtSubmit();
   }
 
   _createClass(productCore, [{
-    key: "collectSelectedAttributeId",
-    value: function collectSelectedAttributeId() {
-      var _this = this;
-
-      $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-        _this.showSelectedAttribute();
+    key: "unformatPriceAtSubmit",
+    value: function unformatPriceAtSubmit() {
+      $(".touch-product-form").off("submit.unformatPriceAtSubmit");
+      $(".touch-product-form").on("submit.unformatPriceAtSubmit", function (e) {
+        var currentPrice = $("input[name=price]").val();
+        $("input[name=price]").val(accounting.unformat(currentPrice));
       });
     }
   }, {
-    key: "showSelectedAttribute",
-    value: function showSelectedAttribute() {
-      var result = '';
-      var selected = $('.attribute-selectpicker').find('option:selected');
-      selected.each(function (index, element) {
-        result += $(element).text();
-
-        if (index < selected.length - 1) {
-          result += ', ';
-        }
+    key: "getSelectedAttributeOption",
+    value: function getSelectedAttributeOption() {
+      var result = [];
+      var selectpicker = $('.attribute-selectpicker');
+      selectpicker.each(function (index, element) {
+        result = _.concat(result, $(element).val());
       });
-      $(".selected-value").text(result);
-      this.setVariantButtonStatus();
+      return result;
     }
   }, {
     key: "makeVariation",

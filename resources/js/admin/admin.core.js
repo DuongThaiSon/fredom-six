@@ -95,27 +95,25 @@ export class productCore {
         this.productId = productId
         this.initVariantAction()
         // this.submitEditVariantForm()
-        // this.showSelectedAttribute()
+        this.unformatPriceAtSubmit()
     }
 
-    collectSelectedAttributeId() {
-        let _this = this
-        $('.attribute-selectpicker').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            _this.showSelectedAttribute()
-        });
-    }
-
-    showSelectedAttribute() {
-        let result = '';
-        let selected = $('.attribute-selectpicker').find('option:selected')
-        selected.each(function (index, element) {
-            result += $(element).text()
-            if (index < selected.length - 1) {
-                result += ', '
-            }
+    unformatPriceAtSubmit() {
+        $(".touch-product-form").off("submit.unformatPriceAtSubmit")
+        $(".touch-product-form").on("submit.unformatPriceAtSubmit", function(e) {
+            const currentPrice = $("input[name=price]").val()
+            $("input[name=price]").val(accounting.unformat(currentPrice))
         })
-        $(".selected-value").text(result)
-        this.setVariantButtonStatus()
+    }
+
+    getSelectedAttributeOption() {
+        let result = [];
+        const selectpicker = $('.attribute-selectpicker')
+
+        selectpicker.each(function (index, element) {
+            result = _.concat(result, $(element).val())
+        })
+        return result
     }
 
     makeVariation() {

@@ -16,6 +16,7 @@
     "/assets/admin/js/productCats.edit.js": "/assets/admin/js/productCats.edit.js",
     "/assets/admin/js/productCats.index.js": "/assets/admin/js/productCats.index.js",
     "/assets/admin/js/products.edit.js": "/assets/admin/js/products.edit.js",
+    "/assets/admin/js/products.index.js": "/assets/admin/js/products.index.js",
     "/assets/admin/js/settings.index.js": "/assets/admin/js/settings.index.js",
     "/assets/admin/js/sitemap.index.js": "/assets/admin/js/sitemap.index.js",
     "/assets/admin/js/users.admins.create.js": "/assets/admin/js/users.admins.create.js",

@@ -51,13 +51,21 @@
                                 <a href="{{route('admin.product-attributes.edit', $attribute->id)}}">{{$attribute->name}}</a>
                             </td>
                             <td>
-                                {{-- <a href="{{route('admin.product-categories.edit', $attribute->category_id)}}">{{$attribute->category()->first()->name??''}}</a> --}}
-                                {{-- {{ implode(', ', $attribute->categories->pluck('name')->toArray()) }} --}}
+                                {{ $attribute->productAttributeOptions->pluck('value')->implode(', ') }}
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm p-1 click-public" curentid="{{$attribute->id}}" value="{{$attribute->allow_multiple}}"  data-toggle="tooltip"  title="{{ $attribute->allow_multiple==1?'Click để tắt':'Click để bật' }}">
-                                    <i class="material-icons toggle-icon">{{isset($attribute)&&$attribute->allow_multiple==1?'check_circle_outline':'close'}}</i>
-                                </button>
+                                <div class="pretty p-icon p-toggle p-round p-bigger p-smooth">
+                                    <input type="checkbox" class="btn-update-view-status" data-id="{{ $attribute->id }}"
+                                        {{ $attribute->allow_multiple ? 'checked' : '' }} name="allow_multiple" />
+                                    <div class="state p-on p-primary-o">
+                                        <i class="icon material-icons">check</i>
+                                        <label></label>
+                                    </div>
+                                    <div class="state p-off">
+                                        <i class="icon material-icons">clear</i>
+                                        <label></label>
+                                    </div>
+                                </div>
                             </td>
                             <td>{{$attribute->updated_at}}</td>
                             <td>{{$attribute->updater->name ?? ''}}</td>

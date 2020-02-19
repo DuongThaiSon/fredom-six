@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3132,26 +3132,7 @@ function () {
         validated = false;
       }
 
-      if ($("input[name=can_select]").attr("checked")) {
-        $(".selection-item-value").each(function () {
-          if (_.trim($(this).val()) < 1) {
-            validated = false;
-          }
-        });
-      }
-
       return validated;
-    }
-  }, {
-    key: "conditionToggleSelectZone",
-    value: function conditionToggleSelectZone() {
-      var checkAttr = $("input[name=can_select]");
-
-      if (checkAttr.attr("checked")) {
-        $(".select-zone").removeClass("d-none");
-      } else {
-        $(".select-zone").addClass("d-none");
-      }
     }
   }, {
     key: "addSelectionItem",
@@ -3551,7 +3532,6 @@ __webpack_require__.r(__webpack_exports__);
 
 $(document).ready(function () {
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productAttributeCore"]();
-  guide.conditionToggleSelectZone();
 
   if ($(".selection-item").length < 1) {
     guide.addSelectionItem();
@@ -3559,9 +3539,6 @@ $(document).ready(function () {
     guide.removeSelectionItem();
   }
 
-  $("input[name=can_select]").on("change.conditionToggleSelectZone", function () {
-    guide.conditionToggleSelectZone();
-  });
   $(".btn-add-selection-item").on("click.addSelectionItem", function (e) {
     e.preventDefault();
     guide.addSelectionItem();
@@ -3572,7 +3549,7 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /*!***************************************************************!*\
   !*** multi ./resources/js/admin/product-attributes.create.js ***!
   \***************************************************************/

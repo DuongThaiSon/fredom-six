@@ -27,24 +27,7 @@ export class productAttributeCore {
             validated = false;
         }
 
-        if ($("input[name=can_select]").attr("checked")) {
-            $(".selection-item-value").each(function () {
-                if (_.trim($(this).val()) < 1) {
-                    validated = false;
-                }
-            });
-        }
-
         return validated;
-    }
-
-    conditionToggleSelectZone() {
-        let checkAttr = $("input[name=can_select]");
-        if (checkAttr.attr("checked")) {
-            $(".select-zone").removeClass("d-none");
-        } else {
-            $(".select-zone").addClass("d-none");
-        }
     }
 
     addSelectionItem() {

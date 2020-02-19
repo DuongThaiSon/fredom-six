@@ -6,14 +6,24 @@
             <h1 class="mt-3 pl-4 text-uppercase">thêm mới thuộc tính</h1>
             <!-- Save group button -->
             <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-5">
-                @csrf
+
                 @if ($errors->any())
-                <div class="alert bg-danger" role="alert">
-                    <svg class="glyph stroked cancel">
-                        <use xlink:href="#stroked-cancel"></use>
-                    </svg>{{ $errors->first() }}<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>
+                @component('admin.layouts.components.alert')
+                @slot('title', 'Lỗi!')
+                @slot('type', 'danger')
+                {{ $errors->first() }}
+                @endcomponent
                 @endif
+
+                @if (session()->has('success'))
+                @component('admin.layouts.components.alert')
+                @slot('title', 'Thành công!')
+                @slot('type', 'success')
+                {{ session()->get('success') }}
+                @endcomponent
+                @endif
+
+                @csrf
                 <div class="save-group-buttons">
                     <button class="btn btn-sm btn-dark btn-submit-data" data-toggle="tooltip" title="Lưu">
                         <i class="material-icons"> save</i>
@@ -32,19 +42,6 @@
                             <label>Tên thuộc tính</label>
                             <input type="text" name="name" required class="form-control"/>
                         </div>
-
-                        <!-- Button Toggle -->
-                        <div class="mb-2 d-none">
-
-                            <label class="control-label">Giới hạn lựa chọn
-                                <input type="checkbox" value="checked" class="checkbox-toggle" name="can_select" id="can_select" checked/>
-                                <label class="label-checkbox" for="can_select"> </label>
-                            </label>
-                        </div>
-                        <small class="form-text d-none">
-                            Khi tính năng “Giới hạn lựa chọn” được bật, có thể tạo các lựa chọn cụ thể cho thuộc tính
-                        </small>
-
                     </div>
                 </div>
                 <hr>

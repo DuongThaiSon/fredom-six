@@ -64,10 +64,10 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
-            $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->string('language', 3)->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -90,15 +90,15 @@ class LeotiveSystemSchema extends Migration
             $table->string('delivery_status')->nullable();
             $table->string('total')->nullable();
             $table->dateTime('finished_date')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->bigInteger('parent_id')->nullable();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->string('avatar')->nullable();
             $table->text('description')->nullable();
             $table->text('detail')->nullable();
@@ -113,8 +113,8 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_page_topic')->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -127,8 +127,8 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->string('language', 3)->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -142,8 +142,8 @@ class LeotiveSystemSchema extends Migration
             $table->text('content')->nullable();
             $table->text('note')->nullable();
             $table->string('status')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -163,9 +163,21 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_page_topic')->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('category_id')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->text('content')->nullable();
+            $table->smallInteger('rate')->nullable();
+            $table->string('language', 3)->nullable();
+            $table->bigInteger('reviewable_id')->unsigned()->nullable();
+            $table->string('reviewable_type')->nullable();
+            $table->bigInteger('reply_to')->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -179,10 +191,10 @@ class LeotiveSystemSchema extends Migration
             $table->boolean('is_public')->nullable()->default(true);
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('imageable_id')->nullable();
+            $table->bigInteger('imageable_id')->unsigned()->nullable();
             $table->string('imageable_type')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -198,8 +210,8 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('keyword')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -219,15 +231,15 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('type', 13)->nullable();
-            $table->bigInteger('object_id')->nullable();
-            $table->bigInteger('parent_id')->nullable();
-            $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('object_id')->unsigned()->nullable();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -256,10 +268,10 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keyword')->nullable();
             $table->string('meta_page_topic')->nullable();
-            $table->bigInteger('category_id')->nullable();
+            $table->bigInteger('category_id')->unsigned()->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -267,8 +279,8 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->integer('quantity')->unsigned()->nullable();
             $table->decimal('price', 15, 2);
-            $table->bigInteger('cart_id')->nullable();
-            $table->bigInteger('product_id')->nullable();
+            $table->bigInteger('cart_id')->unsigned()->nullable();
+            $table->bigInteger('product_id')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -287,7 +299,7 @@ class LeotiveSystemSchema extends Migration
             $table->bigIncrements('id');
             $table->string('content')->nullable();
             $table->string('rating')->nullable();
-            $table->unsignedInteger('commentable_id')->nullable();
+            $table->unsignedInteger('commentable_id')->unsigned()->nullable();
             $table->string('commentable_type')->nullable();
             $table->unsignedInteger('user_id')->nullable();
             $table->timestamps();
@@ -322,8 +334,8 @@ class LeotiveSystemSchema extends Migration
             $table->string('meta_page_topic')->nullable();
             $table->bigInteger('order')->unsigned()->nullable()->default(1);
             $table->string('language', 3)->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 
@@ -332,8 +344,8 @@ class LeotiveSystemSchema extends Migration
             $table->string('name')->nullable();
             $table->string('type')->nullable()->default('text');
             $table->boolean('allow_multiple')->nullable();
-            $table->bigInteger('created_by')->nullable();
-            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->timestamps();
         });
 

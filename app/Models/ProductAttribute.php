@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductAttribute extends Model
 {
+    const TYPE = [
+        'text', 'color'
+    ];
+
     protected $guarded = ['id'];
 
     protected $casts = [
@@ -20,6 +24,6 @@ class ProductAttribute extends Model
 
     public function productAttributeOptions()
     {
-        return $this->hasMany('App\Models\ProductAttributeOption');
+        return $this->hasMany(ProductAttributeOption::class);
     }
 }

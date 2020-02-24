@@ -6,14 +6,24 @@
             <h1 class="mt-3 pl-4 text-uppercase">thêm mới thuộc tính</h1>
             <!-- Save group button -->
             <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-5">
-                @csrf
+
                 @if ($errors->any())
-                <div class="alert bg-danger" role="alert">
-                    <svg class="glyph stroked cancel">
-                        <use xlink:href="#stroked-cancel"></use>
-                    </svg>{{ $errors->first() }}<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
-                </div>
+                @component('admin.layouts.components.alert')
+                @slot('title', 'Lỗi!')
+                @slot('type', 'danger')
+                {{ $errors->first() }}
+                @endcomponent
                 @endif
+
+                @if (session()->has('success'))
+                @component('admin.layouts.components.alert')
+                @slot('title', 'Thành công!')
+                @slot('type', 'success')
+                {{ session()->get('success') }}
+                @endcomponent
+                @endif
+
+                @csrf
                 <div class="save-group-buttons">
                     <button class="btn btn-sm btn-dark btn-submit-data" data-toggle="tooltip" title="Lưu">
                         <i class="material-icons"> save</i>
@@ -32,19 +42,6 @@
                             <label>Tên thuộc tính</label>
                             <input type="text" name="name" required class="form-control"/>
                         </div>
-
-                        <!-- Button Toggle -->
-                        <div class="mb-2 d-none">
-
-                            <label class="control-label">Giới hạn lựa chọn
-                                <input type="checkbox" value="checked" class="checkbox-toggle" name="can_select" id="can_select" checked/>
-                                <label class="label-checkbox" for="can_select"> </label>
-                            </label>
-                        </div>
-                        <small class="form-text d-none">
-                            Khi tính năng “Giới hạn lựa chọn” được bật, có thể tạo các lựa chọn cụ thể cho thuộc tính
-                        </small>
-
                     </div>
                 </div>
                 <hr>
@@ -76,18 +73,17 @@
                         </div>
 
                         <div class="form-group mb-2">
-                            <label class="control-label">Kiểu dữ liệu
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio1" name="type" value="text" class="custom-control-input" checked>
-                                <label class="custom-control-label font-weight-normal" for="customRadio1">Text</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio2" name="type" value="color" class="custom-control-input" >
-                                <label class="custom-control-label font-weight-normal" for="customRadio2">Color</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="customRadio3" name="type" value="date" class="custom-control-input" >
-                                <label class="custom-control-label font-weight-normal" for="customRadio3">Date</label>
+                            <label class="control-label">Kiểu dữ liệu</label>
+                            <div class="mt-2">
+                                @forelse ($attributeTypes as $type)
+                                <div class="pretty p-default p-round p-smooth">
+                                    <input type="radio" name="type" value="{{ $type }}" {{ $loop->first ? 'checked' : '' }}>
+                                    <div class="state p-primary-o">
+                                        <label>{{ Str::title($type) }}</label>
+                                    </div>
+                                </div>
+                                @empty
+                                @endforelse
                             </div>
                         </div>
                     </div>

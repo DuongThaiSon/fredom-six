@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 20);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3072,125 +3072,828 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
-/***/ "./resources/js/admin/settings.index.js":
+/***/ "./resources/js/admin/products.index.js":
 /*!**********************************************!*\
-  !*** ./resources/js/admin/settings.index.js ***!
+  !*** ./resources/js/admin/products.index.js ***!
   \**********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
+
+$(document).ready(function () {
+  initDatatables(); // initContactStatusFilter();
+
+  var destroyManyUrl = $("#table").data("destroy-many");
+  var reorderUrl = $("#table").data("reorder");
+
+  function initDatatables() {
+    var fetchUrl = $('#table').data('list');
+    $('#table').DataTable({
+      ordering: false,
+      searching: true,
+      processing: false,
+      serverSide: true,
+      ajax: {
+        url: fetchUrl
+      },
+      // order: [[ 6, "desc" ]],
+      columns: [{
+        className: 'connect rowlink-skip',
+        data: null,
+        searchable: false,
+        render: function render(data) {
+          return "\n                            <a href=\"".concat(data.route.edit, "\" ></a>\n                            <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Gi\u1EEF icon n\xE0y k\xE9o th\u1EA3 \u0111\u1EC3 s\u1EAFp x\u1EBFp\">format_line_spacing</i>\n                        ");
+        }
+      }, {
+        className: 'rowlink-skip',
+        data: null,
+        searchable: false,
+        orderable: false,
+        render: function render(data) {
+          return "\n                            <a href=\"#contactDetailModal\" data-toggle=\"modal\" data-id=\"".concat(data.id, "\"></a>\n                            <div class=\"pretty p-icon p-curve p-smooth\">\n                                <input type=\"checkbox\" class=\"form-check-input\" value=\"").concat(data.id, "\"\n                                    data-id=\"").concat(data.id, "\" />\n                                <div class=\"state p-primary\">\n                                    <i class=\"icon material-icons\">done</i>\n                                    <label></label>\n                                </div>\n                            </div>");
+        }
+      }, {
+        data: 'id',
+        name: 'id'
+      }, {
+        data: 'name',
+        name: 'name'
+      }, {
+        data: 'categories',
+        name: 'categories.name'
+      }, {
+        className: 'rowlink-skip',
+        data: null,
+        render: function render(data) {
+          return "\n                            <div class=\"pretty p-icon p-toggle p-round p-bigger p-smooth\">\n                                <input type=\"checkbox\" class=\"btn-update-view-status\" data-id=\"".concat(data.id, "\"\n                                    ").concat(data.is_public ? 'checked' : '', " name=\"is_public\"/>\n                                <div class=\"state p-on p-primary-o\">\n                                    <i class=\"icon material-icons\">check</i>\n                                    <label></label>\n                                </div>\n                                <div class=\"state p-off\">\n                                    <i class=\"icon material-icons\">clear</i>\n                                    <label></label>\n                                </div>\n                            </div>\n                        ");
+        }
+      }, {
+        className: 'rowlink-skip',
+        data: null,
+        render: function render(data) {
+          return "\n                            <div class=\"pretty p-icon p-toggle p-round p-bigger p-smooth\">\n                                <input type=\"checkbox\" class=\"btn-update-view-status\" data-id=\"".concat(data.id, "\"\n                                    ").concat(data.is_highlight ? 'checked' : '', " name=\"is_highlight\"/>\n                                <div class=\"state p-on p-primary-o\">\n                                    <i class=\"icon material-icons\">check</i>\n                                    <label></label>\n                                </div>\n                                <div class=\"state p-off\">\n                                    <i class=\"icon material-icons\">clear</i>\n                                    <label></label>\n                                </div>\n                            </div>\n                        ");
+        }
+      }, {
+        className: 'rowlink-skip',
+        data: null,
+        render: function render(data) {
+          return "\n                            <div class=\"pretty p-icon p-toggle p-round p-bigger p-smooth\">\n                                <input type=\"checkbox\" class=\"btn-update-view-status\" data-id=\"".concat(data.id, "\"\n                                    ").concat(data.is_new ? 'checked' : '', " name=\"is_new\"/>\n                                <div class=\"state p-on p-primary-o\">\n                                    <i class=\"icon material-icons\">check</i>\n                                    <label></label>\n                                </div>\n                                <div class=\"state p-off\">\n                                    <i class=\"icon material-icons\">clear</i>\n                                    <label></label>\n                                </div>\n                            </div>\n                        ");
+        }
+      }, {
+        data: 'created_at',
+        name: 'created_at'
+      }, {
+        data: 'user',
+        name: 'user.name'
+      }, {
+        data: null,
+        orderable: false,
+        className: 'rowlink-skip text-right',
+        render: function render(data) {
+          return "\n                            <div class=\"btn-group\">\n                                <a href=\"".concat(data.route.edit, "\" class=\"btn btn-sm p-1\"\n                                    style=\"padding:0;\" data-toggle=\"tooltip\" title=\"S\u1EEDa\">\n                                    <i class=\"material-icons\">border_color</i>\n                                </a>\n                                <a href=\"").concat(data.route.clone, "\"\n                                    class=\"btn btn-sm p-1 btn-copy\" data-id=\"{{$article->id}}\" data-toggle=\"tooltip\"\n                                    title=\"T\u1EA1o b\u1EA3n sao\">\n                                    <i class=\"material-icons\">file_copy</i>\n                                </a>\n                                <a class=\"btn btn-sm p-1 btn-move-top\"\n                                href=\"").concat(data.route.moveTop, "\" data-toggle=\"tooltip\"\n                                    title=\"\u0110\u01B0a l\xEAn \u0111\u1EA7u ti\xEAn\">\n                                    <i class=\"material-icons\">call_made</i>\n                                </a>\n                                <a href=\"").concat(data.route.destroy, "\"\n                                    class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                    <i class=\"material-icons\">delete</i>\n                                </a>\n                            </div>");
+        },
+        searchable: false
+      }],
+      pagingType: "first_last_numbers",
+      lengthMenu: [[10, 25], [10, 25]],
+      responsive: true,
+      language: {
+        paginate: {
+          first: 'Đầu',
+          previous: 'Trước',
+          next: 'Sau',
+          last: 'Cuối'
+        },
+        loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+        search: "_INPUT_",
+        searchPlaceholder: "Tìm kiếm nhanh",
+        lengthMenu: 'Hiển thị <select>' + '<option value="10">10</option>' + '<option value="25">25</option>' + '</select> bản ghi',
+        emptyTable: "Không tìm thấy bản ghi",
+        zeroRecords: "Không tìm thấy bản ghi",
+        info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+        infoEmpty: "Không có mục nào để hiển thị",
+        infoFiltered: " - lọc từ _MAX_ bản ghi"
+      },
+      // Event fired when table is draw
+      fnInfoCallback: function fnInfoCallback(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+        $('#table tbody').rowlink();
+        $('[data-toggle="tooltip"]').tooltip();
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+        deleteSingleItem();
+        deleteMultipleItems(destroyManyUrl);
+        initContactFormData();
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["makeTableOrderable"])(reorderUrl, "#table tbody");
+        moveTop();
+      }
+    });
+  }
+
+  function moveTop() {
+    $("#table .btn-move-top").off(".moveTop");
+    $("#table .btn-move-top").on("click.moveTop", _.throttle(function (e) {
+      e.preventDefault();
+      var moveTopUrl = $(this).attr("href");
+      $.ajax({
+        url: moveTopUrl,
+        method: "POST",
+        success: function success() {
+          $('#table').DataTable().draw('page');
+        },
+        error: function error(reject) {
+          console.log(reject);
+        }
+      });
+    }, 500));
+  }
+
+  function deleteSingleItem() {
+    var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+    $('#table a.btn-destroy').off('click.deleteSingleItem');
+    $('#table a.btn-destroy').on('click.deleteSingleItem', function (e) {
+      e.preventDefault();
+
+      var _this = $(this);
+
+      var deleteUrl = $(this).attr("href");
+      _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+        title: "Bạn chắc chứ?",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+        icon: "warning",
+        confirmButtonText: "Đúng, xóa nó đi",
+        cancelButtonText: "Huỷ",
+        buttonsStyling: false
+      }).then(function (result) {
+        if (result.value) {
+          Swal.fire({
+            onOpen: function onOpen() {
+              Swal.showLoading();
+            }
+          });
+          $.ajax({
+            url: deleteUrl,
+            method: "POST",
+            data: {
+              _method: "DELETE"
+            },
+            success: function success() {
+              $('#table').DataTable().draw('page');
+              _core__WEBPACK_IMPORTED_MODULE_0__["swalWithSuccessConfirmButton"].fire({
+                title: "Thành công",
+                icon: "success"
+              });
+              Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                  title: "Không được phép!",
+                  icon: "error",
+                  buttonsStyling: false,
+                  html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                });
+              } else {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                  title: "Lỗi",
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                  icon: "error",
+                  buttonsStyling: false
+                });
+              }
+            }
+          });
+        }
+      });
+    });
+  }
+
+  function deleteMultipleItems(deleteUrl) {
+    var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+    $("#btn-del-all").click(function () {
+      var checkedCounter = $("input.form-check-input:checkbox:checked").length;
+
+      if (checkedCounter > 0) {
+        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+          title: "Bạn chắc chứ?",
+          text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Đúng, xóa hết đi",
+          cancelButtonText: "Huỷ"
+        }).then(function (result) {
+          if (result.value) {
+            var delete_id = "";
+            $("input.form-check-input:checkbox:checked").each(function (index) {
+              delete_id += $(this).attr("data-id") + ",";
+            });
+            delete_id = delete_id.slice(0, delete_id.length - 1);
+            Swal.fire({
+              onOpen: function onOpen() {
+                Swal.showLoading();
+              }
+            });
+            $.ajax({
+              url: deleteUrl,
+              method: "POST",
+              data: {
+                ids: delete_id,
+                _method: "DELETE"
+              },
+              success: function success() {
+                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithSuccessConfirmButton"].fire({
+                  title: "Thành công",
+                  text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                  icon: "success"
+                }).then(function () {
+                  $('#table').DataTable().draw('page');
+                });
+                Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
+              },
+              error: function error(err) {
+                if (err.status === 403) {
+                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                    title: "Không được phép!",
+                    icon: "error",
+                    html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                  });
+                } else {
+                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+                    title: "Lỗi",
+                    text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                    icon: "error"
+                  });
+                }
+              }
+            });
+          }
+        });
+      } else {
+        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
+          title: "Err...",
+          text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
+        });
+      }
+    });
+  }
+
+  function initContactFormData() {
+    $("#contactDetailModal").off('show.bs.modal');
+    $("#contactDetailModal").on('show.bs.modal', function (e) {
+      var source = $(e.relatedTarget);
+      var contactId = source.data('id');
+
+      var _modal = $(this);
+
+      $.ajax({
+        url: "/admin/contacts/".concat(contactId, "/edit"),
+        success: function success(resolve) {
+          _modal.find(".modal-title").text(resolve.contact.title);
+
+          _modal.find("input[name=id]").val(resolve.contact.id);
+
+          _modal.find("input[name=name]").val(resolve.contact.name);
+
+          _modal.find("input[name=email]").val(resolve.contact.email);
+
+          _modal.find("input[name=phone]").val(resolve.contact.phone);
+
+          _modal.find("input[name=address]").val(resolve.contact.address);
+
+          _modal.find("textarea[name=content]").val(resolve.contact.content);
+
+          _modal.find("textarea[name=note]").val(resolve.contact.note);
+
+          _modal.find("select[name=status]").val(resolve.contact.status);
+        }
+      });
+    });
+    $("#contactDetailModal").off('hide.bs.modal');
+    $("#contactDetailModal").on('hide.bs.modal', function (e) {
+      $('#table').DataTable().draw('page');
+    });
+    $(".btn-update-contact").off("click.initContactFormData");
+    $(".btn-update-contact").on("click.initContactFormData", function (e) {
+      e.preventDefault();
+
+      var _modal = $("#contactDetailModal");
+
+      var formData = {
+        note: _modal.find("textarea[name=note]").val(),
+        status: _modal.find("select[name=status]").val(),
+        _method: "PUT"
+      };
+
+      var contactId = _modal.find("input[name=id]").val();
+
+      $.ajax({
+        url: "/admin/contacts/".concat(contactId),
+        method: 'POST',
+        data: formData,
+        success: function success() {
+          $('#table').DataTable().draw('page');
+
+          _modal.modal('hide');
+        }
+      });
+    });
+  }
+
+  function initContactStatusFilter() {
+    $("select[name=filter_status]").off(".initContactStatusFilter");
+    $("select[name=filter_status]").on("change.initContactStatusFilter", function () {
+      console.log($(this).val());
+      $('#table').DataTable().draw();
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/core.js":
+/*!******************************!*\
+  !*** ./resources/js/core.js ***!
+  \******************************/
+/*! exports provided: swalWithSuccessConfirmButton, swalWithDangerConfirmButton, initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem, moveTop, initUploadAvatarZone */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithSuccessConfirmButton", function() { return swalWithSuccessConfirmButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithDangerConfirmButton", function() { return swalWithDangerConfirmButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCheckboxButton", function() { return initCheckboxButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAnItem", function() { return deleteAnItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMultipleItems", function() { return deleteMultipleItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTableOrderable", function() { return makeTableOrderable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateViewViewStatus", function() { return updateViewViewStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSingleItem", function() { return deleteSingleItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "moveTop", function() { return moveTop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initUploadAvatarZone", function() { return initUploadAvatarZone; });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
-$(document).ready(function () {
-  btnOpenFormSetting();
-  btnSubmitFormSetting();
-  btnDeleteSetting();
+
+
+var swalWithSuccessConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-success',
+    cancelButton: 'rounded btn btn-secondary ml-2'
+  },
+  buttonsStyling: false
 });
+var swalWithDangerConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-danger',
+    cancelButton: 'rounded btn btn-secondary ml-2'
+  },
+  buttonsStyling: false
+});
+var croppieOptions = {
+  enableExif: true,
+  viewport: {
+    width: 300,
+    height: 300,
+    type: 'square'
+  },
+  boundary: {
+    width: 350,
+    height: 350
+  }
+};
+/**
+ * Init behavior button
+ */
 
-function btnOpenFormSetting() {
-  $('.btn-open-form-setting').off('click.btnOpenFormSetting');
-  $('.btn-open-form-setting').on('click.btnOpenFormSetting', function (e) {
-    e.preventDefault();
-    var formUrl = $(this).attr('href');
-    var settingFormModal = $('.modal-open-setting-form');
-    $.ajax({
-      url: formUrl,
-      headers: {
-        'Accept': 'application/json'
-      },
-      success: function success(resolve) {
-        settingFormModal.find('.modal-body').html(resolve.data);
-        settingFormModal.modal('show');
+function initCheckboxButton() {
+  // Button check/unchecked all
+  $(".btn-check-all").off(".checkAll");
+  $(".btn-check-all").on("click.checkAll", renderButtonCheckAll); // Behavior check input
+
+  $(".form-check-input").change(function () {
+    // If check a button and its category has sub
+    // Let's check all its subs
+    if ($(this).prop("checked") == true) {
+      // Check its sub
+      var checkBoxes = $(this).parents("table").parent().parent().find("ul .form-check-input");
+      checkBoxes.prop("checked", true);
+    } // If unchecked a button and all buttons at same level are unchecked
+    // Let's unchecked its parent
+
+
+    if ($(this).prop("checked") == false) {
+      var checkLevel = $(this).attr("data-level");
+      var parent = $(this).parent().closest("ul").parent().find(".form-check-input").first();
+
+      var _checkBoxes = $(this).parent().closest("ul").find(".form-check-input[data-level=" + checkLevel + "]:checkbox:checked");
+
+      if (_checkBoxes.length == 0) {
+        parent.prop("checked", false);
       }
-    });
+    } // Change appear button check all
+
+
+    changeAppearButtonCheckAll();
   });
+} // Change appear button check all
+
+function changeAppearButtonCheckAll() {
+  if ($("input.form-check-input:checkbox:checked").length === $("input.form-check-input:checkbox").length) {
+    $(".btn-check-all").prop("indeterminate", false);
+    $(".btn-check-all").prop("checked", true);
+  } else if ($("input.form-check-input:checkbox:checked").length > 0) {
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", true);
+  } else {
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", false);
+  }
 }
 
-function btnSubmitFormSetting() {
-  $('.btn-submit-form-setting').off('click.btnSubmitFormSetting');
-  $('.btn-submit-form-setting').on('click.btnSubmitFormSetting', function (e) {
-    e.preventDefault();
-    var settingFormModal = $('.modal-open-setting-form');
-    var submitUrl = settingFormModal.find('form').attr('action');
-    var formData = {
-      'display_name': settingFormModal.find('input[name=display_name]').val(),
-      'key': settingFormModal.find('input[name=key]').val(),
-      'value': settingFormModal.find('textarea[name=value]').val(),
-      'details': settingFormModal.find('textarea[name=details]').val()
-    };
-
-    if ($('input[name=_method]').length > 0) {
-      formData._method = $('input[name=_method]').val();
-    }
-
-    $.ajax({
-      url: submitUrl,
-      headers: {
-        'Accept': 'application/json'
-      },
-      method: "POST",
-      data: formData,
-      success: function success(resolve) {
-        $("#cat_table").html(resolve.data);
-        settingFormModal.modal('hide');
-        btnSubmitFormSetting();
-        btnDeleteSetting();
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', '', 'success');
-      },
-      error: function error(reject) {
-        errorText = reject.responseJSON.errors;
-        settingFormModal.find('.alert').html(errorText[Object.keys(errorText)[0]]).removeClass('d-none');
-        settingFormModal.find('.alert').removeClass('d-none');
-      }
-    });
-  });
+function renderButtonCheckAll() {
+  var checkBoxes = $(".form-check-input");
+  checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+  changeAppearButtonCheckAll();
 }
+/**
+ * Click remove an item
+ *
+ * @param deleteUrl string
+ */
 
-function btnDeleteSetting() {
-  $(".btn-delete-setting").off("click.btnDeleteSetting");
-  $(".btn-delete-setting").on("click.btnDeleteSetting", function (e) {
+
+function deleteAnItem(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $(".delete-category").click(function (e) {
     e.preventDefault();
-    var deleteUrl = $(this).attr('href');
-    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
-      title: 'Bạn có chắc?',
-      text: 'Hành động này sẽ xoá vĩnh viễn thông số đang chọn!',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      confirmButtonText: 'Xoá',
-      cancelButtonText: 'Huỷ'
+
+    var _this = $(this);
+
+    var delete_id = $(this).attr("data-id");
+    swalWithDangerConfirmButton.fire({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Huỷ",
+      buttonsStyling: false
     }).then(function (result) {
       if (result.value) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          onOpen: function onOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+          }
+        });
         $.ajax({
-          url: deleteUrl,
+          url: deleteUrl + "/" + delete_id,
           method: "POST",
           data: {
             _method: "DELETE"
           },
-          success: function success(resolve) {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', '', 'success');
-            $("#cat_table").html(resolve.data);
-            btnSubmitFormSetting();
-            btnDeleteSetting();
+          success: function success() {
+            _this.closest("li").remove();
+
+            swalWithSuccessConfirmButton.fire({
+              title: "Thành công",
+              text: "Bài viết đã được xóa.",
+              icon: "success",
+              buttonsStyling: false
+            }).then(function () {
+              location.reload();
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error"
+              });
+            }
           }
         });
       }
     });
   });
 }
+/**
+ * Click remove selected items
+ *
+ * @param string deleteUrl
+ * @param string itemName
+ */
+
+function deleteMultipleItems(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $("#btn-del-all").click(function () {
+    var checkedCounter = $("input.form-check-input:checkbox:checked").length;
+
+    if (checkedCounter > 0) {
+      swalWithDangerConfirmButton.fire({
+        title: "Bạn chắc chứ?",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Đúng, xóa hết đi",
+        cancelButtonText: "Huỷ"
+      }).then(function (result) {
+        if (result.value) {
+          var delete_id = "";
+          $("input.form-check-input:checkbox:checked").each(function (index) {
+            delete_id += $(this).attr("data-id") + ",";
+          });
+          delete_id = delete_id.slice(0, delete_id.length - 1);
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            onOpen: function onOpen() {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+            }
+          });
+          $.ajax({
+            url: deleteUrl,
+            method: "POST",
+            data: {
+              ids: delete_id,
+              _method: "DELETE"
+            },
+            success: function success() {
+              swalWithSuccessConfirmButton.fire({
+                title: "Thành công",
+                text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                icon: "success"
+              }).then(function () {
+                location.reload();
+              });
+              changeAppearButtonCheckAll();
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                swalWithDangerConfirmButton.fire({
+                  title: "Không được phép!",
+                  icon: "error",
+                  html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                });
+              } else {
+                swalWithDangerConfirmButton.fire({
+                  title: "Lỗi",
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                  icon: "error"
+                });
+              }
+            }
+          });
+        }
+      });
+    } else {
+      swalWithDangerConfirmButton.fire({
+        title: "Err...",
+        text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
+      });
+    }
+  });
+}
+function makeTableOrderable(orderUrl) {
+  var orderContainer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".sort";
+  $(orderContainer).sortable({
+    handle: ".connect",
+    placeholder: "ui-state-highlight",
+    forcePlaceholderSize: true,
+    update: function update(event, ui) {
+      var sort = $(this).sortable("toArray");
+      $.ajax({
+        url: orderUrl,
+        method: "POST",
+        data: {
+          sort: sort
+        },
+        error: function error(err) {
+          if (err.status === 403) {
+            swalWithDangerConfirmButton.fire({
+              title: "Lỗi!",
+              icon: "error",
+              html: "\
+                                <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                <hr>\
+                                <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+function updateViewViewStatus(updateUrl) {
+  $(".btn-update-view-status").off(".updateViewStatus");
+  $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function (e) {
+    e.preventDefault();
+    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+    var context = $(this);
+    var data = {
+      value: $(this).prop("checked") ? '0' : '1',
+      id: $(this).data("id"),
+      field: $(this).prop("name")
+    };
+    $.ajax({
+      url: updateUrl,
+      method: "POST",
+      data: data,
+      success: function success(scs) {
+        if (scs.value) {
+          context.attr('title', "Click để tắt");
+          context.prop("checked", true);
+        } else {
+          context.attr('title', "Click để bật");
+          context.prop("checked", false);
+        }
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
+        return;
+      },
+      error: function error(err) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
+      }
+    });
+  }, 500));
+}
+function deleteSingleItem() {
+  var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+  $(".btn-destroy").off("click.deleteSingleItem");
+  $(".btn-destroy").on("click.deleteSingleItem", function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var deleteUrl = $(this).attr("href");
+    swalWithDangerConfirmButton.fire({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Huỷ",
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          onOpen: function onOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+          }
+        });
+        $.ajax({
+          url: deleteUrl,
+          method: "POST",
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            _this.closest("li").remove();
+
+            swalWithSuccessConfirmButton.fire({
+              title: "Thành công",
+              icon: "success"
+            }).then(function () {
+              location.reload();
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                buttonsStyling: false,
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error",
+                buttonsStyling: false
+              });
+            }
+          }
+        });
+      }
+    });
+  });
+}
+function moveTop() {
+  $(".btn-move-top").off(".moveTop");
+  $(".btn-move-top").on("click.moveTop", _.throttle(function (e) {
+    e.preventDefault();
+    var moveTopUrl = $(this).attr("href");
+    $.ajax({
+      url: moveTopUrl,
+      method: "POST",
+      success: function success() {
+        location.reload();
+      },
+      error: function error(reject) {
+        console.log(reject);
+      }
+    });
+  }, 500));
+}
+function initUploadAvatarZone() {
+  $("#imageUpload").off("click.initUploadAvatarZone");
+  $("#imageUpload").on("click.initUploadAvatarZone", function (e) {
+    e.preventDefault();
+    $('.upload-avatar-modal').modal('show');
+    var croppieImage = $('#croppie-zone').croppie(croppieOptions);
+    $('.upload-avatar-modal').on('shown.bs.modal', function () {
+      appendCroppieImage(croppieImage);
+    });
+    $('.upload-avatar-modal').on('hidden.bs.modal', function (e) {
+      croppieImage.croppie('destroy');
+      $("#croppie-select-image-area").removeClass('d-none');
+      $("#croppie-edit-image").addClass("d-none");
+    });
+  });
+}
+
+function appendCroppieImage(croppieImage) {
+  $("#croppie-select-image-area").off(".appendCroppieImage");
+  $("#croppie-select-image-area").on("click.appendCroppieImage", function (e) {
+    e.preventDefault();
+    $("input#croppie-select-image").trigger("click");
+    $("input#croppie-select-image").on("change.appendCroppieImage", function () {
+      readFileInput(this).then(function (result) {
+        $("#croppie-select-image-area").addClass('d-none');
+        $("#croppie-edit-image").removeClass("d-none");
+        croppieImage.croppie('bind', {
+          url: result
+        });
+        initSaveCropAction(croppieImage);
+      });
+    });
+  });
+}
+
+function readFileInput(input) {
+  return new Promise(function (resolve, reject) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        resolve(e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      reject('Invalid');
+    }
+  });
+}
+
+function initSaveCropAction(croppieImage) {
+  $(".btn-croppie-save-image").off(".initSaveCropAction");
+  $(".btn-croppie-save-image").on("click.initSaveCropAction", function (e) {
+    e.preventDefault();
+    croppieImage.croppie('result', 'base64').then(function (image) {
+      $("#imagePreview").css('background-image', "url(".concat(image, ")"));
+      $("input[name=avatar]").val(image);
+      $('.upload-avatar-modal').modal('hide');
+    });
+  });
+  $(".btn-croppie-cancel").off(".initSaveCropAction");
+  $(".btn-croppie-cancel").on("click.initSaveCropAction", function (e) {
+    e.preventDefault();
+    $("#croppie-select-image-area").removeClass('d-none');
+    $("#croppie-edit-image").addClass("d-none");
+  });
+}
 
 /***/ }),
 
-/***/ 20:
+/***/ 2:
 /*!****************************************************!*\
-  !*** multi ./resources/js/admin/settings.index.js ***!
+  !*** multi ./resources/js/admin/products.index.js ***!
   \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/settings.index.js */"./resources/js/admin/settings.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/products.index.js */"./resources/js/admin/products.index.js");
 
 
 /***/ })

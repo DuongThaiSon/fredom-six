@@ -328,23 +328,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'parameters' => ['menu-categories' => 'category']
     ]);
 
-    // product
-    Route::delete('delete-many/products', [
-        'as' => 'products.deleteMany',
-        'uses' => 'ProductController@deleteMany'
-    ]);
     Route::group(['prefix' => 'products'], function () {
-
-        Route::post('fetch-attribute-option', [
-            'as' => 'products.fetchAttributeOption',
-            'uses' => 'ProductController@fetchAttributeOption'
+        Route::post('update-view-status', [
+            'as' => 'products.updateViewStatus',
+            'uses' => 'ProductController@updateViewStatus'
         ]);
-        Route::post('fetch-option', [
-            'as' => 'products.fetchOption',
-            'uses' => 'ProductController@fetchOption'
+        Route::post('{productId}/move-top', [
+            'as' => 'products.moveTop',
+            'uses' => 'ProductController@moveTop',
         ]);
-
-        Route::group(['prefix' => '{product}'], function () {
+        Route::get('{productId}/clone', [
+            'as' => 'products.clone',
+            'uses' => 'ProductController@clone',
+        ]);
+        Route::post('reorder', [
+            'as' => 'products.reorder',
+            'uses' => 'ProductController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'products.destroyMany',
+            'uses' => 'ProductController@destroyMany',
+        ]);
+        Route::group(['prefix' => '{productId}'], function () {
             Route::post('process', [
                 'as' => 'products.processImage',
                 'uses' => 'ProductController@processImage'
@@ -357,10 +362,21 @@ Route::group(['middleware' => 'auth:admin'], function () {
                 'as' => 'variants.reorder',
                 'uses' => 'ProductVariantController@reorder'
             ]);
-            Route::resource('variants', 'ProductVariantController');
+            Route::resource('variants', 'ProductVariantController', [
+                'parameters' => [
+                    'variants' => 'variantId'
+                ]
+            ]);
+            Route::resource('reviews', 'ProductReviewController', [
+                'parameters' => [
+                    'reviews' => 'reviewId'
+                ]
+            ]);
         });
     });
-    Route::resource('products', 'ProductController');
+    Route::resource('products', 'ProductController', [
+        'parameters' => ['products' => 'productId']
+    ]);
 
     // product category
     Route::group(['prefix' => 'product-categories'], function () {
@@ -386,8 +402,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     // product attribute
     Route::group(['prefix' => 'product-attributes'], function () { });
     Route::resource('product-attributes', 'ProductAttributeController');
-
-    Route::post('check-user', 'UserController@check');
 
     Route::get('files', [
         'as' => 'files',

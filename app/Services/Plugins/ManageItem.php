@@ -19,7 +19,7 @@ trait ManageItem
         $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
         $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
         if (array_key_exists('avatar', $attributes)) {
-            $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
+            $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
         }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
@@ -50,7 +50,7 @@ trait ManageItem
         $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
         $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
         if (array_key_exists('avatar', $attributes)) {
-            $attributes['avatar'] = $this->uploadFile($attributes['avatar'], $this->getDestinationUploadDir());
+            $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
         }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
@@ -171,14 +171,14 @@ trait ManageItem
         return $entity;
     }
 
-    public function datatablesList()
+    public function allWithDatatables()
     {
         $list = $this->model
             ->orderBy('order', 'desc')
             ->with('user');
 
         return DataTables::of($list)
-            ->setRowClass(function ($article) {
+            ->setRowClass(function () {
                 return 'ui-state-default';
             })
             ->addColumn('user', function ($row) {

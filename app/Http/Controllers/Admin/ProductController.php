@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Services\ProductService;
+use App\Http\Requests\Admin\StoreProductRequest;
+use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\ProductAttribute;
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Image;
-use App\Models\Showroom;
+use App\Services\Admin\ProductCategoryService;
+use App\Services\Admin\ProductService;
 
 class ProductController extends Controller
 {
@@ -19,9 +20,10 @@ class ProductController extends Controller
      *
      * @return void
      */
-    public function __construct(ProductService $service)
+    public function __construct(ProductService $productService, ProductCategoryService $productCategoryService)
     {
-        $this->service = $service;
+        $this->productService = $productService;
+        $this->productCategoryService = $productCategoryService;
     }
 
     /**
@@ -29,11 +31,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::withoutVariation()->orderBy('order', 'desc')->with(['categories:name', 'updater'])->simplePaginate();
-        // $categories = $this->service->allWithSub();
-        // $users = User::all();
+        if ($request->wantsJson()) {
+            return $this->productService->allWithDatatables();
+        }
         return view('admin.products.index', compact('products'));
     }
 
@@ -45,127 +47,127 @@ class ProductController extends Controller
     public function create()
     {
         $typeOptions = Product::PRODUCT_TYPES;
-        $categories = $this->service->allWithSub();
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
         return view('admin.products.create', compact('categories', 'typeOptions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $attributes = $this->service->productCreate($request->all());
-        $product = Product::create($attributes);
-        $product->showrooms()->sync($request->showroom);
-        $product->categories()->attach($request->category);
-
-        return redirect()->route('admin.products.edit', $product->id)->with('success', 'Thêm mới sản phẩm thành công');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        $showrooms = Showroom::get();
-        // print_r($showrooms[0]->district);die;
-        $typeOptions = Product::PRODUCT_TYPES;
-        $categories = $this->service->allWithSub($product->id);
-        $product->load(['attributes', 'categories.productAttributes', 'reviews' => function($q) {
-            $q->orderBy('created_at', 'desc');
-        }]);
-        $selectedCategory = $product->categories->first();
-        if ($product->categories->count()) {
-            $productAttributes = $product->categories->first()->productAttributes;
-        } else {
-            $productAttributes = ProductAttribute::all();
-        }
-        $selectedProductAttributes = $product->attributes->pluck('id');
-        $selectedShowroom = $product->showrooms->pluck('id')->toArray();
-        // print_r($selectedShowroom);die;
-        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions', 'showrooms'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
-    {
-        $product->showrooms()->sync($request->showroom);
-        $product->categories()->sync($request->category);
-        // print_r($product->toArray());die;
-        $attributes = $this->service->productEdit($request->all());
-        // print_r($attributes);die;
-        $product = Product::findOrFail($request->id);
-        $product = $product->fill($attributes);
-        $product->save();
-        return redirect()->back()->with('success', 'Cập nhật sản phẩm thành công');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Product::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
-    }
-
-    public function fetchOption(Request $request)
-    {
-        $request->validate([
-            'checked_ids' => 'required'
+        $attributes = $request->only([
+            'name',
+            'sku',
+            'type',
+            'category_id',
+            'price',
+            'unit',
+            'weight',
+            'height',
+            'quantity',
+            'is_public',
+            'is_highlight',
+            'is_new',
+            'is_taxable',
+            'meta_title',
+            'slug',
+            'meta_description',
+            'meta_keyword',
+            'meta_page_topic',
+            'avatar',
+            'description',
+            'detail'
         ]);
-        $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeOptions']);
-        if ($request->has('product_id')) {
-            $product = Product::findOrFail($request->product_id);
-        } else {
-            $product = new Product;
-        }
-        return view('admin.partials.productAttributeOptions', compact('product', 'productAttributes'));
+        $product = $this->productService->create($attributes);
+        return redirect()->route('admin.products.edit', $product->id)->with('success', 'Product created.');
     }
 
-    public function fetchAttributeOption(Request $request)
+    public function clone($productId)
     {
-        // print_r($request->all());die;
-        // $request->validate([
-        //     'checked_ids' => 'required'
-        // ]);
-        $productAttributes = Category::whereIdAndType($request->category_id, 'product')->firstOrFail()->productAttributes()->get();
-        return view('admin.partials.productAttributeModalOptions', compact('productAttributes'));
+        $product = $this->productService->findOrFail($productId);
+        $typeOptions = Product::PRODUCT_TYPES;
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $productAttributes = ProductAttribute::latest()->with('productAttributeOptions')->get();
+        $selectedId = $product->categories()->get()->pluck('id');
+        return view('admin.products.create', compact('categories', 'product', 'productAttributes', 'selectedId', 'typeOptions'));
     }
 
-    public function deleteMany(Request $request)
+    public function edit($productId)
     {
-        $products = explode(",",$request->ids);
-        foreach ($products as $product) {
-            Product::findOrFail($product)->delete();
+        $product = $this->productService->findOrFail($productId);
+        $typeOptions = Product::PRODUCT_TYPES;
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $productAttributes = ProductAttribute::latest()->with('productAttributeOptions')->get();
+        $selectedId = $product->categories()->get()->pluck('id');
+        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedId', 'typeOptions'));
+    }
+
+    public function update(UpdateProductRequest $request, $productId)
+    {
+        $attributes = $request->only([
+            'name',
+            'sku',
+            'type',
+            'category_id',
+            'price',
+            'unit',
+            'weight',
+            'height',
+            'quantity',
+            'is_public',
+            'is_highlight',
+            'is_new',
+            'is_taxable',
+            'meta_title',
+            'slug',
+            'meta_description',
+            'meta_keyword',
+            'meta_page_topic',
+            'avatar',
+            'description',
+            'detail'
+        ]);
+        $this->productService->update($attributes, $productId);
+        return redirect()->route('admin.products.edit', $productId)->with('success', 'Product updated.');
+    }
+
+    public function destroy($productId)
+    {
+        $product = $this->productService->findOrFail($productId);
+        if ($this->productService->destroy($product)) {
+            return response()->json([], 204);
         }
-        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function destroyMany(Request $request)
+    {
+        if ($this->productService->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function updateViewStatus(Request $request)
+    {
+        $article = $this->productService->updateViewStatus($request->id, $field = $request->field, $request->value);
+        return response()->json(['value' => $article->$field], 200);
+    }
+
+    public function moveTop($productId)
+    {
+        $product = $this->productService->findOrFail($productId);
+        if ($this->productService->moveTop($product)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_move"
+        ], 500);
     }
 
     public function processImage(Request $request, Product $product)
@@ -179,7 +181,7 @@ class ProductController extends Controller
             mkdir($destinationPath, 0777, true);
             $gitignore = '.gitignore';
             $text = "*\n!.gitignore\n";
-            file_put_contents($destinationPath.'/'.$gitignore, $text);
+            file_put_contents($destinationPath . '/' . $gitignore, $text);
         }
 
         $file = $request->file('uploadImage');
@@ -187,14 +189,14 @@ class ProductController extends Controller
         $fileName = uniqid(date('d.m.Y')) . '.' . $extension; // renaming image
         // $file->move($destinationPath, $fileName); // upload origin file to given path
         $uploadImage = \Image::make($file); //
-        $uploadImage->save($destinationPath.'/'.$fileName); // upload file with reduce quality
+        $uploadImage->save($destinationPath . '/' . $fileName); // upload file with reduce quality
         $currentOrder = \App\Models\Image::max('order');
         $product->images()->create([
             'name' => $fileName,
             'url' => "/media/images/products/{$fileName}",
             'size' => $file->getClientSize(),
             'mime' => $file->getClientMimeType(),
-            'order' => $currentOrder?$currentOrder+1:1,
+            'order' => $currentOrder ? $currentOrder + 1 : 1,
             'created_by' => auth()->guard('admin')->id(),
             'updated_by' => auth()->guard('admin')->id()
         ]);
@@ -206,10 +208,16 @@ class ProductController extends Controller
     {
         $destinationPath = public_path(env('UPLOAD_DIR_PRODUCT', 'media/products'));
         $fileName = $image->name;
-        if (file_exists($destinationPath.'/'.$fileName)) {
-            unlink($destinationPath.'/'.$fileName);
+        if (file_exists($destinationPath . '/' . $fileName)) {
+            unlink($destinationPath . '/' . $fileName);
         }
         $image->delete();
         return view('admin.products.imageShowcase', compact('product'));
+    }
+
+    public function reorder(Request $request)
+    {
+        $this->productService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
     }
 }

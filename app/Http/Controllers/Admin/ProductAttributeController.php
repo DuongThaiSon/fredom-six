@@ -15,7 +15,7 @@ class ProductAttributeController extends Controller
      */
     public function index()
     {
-        $attributes = ProductAttribute::latest()->get();
+        $attributes = ProductAttribute::latest()->with('productAttributeOptions')->get();
         return view('admin.productAttributes.index', compact('attributes'));
     }
 
@@ -26,7 +26,8 @@ class ProductAttributeController extends Controller
      */
     public function create()
     {
-        return view('admin.productAttributes.create');
+        $attributeTypes = ProductAttribute::TYPE;
+        return view('admin.productAttributes.create', compact('attributeTypes'));
     }
 
     /**
@@ -39,13 +40,11 @@ class ProductAttributeController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'attribute_values.*.value' => 'required_with:can_select'
+            'attribute_values.*.value' => 'required'
         ]);
 
-        // print_r($request->can_select);die;
         $productAttribute = ProductAttribute::create([
             'name' => $request->name,
-            'can_select' => $request->has('can_select')?'1':'0',
             'allow_multiple' => $request->has('allow_multiple')?'1':'0',
             'created_by' => auth()->guard('admin')->id(),
             'updated_by' => auth()->guard('admin')->id(),
@@ -81,7 +80,8 @@ class ProductAttributeController extends Controller
      */
     public function edit(ProductAttribute $productAttribute)
     {
-        return view('admin.productAttributes.edit', compact('productAttribute'));
+        $attributeTypes = ProductAttribute::TYPE;
+        return view('admin.productAttributes.edit', compact('productAttribute', 'attributeTypes'));
     }
 
     /**
@@ -101,7 +101,6 @@ class ProductAttributeController extends Controller
         $productAttribute = $productAttribute->fill([
             'name' => $request->name,
             'type' => $request->type,
-            'can_select' => $request->has('can_select')?'1':'0',
             'allow_multiple' => $request->has('allow_multiple')?'1':'0',
             'updated_by' => auth()->guard('admin')->id(),
         ]);

@@ -333,11 +333,11 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'products.updateViewStatus',
             'uses' => 'ProductController@updateViewStatus'
         ]);
-        Route::post('{product}/move-top', [
+        Route::post('{productId}/move-top', [
             'as' => 'products.moveTop',
             'uses' => 'ProductController@moveTop',
         ]);
-        Route::get('{product}/clone', [
+        Route::get('{productId}/clone', [
             'as' => 'products.clone',
             'uses' => 'ProductController@clone',
         ]);
@@ -349,7 +349,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'products.destroyMany',
             'uses' => 'ProductController@destroyMany',
         ]);
-        Route::group(['prefix' => '{product}'], function () {
+        Route::group(['prefix' => '{productId}'], function () {
             Route::post('process', [
                 'as' => 'products.processImage',
                 'uses' => 'ProductController@processImage'
@@ -362,8 +362,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
                 'as' => 'variants.reorder',
                 'uses' => 'ProductVariantController@reorder'
             ]);
-            Route::resource('variants', 'ProductVariantController');
-            Route::resource('reviews', 'ProductReviewController');
+            Route::resource('variants', 'ProductVariantController', [
+                'parameters' => [
+                    'variants' => 'variantId'
+                ]
+            ]);
+            Route::resource('reviews', 'ProductReviewController', [
+                'parameters' => [
+                    'reviews' => 'reviewId'
+                ]
+            ]);
         });
     });
     Route::resource('products', 'ProductController', [
@@ -394,8 +402,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     // product attribute
     Route::group(['prefix' => 'product-attributes'], function () { });
     Route::resource('product-attributes', 'ProductAttributeController');
-
-    Route::post('check-user', 'UserController@check');
 
     Route::get('files', [
         'as' => 'files',

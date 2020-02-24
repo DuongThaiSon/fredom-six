@@ -209,4 +209,10 @@ class ProductController extends Controller
         $image->delete();
         return view('admin.products.imageShowcase', compact('product'));
     }
+
+    public function reorder(Request $request)
+    {
+        $this->productService->reorder($request->sort, 'item_');
+        return response()->json([], 204);
+    }
 }

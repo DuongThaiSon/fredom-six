@@ -3086,11 +3086,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategoriesCore", function() { return productCategoriesCore; });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 var productAttributeCore =
@@ -3191,8 +3193,6 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    this.initVariantAction(); // this.submitEditVariantForm()
-
     this.unformatPriceAtSubmit();
   }
 
@@ -3209,11 +3209,35 @@ function () {
     key: "getSelectedAttributeOption",
     value: function getSelectedAttributeOption() {
       var result = [];
-      var selectpicker = $('.attribute-selectpicker');
-      selectpicker.each(function (index, element) {
-        result = _.concat(result, $(element).val());
+      var selectedAttribute = $('input[data-name=attribute]:checked');
+      selectedAttribute.each(function (index, element) {
+        var selectedOption = $(this).parents('tr').find("select[data-name=attribute-option]").val();
+        result = _.concat(result, selectedOption);
       });
       return result;
+    }
+  }, {
+    key: "validateMakeVariation",
+    value: function validateMakeVariation() {
+      if (this.getSelectedAttributeOption().length) {
+        $(".btn-make-variation").prop("disabled", false);
+      } else {
+        $(".btn-make-variation").prop("disabled", true);
+      }
+
+      return;
+    }
+  }, {
+    key: "setVariantButtonStatus",
+    value: function setVariantButtonStatus() {
+      var _this = this;
+
+      $('select[data-name=attribute-option]').on('changed.bs.select.setVariantButtonStatus', function () {
+        _this.validateMakeVariation();
+      });
+      $('input[data-name=attribute]').on('change.setVariantButtonStatus', function () {
+        _this.validateMakeVariation();
+      });
     }
   }, {
     key: "makeVariation",
@@ -3223,26 +3247,25 @@ function () {
       $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
         e.preventDefault();
         var makeVariationUrl = $(this).attr("data-href");
-        var makeVariationData = $(".attribute-selectpicker").val();
+
+        var makeVariationData = _this.getSelectedAttributeOption();
+
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
         $.ajax({
           url: makeVariationUrl,
           method: "POST",
           data: {
-            attributes: makeVariationData
+            attribute_options: makeVariationData
           },
           success: function success(resolve) {
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            _core__WEBPACK_IMPORTED_MODULE_1__["swalWithSuccessConfirmButton"].fire({
               title: "Thành công!",
               type: "success",
               text: "Tạo biến thể thành công!",
               confirmButtonClass: "btn btn-success",
               buttonsStyling: false
             });
+            $("#variant-table").DataTable().draw();
           }
         });
       });
@@ -3299,36 +3322,6 @@ function () {
       });
     }
   }, {
-    key: "setVariantButtonStatus",
-    value: function setVariantButtonStatus() {
-      var attributeSelectedCount = $('.attribute-selectpicker').val().length;
-
-      if (attributeSelectedCount) {
-        $(".btn-make-variation").attr("disabled", false);
-      } else {
-        $(".btn-make-variation").attr("disabled", true);
-      }
-    }
-  }, {
-    key: "productVariantPagination",
-    value: function productVariantPagination() {
-      var _this = this;
-
-      $(".variant-pagination").find("a.page-link").off("click.productVariantPagination");
-      $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
-        e.preventDefault();
-        var pagingUrl = $(this).attr("href");
-        $.ajax({
-          url: pagingUrl,
-          success: function success(resolve) {
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-          }
-        });
-      });
-    }
-  }, {
     key: "makeVariantProductOrderable",
     value: function makeVariantProductOrderable() {
       var variantTableData = $(".variant-sort");
@@ -3364,35 +3357,44 @@ function () {
       });
     }
   }, {
-    key: "showEditVariantForm",
-    value: function showEditVariantForm() {
+    key: "initEditVariantFormData",
+    value: function initEditVariantFormData(anchor) {
       var _this = this;
 
-      $(".btn-edit-variant").off("click.showEditVariantForm");
-      $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
-        e.preventDefault();
-        var editUrl = $(this).attr("data-href");
+      $("#variant-edit-modal").off('show.bs.modal');
+      $("#variant-edit-modal").on('show.bs.modal', function (e) {
+        var source = $(e.relatedTarget);
+        var editVariantUrl = source.data('href');
+
+        var _modal = $(this);
+
         $.ajax({
-          url: editUrl,
+          url: editVariantUrl,
           success: function success(resolve) {
-            $("#variant-edit-modal").find(".modal-body").html(resolve);
-            $("#variant-edit-modal").modal('show');
+            _modal.find(".modal-body").html(resolve);
+
             $(".price-format").simpleMoneyFormat();
+
+            _this.updateVariantInfo();
           }
         });
       });
+      $("#variant-edit-modal").off('hide.bs.modal');
+      $("#variant-edit-modal").on('hide.bs.modal', function (e) {
+        $(anchor).DataTable().draw('page');
+      });
     }
   }, {
-    key: "submitEditVariantForm",
-    value: function submitEditVariantForm() {
-      var _this = this;
-
-      $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+    key: "updateVariantInfo",
+    value: function updateVariantInfo() {
+      $(".btn-submit-variant-edit").off("click.initEditVariantFormData");
+      $(".btn-submit-variant-edit").on("click.initEditVariantFormData", function (e) {
         e.preventDefault();
+        var updateVariantUrl = $("#variant-edit-modal").find('input[name=variant_update_url]').val();
         var formData = new FormData();
         formData.append('name', $("input[name=variant_name]").val());
         formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
-        formData.append('product_code', $("input[name=variant_product_code]").val());
+        formData.append('sku', $("input[name=variant_sku]").val());
         formData.append('quantity', $("input[name=variant_quantity]").val());
 
         if ($("input[name=variant_is_public]:checked").val()) {
@@ -3404,7 +3406,6 @@ function () {
         }
 
         formData.append('_method', 'PUT');
-        var updateVariantUrl = $(".form-update-variant").attr('action');
         $.ajax({
           url: updateVariantUrl,
           data: formData,
@@ -3413,11 +3414,6 @@ function () {
           processData: false,
           success: function success(resolve) {
             $("#variant-edit-modal").modal('hide');
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
           }
         });
       });
@@ -3449,8 +3445,6 @@ function () {
               success: function success(resolve) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
                 $(".product-variants-list").html(resolve);
-
-                _this.initVariantAction();
               }
             });
           }
@@ -3458,12 +3452,86 @@ function () {
       });
     }
   }, {
-    key: "initVariantAction",
-    value: function initVariantAction() {
-      this.makeVariantProductOrderable();
-      this.productVariantPagination();
-      this.showEditVariantForm();
-      this.deleteVariant();
+    key: "initDatatablesForVariant",
+    value: function initDatatablesForVariant() {
+      var anchor = "#variant-table";
+      var fetchUrl = $(anchor).data('list');
+      var reorderUrl = $(anchor).data('reorder');
+
+      var _this = this;
+
+      $(anchor).DataTable({
+        ordering: false,
+        searching: true,
+        processing: false,
+        serverSide: true,
+        ajax: {
+          url: fetchUrl
+        },
+        columnDefs: [{
+          render: function render(data, type, row) {
+            return accounting.formatMoney(data, "", 0) + " đ";
+          },
+          targets: 3
+        }],
+        columns: [{
+          className: 'connect rowlink-skip',
+          data: null,
+          searchable: false,
+          render: function render(data) {
+            return "\n                            <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Gi\u1EEF icon n\xE0y k\xE9o th\u1EA3 \u0111\u1EC3 s\u1EAFp x\u1EBFp\">format_line_spacing</i>\n                        ";
+          }
+        }, {
+          data: 'name',
+          name: 'name'
+        }, {
+          className: 'text-right',
+          data: 'quantity',
+          name: 'quantity'
+        }, {
+          className: 'text-right',
+          data: 'price',
+          name: 'price'
+        }, {
+          data: null,
+          orderable: false,
+          className: 'rowlink-skip text-right',
+          render: function render(data) {
+            return "\n                            <div class=\"btn-group\">\n                                <a href=\"#variant-edit-modal\" data-toggle=\"modal\" data-href=\"".concat(data.route.edit, "\" class=\"btn btn-sm p-1 p-0\">\n                                    <i class=\"material-icons\">border_color</i>\n                                </a>\n                                <a href=\"").concat(data.route.destroy, "\"\n                                    class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                    <i class=\"material-icons\">delete</i>\n                                </a>\n                            </div>");
+          },
+          searchable: false
+        }],
+        pagingType: "first_last_numbers",
+        lengthMenu: [[10, 25], [10, 25]],
+        responsive: true,
+        language: {
+          paginate: {
+            first: 'Đầu',
+            previous: 'Trước',
+            next: 'Sau',
+            last: 'Cuối'
+          },
+          loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+          search: "_INPUT_",
+          searchPlaceholder: "Tìm kiếm nhanh",
+          lengthMenu: 'Hiển thị <select>' + '<option value="10">10</option>' + '<option value="25">25</option>' + '</select> bản ghi',
+          emptyTable: "Không tìm thấy bản ghi",
+          zeroRecords: "Không tìm thấy bản ghi",
+          info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+          infoEmpty: "Không có mục nào để hiển thị",
+          infoFiltered: " - lọc từ _MAX_ bản ghi"
+        },
+        // Event fired when table is draw
+        fnInfoCallback: function fnInfoCallback(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+          $("".concat(anchor, " tbody")).rowlink();
+          $('[data-toggle="tooltip"]').tooltip();
+          Object(_core__WEBPACK_IMPORTED_MODULE_1__["deleteSingleItem"])();
+
+          _this.initEditVariantFormData(anchor);
+
+          Object(_core__WEBPACK_IMPORTED_MODULE_1__["makeTableOrderable"])(reorderUrl, "".concat(anchor, " tbody"));
+        }
+      });
     }
   }]);
 
@@ -3534,9 +3602,10 @@ __webpack_require__.r(__webpack_exports__);
 $(document).ready(function () {
   var id = $("input[name=id]").val();
   var guide = new _admin_core__WEBPACK_IMPORTED_MODULE_0__["productCore"](id);
-  guide.selectCategory(); // guide.makeVariation()
-  // guide.setVariantButtonStatus()
-
+  guide.selectCategory();
+  guide.makeVariation();
+  guide.setVariantButtonStatus();
+  guide.initDatatablesForVariant();
   $(".attribute-selectpicker").selectpicker();
   var productId = $('input[name=id]').val(); // filePond.initFilePond('gallery-images', `/admin/gallery/${productId}`);
 
@@ -3582,22 +3651,21 @@ function initBtnDestroyImage() {
 
 ;
 
-var deleteSingleItem = function deleteSingleItem() {
-  $('.btn-delete').on('click', function (e) {
+function deleteSingleItem() {
+  var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+  $('#variant-table a.btn-destroy').off('click.deleteSingleItem');
+  $('#variant-table a.btn-destroy').on('click.deleteSingleItem', function (e) {
     e.preventDefault();
-    var user_id = $(this).data('user');
 
     var _this = $(this);
 
-    sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+    var deleteUrl = $(this).attr("href");
+    swalWithDangerConfirmButton.fire({
       title: "Bạn chắc chứ?",
-      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n m\u1EE5c n\xE0y!",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonClass: "btn btn-danger",
-      cancelButtonClass: "btn",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
       confirmButtonText: "Đúng, xóa nó đi",
-      cancelButtonText: "Thôi không xóa",
+      cancelButtonText: "Huỷ",
       buttonsStyling: false
     }).then(function (result) {
       if (result.value) {
@@ -3606,32 +3674,45 @@ var deleteSingleItem = function deleteSingleItem() {
             sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.showLoading();
           }
         });
-        var data = {
-          user_id: user_id,
-          _method: "DELETE"
-        };
         $.ajax({
-          url: _this.attr('data-href'),
+          url: deleteUrl,
           method: "POST",
-          data: data,
-          success: function success(scs) {
-            // $(".image-showcase").html(scs)
-            // initBtnDestroyImage()
-            sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a.fire({
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            $('#variant-table').DataTable().draw('page');
+            swalWithSuccessConfirmButton.fire({
               title: "Thành công",
-              text: "Bài viết đã được xóa.",
-              type: "success",
-              confirmButtonClass: "btn btn-success",
-              buttonsStyling: false
-            }).then(function (scs) {
-              location.reload();
+              icon: "success"
             });
+            initCheckboxButton();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                buttonsStyling: false,
+                html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error",
+                buttonsStyling: false
+              });
+            }
           }
         });
       }
     });
   });
-};
+}
 
 /***/ }),
 

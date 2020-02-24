@@ -6,8 +6,9 @@ $(document).ready(function() {
     let id = $("input[name=id]").val()
     let guide = new productCore(id)
     guide.selectCategory()
-    // guide.makeVariation()
-    // guide.setVariantButtonStatus()
+    guide.makeVariation()
+    guide.setVariantButtonStatus()
+    guide.initDatatablesForVariant()
     $(".attribute-selectpicker").selectpicker();
 
     let productId = $('input[name=id]').val();
@@ -54,54 +55,64 @@ function initBtnDestroyImage() {
     })
 };
 
-let deleteSingleItem = function() {
-    $('.btn-delete').on('click', function(e) {
+function deleteSingleItem(itemName = "mục") {
+    $('#variant-table a.btn-destroy').off('click.deleteSingleItem')
+    $('#variant-table a.btn-destroy').on('click.deleteSingleItem', function (e) {
         e.preventDefault();
-        let user_id = $(this).data('user');
-        let _this = $(this);
-        Swal.fire({
+        const _this = $(this);
+        const deleteUrl = $(this).attr("href");
+        swalWithDangerConfirmButton.fire({
             title: "Bạn chắc chứ?",
-            text: `Hành động sẽ xóa vĩnh viễn mục này!`,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn btn-danger",
-            cancelButtonClass: "btn",
+            text: `Hành động sẽ xóa vĩnh viễn ${itemName} này!`,
+            icon: "warning",
             confirmButtonText: "Đúng, xóa nó đi",
-            cancelButtonText: "Thôi không xóa",
+            cancelButtonText: "Huỷ",
             buttonsStyling: false
-        }).then(function(result) {
+        }).then(function (result) {
             if (result.value) {
                 Swal.fire({
                     onOpen: () => {
                         Swal.showLoading();
                     }
                 });
-
-                let data={
-                    user_id: user_id,
-                    _method: "DELETE"
-                };
                 $.ajax({
-                    url: _this.attr('data-href'),
+                    url: deleteUrl,
                     method: "POST",
-                    data: data,
-                    success: function(scs) {
-                        // $(".image-showcase").html(scs)
-                        // initBtnDestroyImage()
-                        Swal.fire({
+                    data: {
+                        _method: "DELETE"
+                    },
+                    success: function () {
+                        $('#variant-table').DataTable().draw('page');
+                        swalWithSuccessConfirmButton.fire({
                             title: "Thành công",
-                            text: "Bài viết đã được xóa.",
-                            type: "success",
-                            confirmButtonClass: "btn btn-success",
-                            buttonsStyling: false
-                        }).then(function(scs) {
-                            location.reload();
-                        });
+                            icon: "success"
+                        })
+                        initCheckboxButton();
+                    },
+                    error: function (err) {
+
+                        if (err.status === 403) {
+                            swalWithDangerConfirmButton.fire({
+                                title: "Không được phép!",
+                                icon: "error",
+                                buttonsStyling: false,
+                                html:
+                                    "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                            });
+                        } else {
+                            swalWithDangerConfirmButton.fire({
+                                title: "Lỗi",
+                                text: `Hãy đảm bảo rằng không còn bài viết và ${itemName} con nào thuộc ${itemName} cần xóa!`,
+                                icon: "error",
+                                buttonsStyling: false
+                            });
+                        }
                     }
-                })
+                });
             }
         });
-
-
     });
-};
+}

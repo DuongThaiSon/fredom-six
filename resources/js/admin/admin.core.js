@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { swalWithSuccessConfirmButton, deleteSingleItem, makeTableOrderable } from '../core'
 
 export class productAttributeCore {
     constructor() { }
@@ -93,14 +94,12 @@ export class productAttributeCore {
 export class productCore {
     constructor(productId = null) {
         this.productId = productId
-        this.initVariantAction()
-        // this.submitEditVariantForm()
         this.unformatPriceAtSubmit()
     }
 
     unformatPriceAtSubmit() {
         $(".touch-product-form").off("submit.unformatPriceAtSubmit")
-        $(".touch-product-form").on("submit.unformatPriceAtSubmit", function(e) {
+        $(".touch-product-form").on("submit.unformatPriceAtSubmit", function (e) {
             const currentPrice = $("input[name=price]").val()
             $("input[name=price]").val(accounting.unformat(currentPrice))
         })
@@ -108,38 +107,59 @@ export class productCore {
 
     getSelectedAttributeOption() {
         let result = [];
-        const selectpicker = $('.attribute-selectpicker')
+        const selectedAttribute = $('input[data-name=attribute]:checked')
 
-        selectpicker.each(function (index, element) {
-            result = _.concat(result, $(element).val())
+        selectedAttribute.each(function (index, element) {
+            const selectedOption = $(this).parents('tr').find("select[data-name=attribute-option]").val()
+            result = _.concat(result, selectedOption)
         })
         return result
+    }
+
+    validateMakeVariation() {
+        if (this.getSelectedAttributeOption().length) {
+            $(".btn-make-variation").prop("disabled", false)
+        } else {
+            $(".btn-make-variation").prop("disabled", true)
+        }
+        return;
+    }
+
+    setVariantButtonStatus() {
+        let _this = this
+        $('select[data-name=attribute-option]').on('changed.bs.select.setVariantButtonStatus', function () {
+            _this.validateMakeVariation()
+        });
+        $('input[data-name=attribute]').on('change.setVariantButtonStatus', function () {
+            _this.validateMakeVariation()
+        });
     }
 
     makeVariation() {
         let _this = this
         $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
             e.preventDefault()
+
             let makeVariationUrl = $(this).attr("data-href")
-            let makeVariationData = $(".attribute-selectpicker").val()
+            let makeVariationData = _this.getSelectedAttributeOption()
             Swal.showLoading();
 
             $.ajax({
                 url: makeVariationUrl,
                 method: "POST",
                 data: {
-                    attributes: makeVariationData
+                    attribute_options: makeVariationData
                 },
                 success: function (resolve) {
-                    $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()
-                    Swal.fire({
+                    swalWithSuccessConfirmButton.fire({
                         title: "Thành công!",
                         type: "success",
                         text: "Tạo biến thể thành công!",
                         confirmButtonClass: "btn btn-success",
                         buttonsStyling: false,
                     });
+                    $("#variant-table").DataTable().draw();
+
                 }
             })
 
@@ -192,33 +212,6 @@ export class productCore {
         })
     }
 
-    setVariantButtonStatus() {
-        let attributeSelectedCount = $('.attribute-selectpicker').val().length;
-        if (attributeSelectedCount) {
-            $(".btn-make-variation").attr("disabled", false)
-        } else {
-            $(".btn-make-variation").attr("disabled", true)
-        }
-
-    }
-
-    productVariantPagination() {
-        let _this = this
-        $(".variant-pagination").find("a.page-link").off("click.productVariantPagination")
-        $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
-            e.preventDefault()
-            let pagingUrl = $(this).attr("href")
-            $.ajax({
-                url: pagingUrl,
-                success: function (resolve) {
-                    $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()
-                }
-            })
-
-        })
-    }
-
     makeVariantProductOrderable() {
         let variantTableData = $(".variant-sort")
         let variantSortUrl = variantTableData.attr('data-href')
@@ -255,31 +248,39 @@ export class productCore {
         });
     }
 
-    showEditVariantForm() {
-        let _this = this
-        $(".btn-edit-variant").off("click.showEditVariantForm")
-        $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
-            e.preventDefault()
-            let editUrl = $(this).attr("data-href")
-            $.ajax({
-                url: editUrl,
-                success: function (resolve) {
-                    $("#variant-edit-modal").find(".modal-body").html(resolve)
-                    $("#variant-edit-modal").modal('show')
-                    $(".price-format").simpleMoneyFormat()
-                }
-            })
+    initEditVariantFormData(anchor) {
+        const _this = this
+        $("#variant-edit-modal").off('show.bs.modal')
+        $("#variant-edit-modal").on('show.bs.modal', function (e) {
+            const source = $(e.relatedTarget)
+            const editVariantUrl = source.data('href')
+            const _modal = $(this)
+                $.ajax({
+                    url: editVariantUrl,
+                    success: (resolve) => {
+                        _modal.find(".modal-body").html(resolve)
+                        $(".price-format").simpleMoneyFormat()
+                        _this.updateVariantInfo()
+                    }
+                })
+
+        })
+
+        $("#variant-edit-modal").off('hide.bs.modal')
+        $("#variant-edit-modal").on('hide.bs.modal', function (e) {
+            $(anchor).DataTable().draw('page');
         })
     }
 
-    submitEditVariantForm() {
-        let _this = this
-        $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+    updateVariantInfo() {
+        $(".btn-submit-variant-edit").off("click.initEditVariantFormData")
+        $(".btn-submit-variant-edit").on("click.initEditVariantFormData", function (e) {
             e.preventDefault()
+            const updateVariantUrl = $("#variant-edit-modal").find('input[name=variant_update_url]').val()
             let formData = new FormData();
             formData.append('name', $("input[name=variant_name]").val());
             formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
-            formData.append('product_code', $("input[name=variant_product_code]").val());
+            formData.append('sku', $("input[name=variant_sku]").val());
             formData.append('quantity', $("input[name=variant_quantity]").val());
             if ($("input[name=variant_is_public]:checked").val()) {
                 formData.append('is_public', $("input[name=variant_is_public]:checked").val());
@@ -288,7 +289,7 @@ export class productCore {
                 formData.append('avatar', $("input[name=variant_avatar]")[0].files[0]);
             }
             formData.append('_method', 'PUT')
-            let updateVariantUrl = $(".form-update-variant").attr('action')
+
             $.ajax({
                 url: updateVariantUrl,
                 data: formData,
@@ -297,13 +298,6 @@ export class productCore {
                 processData: false,
                 success: function (resolve) {
                     $("#variant-edit-modal").modal('hide')
-                    $(".product-variants-list").html(resolve)
-                    _this.initVariantAction()
-                    Swal.fire(
-                        'Thành công!',
-                        'Dữ liệu đã được cập nhật!',
-                        'success'
-                    )
                 }
             })
         })
@@ -338,7 +332,6 @@ export class productCore {
                                 'success'
                             )
                             $(".product-variants-list").html(resolve)
-                            _this.initVariantAction()
                         }
                     })
                 }
@@ -346,13 +339,108 @@ export class productCore {
         })
     }
 
-    initVariantAction() {
-        this.makeVariantProductOrderable()
-        this.productVariantPagination()
-        this.showEditVariantForm()
-        this.deleteVariant()
-    }
+    initDatatablesForVariant() {
+        const anchor = "#variant-table";
+        const fetchUrl = $(anchor).data('list');
+        const reorderUrl = $(anchor).data('reorder');
+        const _this = this
+        $(anchor).DataTable({
+            ordering: false,
+            searching: true,
+            processing: false,
+            serverSide: true,
+            ajax: {
+                url: fetchUrl,
+            },
+            columnDefs: [
+                {
+                    render: function (data, type, row) {
+                        return accounting.formatMoney(data, "", 0) + " đ"
+                    },
+                    targets: 3
+                },
+            ],
+            columns: [
+                {
+                    className: 'connect rowlink-skip',
+                    data: null,
+                    searchable: false,
+                    render: function (data) {
+                        return `
+                            <i class="material-icons" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">format_line_spacing</i>
+                        `
+                    }
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    className: 'text-right',
+                    data: 'quantity',
+                    name: 'quantity'
+                },
+                {
+                    className: 'text-right',
+                    data: 'price',
+                    name: 'price'
+                },
+                {
+                    data: null,
+                    orderable: false,
+                    className: 'rowlink-skip text-right',
+                    render: function (data) {
+                        return `
+                            <div class="btn-group">
+                                <a href="#variant-edit-modal" data-toggle="modal" data-href="${data.route.edit}" class="btn btn-sm p-1 p-0">
+                                    <i class="material-icons">border_color</i>
+                                </a>
+                                <a href="${data.route.destroy}"
+                                    class="btn btn-sm p-1 btn-destroy" data-toggle="tooltip" title="Xoá">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </div>`;
+                    },
+                    searchable: false
+                }
+            ],
+            pagingType: "first_last_numbers",
+            lengthMenu: [
+                [10, 25],
+                [10, 25]
+            ],
+            responsive: true,
+            language: {
+                paginate: {
+                    first: 'Đầu',
+                    previous: 'Trước',
+                    next: 'Sau',
+                    last: 'Cuối'
+                },
+                loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+                search: "_INPUT_",
+                searchPlaceholder: "Tìm kiếm nhanh",
+                lengthMenu: 'Hiển thị <select>' +
+                    '<option value="10">10</option>' +
+                    '<option value="25">25</option>' +
+                    '</select> bản ghi',
+                emptyTable: "Không tìm thấy bản ghi",
+                zeroRecords: "Không tìm thấy bản ghi",
+                info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+                infoEmpty: "Không có mục nào để hiển thị",
+                infoFiltered: " - lọc từ _MAX_ bản ghi"
 
+            },
+            // Event fired when table is draw
+            fnInfoCallback: function (oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+                $(`${anchor} tbody`).rowlink()
+                $('[data-toggle="tooltip"]').tooltip()
+                deleteSingleItem()
+                _this.initEditVariantFormData(anchor);
+                makeTableOrderable(reorderUrl, `${anchor} tbody`)
+            }
+        });
+    }
 }
 
 export class productCategoriesCore {

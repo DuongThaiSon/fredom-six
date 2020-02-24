@@ -3086,11 +3086,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategoriesCore", function() { return productCategoriesCore; });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../core */ "./resources/js/core.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 var productAttributeCore =
@@ -3191,8 +3193,6 @@ function () {
     _classCallCheck(this, productCore);
 
     this.productId = productId;
-    this.initVariantAction(); // this.submitEditVariantForm()
-
     this.unformatPriceAtSubmit();
   }
 
@@ -3209,11 +3209,35 @@ function () {
     key: "getSelectedAttributeOption",
     value: function getSelectedAttributeOption() {
       var result = [];
-      var selectpicker = $('.attribute-selectpicker');
-      selectpicker.each(function (index, element) {
-        result = _.concat(result, $(element).val());
+      var selectedAttribute = $('input[data-name=attribute]:checked');
+      selectedAttribute.each(function (index, element) {
+        var selectedOption = $(this).parents('tr').find("select[data-name=attribute-option]").val();
+        result = _.concat(result, selectedOption);
       });
       return result;
+    }
+  }, {
+    key: "validateMakeVariation",
+    value: function validateMakeVariation() {
+      if (this.getSelectedAttributeOption().length) {
+        $(".btn-make-variation").prop("disabled", false);
+      } else {
+        $(".btn-make-variation").prop("disabled", true);
+      }
+
+      return;
+    }
+  }, {
+    key: "setVariantButtonStatus",
+    value: function setVariantButtonStatus() {
+      var _this = this;
+
+      $('select[data-name=attribute-option]').on('changed.bs.select.setVariantButtonStatus', function () {
+        _this.validateMakeVariation();
+      });
+      $('input[data-name=attribute]').on('change.setVariantButtonStatus', function () {
+        _this.validateMakeVariation();
+      });
     }
   }, {
     key: "makeVariation",
@@ -3223,26 +3247,25 @@ function () {
       $('.btn-make-variation').on("click.btnMakeVariation", function (e) {
         e.preventDefault();
         var makeVariationUrl = $(this).attr("data-href");
-        var makeVariationData = $(".attribute-selectpicker").val();
+
+        var makeVariationData = _this.getSelectedAttributeOption();
+
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
         $.ajax({
           url: makeVariationUrl,
           method: "POST",
           data: {
-            attributes: makeVariationData
+            attribute_options: makeVariationData
           },
           success: function success(resolve) {
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            _core__WEBPACK_IMPORTED_MODULE_1__["swalWithSuccessConfirmButton"].fire({
               title: "Thành công!",
               type: "success",
               text: "Tạo biến thể thành công!",
               confirmButtonClass: "btn btn-success",
               buttonsStyling: false
             });
+            $("#variant-table").DataTable().draw();
           }
         });
       });
@@ -3299,36 +3322,6 @@ function () {
       });
     }
   }, {
-    key: "setVariantButtonStatus",
-    value: function setVariantButtonStatus() {
-      var attributeSelectedCount = $('.attribute-selectpicker').val().length;
-
-      if (attributeSelectedCount) {
-        $(".btn-make-variation").attr("disabled", false);
-      } else {
-        $(".btn-make-variation").attr("disabled", true);
-      }
-    }
-  }, {
-    key: "productVariantPagination",
-    value: function productVariantPagination() {
-      var _this = this;
-
-      $(".variant-pagination").find("a.page-link").off("click.productVariantPagination");
-      $(".variant-pagination").find("a.page-link").on("click.productVariantPagination", function (e) {
-        e.preventDefault();
-        var pagingUrl = $(this).attr("href");
-        $.ajax({
-          url: pagingUrl,
-          success: function success(resolve) {
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-          }
-        });
-      });
-    }
-  }, {
     key: "makeVariantProductOrderable",
     value: function makeVariantProductOrderable() {
       var variantTableData = $(".variant-sort");
@@ -3364,35 +3357,44 @@ function () {
       });
     }
   }, {
-    key: "showEditVariantForm",
-    value: function showEditVariantForm() {
+    key: "initEditVariantFormData",
+    value: function initEditVariantFormData(anchor) {
       var _this = this;
 
-      $(".btn-edit-variant").off("click.showEditVariantForm");
-      $(".btn-edit-variant").on("click.showEditVariantForm", function (e) {
-        e.preventDefault();
-        var editUrl = $(this).attr("data-href");
+      $("#variant-edit-modal").off('show.bs.modal');
+      $("#variant-edit-modal").on('show.bs.modal', function (e) {
+        var source = $(e.relatedTarget);
+        var editVariantUrl = source.data('href');
+
+        var _modal = $(this);
+
         $.ajax({
-          url: editUrl,
+          url: editVariantUrl,
           success: function success(resolve) {
-            $("#variant-edit-modal").find(".modal-body").html(resolve);
-            $("#variant-edit-modal").modal('show');
+            _modal.find(".modal-body").html(resolve);
+
             $(".price-format").simpleMoneyFormat();
+
+            _this.updateVariantInfo();
           }
         });
       });
+      $("#variant-edit-modal").off('hide.bs.modal');
+      $("#variant-edit-modal").on('hide.bs.modal', function (e) {
+        $(anchor).DataTable().draw('page');
+      });
     }
   }, {
-    key: "submitEditVariantForm",
-    value: function submitEditVariantForm() {
-      var _this = this;
-
-      $(".btn-submit-variant-edit").on("click.submitEditVariantForm", function (e) {
+    key: "updateVariantInfo",
+    value: function updateVariantInfo() {
+      $(".btn-submit-variant-edit").off("click.initEditVariantFormData");
+      $(".btn-submit-variant-edit").on("click.initEditVariantFormData", function (e) {
         e.preventDefault();
+        var updateVariantUrl = $("#variant-edit-modal").find('input[name=variant_update_url]').val();
         var formData = new FormData();
         formData.append('name', $("input[name=variant_name]").val());
         formData.append('price', accounting.unformat($("input[name=variant_price]").val()));
-        formData.append('product_code', $("input[name=variant_product_code]").val());
+        formData.append('sku', $("input[name=variant_sku]").val());
         formData.append('quantity', $("input[name=variant_quantity]").val());
 
         if ($("input[name=variant_is_public]:checked").val()) {
@@ -3404,7 +3406,6 @@ function () {
         }
 
         formData.append('_method', 'PUT');
-        var updateVariantUrl = $(".form-update-variant").attr('action');
         $.ajax({
           url: updateVariantUrl,
           data: formData,
@@ -3413,11 +3414,6 @@ function () {
           processData: false,
           success: function success(resolve) {
             $("#variant-edit-modal").modal('hide');
-            $(".product-variants-list").html(resolve);
-
-            _this.initVariantAction();
-
-            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Dữ liệu đã được cập nhật!', 'success');
           }
         });
       });
@@ -3449,8 +3445,6 @@ function () {
               success: function success(resolve) {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Thành công!', 'Đã xóa biến thể chỉ định', 'success');
                 $(".product-variants-list").html(resolve);
-
-                _this.initVariantAction();
               }
             });
           }
@@ -3458,12 +3452,86 @@ function () {
       });
     }
   }, {
-    key: "initVariantAction",
-    value: function initVariantAction() {
-      this.makeVariantProductOrderable();
-      this.productVariantPagination();
-      this.showEditVariantForm();
-      this.deleteVariant();
+    key: "initDatatablesForVariant",
+    value: function initDatatablesForVariant() {
+      var anchor = "#variant-table";
+      var fetchUrl = $(anchor).data('list');
+      var reorderUrl = $(anchor).data('reorder');
+
+      var _this = this;
+
+      $(anchor).DataTable({
+        ordering: false,
+        searching: true,
+        processing: false,
+        serverSide: true,
+        ajax: {
+          url: fetchUrl
+        },
+        columnDefs: [{
+          render: function render(data, type, row) {
+            return accounting.formatMoney(data, "", 0) + " đ";
+          },
+          targets: 3
+        }],
+        columns: [{
+          className: 'connect rowlink-skip',
+          data: null,
+          searchable: false,
+          render: function render(data) {
+            return "\n                            <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Gi\u1EEF icon n\xE0y k\xE9o th\u1EA3 \u0111\u1EC3 s\u1EAFp x\u1EBFp\">format_line_spacing</i>\n                        ";
+          }
+        }, {
+          data: 'name',
+          name: 'name'
+        }, {
+          className: 'text-right',
+          data: 'quantity',
+          name: 'quantity'
+        }, {
+          className: 'text-right',
+          data: 'price',
+          name: 'price'
+        }, {
+          data: null,
+          orderable: false,
+          className: 'rowlink-skip text-right',
+          render: function render(data) {
+            return "\n                            <div class=\"btn-group\">\n                                <a href=\"#variant-edit-modal\" data-toggle=\"modal\" data-href=\"".concat(data.route.edit, "\" class=\"btn btn-sm p-1 p-0\">\n                                    <i class=\"material-icons\">border_color</i>\n                                </a>\n                                <a href=\"").concat(data.route.destroy, "\"\n                                    class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                    <i class=\"material-icons\">delete</i>\n                                </a>\n                            </div>");
+          },
+          searchable: false
+        }],
+        pagingType: "first_last_numbers",
+        lengthMenu: [[10, 25], [10, 25]],
+        responsive: true,
+        language: {
+          paginate: {
+            first: 'Đầu',
+            previous: 'Trước',
+            next: 'Sau',
+            last: 'Cuối'
+          },
+          loadingRecords: "<img src='/backyard/img/loader4.gif' alt='Processing...'>",
+          search: "_INPUT_",
+          searchPlaceholder: "Tìm kiếm nhanh",
+          lengthMenu: 'Hiển thị <select>' + '<option value="10">10</option>' + '<option value="25">25</option>' + '</select> bản ghi',
+          emptyTable: "Không tìm thấy bản ghi",
+          zeroRecords: "Không tìm thấy bản ghi",
+          info: "Đang hiển thị bản ghi _START_ đến _END_ trong _MAX_ bản ghi",
+          infoEmpty: "Không có mục nào để hiển thị",
+          infoFiltered: " - lọc từ _MAX_ bản ghi"
+        },
+        // Event fired when table is draw
+        fnInfoCallback: function fnInfoCallback(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
+          $("".concat(anchor, " tbody")).rowlink();
+          $('[data-toggle="tooltip"]').tooltip();
+          Object(_core__WEBPACK_IMPORTED_MODULE_1__["deleteSingleItem"])();
+
+          _this.initEditVariantFormData(anchor);
+
+          Object(_core__WEBPACK_IMPORTED_MODULE_1__["makeTableOrderable"])(reorderUrl, "".concat(anchor, " tbody"));
+        }
+      });
     }
   }]);
 
@@ -3542,6 +3610,475 @@ $(document).ready(function () {
   guide.submitData();
   guide.applyAttributeType();
 });
+
+/***/ }),
+
+/***/ "./resources/js/core.js":
+/*!******************************!*\
+  !*** ./resources/js/core.js ***!
+  \******************************/
+/*! exports provided: swalWithSuccessConfirmButton, swalWithDangerConfirmButton, initCheckboxButton, deleteAnItem, deleteMultipleItems, makeTableOrderable, updateViewViewStatus, deleteSingleItem, moveTop, initUploadAvatarZone */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithSuccessConfirmButton", function() { return swalWithSuccessConfirmButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "swalWithDangerConfirmButton", function() { return swalWithDangerConfirmButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initCheckboxButton", function() { return initCheckboxButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteAnItem", function() { return deleteAnItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteMultipleItems", function() { return deleteMultipleItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTableOrderable", function() { return makeTableOrderable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateViewViewStatus", function() { return updateViewViewStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteSingleItem", function() { return deleteSingleItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "moveTop", function() { return moveTop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initUploadAvatarZone", function() { return initUploadAvatarZone; });
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+var swalWithSuccessConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-success',
+    cancelButton: 'rounded btn btn-secondary ml-2'
+  },
+  buttonsStyling: false
+});
+var swalWithDangerConfirmButton = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.mixin({
+  customClass: {
+    confirmButton: 'rounded btn btn-danger',
+    cancelButton: 'rounded btn btn-secondary ml-2'
+  },
+  buttonsStyling: false
+});
+var croppieOptions = {
+  enableExif: true,
+  viewport: {
+    width: 300,
+    height: 300,
+    type: 'square'
+  },
+  boundary: {
+    width: 350,
+    height: 350
+  }
+};
+/**
+ * Init behavior button
+ */
+
+function initCheckboxButton() {
+  // Button check/unchecked all
+  $(".btn-check-all").off(".checkAll");
+  $(".btn-check-all").on("click.checkAll", renderButtonCheckAll); // Behavior check input
+
+  $(".form-check-input").change(function () {
+    // If check a button and its category has sub
+    // Let's check all its subs
+    if ($(this).prop("checked") == true) {
+      // Check its sub
+      var checkBoxes = $(this).parents("table").parent().parent().find("ul .form-check-input");
+      checkBoxes.prop("checked", true);
+    } // If unchecked a button and all buttons at same level are unchecked
+    // Let's unchecked its parent
+
+
+    if ($(this).prop("checked") == false) {
+      var checkLevel = $(this).attr("data-level");
+      var parent = $(this).parent().closest("ul").parent().find(".form-check-input").first();
+
+      var _checkBoxes = $(this).parent().closest("ul").find(".form-check-input[data-level=" + checkLevel + "]:checkbox:checked");
+
+      if (_checkBoxes.length == 0) {
+        parent.prop("checked", false);
+      }
+    } // Change appear button check all
+
+
+    changeAppearButtonCheckAll();
+  });
+} // Change appear button check all
+
+function changeAppearButtonCheckAll() {
+  if ($("input.form-check-input:checkbox:checked").length === $("input.form-check-input:checkbox").length) {
+    $(".btn-check-all").prop("indeterminate", false);
+    $(".btn-check-all").prop("checked", true);
+  } else if ($("input.form-check-input:checkbox:checked").length > 0) {
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", true);
+  } else {
+    $(".btn-check-all").prop("checked", false);
+    $(".btn-check-all").prop("indeterminate", false);
+  }
+}
+
+function renderButtonCheckAll() {
+  var checkBoxes = $(".form-check-input");
+  checkBoxes.prop("checked", !checkBoxes.prop("checked"));
+  changeAppearButtonCheckAll();
+}
+/**
+ * Click remove an item
+ *
+ * @param deleteUrl string
+ */
+
+
+function deleteAnItem(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $(".delete-category").click(function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var delete_id = $(this).attr("data-id");
+    swalWithDangerConfirmButton.fire({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Huỷ",
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          onOpen: function onOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+          }
+        });
+        $.ajax({
+          url: deleteUrl + "/" + delete_id,
+          method: "POST",
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            _this.closest("li").remove();
+
+            swalWithSuccessConfirmButton.fire({
+              title: "Thành công",
+              text: "Bài viết đã được xóa.",
+              icon: "success",
+              buttonsStyling: false
+            }).then(function () {
+              location.reload();
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error"
+              });
+            }
+          }
+        });
+      }
+    });
+  });
+}
+/**
+ * Click remove selected items
+ *
+ * @param string deleteUrl
+ * @param string itemName
+ */
+
+function deleteMultipleItems(deleteUrl) {
+  var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
+  $("#btn-del-all").click(function () {
+    var checkedCounter = $("input.form-check-input:checkbox:checked").length;
+
+    if (checkedCounter > 0) {
+      swalWithDangerConfirmButton.fire({
+        title: "Bạn chắc chứ?",
+        text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Đúng, xóa hết đi",
+        cancelButtonText: "Huỷ"
+      }).then(function (result) {
+        if (result.value) {
+          var delete_id = "";
+          $("input.form-check-input:checkbox:checked").each(function (index) {
+            delete_id += $(this).attr("data-id") + ",";
+          });
+          delete_id = delete_id.slice(0, delete_id.length - 1);
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            onOpen: function onOpen() {
+              sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+            }
+          });
+          $.ajax({
+            url: deleteUrl,
+            method: "POST",
+            data: {
+              ids: delete_id,
+              _method: "DELETE"
+            },
+            success: function success() {
+              swalWithSuccessConfirmButton.fire({
+                title: "Thành công",
+                text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
+                icon: "success"
+              }).then(function () {
+                location.reload();
+              });
+              changeAppearButtonCheckAll();
+            },
+            error: function error(err) {
+              if (err.status === 403) {
+                swalWithDangerConfirmButton.fire({
+                  title: "Không được phép!",
+                  icon: "error",
+                  html: "\
+                                    <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                    <hr>\
+                                    <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+                });
+              } else {
+                swalWithDangerConfirmButton.fire({
+                  title: "Lỗi",
+                  text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                  icon: "error"
+                });
+              }
+            }
+          });
+        }
+      });
+    } else {
+      swalWithDangerConfirmButton.fire({
+        title: "Err...",
+        text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
+      });
+    }
+  });
+}
+function makeTableOrderable(orderUrl) {
+  var orderContainer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ".sort";
+  $(orderContainer).sortable({
+    handle: ".connect",
+    placeholder: "ui-state-highlight",
+    forcePlaceholderSize: true,
+    update: function update(event, ui) {
+      var sort = $(this).sortable("toArray");
+      $.ajax({
+        url: orderUrl,
+        method: "POST",
+        data: {
+          sort: sort
+        },
+        error: function error(err) {
+          if (err.status === 403) {
+            swalWithDangerConfirmButton.fire({
+              title: "Lỗi!",
+              icon: "error",
+              html: "\
+                                <p>Bạn không đủ quyền hạn để thực hiện hành động này. Mọi thay đổi sẽ không được lưu lại.</p>\
+                                <hr>\
+                                <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+            });
+          }
+        }
+      });
+    }
+  });
+}
+function updateViewViewStatus(updateUrl) {
+  $(".btn-update-view-status").off(".updateViewStatus");
+  $(".btn-update-view-status").on("click.updateViewStatus", _.throttle(function (e) {
+    e.preventDefault();
+    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+    var context = $(this);
+    var data = {
+      value: $(this).prop("checked") ? '0' : '1',
+      id: $(this).data("id"),
+      field: $(this).prop("name")
+    };
+    $.ajax({
+      url: updateUrl,
+      method: "POST",
+      data: data,
+      success: function success(scs) {
+        if (scs.value) {
+          context.attr('title', "Click để tắt");
+          context.prop("checked", true);
+        } else {
+          context.attr('title', "Click để bật");
+          context.prop("checked", false);
+        }
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
+        return;
+      },
+      error: function error(err) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.close();
+      }
+    });
+  }, 500));
+}
+function deleteSingleItem() {
+  var itemName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "mục";
+  $(".btn-destroy").off("click.deleteSingleItem");
+  $(".btn-destroy").on("click.deleteSingleItem", function (e) {
+    e.preventDefault();
+
+    var _this = $(this);
+
+    var deleteUrl = $(this).attr("href");
+    swalWithDangerConfirmButton.fire({
+      title: "Bạn chắc chứ?",
+      text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n ".concat(itemName, " n\xE0y!"),
+      icon: "warning",
+      confirmButtonText: "Đúng, xóa nó đi",
+      cancelButtonText: "Huỷ",
+      buttonsStyling: false
+    }).then(function (result) {
+      if (result.value) {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+          onOpen: function onOpen() {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.showLoading();
+          }
+        });
+        $.ajax({
+          url: deleteUrl,
+          method: "POST",
+          data: {
+            _method: "DELETE"
+          },
+          success: function success() {
+            _this.closest("li").remove();
+
+            swalWithSuccessConfirmButton.fire({
+              title: "Thành công",
+              icon: "success"
+            }).then(function () {
+              location.reload();
+            });
+            changeAppearButtonCheckAll();
+          },
+          error: function error(err) {
+            if (err.status === 403) {
+              swalWithDangerConfirmButton.fire({
+                title: "Không được phép!",
+                icon: "error",
+                buttonsStyling: false,
+                html: "\
+                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
+                                        <hr>\
+                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
+              });
+            } else {
+              swalWithDangerConfirmButton.fire({
+                title: "Lỗi",
+                text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
+                icon: "error",
+                buttonsStyling: false
+              });
+            }
+          }
+        });
+      }
+    });
+  });
+}
+function moveTop() {
+  $(".btn-move-top").off(".moveTop");
+  $(".btn-move-top").on("click.moveTop", _.throttle(function (e) {
+    e.preventDefault();
+    var moveTopUrl = $(this).attr("href");
+    $.ajax({
+      url: moveTopUrl,
+      method: "POST",
+      success: function success() {
+        location.reload();
+      },
+      error: function error(reject) {
+        console.log(reject);
+      }
+    });
+  }, 500));
+}
+function initUploadAvatarZone() {
+  $("#imageUpload").off("click.initUploadAvatarZone");
+  $("#imageUpload").on("click.initUploadAvatarZone", function (e) {
+    e.preventDefault();
+    $('.upload-avatar-modal').modal('show');
+    var croppieImage = $('#croppie-zone').croppie(croppieOptions);
+    $('.upload-avatar-modal').on('shown.bs.modal', function () {
+      appendCroppieImage(croppieImage);
+    });
+    $('.upload-avatar-modal').on('hidden.bs.modal', function (e) {
+      croppieImage.croppie('destroy');
+      $("#croppie-select-image-area").removeClass('d-none');
+      $("#croppie-edit-image").addClass("d-none");
+    });
+  });
+}
+
+function appendCroppieImage(croppieImage) {
+  $("#croppie-select-image-area").off(".appendCroppieImage");
+  $("#croppie-select-image-area").on("click.appendCroppieImage", function (e) {
+    e.preventDefault();
+    $("input#croppie-select-image").trigger("click");
+    $("input#croppie-select-image").on("change.appendCroppieImage", function () {
+      readFileInput(this).then(function (result) {
+        $("#croppie-select-image-area").addClass('d-none');
+        $("#croppie-edit-image").removeClass("d-none");
+        croppieImage.croppie('bind', {
+          url: result
+        });
+        initSaveCropAction(croppieImage);
+      });
+    });
+  });
+}
+
+function readFileInput(input) {
+  return new Promise(function (resolve, reject) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        resolve(e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      reject('Invalid');
+    }
+  });
+}
+
+function initSaveCropAction(croppieImage) {
+  $(".btn-croppie-save-image").off(".initSaveCropAction");
+  $(".btn-croppie-save-image").on("click.initSaveCropAction", function (e) {
+    e.preventDefault();
+    croppieImage.croppie('result', 'base64').then(function (image) {
+      $("#imagePreview").css('background-image', "url(".concat(image, ")"));
+      $("input[name=avatar]").val(image);
+      $('.upload-avatar-modal').modal('hide');
+    });
+  });
+  $(".btn-croppie-cancel").off(".initSaveCropAction");
+  $(".btn-croppie-cancel").on("click.initSaveCropAction", function (e) {
+    e.preventDefault();
+    $("#croppie-select-image-area").removeClass('d-none');
+    $("#croppie-edit-image").addClass("d-none");
+  });
+}
 
 /***/ }),
 

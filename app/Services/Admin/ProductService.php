@@ -45,6 +45,7 @@ class ProductService extends BaseModel
     public function allWithDatatables()
     {
         $list = $this->model
+            ->withoutVariation()
             ->orderBy('order', 'desc')
             ->with(['user', 'categories']);
 
@@ -67,7 +68,6 @@ class ProductService extends BaseModel
                     'clone' => route('admin.products.clone', $row->id),
                     'moveTop' => route('admin.products.moveTop', $row->id),
                     'destroy' => route('admin.products.destroy', $row->id),
-
                 ];
             })
             ->make(true);

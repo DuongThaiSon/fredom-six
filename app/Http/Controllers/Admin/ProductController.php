@@ -8,10 +8,8 @@ use App\Http\Requests\Admin\StoreProductRequest;
 use App\Http\Requests\Admin\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\ProductAttribute;
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Image;
-use App\Models\Showroom;
 use App\Services\Admin\ProductCategoryService;
 use App\Services\Admin\ProductService;
 
@@ -82,24 +80,29 @@ class ProductController extends Controller
         return redirect()->route('admin.products.edit', $product->id)->with('success', 'Product created.');
     }
 
-    public function show($id)
+    public function clone($productId)
     {
-        //
+        $product = $this->productService->findOrFail($productId);
+        $typeOptions = Product::PRODUCT_TYPES;
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
+        $productAttributes = ProductAttribute::latest()->with('productAttributeOptions')->get();
+        $selectedId = $product->categories()->get()->pluck('id');
+        return view('admin.products.create', compact('categories', 'product', 'productAttributes', 'selectedId', 'typeOptions'));
     }
 
     public function edit($productId)
     {
-        $product = Product::findOrFail($productId);
+        $product = $this->productService->findOrFail($productId);
         $typeOptions = Product::PRODUCT_TYPES;
-        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = $productId, $shouldLoadUpdater = false);
+        $categories = $this->productCategoryService->getSubCategories($parentId = 0, $processId = null, $shouldLoadUpdater = false);
         $productAttributes = ProductAttribute::latest()->with('productAttributeOptions')->get();
-        $selectedProductAttributes = collect([]);
-        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedProductAttributes', 'typeOptions'));
+        $selectedId = $product->categories()->get()->pluck('id');
+        return view('admin.products.edit', compact('categories', 'product', 'productAttributes', 'selectedId', 'typeOptions'));
     }
 
     public function update(UpdateProductRequest $request, $productId)
     {
-        $attributes = [
+        $attributes = $request->only([
             'name',
             'sku',
             'type',
@@ -121,48 +124,50 @@ class ProductController extends Controller
             'avatar',
             'description',
             'detail'
-        ];
+        ]);
         $this->productService->update($attributes, $productId);
         return redirect()->route('admin.products.edit', $productId)->with('success', 'Product updated.');
     }
 
-    public function destroy($id)
+    public function destroy($productId)
     {
-        Product::findOrFail($id)->delete();
-        return redirect()->back()->with('success', 'Xóa dữ liệu thành công');
-    }
-
-    public function fetchOption(Request $request)
-    {
-        $request->validate([
-            'checked_ids' => 'required'
-        ]);
-        $productAttributes = ProductAttribute::findOrFail($request->checked_ids)->load(['productAttributeOptions']);
-        if ($request->has('product_id')) {
-            $product = Product::findOrFail($request->product_id);
-        } else {
-            $product = new Product;
+        $product = $this->productService->findOrFail($productId);
+        if ($this->productService->destroy($product)) {
+            return response()->json([], 204);
         }
-        return view('admin.partials.productAttributeOptions', compact('product', 'productAttributes'));
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
     }
 
-    public function fetchAttributeOption(Request $request)
+    public function destroyMany(Request $request)
     {
-        // print_r($request->all());die;
-        // $request->validate([
-        //     'checked_ids' => 'required'
-        // ]);
-        $productAttributes = Category::whereIdAndType($request->category_id, 'product')->firstOrFail()->productAttributes()->get();
-        return view('admin.partials.productAttributeModalOptions', compact('productAttributes'));
-    }
-
-    public function deleteMany(Request $request)
-    {
-        $products = explode(",", $request->ids);
-        foreach ($products as $product) {
-            Product::findOrFail($product)->delete();
+        if ($this->productService->destroyMany($request->ids)) {
+            return response()->json([], 204);
         }
-        return redirect()->back()->with('win', 'Xóa dữ liệu thành công');
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
+    }
+
+    public function updateViewStatus(Request $request)
+    {
+        $article = $this->productService->updateViewStatus($request->id, $field = $request->field, $request->value);
+        return response()->json(['value' => $article->$field], 200);
+    }
+
+    public function moveTop($productId)
+    {
+        $product = $this->productService->findOrFail($productId);
+        if ($this->productService->moveTop($product)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_move"
+        ], 500);
     }
 
     public function processImage(Request $request, Product $product)

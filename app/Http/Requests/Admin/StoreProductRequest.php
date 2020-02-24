@@ -24,7 +24,10 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => "required|unique:products",
+            'avatar' => 'nullable|sometimes|image',
+            'sku' => "sometimes|unique:products",
+            'slug' => "sometimes|unique:products",
         ];
     }
 }

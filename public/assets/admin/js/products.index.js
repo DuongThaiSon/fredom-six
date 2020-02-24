@@ -3087,7 +3087,7 @@ $(document).ready(function () {
   initDatatables(); // initContactStatusFilter();
 
   var destroyManyUrl = $("#table").data("destroy-many");
-  var orderUrl = $("#table").data("order");
+  var reorderUrl = $("#table").data("reorder");
 
   function initDatatables() {
     var fetchUrl = $('#table').data('list');
@@ -3105,7 +3105,7 @@ $(document).ready(function () {
         data: null,
         searchable: false,
         render: function render(data) {
-          return "\n                            <a href=\"".concat(data.route.edit, "\" data-toggle=\"tooltip\" title=\"Gi\u1EEF icon n\xE0y k\xE9o th\u1EA3 \u0111\u1EC3 s\u1EAFp x\u1EBFp\">\n                                <i class=\"material-icons\">format_line_spacing</i>\n                            </a>\n                        ");
+          return "\n                            <a href=\"".concat(data.route.edit, "\" ></a>\n                            <i class=\"material-icons\" data-toggle=\"tooltip\" title=\"Gi\u1EEF icon n\xE0y k\xE9o th\u1EA3 \u0111\u1EC3 s\u1EAFp x\u1EBFp\">format_line_spacing</i>\n                        ");
         }
       }, {
         className: 'rowlink-skip',
@@ -3185,9 +3185,28 @@ $(document).ready(function () {
         deleteSingleItem();
         deleteMultipleItems(destroyManyUrl);
         initContactFormData();
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["makeTableOrderable"])(orderUrl, "#table tbody");
+        Object(_core__WEBPACK_IMPORTED_MODULE_0__["makeTableOrderable"])(reorderUrl, "#table tbody");
+        moveTop();
       }
     });
+  }
+
+  function moveTop() {
+    $("#table .btn-move-top").off(".moveTop");
+    $("#table .btn-move-top").on("click.moveTop", _.throttle(function (e) {
+      e.preventDefault();
+      var moveTopUrl = $(this).attr("href");
+      $.ajax({
+        url: moveTopUrl,
+        method: "POST",
+        success: function success() {
+          $('#table').DataTable().draw('page');
+        },
+        error: function error(reject) {
+          console.log(reject);
+        }
+      });
+    }, 500));
   }
 
   function deleteSingleItem() {

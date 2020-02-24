@@ -85,7 +85,7 @@
 
                                 <div class="form-group">
                                     <label>Nằm trong mục</label>
-                                    <select name="category_id" data-selected-text-format="count > 2"
+                                    <select name="category_id[]" data-selected-text-format="count > 2"
                                         class="selectpicker form-control"
                                         data-count-selected-text="{0} mục đã được chọn"
                                         data-style="select-with-transition" title="Chọn mục sản phẩm" data-size="7"
@@ -290,7 +290,8 @@
                     <!--end tab image-->
 
                     <!--tab attribute-->
-                    <div class="tab-pane fade show" id="nav-attribute" role="tabpanel" aria-labelledby="nav-attribute-tab">
+                    <div class="tab-pane fade show" id="nav-attribute" role="tabpanel"
+                        aria-labelledby="nav-attribute-tab">
                         @include('admin.products.variant')
                     </div>
                     <!--end tab attribute-->
@@ -302,7 +303,8 @@
                                 <legend>Quản lý review</legend>
                                 <div class="row">
                                     <div class="bg-white mt-4">
-                                        <table class="table-responsive table-sm table-hover table mb-2" width="100%" id="table-review">
+                                        <table class="table-responsive table-sm table-hover table mb-2" width="100%"
+                                            id="table-review">
                                             <thead>
                                                 <tr>
                                                     <th width="5%">STT</th>
@@ -317,21 +319,21 @@
                                                 @forelse ($product->reviews as $item)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $item->user->name ?? '' }}</td>
-                                                    <td>{{ $item->content ?? '' }}</td>
-                                                    <td>{{ $item->rate ?? '' }} *</td>
-                                                    <td>{{ $item->created_at }}</td>
-                                                    <td>
-                                                        <button class="btn btn-sm p-1 btn-delete" data-toggle="tooltip"
-                                                            title="Xoá" type="submit" data-user="{{ $item->user_id }}"
-                                                            data-product="{{ $item->product_id }}"
-                                                            data-href="{{ route('admin.reviews.destroy', $item->product_id) }}">
-                                                            <i class="material-icons">delete</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                @empty
-                                                @endforelse
+                                            <td>{{ $item->user->name ?? '' }}</td>
+                                            <td>{{ $item->content ?? '' }}</td>
+                                            <td>{{ $item->rate ?? '' }} *</td>
+                                            <td>{{ $item->created_at }}</td>
+                                            <td>
+                                                <button class="btn btn-sm p-1 btn-delete" data-toggle="tooltip"
+                                                    title="Xoá" type="submit" data-user="{{ $item->user_id }}"
+                                                    data-product="{{ $item->product_id }}"
+                                                    data-href="{{ route('admin.reviews.destroy', $item->product_id) }}">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </td>
+                                            </tr>
+                                            @empty
+                                            @endforelse
                                             </tbody> --}}
                                         </table>
                                     </div>

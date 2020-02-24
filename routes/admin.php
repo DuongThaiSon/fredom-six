@@ -375,7 +375,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         });
     });
     Route::resource('products', 'ProductController', [
-        'parameters' => 'productId'
+        'parameters' => ['products' => 'productId']
     ]);
 
     // product category

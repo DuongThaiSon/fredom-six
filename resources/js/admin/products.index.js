@@ -4,8 +4,7 @@ $(document).ready(function () {
     initDatatables();
     // initContactStatusFilter();
     const destroyManyUrl = $("#table").data("destroy-many");
-    const orderUrl = $("#table").data("order");
-
+    const reorderUrl = $("#table").data("reorder");
     function initDatatables() {
         const fetchUrl = $('#table').data('list');
         $('#table').DataTable({
@@ -24,9 +23,8 @@ $(document).ready(function () {
                     searchable: false,
                     render: function (data) {
                         return `
-                            <a href="${data.route.edit}" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">
-                                <i class="material-icons">format_line_spacing</i>
-                            </a>
+                            <a href="${data.route.edit}" ></a>
+                            <i class="material-icons" data-toggle="tooltip" title="Giữ icon này kéo thả để sắp xếp">format_line_spacing</i>
                         `
                     }
                 },
@@ -193,9 +191,29 @@ $(document).ready(function () {
                 deleteSingleItem()
                 deleteMultipleItems(destroyManyUrl)
                 initContactFormData();
-                makeTableOrderable(orderUrl, "#table tbody")
+                makeTableOrderable(reorderUrl, "#table tbody")
+                moveTop()
             }
         });
+    }
+
+    function moveTop() {
+        $("#table .btn-move-top").off(".moveTop");
+        $("#table .btn-move-top").on("click.moveTop", _.throttle(function (e) {
+            e.preventDefault();
+            let moveTopUrl = $(this).attr("href");
+
+            $.ajax({
+                url: moveTopUrl,
+                method: "POST",
+                success: function() {
+                    $('#table').DataTable().draw('page');
+                },
+                error: function(reject) {
+                    console.log(reject);
+                }
+            })
+        }, 500))
     }
 
     function deleteSingleItem(itemName = "mục") {

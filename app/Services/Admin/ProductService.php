@@ -54,7 +54,7 @@ class ProductService extends BaseModel
                 return 'ui-state-default';
             })
             ->setRowId(function ($row) {
-                return "item_{$row}";
+                return "item_{$row->id}";
             })
             ->addColumn('categories', function ($row) {
                 return $row->categories->pluck('name')->implode(', ');
@@ -83,7 +83,7 @@ class ProductService extends BaseModel
             $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
         }
         if (array_key_exists('category_id', $attributes)) {
-            $categoryIds = explode(',', $attributes['category_id']);
+            $categoryIds = $attributes['category_id'];
             unset($attributes['category_id']);
         }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
@@ -96,9 +96,48 @@ class ProductService extends BaseModel
         $attributes['created_by'] = $attributes['updated_by'] = $this->guard()->id();
         $attributes['order'] = $this->model->max('order') + 1;
         $entity = $this->model->create($attributes);
-        $entity->categories()->sync($categoryIds);
+        if (isset($categoryIds)) {
+            $entity->categories()->sync($categoryIds);
+        }
         $this->resetModel();
 
         return $entity;
+    }
+
+    public function update(array $attributes, $id)
+    {
+        $entity = $this->findOrFail($id);
+        $attributes['is_public'] = array_key_exists('is_public', $attributes) ? 1 : 0;
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
+        $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
+        $attributes['is_taxable'] = array_key_exists('is_taxable', $attributes) ? 1 : 0;
+        if (array_key_exists('avatar', $attributes)) {
+            $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
+        }
+        if (array_key_exists('category_id', $attributes) && $attributes['category_id']) {
+            $categoryIds = $attributes['category_id'];
+            unset($attributes['category_id']);
+        }
+        if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
+            $slug = Str::slug($attributes['name'], '-');
+            while ($this->model->where('slug', $slug)->get()->count() > 0) {
+                $slug .= '-' . rand(0, 9);
+            }
+            $attributes['slug'] = $slug;
+        }
+        $attributes['updated_by'] = $this->guard()->id();
+        $entity->fill($attributes);
+        $entity->save();
+        if (isset($categoryIds)) {
+            $entity->categories()->sync($categoryIds);
+        }
+        $this->resetModel();
+
+        return $entity;
+    }
+
+    public function findOrFail($productId)
+    {
+        return $this->model->withoutVariation()->whereId($productId)->firstOrFail();
     }
 }

@@ -42,7 +42,7 @@ class ProductVariantService
         }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
-            while ($this->model->where('slug', $slug)->get()->count() > 0) {
+            while (Product::where('slug', $slug)->get()->count() > 0) {
                 $slug .= '-' . rand(0, 9);
             }
             $attributes['slug'] = $slug;
@@ -171,7 +171,11 @@ class ProductVariantService
             return $q->note ?? $q->value;
         })->implode(" ");
         $data['name'] .= ' ' . $optionValues;
-        $data['sku'] = $product->sku;
+        $sku = $product->sku;
+            while (Product::where('sku', $sku)->get()->count() > 0) {
+                $sku .= '-' . rand(0, 9);
+            }
+        $data['sku'] = $sku;
         $data['slug'] = Str::slug($data['name']);
         $variation = Product::create($data);
         $this->saveAttributeProductValue($product, $options, $variation);

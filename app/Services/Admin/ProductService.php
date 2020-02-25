@@ -7,6 +7,8 @@ use App\Services\Plugins\BaseModel;
 use App\Services\Plugins\HandleUpload;
 use App\Services\Plugins\ManageItem;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductService extends BaseModel
 {
@@ -38,5 +40,104 @@ class ProductService extends BaseModel
     public function model()
     {
         return Product::class;
+    }
+
+    public function allWithDatatables()
+    {
+        $list = $this->model
+            ->withoutVariation()
+            ->orderBy('order', 'desc')
+            ->with(['user', 'categories']);
+
+        return DataTables::of($list)
+            ->setRowClass(function () {
+                return 'ui-state-default';
+            })
+            ->setRowId(function ($row) {
+                return "item_{$row->id}";
+            })
+            ->addColumn('categories', function ($row) {
+                return $row->categories->pluck('name')->implode(', ');
+            })
+            ->addColumn('user', function ($row) {
+                return $row->user ? $row->user->name : '';
+            })
+            ->addColumn('route', function ($row) {
+                return [
+                    'edit' => route('admin.products.edit', $row->id),
+                    'clone' => route('admin.products.clone', $row->id),
+                    'moveTop' => route('admin.products.moveTop', $row->id),
+                    'destroy' => route('admin.products.destroy', $row->id),
+                ];
+            })
+            ->make(true);
+    }
+
+    public function create(array $attributes)
+    {
+        $attributes['is_public'] = array_key_exists('is_public', $attributes) ? 1 : 0;
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
+        $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
+        $attributes['is_taxable'] = array_key_exists('is_taxable', $attributes) ? 1 : 0;
+        if (array_key_exists('avatar', $attributes)) {
+            $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
+        }
+        if (array_key_exists('category_id', $attributes)) {
+            $categoryIds = $attributes['category_id'];
+            unset($attributes['category_id']);
+        }
+        if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
+            $slug = Str::slug($attributes['name'], '-');
+            while ($this->model->where('slug', $slug)->get()->count() > 0) {
+                $slug .= '-' . rand(0, 9);
+            }
+            $attributes['slug'] = $slug;
+        }
+        $attributes['created_by'] = $attributes['updated_by'] = $this->guard()->id();
+        $attributes['order'] = $this->model->max('order') + 1;
+        $entity = $this->model->create($attributes);
+        if (isset($categoryIds)) {
+            $entity->categories()->sync($categoryIds);
+        }
+        $this->resetModel();
+
+        return $entity;
+    }
+
+    public function update(array $attributes, $id)
+    {
+        $entity = $this->findOrFail($id);
+        $attributes['is_public'] = array_key_exists('is_public', $attributes) ? 1 : 0;
+        $attributes['is_highlight'] = array_key_exists('is_highlight', $attributes) ? 1 : 0;
+        $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
+        $attributes['is_taxable'] = array_key_exists('is_taxable', $attributes) ? 1 : 0;
+        if (array_key_exists('avatar', $attributes)) {
+            $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
+        }
+        if (array_key_exists('category_id', $attributes) && $attributes['category_id']) {
+            $categoryIds = $attributes['category_id'];
+            unset($attributes['category_id']);
+        }
+        if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
+            $slug = Str::slug($attributes['name'], '-');
+            while ($this->model->where('slug', $slug)->get()->count() > 0) {
+                $slug .= '-' . rand(0, 9);
+            }
+            $attributes['slug'] = $slug;
+        }
+        $attributes['updated_by'] = $this->guard()->id();
+        $entity->fill($attributes);
+        $entity->save();
+        if (isset($categoryIds)) {
+            $entity->categories()->sync($categoryIds);
+        }
+        $this->resetModel();
+
+        return $entity;
+    }
+
+    public function findOrFail($productId)
+    {
+        return $this->model->withoutVariation()->whereId($productId)->firstOrFail();
     }
 }

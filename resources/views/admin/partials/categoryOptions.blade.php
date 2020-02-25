@@ -1,6 +1,9 @@
 @forelse ($categories as $categoryValue)
-<option value="{{ $categoryValue->id }}"
-    {{ isset ($selectedId)&&$categoryValue->id===$selectedId?'selected':'' }}>
+@if ($selectedId instanceof \Illuminate\Support\Collection)
+<option value="{{ $categoryValue->id }}" {{ isset ($selectedId)&&$selectedId->contains($categoryValue->id)?'selected':'' }}>
+@else
+<option value="{{ $categoryValue->id }}" {{ isset ($selectedId)&&$categoryValue->id===$selectedId?'selected':'' }}>
+@endif
     {!! repeatStr('&nbsp;', $level = isset($level) ? $level : 0) !!}
     {!! repeatStr('&#8627;', $level) !!}
     {{ $categoryValue->name }}

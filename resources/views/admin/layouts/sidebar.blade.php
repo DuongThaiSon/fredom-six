@@ -174,14 +174,14 @@
 
                 <!--Contact-->
                 <li class="nav-item">
-                    <a href="{{ route('admin.contacts.index')}}" class="nav-link" id="menu-contact">
+                    <a href="{{ route('admin.contacts.index')}}" class="nav-link menu-contacts-index">
                         <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
                     </a>
                 </li>
 
                 <!-- Component -->
                 <li class="nav-item">
-                    <a href="{{ route('admin.components.index')}}" class="nav-link" id="menu-component">
+                    <a href="{{ route('admin.components.index')}}" class="nav-link menu-components-index">
                         <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
                     </a>
                 </li>

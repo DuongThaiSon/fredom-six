@@ -195,7 +195,7 @@ class MenuController extends Controller
 
     public function listArticlesDatatables()
     {
-        return $this->articleService->datatablesList();
+        return $this->articleService->allWithDatatables();
     }
 
     public function showArticle(Request $request)
@@ -231,7 +231,7 @@ class MenuController extends Controller
 
     public function listProductsDatatables()
     {
-        return $this->productService->datatablesList();
+        return $this->productService->allWithDatatables();
     }
 
     public function showProduct(Request $request)

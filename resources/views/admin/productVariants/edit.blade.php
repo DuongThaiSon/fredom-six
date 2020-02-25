@@ -1,7 +1,8 @@
-<form class="form-update-variant" action="{{ route('admin.variants.update', ['product' => $product->id, 'variant' => $variant->id]) }}" method="post">
+<form class="form-update-variant" action="" method="post">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-12 col-lg-6">
             <legend>&nbsp;</legend>
+            <input type="hidden" name="variant_update_url" value="{{ route('admin.variants.update', ['productId' => $product->id, 'variantId' => $variant->id]) }}">
             <div class="form-group">
                 <label>@importantfield Tiêu đề sản phẩm</label>
                 <input
@@ -14,7 +15,7 @@
                 />
                 <small class="form-text">Tên sản phẩm</small>
             </div>
-    
+
             <div class="form-group">
                 <label>Giá sản phẩm</label>
                 <input
@@ -27,16 +28,16 @@
                 />
                 <small class="form-text">Giá của sản phẩm</small>
             </div>
-    
+
             <div class="form-group">
                 <label>Mã sản phẩm</label>
                 <input
                 type="text"
-                name="variant_product_code"
+                name="variant_sku"
                 required
                 class="form-control"
                 placeholder=""
-                value="{{$variant->product_code ?? ''}}"
+                value="{{$variant->sku ?? ''}}"
                 />
                 <small class="form-text">Mã sản phẩm</small>
             </div>
@@ -52,7 +53,7 @@
                 />
                 <small class="form-text">Số lượng sản phẩm</small>
             </div>
-    
+
             <!-- Button Toggle -->
             {{-- <div class="mb-2">
                 <label class="control-label">
@@ -71,22 +72,34 @@
                 </label>
             </div> --}}
         </div>
-    
-        <div class="col-lg-6">
+
+        <div class="col-12 col-lg-6">
             <legend>&nbsp;</legend>
-    
             <div class="form-group">
                 <label class="control-label">Ảnh đại diện</label>
-            </div>
-            <div class="form-group">
-                <div class="fileinput fileinput-new" data-provides="fileinput">
-                    <div class="fileinput-new img-thumbnail" style="width: 400px; height: 300px;">
-                        <img src="/{{ env('UPLOAD_DIR_PRODUCT') }}/{{ $variant->avatar }}"  alt="...">
+                <div class="fileinput fileinput-new d-block" data-provides="fileinput">
+                    @if ( isset($products) && $products->avatar)
+                    <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+                        <img src="{{ asset(env('UPLOAD_DIR_PRODUCT', 'media/images/products')) . "/{$products->avatar}" }}"
+                            alt="...">
                     </div>
-                    <div class="fileinput-preview fileinput-exists img-thumbnail" style="max-width: 400px; max-height: 300px;"></div>
+                    <div class="fileinput-preview fileinput-exists img-thumbnail"
+                        style="max-width: 200px; max-height: 150px;"></div>
+                    @else
+                    <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
+                        style="width: 200px; height: 150px;"></div>
+                    @endif
                     <div>
-                        <span class="btn btn-outline-secondary btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="variant_avatar"></span>
-                        <a href="#" class="btn btn-outline-secondary fileinput-exists" data-dismiss="fileinput">Remove</a>
+                        <span class="btn btn-outline-secondary btn-file border-0 p-0 rounded">
+                            <span class="fileinput-new btn btn-outline-secondary btn-sm">Select
+                                image</span>
+                            <span
+                                class="fileinput-exists btn btn-outline-secondary btn-sm">Change</span>
+                            <input type="file" name="variant_avatar" class="">
+                        </span>
+                        <a href="#"
+                            class="btn btn-outline-secondary btn-sm fileinput-exists rounded"
+                            data-dismiss="fileinput">Remove</a>
                     </div>
                 </div>
             </div>

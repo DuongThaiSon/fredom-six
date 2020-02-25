@@ -5,35 +5,58 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
-use App\Http\Services\Admin\ContactService;
+use App\Services\Admin\ContactService;
 
 class ContactController extends Controller
 {
-    const PER_PAGE = 20;
-    public function __construct(ContactService $service)
+    public function __construct(ContactService $contactService)
     {
-        $this->service = $service;
+        $this->contactService = $contactService;
     }
 
     public function index()
     {
-        $contacts = Contact::orderBy('id')->Paginate(self::PER_PAGE);
-        return view('admin.contact.contact', compact('contacts'));
+        $statuses = Contact::STATUS;
+        return view('admin.contact.index', compact('statuses'));
     }
 
-    public function delete(Request $request)
+    public function list(Request $request)
     {
-        $contact = Contact::findOrFail($request->id);
-        $contact->delete();
-        return redirect()->back()->with('win','Xóa dữ liệu thành công');
+        return $this->contactService->allWithDatatables($request->has('status') ? $request->status : []);
     }
 
-    public function deleteAll(Request $request)
+    public function edit($id)
     {
-        $deleted = $this->service->deleteAll($request->ids);
-        if (!$deleted) {
-            return redirect()->back()->with('fail','Không có dữ liệu để xóa.');
+        $contact = Contact::findOrFail($id);
+        if ($contact->status === 'new') {
+            $contact = $this->contactService->update(['status' => 'seen'], $id);
         }
-        return redirect()->back()->with('win','Xóa dữ liệu thành công.');
+        return response()->json(compact('contact'), 200);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $attributes = $request->only([
+            'note', 'status'
+        ]);
+        $this->contactService->update($attributes, $id);
+        return response()->json([], 204);
+    }
+
+    public function destroy($id)
+    {
+        $this->contactService->destroy($id);
+        return response()->json([], 204);
+    }
+
+    public function destroyMany(Request $request)
+    {
+        if ($this->contactService->destroyMany($request->ids)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'message' => "failed_to_delete"
+        ], 400);
     }
 }

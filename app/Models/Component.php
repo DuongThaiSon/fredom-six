@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
     protected $guarded = ['id'];
-    protected $perPage = 10;
 
-	public function comCreatedBy() {
-        return $this->belongsTo('App\Models\User', 'created_by');
-	}
+    protected $casts = [
+        'is_public' => 'boolean'
+    ];
 }

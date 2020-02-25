@@ -181,37 +181,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
         ]
     ]);
 
+    Route::resource('components', 'ComponentController', [
+        'parameters' => ['components' => 'id']
+    ]);
 
-    Route::group(['prefix' => 'components'], function () {
-        Route::get('', [
-            'as' => 'components.index',
-            'uses' => 'ComponentController@index'
-        ]);
-        Route::get('add', [
-            'as' => 'components.create',
-            'uses' => 'ComponentController@create'
-        ]);
-        Route::post('add', [
-            'as' => 'components.store',
-            'uses' => 'ComponentController@store'
-        ]);
-        Route::get('edit/{id}', [
-            'as' => 'components.show',
-            'uses' => 'ComponentController@show'
-        ]);
-        Route::post('edit/{id}', [
-            'as' => 'components.update',
-            'uses' => 'ComponentController@update'
-        ]);
-        Route::get('public', [
-            'as' => 'components.changePublic',
-            'uses' => 'ComponentController@changePublic'
-        ]);
-        Route::get('delete/{id}', [
-            'as' => 'components.delete',
-            'uses' => 'ComponentController@delete'
-        ]);
-    });
     Route::resource('orders', 'OrderController', [
         'parameters' => ['orders' => 'id']
     ]);
@@ -282,20 +255,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
         });
     });
 
-    Route::group(['prefix' => 'contacts'], function () {
-        Route::get('', [
-            'as' => 'contacts.index',
-            'uses' => 'ContactController@index'
+    Route::group(['prefix' => 'contacts', 'as' => 'contacts.'], function () {
+        Route::get('list', [
+            'as' => 'list',
+            'uses' => 'ContactController@list'
         ]);
-        Route::get('delete', [
-            'as' => 'contacts.delete',
-            'uses' => 'ContactController@delete'
-        ]);
-        Route::delete('delete', [
-            'as' => 'contacts.deleteAll',
-            'uses' => 'ContactController@deleteAll'
+        Route::delete('destroy-many', [
+            'as' => 'destroyMany',
+            'uses' => 'ContactController@destroyMany'
         ]);
     });
+    Route::resource('contacts', 'ContactController');
 
     Route::group(['prefix' => 'menus'], function () {
         Route::get('list-article-categories', [
@@ -358,23 +328,28 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'parameters' => ['menu-categories' => 'category']
     ]);
 
-    // product
-    Route::delete('delete-many/products', [
-        'as' => 'products.deleteMany',
-        'uses' => 'ProductController@deleteMany'
-    ]);
     Route::group(['prefix' => 'products'], function () {
-
-        Route::post('fetch-attribute-option', [
-            'as' => 'products.fetchAttributeOption',
-            'uses' => 'ProductController@fetchAttributeOption'
+        Route::post('update-view-status', [
+            'as' => 'products.updateViewStatus',
+            'uses' => 'ProductController@updateViewStatus'
         ]);
-        Route::post('fetch-option', [
-            'as' => 'products.fetchOption',
-            'uses' => 'ProductController@fetchOption'
+        Route::post('{productId}/move-top', [
+            'as' => 'products.moveTop',
+            'uses' => 'ProductController@moveTop',
         ]);
-
-        Route::group(['prefix' => '{product}'], function () {
+        Route::get('{productId}/clone', [
+            'as' => 'products.clone',
+            'uses' => 'ProductController@clone',
+        ]);
+        Route::post('reorder', [
+            'as' => 'products.reorder',
+            'uses' => 'ProductController@reorder',
+        ]);
+        Route::delete('destroy-many', [
+            'as' => 'products.destroyMany',
+            'uses' => 'ProductController@destroyMany',
+        ]);
+        Route::group(['prefix' => '{productId}'], function () {
             Route::post('process', [
                 'as' => 'products.processImage',
                 'uses' => 'ProductController@processImage'
@@ -387,10 +362,21 @@ Route::group(['middleware' => 'auth:admin'], function () {
                 'as' => 'variants.reorder',
                 'uses' => 'ProductVariantController@reorder'
             ]);
-            Route::resource('variants', 'ProductVariantController');
+            Route::resource('variants', 'ProductVariantController', [
+                'parameters' => [
+                    'variants' => 'variantId'
+                ]
+            ]);
+            Route::resource('reviews', 'ProductReviewController', [
+                'parameters' => [
+                    'reviews' => 'reviewId'
+                ]
+            ]);
         });
     });
-    Route::resource('products', 'ProductController');
+    Route::resource('products', 'ProductController', [
+        'parameters' => ['products' => 'productId']
+    ]);
 
     // product category
     Route::group(['prefix' => 'product-categories'], function () {
@@ -416,8 +402,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
     // product attribute
     Route::group(['prefix' => 'product-attributes'], function () { });
     Route::resource('product-attributes', 'ProductAttributeController');
-
-    Route::post('check-user', 'UserController@check');
 
     Route::get('files', [
         'as' => 'files',

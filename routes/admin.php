@@ -430,6 +430,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'only' => ['index', 'store']
     ]);
 
+    Route::resource('languages', 'LanguageController');
+    Route::resource('translations', 'TranslationController');
+
     //Addition route for Partners
     Route::group(['prefix' => 'partners'], function () {
         Route::delete('delete-many', [

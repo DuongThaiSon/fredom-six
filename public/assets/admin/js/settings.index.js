@@ -3190,7 +3190,7 @@ function btnDeleteSetting() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/settings.index.js */"./resources/js/admin/settings.index.js");
+module.exports = __webpack_require__(/*! /mnt/e/Project/leotive-cms-v3/resources/js/admin/settings.index.js */"./resources/js/admin/settings.index.js");
 
 
 /***/ })

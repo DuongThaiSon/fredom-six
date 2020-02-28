@@ -3785,7 +3785,7 @@ function initSaveCropAction(croppieImage) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/e/Project/leotive-cms-v3/resources/js/admin/users.admins.index.js */"./resources/js/admin/users.admins.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/users.admins.index.js */"./resources/js/admin/users.admins.index.js");
 
 
 /***/ })

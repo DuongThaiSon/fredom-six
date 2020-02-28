@@ -20,6 +20,7 @@
     "/assets/admin/js/products.index.js": "/assets/admin/js/products.index.js",
     "/assets/admin/js/settings.index.js": "/assets/admin/js/settings.index.js",
     "/assets/admin/js/sitemap.index.js": "/assets/admin/js/sitemap.index.js",
+    "/assets/admin/js/translations.index.js": "/assets/admin/js/translations.index.js",
     "/assets/admin/js/users.admins.create.js": "/assets/admin/js/users.admins.create.js",
     "/assets/admin/js/users.admins.index.js": "/assets/admin/js/users.admins.index.js",
     "/assets/admin/js/users.members.create.js": "/assets/admin/js/users.members.create.js",

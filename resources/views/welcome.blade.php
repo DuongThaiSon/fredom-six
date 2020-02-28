@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
+        @php
+            print_r(str_replace(' ', '', 'abc abc'));    
+        @endphp
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">

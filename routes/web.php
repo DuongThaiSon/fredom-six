@@ -13,11 +13,39 @@
 
 use Illuminate\Support\Facades\File;
 
-Route::view('/', 'welcome');
-// Route::get('/sitemap', function() {
-//     $sitemap = File::get(public_path('sitemap.xml'));
-//     return response($sitemap)
-//         ->withHeaders([
-//             'Content-Type' => 'text/xml'
-//         ]);
-// });
+Route::group([
+    'namespace' => 'Client'
+], function () {
+    Route::get('', [
+        'as' => 'client.home',
+        'uses' => 'HomeController@index'
+    ]);
+    Route::get('about', [
+        'as' => 'client.about',
+        'uses' => 'AboutController@index'
+    ]);
+    Route::get('customer', [
+        'as' => 'client.customer',
+        'uses' => 'CustomerController@index'
+    ]);
+    Route::group(['prefix' => 'product'], function() {
+        Route::get('', [
+            'as' => 'client.product',
+            'uses' => 'ProductController@index'
+        ]);
+        Route::get('/{slug}', [
+            'as' => 'client.product.detail',
+            'uses' => 'ProductController@show'
+        ]);
+    });
+    Route::group(['prefix' => 'service'], function() {
+        Route::get('', [
+            'as' => 'client.service',
+            'uses' => 'ServiceController@index'
+        ]);
+        Route::get('/{slug}', [
+            'as' => 'client.service.detail',
+            'uses' => 'ServiceController@show'
+        ]);
+    });
+});

@@ -62124,8 +62124,8 @@ function initSaveCropAction(croppieImage) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/main.js */"./resources/js/admin/main.js");
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/sass/admin/main.scss */"./resources/sass/admin/main.scss");
+__webpack_require__(/*! /mnt/e/Project/leotive-cms-v3/resources/js/admin/main.js */"./resources/js/admin/main.js");
+module.exports = __webpack_require__(/*! /mnt/e/Project/leotive-cms-v3/resources/sass/admin/main.scss */"./resources/sass/admin/main.scss");
 
 
 /***/ })

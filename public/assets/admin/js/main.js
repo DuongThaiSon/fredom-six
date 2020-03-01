@@ -61506,6 +61506,7 @@ $(document).ready(function () {
 
   $(".date-picker").flatpickr({});
   changeAttributeValueOnCheckboxToggle();
+  setLocale();
   CKFinder.setupCKEditor();
 });
 
@@ -61522,6 +61523,21 @@ function changeAttributeValueOnCheckboxToggle() {
   $(".checkbox-toggle").on("change.checkboxToggle", function () {
     var checkbox = $(this);
     checkbox.attr('checked', !checkbox.attr('checked'));
+  });
+}
+
+function setLocale() {
+  $(".nav-choose-locale").off(".setLocale");
+  $(".nav-choose-locale").on("click.setLocale", function (e) {
+    e.preventDefault();
+    var setLocaleUrl = $(this).data('href');
+    $.ajax({
+      url: setLocaleUrl,
+      method: "POST",
+      success: function success() {
+        location.reload();
+      }
+    });
   });
 }
 

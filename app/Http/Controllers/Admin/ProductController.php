@@ -15,6 +15,8 @@ use App\Services\Admin\ProductService;
 
 class ProductController extends Controller
 {
+    private $productService;
+
     /**
      * Create a new controller instance.
      *
@@ -36,7 +38,7 @@ class ProductController extends Controller
         if ($request->wantsJson()) {
             return $this->productService->allWithDatatables();
         }
-        return view('admin.products.index', compact('products'));
+        return view('admin.products.index');
     }
 
     /**

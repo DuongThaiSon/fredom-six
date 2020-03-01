@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 26);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3072,10 +3072,10 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 
 /***/ }),
 
-/***/ "./resources/js/admin/users.members.index.js":
-/*!***************************************************!*\
-  !*** ./resources/js/admin/users.members.index.js ***!
-  \***************************************************/
+/***/ "./resources/js/admin/languages.index.js":
+/*!***********************************************!*\
+  !*** ./resources/js/admin/languages.index.js ***!
+  \***********************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3085,58 +3085,26 @@ __webpack_require__.r(__webpack_exports__);
 
 $(document).ready(function () {
   initDatatables();
-  var destroyManyUrl = $("#table").data("destroy-many");
 
   function initDatatables() {
-    var fetchUrl = $('#table').data('url');
     $('#table').DataTable({
-      ordering: false,
+      ordering: true,
       searching: true,
       processing: false,
       serverSide: true,
-      ajax: fetchUrl,
+      ajax: 'http://127.0.0.1:8001/admin/languages',
       columns: [{
-        className: 'rowlink-skip',
-        data: null,
-        searchable: false,
-        render: function render(data) {
-          return "\n                            <a href=\"/admin/users/members/".concat(data.id, "\"></a>\n                            <div class=\"pretty p-icon p-curve p-smooth\">\n                                <input type=\"checkbox\" class=\"form-check-input\" value=\"").concat(data.id, "\"\n                                    data-id=\"").concat(data.id, "\" />\n                                <div class=\"state p-primary\">\n                                    <i class=\"icon material-icons\">done</i>\n                                    <label></label>\n                                </div>\n                            </div>");
-        }
-      }, {
-        data: 'id',
-        name: 'id'
-      }, {
         data: 'name',
         name: 'name'
       }, {
-        data: 'email',
-        name: 'email'
+        data: 'locale',
+        name: 'locale'
       }, {
         data: null,
-        searchable: false,
-        render: function render(data) {
-          if (!data.email_verified_at) {
-            return "\n                                <i class=\"material-icons\">\n                                    visibility_off\n                                </i>&nbsp;&nbsp;Ch\u01B0a k\xEDch ho\u1EA1t";
-          }
-
-          if (data.is_active) {
-            return "\n                                <i class=\"material-icons text-success\">\n                                    visibility\n                                </i>&nbsp;&nbsp;\u0110ang ho\u1EA1t \u0111\u1ED9ng";
-          }
-
-          if (!data.is_active) {
-            return "\n                            <i class=\"material-icons text-danger\">\n                                lock\n                            </i>&nbsp;&nbsp;B\u1ECB kho\xE1";
-          }
-
-          return "";
-        }
-      }, {
-        data: 'created_at',
-        name: 'created_at'
-      }, {
-        data: null,
+        orderable: false,
         className: 'rowlink-skip text-right',
         render: function render(data) {
-          return "\n                            <a href=\"/admin/users/members/".concat(data.id, "/edit\" class=\"btn btn-sm p-1\"\n                                style=\"padding:0;\" data-toggle=\"tooltip\" title=\"S\u1EEDa\">\n                                <i class=\"material-icons\">border_color</i>\n                            </a>\n                            <a href=\"/admin/users/members/").concat(data.id, "\"\n                                class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                <i class=\"material-icons\">delete</i>\n                            </a>");
+          return "\n                            <a href=\"#languageDetailModal\" data-toggle=\"modal\" data-id=\"".concat(data.id, "\"></a>\n                            <a href=\"").concat(data.route.destroy, "\"\n                                class=\"btn btn-sm p-1 btn-destroy\" data-toggle=\"tooltip\" title=\"Xo\xE1\">\n                                <i class=\"material-icons\">delete</i>\n                            </a>");
         },
         searchable: false
       }],
@@ -3164,9 +3132,8 @@ $(document).ready(function () {
       fnInfoCallback: function fnInfoCallback(oSettings, iStart, iEnd, iMax, iTotal, sPre) {
         $('#table tbody').rowlink();
         $('[data-toggle="tooltip"]').tooltip();
-        Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
         deleteSingleItem();
-        deleteMultipleItems(destroyManyUrl);
+        initLanguageFormData();
       }
     });
   }
@@ -3206,7 +3173,6 @@ $(document).ready(function () {
                 title: "Thành công",
                 icon: "success"
               });
-              Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
             },
             error: function error(err) {
               if (err.status === 403) {
@@ -3234,75 +3200,68 @@ $(document).ready(function () {
     });
   }
 
-  function deleteMultipleItems(deleteUrl) {
-    var itemName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "mục";
-    $("#btn-del-all").click(function () {
-      var checkedCounter = $("input.form-check-input:checkbox:checked").length;
+  function initLanguageFormData() {
+    $("#languageDetailModal").off('show.bs.modal');
+    $("#languageDetailModal").on('show.bs.modal', function (e) {
+      var source = $(e.relatedTarget);
+      var languageId = source.data('id');
 
-      if (checkedCounter > 0) {
-        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
-          title: "Bạn chắc chứ?",
-          text: "H\xE0nh \u0111\u1ED9ng s\u1EBD x\xF3a v\u0129nh vi\u1EC5n nh\u1EEFng ".concat(itemName, " \u0111\xE3 ch\u1ECDn!"),
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Đúng, xóa hết đi",
-          cancelButtonText: "Huỷ"
-        }).then(function (result) {
-          if (result.value) {
-            var delete_id = "";
-            $("input.form-check-input:checkbox:checked").each(function (index) {
-              delete_id += $(this).attr("data-id") + ",";
-            });
-            delete_id = delete_id.slice(0, delete_id.length - 1);
-            Swal.fire({
-              onOpen: function onOpen() {
-                Swal.showLoading();
-              }
-            });
-            $.ajax({
-              url: deleteUrl,
-              method: "POST",
-              data: {
-                ids: delete_id,
-                _method: "DELETE"
-              },
-              success: function success() {
-                _core__WEBPACK_IMPORTED_MODULE_0__["swalWithSuccessConfirmButton"].fire({
-                  title: "Thành công",
-                  text: "\u0110\xE3 x\xF3a c\xE1c ".concat(itemName, " \u0111\u01B0\u1EE3c ch\u1ECDn."),
-                  icon: "success"
-                }).then(function () {
-                  $('#table').DataTable().draw('page');
-                });
-                Object(_core__WEBPACK_IMPORTED_MODULE_0__["initCheckboxButton"])();
-              },
-              error: function error(err) {
-                if (err.status === 403) {
-                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
-                    title: "Không được phép!",
-                    icon: "error",
-                    html: "\
-                                        <p>Bạn không đủ quyền hạn để thực hiện hành động này.</p>\
-                                        <hr>\
-                                        <small><a href>Liên hệ với quản trị viên</a> nếu bạn cho rằng đây là một sự nhầm lẫn</small>"
-                  });
-                } else {
-                  _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
-                    title: "Lỗi",
-                    text: "H\xE3y \u0111\u1EA3m b\u1EA3o r\u1EB1ng kh\xF4ng c\xF2n b\xE0i vi\u1EBFt v\xE0 ".concat(itemName, " con n\xE0o thu\u1ED9c ").concat(itemName, " c\u1EA7n x\xF3a!"),
-                    icon: "error"
-                  });
-                }
-              }
-            });
+      var _modal = $(this);
+
+      if (languageId) {
+        $.ajax({
+          url: "/admin/languages/".concat(languageId, "/edit"),
+          success: function success(resolve) {
+            _modal.find(".modal-title").text(resolve.language.name);
+
+            _modal.find("input[name=id]").val(resolve.language.id);
+
+            _modal.find("input[name=name]").val(resolve.language.name);
+
+            _modal.find("input[name=locale]").val(resolve.language.locale);
           }
         });
       } else {
-        _core__WEBPACK_IMPORTED_MODULE_0__["swalWithDangerConfirmButton"].fire({
-          title: "Err...",
-          text: "Ch\u01B0a ch\u1ECDn ".concat(itemName, " n\xE0o c\u1EA3.")
-        });
+        _modal.find(".modal-title").text("");
+
+        _modal.find("input[name=id]").val("");
+
+        _modal.find("input[name=name]").val("");
+
+        _modal.find("input[name=locale]").val("");
       }
+    });
+    $("#languageDetailModal").off('hide.bs.modal');
+    $("#languageDetailModal").on('hide.bs.modal', function (e) {
+      $('#table').DataTable().draw('page');
+    });
+    $(".btn-update-language").off("click.initLanguageFormData");
+    $(".btn-update-language").on("click.initLanguageFormData", function (e) {
+      e.preventDefault();
+
+      var _modal = $("#languageDetailModal");
+
+      var formData = {
+        name: _modal.find("input[name=name]").val(),
+        locale: _modal.find("input[name=locale]").val()
+      };
+
+      var languageId = _modal.find("input[name=id]").val();
+
+      if (languageId) {
+        formData._method = "PUT";
+      }
+
+      $.ajax({
+        url: "/admin/languages/".concat(languageId),
+        method: 'POST',
+        data: formData,
+        success: function success() {
+          $('#table').DataTable().draw('page');
+
+          _modal.modal('hide');
+        }
+      });
     });
   }
 });
@@ -3778,14 +3737,14 @@ function initSaveCropAction(croppieImage) {
 
 /***/ }),
 
-/***/ 26:
-/*!*********************************************************!*\
-  !*** multi ./resources/js/admin/users.members.index.js ***!
-  \*********************************************************/
+/***/ 17:
+/*!*****************************************************!*\
+  !*** multi ./resources/js/admin/languages.index.js ***!
+  \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/users.members.index.js */"./resources/js/admin/users.members.index.js");
+module.exports = __webpack_require__(/*! /mnt/d/projects/CMS/Leotive-CMS-v3/resources/js/admin/languages.index.js */"./resources/js/admin/languages.index.js");
 
 
 /***/ })

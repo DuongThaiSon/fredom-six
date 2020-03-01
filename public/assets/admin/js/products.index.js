@@ -3125,18 +3125,21 @@ $(document).ready(function () {
         data: 'categories',
         name: 'categories.name'
       }, {
+        searchable: false,
         className: 'rowlink-skip',
         data: null,
         render: function render(data) {
           return "\n                            <div class=\"pretty p-icon p-toggle p-round p-bigger p-smooth\">\n                                <input type=\"checkbox\" class=\"btn-update-view-status\" data-id=\"".concat(data.id, "\"\n                                    ").concat(data.is_public ? 'checked' : '', " name=\"is_public\"/>\n                                <div class=\"state p-on p-primary-o\">\n                                    <i class=\"icon material-icons\">check</i>\n                                    <label></label>\n                                </div>\n                                <div class=\"state p-off\">\n                                    <i class=\"icon material-icons\">clear</i>\n                                    <label></label>\n                                </div>\n                            </div>\n                        ");
         }
       }, {
+        searchable: false,
         className: 'rowlink-skip',
         data: null,
         render: function render(data) {
           return "\n                            <div class=\"pretty p-icon p-toggle p-round p-bigger p-smooth\">\n                                <input type=\"checkbox\" class=\"btn-update-view-status\" data-id=\"".concat(data.id, "\"\n                                    ").concat(data.is_highlight ? 'checked' : '', " name=\"is_highlight\"/>\n                                <div class=\"state p-on p-primary-o\">\n                                    <i class=\"icon material-icons\">check</i>\n                                    <label></label>\n                                </div>\n                                <div class=\"state p-off\">\n                                    <i class=\"icon material-icons\">clear</i>\n                                    <label></label>\n                                </div>\n                            </div>\n                        ");
         }
       }, {
+        searchable: false,
         className: 'rowlink-skip',
         data: null,
         render: function render(data) {

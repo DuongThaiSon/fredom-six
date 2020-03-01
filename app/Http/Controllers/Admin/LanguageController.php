@@ -63,4 +63,11 @@ class LanguageController extends Controller
         $this->languageService->destroy($languageId);
         return response()->json([], 204);
     }
+
+    public function setLocale($locale)
+    {
+        session()->put('locale', $locale);
+        app()->setLocale($locale);
+        return response()->json([], 204);
+    }
 }

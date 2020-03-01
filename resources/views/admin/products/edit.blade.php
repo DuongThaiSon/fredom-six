@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['activePage' => 'products-create', 'title' => __('Products Detail')])
+@extends('admin.layouts.main', ['activePage' => 'products-create', 'title' => __('products.title')])
 @section('content')
 <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">

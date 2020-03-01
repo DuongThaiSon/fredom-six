@@ -201,10 +201,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
     });
 
     Route::group([
-            'prefix' => 'users',
-            'namespace' => 'User',
-            'as' => 'users.'
-        ], function () {
+        'prefix' => 'users',
+        'namespace' => 'User',
+        'as' => 'users.'
+    ], function () {
         Route::group(['prefix' => 'members'], function () {
             Route::get('list', [
                 'as' => 'members.list',
@@ -430,6 +430,10 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'only' => ['index', 'store']
     ]);
 
+    Route::post('locale/{locale}', [
+        'as' => 'languages.setLocale',
+        'uses' => 'LanguageController@setLocale'
+    ]);
     Route::resource('languages', 'LanguageController');
     Route::resource('translations', 'TranslationController');
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f8140c253e2a7c438b597031d8dbf35",
+    "content-hash": "2da7cb5baeec39fb1c63de1b59606679",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -5378,6 +5378,57 @@
                 "environment"
             ],
             "time": "2019-09-10T21:37:39+00:00"
+        },
+        {
+            "name": "waavi/translation",
+            "version": "2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Waavi/translation.git",
+                "reference": "37f5cd04f223750a31e89b9c0f89a6f8ec8e5057"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Waavi/translation/zipball/37f5cd04f223750a31e89b9c0f89a6f8ec8e5057",
+                "reference": "37f5cd04f223750a31e89b9c0f89a6f8ec8e5057",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.5",
+                "laravel/framework": "~6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.2.3",
+                "orchestra/testbench": "~4.0",
+                "phpunit/phpunit": "~8.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Waavi\\Translation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Waavi",
+                    "email": "info@waavi.com",
+                    "homepage": "http://waavi.com"
+                }
+            ],
+            "description": "A Translation package for Laravel 5 with database and cache support",
+            "keywords": [
+                "laravel",
+                "laravel-translator",
+                "localization",
+                "translation",
+                "translator",
+                "waavi"
+            ],
+            "time": "2019-09-19T11:18:42+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",

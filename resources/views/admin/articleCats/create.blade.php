@@ -147,6 +147,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <legend>Nội dung chi tiết</legend>
+                        <div class="form-group">
+                            <textarea class="form-control ckeditor"
+                                name="detail">{{ old('detail') }}</textarea>
+                        </div>
+                    </div>
+                </div>
             </form>
             <!-- End form -->
         </div>

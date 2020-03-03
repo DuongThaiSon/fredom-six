@@ -166,10 +166,25 @@
                 </li>
 
                 <!-- Language -->
-                <li class="nav-item">
-                    <a href="language.html" class="nav-link" id="menu-language">
-                        <i class="material-icons align-middle">language</i><span>Ngôn ngữ</span>
-                    </a>
+                <li class="nav-item has-child">
+                    <a data-toggle="collapse" data-target="#languagesubmenu" href="" class="nav-link collapsed"><i
+                            class="material-icons align-middle">language</i><span>Ngôn ngữ</span></a>
+                    <div class="sub collapse" id="languagesubmenu">
+                        <ul class="flex-column nav">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.languages.index') }}"
+                                    class="nav-link menu-languages-index">
+                                    Quản lý ngôn ngữ
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.translations.index') }}"
+                                    class="nav-link menu-translations-index">
+                                    Quản lý bản dịch
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 
                 <!--Contact-->

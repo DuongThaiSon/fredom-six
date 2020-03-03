@@ -59,6 +59,7 @@ $(document).ready(function () {
                     name: 'categories.name'
                 },
                 {
+                    searchable: false,
                     className: 'rowlink-skip',
                     data: null,
                     render: function (data) {
@@ -79,6 +80,7 @@ $(document).ready(function () {
                     }
                 },
                 {
+                    searchable: false,
                     className: 'rowlink-skip',
                     data: null,
                     render: function (data) {
@@ -99,6 +101,7 @@ $(document).ready(function () {
                     }
                 },
                 {
+                    searchable: false,
                     className: 'rowlink-skip',
                     data: null,
                     render: function (data) {

@@ -1,1 +1,1 @@
-Leotive CMS version 1.4
+Leotive CMS version 1.5

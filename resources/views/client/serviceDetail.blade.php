@@ -1,4 +1,4 @@
-@extends('client.layouts.main', 'title'=> ['Service Detail'])
+@extends('client.layouts.main', ['title'=> 'Service Detail'])
 @include('client.layouts.header')
 @section('content')
     <section id="breadcrumb">

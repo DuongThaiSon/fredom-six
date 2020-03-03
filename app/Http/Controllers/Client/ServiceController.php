@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Article;
 
 class ServiceController extends Controller
 {
@@ -14,8 +16,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        
-        return view('client.service');
+        $serviceCat = Category::findOrFail(11);
+        $services = Article::where([['category_id', $serviceCat->id], ['is_public', 1]])->orderBy('order', 'desc')->get();
+
+        return view('client.service', compact('serviceCat', 'services'));
     }
 
     /**
@@ -45,9 +49,9 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        return view('client.serviceDetail');
     }
 
     /**

@@ -21,6 +21,9 @@ trait ManageItem
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
         }
+        if (array_key_exists('icon', $attributes)) {
+            $attributes['icon'] = $this->uploadImage($attributes['icon'], $this->getDestinationUploadDir());
+        }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');
             while ($this->model->where('slug', $slug)->get()->count() > 0) {
@@ -51,6 +54,9 @@ trait ManageItem
         $attributes['is_new'] = array_key_exists('is_new', $attributes) ? 1 : 0;
         if (array_key_exists('avatar', $attributes)) {
             $attributes['avatar'] = $this->uploadImage($attributes['avatar'], $this->getDestinationUploadDir());
+        }
+        if (array_key_exists('icon', $attributes)) {
+            $attributes['icon'] = $this->uploadImage($attributes['icon'], $this->getDestinationUploadDir());
         }
         if (array_key_exists('slug', $attributes) && !$attributes['slug']) {
             $slug = Str::slug($attributes['name'], '-');

@@ -25,7 +25,7 @@ class UpdateArticleCategoryRequest extends FormRequest
     {
         return [
             'parent_id' => 'required|numeric|min:0',
-            'name' => "required|unique:categories,name,{$this->category->id}",
+            'name' => "required",
             'avatar' => 'nullable|sometimes|image',
             'slug' => "sometimes|unique:categories,slug,{$this->category->id}",
         ];

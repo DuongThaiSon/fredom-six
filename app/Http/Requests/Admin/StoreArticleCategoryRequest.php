@@ -25,7 +25,7 @@ class StoreArticleCategoryRequest extends FormRequest
     {
         return [
             'parent_id' => 'required|numeric|min:0',
-            'name' => 'required|unique:categories',
+            'name' => 'required',
             'avatar' => 'sometimes|image',
             'slug' => 'sometimes|unique:categories'
         ];

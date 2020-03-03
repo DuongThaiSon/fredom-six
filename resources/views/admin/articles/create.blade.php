@@ -138,32 +138,63 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Ảnh đại diện</label>
-                            <div class="fileinput fileinput-new d-block" data-provides="fileinput">
-                                @if ( isset($article) && $article->avatar)
-                                <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
-                                    <img src="{{ asset(env('UPLOAD_DIR_ARTICLE', 'media/images/articles')) . "/{$article->avatar}" }}"
-                                        alt="...">
+                            <div style="display: inline-block;float: left;margin-right: 30px;">
+                                <label class="control-label">Ảnh đại diện</label>
+                                <div class="fileinput fileinput-new d-block" data-provides="fileinput">
+                                    @if ( isset($article) && $article->avatar)
+                                    <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+                                        <img src="{{ asset(env('UPLOAD_DIR_ARTICLE', 'media/images/articles')) . "/{$article->avatar}" }}"
+                                            alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists img-thumbnail"
+                                        style="max-width: 200px; max-height: 150px;"></div>
+                                    @else
+                                    <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
+                                        style="width: 200px; height: 150px;"></div>
+                                    @endif
+                                    <div>
+                                        <span class="btn btn-outline-secondary btn-file border-0 p-0 rounded">
+                                            <span class="fileinput-new btn btn-outline-secondary btn-sm">Select
+                                                image</span>
+                                            <span
+                                                class="fileinput-exists btn btn-outline-secondary btn-sm">Change</span>
+                                            <input type="file" name="avatar" class="">
+                                        </span>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm fileinput-exists rounded"
+                                            data-dismiss="fileinput">Remove</a>
+                                    </div>
                                 </div>
-                                <div class="fileinput-preview fileinput-exists img-thumbnail"
-                                    style="max-width: 200px; max-height: 150px;"></div>
-                                @else
-                                <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
-                                    style="width: 200px; height: 150px;"></div>
-                                @endif
-                                <div>
-                                    <span class="btn btn-outline-secondary btn-file border-0 p-0 rounded">
-                                        <span class="fileinput-new btn btn-outline-secondary btn-sm">Select
-                                            image</span>
-                                        <span
-                                            class="fileinput-exists btn btn-outline-secondary btn-sm">Change</span>
-                                        <input type="file" name="avatar" class="">
-                                    </span>
-                                    <a href="#" class="btn btn-outline-secondary btn-sm fileinput-exists rounded"
-                                        data-dismiss="fileinput">Remove</a>
+                            </div>
+
+                            <div>
+                                <label class="control-label">Icon ( với những bài viết thuộc mục Services )</label>
+                                <div class="fileinput fileinput-new d-block" data-provides="fileinput">
+                                    @if ( isset($article) && $article->icon)
+                                    <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
+                                        <img src="{{ asset(env('UPLOAD_DIR_ARTICLE', 'media/images/articles')) . "/{$article->icon}" }}"
+                                            alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists img-thumbnail"
+                                        style="max-width: 200px; max-height: 150px;"></div>
+                                    @else
+                                    <div class="fileinput-preview img-thumbnail" data-trigger="fileinput"
+                                        style="width: 200px; height: 150px;"></div>
+                                    @endif
+                                    <div>
+                                        <span class="btn btn-outline-secondary btn-file border-0 p-0 rounded">
+                                            <span class="fileinput-new btn btn-outline-secondary btn-sm">Select
+                                                image</span>
+                                            <span
+                                                class="fileinput-exists btn btn-outline-secondary btn-sm">Change</span>
+                                            <input type="file" name="icon" class="">
+                                        </span>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm fileinput-exists rounded"
+                                            data-dismiss="fileinput">Remove</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

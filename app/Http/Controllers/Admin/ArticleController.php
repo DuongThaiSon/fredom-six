@@ -75,6 +75,7 @@ class ArticleController extends Controller
             'description',
             'detail',
             'avatar',
+            'icon'
         ]);
         $article = $this->articleService->create($attributes);
         return redirect()->route('admin.articles.edit', $article->id)->with('success', 'Article created.');
@@ -127,6 +128,7 @@ class ArticleController extends Controller
             'description',
             'detail',
             'avatar',
+            'icon'
         ]);
         $article = $this->articleService->update($attributes, $article);
         return redirect()->route('admin.articles.edit', $article->id)->with('success', 'Article updated.');

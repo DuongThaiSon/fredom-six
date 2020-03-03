@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9252f0908b7741bbca88a1da1f991308",
+    "content-hash": "2da7cb5baeec39fb1c63de1b59606679",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -5381,16 +5381,16 @@
         },
         {
             "name": "waavi/translation",
-            "version": "2.4.1",
+            "version": "2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Waavi/translation.git",
-                "reference": "7bedc0a43ae61e1145fb2887c2f6e67acdee0fd0"
+                "reference": "37f5cd04f223750a31e89b9c0f89a6f8ec8e5057"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Waavi/translation/zipball/7bedc0a43ae61e1145fb2887c2f6e67acdee0fd0",
-                "reference": "7bedc0a43ae61e1145fb2887c2f6e67acdee0fd0",
+                "url": "https://api.github.com/repos/Waavi/translation/zipball/37f5cd04f223750a31e89b9c0f89a6f8ec8e5057",
+                "reference": "37f5cd04f223750a31e89b9c0f89a6f8ec8e5057",
                 "shasum": ""
             },
             "require": {
@@ -5428,7 +5428,7 @@
                 "translator",
                 "waavi"
             ],
-            "time": "2019-11-14T11:54:36+00:00"
+            "time": "2019-09-19T11:18:42+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",

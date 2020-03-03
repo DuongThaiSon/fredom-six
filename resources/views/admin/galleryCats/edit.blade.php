@@ -48,7 +48,7 @@
                         <div class="form-group">
                             <label>Tên mục @importantfield</label>
                             <input type="text" name="name" required class="form-control" placeholder="Tên mục"
-                                value={{ old('name') ?? $category->name }} />
+                                value="{{ old('name') ?? $category->name }}" />
                                 <small class="form-text">Tên của mục album</small>
                         </div>
 

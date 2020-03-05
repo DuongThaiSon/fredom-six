@@ -59,7 +59,12 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <legend>Thông tin cơ bản</legend>
-
+                                <div class="form-group d-none">
+                                    <label>Id</label>
+                                    <input type="text" name="id" required class="form-control"
+                                        placeholder="The cat in the hat"
+                                        value="{{ old('id') ?? $product->id ?? '' }}" />
+                                </div>
                                 <div class="form-group">
                                     <label>Tên sản phẩm @importantfield</label>
                                     <input type="text" name="name" required class="form-control"

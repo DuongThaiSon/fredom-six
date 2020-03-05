@@ -108,7 +108,7 @@
                         <!-- Button Toggle -->
                         <div class="mb-2">
                             <label class="control-label">Hiển thị</label>
-                            <input type="checkbox" class="checkbox-toggle" name="is_public"
+                            <input type="checkbox" class="checkbox-toggle" name="is_public" id="public"
                                 {{ isset($product)&&$product->is_public==1?'checked':'' }} />
                             <label class="label-checkbox" for="public">Hiển thị</label>
                             <small class="form-text">Khi tính năng “Hiển thị” được bật, sản phẩm này có thể
@@ -116,7 +116,7 @@
                         </div>
                         <div class="mb-2">
                             <label class="control-label">Nổi bật</label>
-                            <input type="checkbox" class="checkbox-toggle" name="is_highlight"
+                            <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"
                                 {{ isset($product)&&$product->is_highlight==1?'checked':'' }} />
                             <label class="label-checkbox" for="highlight">Nổi bật</label>
                         </div>
@@ -125,7 +125,7 @@
                             diện.</small>
                         <div class="mb-2">
                             <label class="control-label">Mới</label>
-                            <input type="checkbox" class="checkbox-toggle" name="is_new"
+                            <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"
                                 {{ isset($product)&&$product->is_new==1?'checked':'' }} />
                             <label class="label-checkbox" for="new">Mới </label>
                         </div>

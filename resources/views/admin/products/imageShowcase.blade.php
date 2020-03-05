@@ -12,7 +12,7 @@
         <input type="text" class="form-control" name="image_captions[{{ $item->id }}]" value="{{ old('image_caption['.$item->id.']') ?? $item->caption }}" placeholder="Chú thích của ảnh">
     </div>
     <div class="col-1 align-self-center d-flex">
-        <button class="btn btn-link ml-auto mr-auto btn-destroy-image" data-href="{{ route('admin.products.revertImage', ['product' => $product->id, 'image' => $item->id]) }}">
+        <button class="btn btn-link ml-auto mr-auto btn-destroy-image" data-href="{{ route('admin.products.revertImage', ['productId' => $product->id, 'image' => $item->id]) }}">
             <i class="material-icons">delete</i>
         </button>
     </div>

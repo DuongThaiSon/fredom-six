@@ -172,8 +172,9 @@ class ProductController extends Controller
         ], 500);
     }
 
-    public function processImage(Request $request, Product $product)
+    public function processImage(Request $request, $productId)
     {
+        $product = Product::find($productId);
         $request->validate([
             'uploadImage' => 'required|image'
         ]);
@@ -206,8 +207,10 @@ class ProductController extends Controller
         return view('admin.products.imageShowcase', compact('product'));
     }
 
-    public function revertImage(Product $product, Image $image)
+    public function revertImage($product, $image)
     {
+        $image = Image::find($image);
+        $product = Product::find($product);
         $destinationPath = public_path(env('UPLOAD_DIR_PRODUCT', 'media/products'));
         $fileName = $image->name;
         if (file_exists($destinationPath . '/' . $fileName)) {

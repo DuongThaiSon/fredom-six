@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Contact;
 
-class HomeController extends Controller
+class CollectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        return view('client.index');
+        return view('client.collection');
     }
 
     /**
@@ -83,16 +81,5 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function contact(Request $request)
-    {
-        Contact::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'content' => $request->content
-        ]);
-
-        return back()->with('contact_success', 'Contact success');
     }
 }

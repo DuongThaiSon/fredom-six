@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Article;
-use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -16,19 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productParentCat = Category::find(6);
-        $productCat = Category::where([['is_public', 1], ['parent_id', 6]])->orderBy('order')->get();
-        foreach ($productCat as $item) {
-            $products[$item->id] = $item->articles->where('is_public', 1)->sortBy('order')->paginate(9);
-        }
-        $allProducts = $productCat->pluck('articles')
-            ->flatten(1)
-            ->unique('id')
-            ->sortByDesc('order')
-            ->where('is_public', 1)
-            ->paginate(9);
-
-        return view('client.product', compact('productCat', 'products', 'allProducts', 'productParentCat'));
+        return view('client.product-list');
     }
 
     /**
@@ -58,14 +44,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $product = Article::where([['is_public', 1], ['slug', $slug]])->first();
-        $category = $product->category;
-        $reportCat = Category::find(4);
-        $reports = optional($reportCat->articles)->where('is_public', 1)->sortBy('order');
-
-        return view('client.productDetail', compact('product', 'category', 'reports'));
+        //
     }
 
     /**

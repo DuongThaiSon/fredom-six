@@ -17,42 +17,47 @@ Route::group([
     'namespace' => 'Client'
 ], function () {
     Route::get('', [
-        'as' => 'client.home',
+        'as' => 'client.index',
         'uses' => 'HomeController@index'
     ]);
-    Route::get('about', [
-        'as' => 'client.about',
-        'uses' => 'AboutController@index'
+    Route::get('cart', [
+        'as' => 'client.cart',
+        'uses' => 'CartController@index'
     ]);
-    Route::get('customer', [
-        'as' => 'client.customer',
-        'uses' => 'CustomerController@index'
+    Route::get('collections', [
+        'as' => 'client.collection',
+        'uses' => 'CollectionController@index'
     ]);
-    Route::post('/contact', [
-        'as' => 'client.contact',
-        'uses' => 'HomeController@contact'
+    Route::get('product-list', [
+        'as' => 'client.product',
+        'uses' => 'ProductController@index'
     ]);
+    Route::get('product-detail', [
+        'as' => 'client.product-detail',
+        'uses' => 'ProductDetailController@index'
+    ]);
+   
     
-    Route::group(['prefix' => 'product'], function() {
-        Route::get('', [
-            'as' => 'client.product',
-            'uses' => 'ProductController@index'
-        ]);
-        Route::get('/{slug}', [
-            'as' => 'client.product.detail',
-            'uses' => 'ProductController@show'
-        ]);
-    });
+    // Route::group(['prefix' => 'product'], function() {
+    //     Route::get('', [
+    //         'as' => 'client.product',
+    //         'uses' => 'ProductController@index'
+    //     ]);
+    //     Route::get('/{slug}', [
+    //         'as' => 'client.product.detail',
+    //         'uses' => 'ProductController@show'
+    //     ]);
+    // });
 
-    Route::group(['prefix' => 'service'], function() {
-        Route::get('', [
-            'as' => 'client.service',
-            'uses' => 'ServiceController@index'
-        ]);
-        Route::get('/{slug}', [
-            'as' => 'client.service.detail',
-            'uses' => 'ServiceController@show'
-        ]);
-    });
+    // Route::group(['prefix' => 'service'], function() {
+    //     Route::get('', [
+    //         'as' => 'client.service',
+    //         'uses' => 'ServiceController@index'
+    //     ]);
+    //     Route::get('/{slug}', [
+    //         'as' => 'client.service.detail',
+    //         'uses' => 'ServiceController@show'
+    //     ]);
+    // });
 });
 

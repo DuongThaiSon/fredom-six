@@ -17,7 +17,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['cartItems', 'partner'])->simplePaginate(5);
+        $orders = Order::with(['cartItems'])->simplePaginate(5);
         $orders->map(function($q){
             $q->total_quantity = $q->cartItems->sum('quantity');
             $q->total_price = $q->cartItems->sum('price');

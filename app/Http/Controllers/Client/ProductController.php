@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,9 +14,12 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug_cat = null)
     {
-        return view('client.product-list');
+        $category = Category::where('slug', $slug_cat)->with(['products' => function($q) {
+            $q->where('is_public', 1);
+        }])->firstOrFail();
+        return view('client.product-list', compact('category'));
     }
 
     /**
@@ -44,9 +49,25 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug_cat = null, $slug_view = null)
     {
-        //
+        $product = Product::where('slug', $slug_view)->where('is_public', 1)->firstOrFail()->load(['categories', 'productAttributeOptions', 'variants', 'variants.variantAttributeValues']);
+        // $attributes = $product->productAttributeOptions->pluck('value','id' );
+        $variants = $product->variants->map(function($q) {
+            $q->size = $q->variantAttributeValues->pluck('value')->first();
+
+            $q->quantity = $q->cartItem ? $q->quantity - $q->cartItem->sum('quantity')  : $q->quantity;
+            return $q;
+        });
+        // print_r($variants->load(['cartItem'])->toArray());die;
+        $category = Category::where('slug', $slug_cat)->firstOrFail();
+        if($product->categories->pluck('id')->contains($category->id)) {
+            return view('client.product-detail', compact('product', 'category', 'variants'));
+        }
+        else {
+            abort(404);
+        }
+
     }
 
     /**

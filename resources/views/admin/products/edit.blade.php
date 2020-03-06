@@ -134,7 +134,7 @@
                                 <!-- Button Toggle -->
                                 <div class="mb-2">
                                     <label class="control-label">Hiển thị</label>
-                                    <input type="checkbox" class="checkbox-toggle" name="is_public"
+                                    <input type="checkbox" class="checkbox-toggle" name="is_public" id="public"
                                         {{ isset($product)&&$product->is_public==1?'checked':'' }} />
                                     <label class="label-checkbox" for="public">Hiển thị</label>
                                     <small class="form-text">Khi tính năng “Hiển thị” được bật, sản phẩm này có thể
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="mb-2">
                                     <label class="control-label">Nổi bật</label>
-                                    <input type="checkbox" class="checkbox-toggle" name="is_highlight"
+                                    <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"
                                         {{ isset($product)&&$product->is_highlight==1?'checked':'' }} />
                                     <label class="label-checkbox" for="highlight">Nổi bật</label>
                                 </div>
@@ -151,7 +151,7 @@
                                     diện.</small>
                                 <div class="mb-2">
                                     <label class="control-label">Mới</label>
-                                    <input type="checkbox" class="checkbox-toggle" name="is_new"
+                                    <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"
                                         {{ isset($product)&&$product->is_new==1?'checked':'' }} />
                                     <label class="label-checkbox" for="new">Mới </label>
                                 </div>
@@ -219,9 +219,9 @@
                                 <div class="form-group">
                                     <label class="control-label">Ảnh đại diện</label>
                                     <div class="fileinput fileinput-new d-block" data-provides="fileinput">
-                                        @if ( isset($products) && $products->avatar)
+                                        @if ( isset($product) && $product->avatar)
                                         <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
-                                            <img src="{{ asset(env('UPLOAD_DIR_PRODUCT', 'media/images/products')) . "/{$products->avatar}" }}"
+                                            <img src="{{ asset(env('UPLOAD_DIR_PRODUCT', 'media/images/products')) . "/{$product->avatar}" }}"
                                                 alt="...">
                                         </div>
                                         <div class="fileinput-preview fileinput-exists img-thumbnail"

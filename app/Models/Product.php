@@ -93,6 +93,11 @@ class Product extends Model
     {
         return $this->morphMany('App\Models\Menu', 'menuable');
     }
+
+    public function cartItem()
+    {
+        return $this->hasMany('App\Models\CartItem', 'product_id');
+    }
 }
 
 

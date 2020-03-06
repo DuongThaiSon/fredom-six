@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart as AppCart;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Cart;
 
 class CartController extends Controller
 {
@@ -14,7 +17,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('client.cart');
+        $cartItems = Cart::getContent();
+        return view('client.cart', compact('cartItems'));
     }
 
     /**
@@ -35,7 +39,23 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $variant = Product::find($request->variant);
+        $product = Product::find($request->product_id);
+        $cart = [
+            'id' => $variant->id,
+            'name' => $product->name,
+            'price' => $variant->price,
+            'quantity' => $request->quantity,
+            'attributes' => [
+                'category_slug' => $request->category_slug,
+                'product_size' => $variant->variantAttributeValues->pluck('value')->first(),
+                'product_avatar' => $product->avatar ?? '',
+                'product_slug' => $product->slug,
+            ]
+        ];
+        Cart::add($cart);
+
+        return redirect()->route('client.cart');
     }
 
     /**
@@ -69,7 +89,10 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Cart::update($id, ['quantity' => [
+            'relative' => false,
+            'value' => $request->quantity
+        ]]);
     }
 
     /**
@@ -80,6 +103,41 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cartItems = Cart::remove($id);
+        return response()->json(compact('cartItems'), 200);
+    }
+
+    public function checkout(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'total' => 'required'
+        ]);
+        $cartTotalQuantity = Cart::getTotalQuantity();
+        if ($cartTotalQuantity == 0) {
+            abort(404);
+        }
+        $cartItems = Cart::getContent();
+        $order = AppCart::create([
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'payment_status' => 'done',
+            // 'total' => $cartSubTotal,
+            'total' => $request->total
+        ]);
+
+        foreach ($cartItems as $key => $item) {
+            $order->cartItems()->create([
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+                'product_id' => $item->id,
+            ]);
+        }
+        Cart::clear();
+
+        return view('client.cart', compact('cartItems'));
     }
 }

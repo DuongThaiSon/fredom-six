@@ -25,11 +25,11 @@
                 <div class="main-nav d-none d-lg-block">
                     <nav class="site-navigation text-right text-md-center">
                         <ul class="site-menu js-clone-nav">
-                            <li class="active"><a href="">Trang chủ</a></li>
-                            <li><a href="product-list">Quần</a></li>
-                            <li><a href="product-list">Áo</a></li>
-                            <li><a href="product-list">Phụ kiện</a></li>
-                            <li><a href="collections">Bộ sưu tập</a></li>
+                            <li class="active"><a href="/">Trang chủ</a></li>
+                            <li><a href="/quan">Quần</a></li>
+                            <li><a href="/ao">Áo</a></li>
+                            <li><a href="/phu-kien">Phụ kiện</a></li>
+                            <li><a href="/collections">Bộ sưu tập</a></li>
                             <li><a href="https://www.instagram.com/fredom.6ix/">Instashop</a></li>
                         </ul>
                     </nav>
@@ -61,19 +61,19 @@
                     <div class="mobile-menu--content">
                         <ul class="p-0 m-0">
                             <li class="active">
-                                <a href="">Trang chủ</a>
+                                <a href="/">Trang chủ</a>
                             </li>
                             <li>
-                                <a href="">Quần</a>
+                                <a href="/quan">Quần</a>
                             </li>
                             <li>
-                                <a href="">Áo</a>
+                                <a href="/ao">Áo</a>
                             </li>
                             <li>
-                                <a href="">Phụ kiện</a>
+                                <a href="/phu-kien">Phụ kiện</a>
                             </li>
                             <li>
-                                <a href="">Bộ sưu tập</a>
+                                <a href="/collections">Bộ sưu tập</a>
                             </li>
                             <li>
                                 <a href="">Liên hệ</a>

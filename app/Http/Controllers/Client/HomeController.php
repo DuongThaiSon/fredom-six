@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -15,8 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        return view('client.index');
+        $highlightProducts = Product::where('is_public', 1)->where('is_highlight', 1)->get();
+        $collections = Category::find(2)->load(['children']);
+        return view('client.index', compact('highlightProducts', 'collections'));
     }
 
     /**

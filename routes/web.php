@@ -24,20 +24,50 @@ Route::group([
         'as' => 'client.cart',
         'uses' => 'CartController@index'
     ]);
+
+    Route::post('cart', [
+        'as' => 'client.cart.store',
+        'uses' => 'CartController@store'
+    ]);
+
+    Route::put('cart/{id}', [
+        'as' => 'client.cart.update',
+        'uses' => 'CartController@update'
+    ]);
+
+    Route::delete('cart/{id}', [
+        'as' => 'client.cart.destroy',
+        'uses' => 'CartController@destroy'
+    ]);
+
+    Route::post('cart/checkout', [
+        'as' => 'client.cart.checkout',
+        'uses' => 'CartController@checkout'
+    ]);
+
+
     Route::get('collections', [
         'as' => 'client.collection',
         'uses' => 'CollectionController@index'
     ]);
-    Route::get('product-list', [
-        'as' => 'client.product',
+    // Route::get('product-list', [
+    //     'as' => 'client.product',
+    //     'uses' => 'ProductController@index'
+    // ]);
+    // Route::get('product-detail', [
+    //     'as' => 'client.product-detail',
+    //     'uses' => 'ProductDetailController@index'
+    // ]);
+    Route::get('{slug_cat}', [
+        'as' => 'client.productCategory',
         'uses' => 'ProductController@index'
     ]);
-    Route::get('product-detail', [
-        'as' => 'client.product-detail',
-        'uses' => 'ProductDetailController@index'
+
+    Route::get('{slug_cat}/{slug_view}', [
+        'as' => 'client.productDetail',
+        'uses' => 'ProductController@show'
     ]);
-   
-    
+
     // Route::group(['prefix' => 'product'], function() {
     //     Route::get('', [
     //         'as' => 'client.product',

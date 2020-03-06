@@ -37,7 +37,19 @@
 </section>
 
 <section id="collection" class="owl-carousel owl-theme">
-    <div class="collection-item">
+    @foreach ($collections->children as $collection)
+        <div class="collection-item">
+            <div class="collection-wrap">
+                <div class="collection-content">
+                    <h1 class="collection-content--title">{{ $collection->name }}</h1>
+                    <p class="collection-content--des">{!! strip_tags($collection->description) !!}</p>
+                    <a href="{{ route('client.productCategory', ['slug_cat' => $collection->slug]) }}" class="btn-discover">khám phá</a>
+                </div>
+            </div>
+            <img src="{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $collection->avatar }}" alt="">
+        </div>
+    @endforeach
+    {{-- <div class="collection-item">
         <div class="collection-wrap">
             <div class="collection-content">
                 <h1 class="collection-content--title">lemon project</h1>
@@ -56,7 +68,7 @@
             </div>
         </div>
         <img src="{{ asset('assets/client') }}/images/collection-2.jpg" alt="">
-    </div>
+    </div> --}}
 </section>
 
 <section id="intro" class="welcome owl-carousel owl-theme">
@@ -95,12 +107,47 @@
 </section>
 
 <section id="product" class="owl-carousel owl-theme">
-    <div class="product-item border-0">
+    @foreach ($highlightProducts as $product)
+        <div class="product-item border-0">
+            <div class="product-item--wrap">
+                <p class="product-title--mobile">shop the look</p>
+                <div class="product-image">
+                    <div class="product-image--bg" style="background-image: url('{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $product->avatar ?? ''}}')">
+
+                    </div>
+                </div>
+                <div class="product-content">
+                    <div class="product-content--item">
+                        <a href="{{ route('client.productDetail', ['slug_cat' => $product->categories[0]->slug, 'slug_view' => $product->slug]) }}" class="product-link">
+                            <div class="product-double--image">
+                                @foreach ($product->images()->orderBy('order', 'desc')->take(2)->get() as $item)
+                                    <div class="{{ $loop->first ? 'product-double--front' : 'product-double--under' }}" style="background-image: url('{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $item->name }}')">
+
+                                    </div>
+                                @endforeach
+                                {{-- <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/9.jpg')">
+
+                                </div>
+                                <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/10.jpg')"> --}}
+
+                                {{-- </div> --}}
+                            </div>
+                            <div class="product-content--info">
+                                <h3 class="title">{{ $product->name }}</h3>
+                                <span class="price">{{ number_format($product->price) ?? '0' }} VNĐ</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    {{-- <div class="product-item border-0">
         <div class="product-item--wrap">
             <p class="product-title--mobile">shop the look</p>
             <div class="product-image">
                 <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/product-bg-1.jpg')">
-                
+
                 </div>
             </div>
             <div class="product-content">
@@ -128,7 +175,7 @@
             <p class="product-title--mobile">shop the look</p>
             <div class="product-image">
                 <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/15.jpg')">
-                
+
                 </div>
             </div>
             <div class="product-content">
@@ -156,7 +203,7 @@
             <p class="product-title--mobile">shop the look</p>
             <div class="product-image">
                 <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/4.jpg')">
-                
+
                 </div>
             </div>
             <div class="product-content">
@@ -184,7 +231,7 @@
             <p class="product-title--mobile">shop the look</p>
             <div class="product-image">
                 <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/25.jpg')">
-                
+
                 </div>
             </div>
             <div class="product-content">
@@ -206,6 +253,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </section>
 @endsection

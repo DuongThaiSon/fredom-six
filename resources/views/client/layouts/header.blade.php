@@ -8,8 +8,8 @@
                 <a href="#" class="search-close js-search-close">
                     <i class="ti-close"></i>
                 </a>
-                <form action="#">
-                    <input type="text" class="form-control" placeholder="Nhập tên sản phẩm" />
+                <form action="/search">
+                    <input type="text" class="form-control" name="name" placeholder="Nhập tên sản phẩm" />
                 </form>
             </div>
         </div>
@@ -43,7 +43,7 @@
                     </a>
                     <a href="cart" class="icons-btn d-inline-block bag" title="Giỏ hàng">
                         <span class="ti-shopping-cart"></span>
-                        <span class="number">2</span>
+                        <span class="number">{{ $quantity }}</span>
                     </a>
                     <a href="javascript:void(0)" class="js-show--menu d-inline-block d-lg-none">
                         <span class="ti-menu"></span>

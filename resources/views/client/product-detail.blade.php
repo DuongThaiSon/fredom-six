@@ -1,21 +1,9 @@
 @extends('client.layouts.main')
 @section('title', 'Sản phẩm')
 @section('content')
-<section id="banner" class="owl-carousel owl-theme">
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-</section>
-
 <div class="breadcrumbs my-3">
     <div class="container">
-        <a href="">home</a>
+        <a href="/">trang chủ</a>
         <span class="breadcrumbs-arrow">
             <span class="ti-angle-right"></span>
         </span>
@@ -27,7 +15,7 @@
     </div>
 </div>
 
-<section class="products-wrapper pb-5">
+<section class="products-wrapper py-5">
     <div class="row">
         <div class="col-lg-6 col-md-6">
             <div id="product-detail--slide" class="owl-carousel owl-theme">

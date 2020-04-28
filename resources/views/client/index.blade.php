@@ -49,26 +49,6 @@
             <img src="{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $collection->avatar }}" alt="">
         </div>
     @endforeach
-    {{-- <div class="collection-item">
-        <div class="collection-wrap">
-            <div class="collection-content">
-                <h1 class="collection-content--title">lemon project</h1>
-                <p class="collection-content--des">Bộ sưu tập mới nhất của chúng tôi đã ra mắt, hãy cùng xem nhé</p>
-                <a href="" class="btn-discover">khám phá</a>
-            </div>
-        </div>
-        <img src="{{ asset('assets/client') }}/images/collection-1.png" alt="">
-    </div>
-    <div class="collection-item">
-        <div class="collection-wrap">
-            <div class="collection-content">
-                <h1 class="collection-content--title">glow</h1>
-                <p class="collection-content--des">Bộ sưu tập mới nhất của chúng tôi đã ra mắt</p>
-                <a href="" class="btn-discover">khám phá</a>
-            </div>
-        </div>
-        <img src="{{ asset('assets/client') }}/images/collection-2.jpg" alt="">
-    </div> --}}
 </section>
 
 <section id="intro" class="welcome owl-carousel owl-theme">
@@ -110,7 +90,7 @@
     @foreach ($highlightProducts as $product)
         <div class="product-item border-0">
             <div class="product-item--wrap">
-                <p class="product-title--mobile">shop the look</p>
+                <p class="product-title--mobile">Các sản phẩm</p>
                 <div class="product-image">
                     <div class="product-image--bg" style="background-image: url('{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $product->avatar ?? ''}}')">
 
@@ -142,117 +122,5 @@
             </div>
         </div>
     @endforeach
-    {{-- <div class="product-item border-0">
-        <div class="product-item--wrap">
-            <p class="product-title--mobile">shop the look</p>
-            <div class="product-image">
-                <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/product-bg-1.jpg')">
-
-                </div>
-            </div>
-            <div class="product-content">
-                <div class="product-content--item">
-                    <a href="" class="product-link">
-                        <div class="product-double--image">
-                            <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/9.jpg')">
-
-                            </div>
-                            <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/10.jpg')">
-
-                            </div>
-                        </div>
-                        <div class="product-content--info">
-                            <h3 class="title">Lemon croptop</h3>
-                            <span class="price">450.000 VNĐ</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-item border-0">
-        <div class="product-item--wrap">
-            <p class="product-title--mobile">shop the look</p>
-            <div class="product-image">
-                <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/15.jpg')">
-
-                </div>
-            </div>
-            <div class="product-content">
-                <div class="product-content--item">
-                    <a href="" class="product-link">
-                        <div class="product-double--image">
-                            <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/7.jpg')">
-
-                            </div>
-                            <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/16.jpg')">
-
-                            </div>
-                        </div>
-                        <div class="product-content--info">
-                            <h3 class="title">glow shirt</h3>
-                            <span class="price">450.000 VNĐ</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-item border-0">
-        <div class="product-item--wrap">
-            <p class="product-title--mobile">shop the look</p>
-            <div class="product-image">
-                <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/4.jpg')">
-
-                </div>
-            </div>
-            <div class="product-content">
-                <div class="product-content--item">
-                    <a href="" class="product-link">
-                        <div class="product-double--image">
-                            <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/8.jpg')">
-
-                            </div>
-                            <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/6.jpg')">
-
-                            </div>
-                        </div>
-                        <div class="product-content--info">
-                            <h3 class="title">lemon hoodie</h3>
-                            <span class="price">450.000 VNĐ</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product-item border-0">
-        <div class="product-item--wrap">
-            <p class="product-title--mobile">shop the look</p>
-            <div class="product-image">
-                <div class="product-image--bg" style="background-image: url('{{ asset('assets/client') }}/images/25.jpg')">
-
-                </div>
-            </div>
-            <div class="product-content">
-                <div class="product-content--item">
-                    <a href="" class="product-link">
-                        <div class="product-double--image">
-                            <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/27.jpg')">
-
-                            </div>
-                            <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/26.jpg')">
-
-                            </div>
-                        </div>
-                        <div class="product-content--info">
-                            <h3 class="title">lemon pant</h3>
-                            <span class="price">700.000 VNĐ</span>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 </section>
 @endsection

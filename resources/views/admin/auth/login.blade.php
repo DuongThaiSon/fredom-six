@@ -4,10 +4,10 @@
     <div class="row">
         <div class="bg-white mx-auto border rounded-lg col-6 shadow p-4">
             <div class="row mb-3">
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <img class="w-25" src="/assets/admin/img/logo_with_text_bottom.png" alt="">
-                </div>
-                <div class="col-8 d-flex align-items-center">
+                </div> -->
+                <div class="col-12 d-flex align-items-center justify-content-center">
                     <h4>Admin Panel Login</h4>
                 </div>
             </div>
@@ -23,16 +23,20 @@
                     @endif
                     <div class="col-12 form-group mb-3">
                         <label for="input-email" class="mb-2 d-flex align-items-center">
-                            <i class="far fa-envelope" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Email</span>
+                            <i class="far fa-envelope" style="font-size: 1.3rem;"></i>&nbsp;<span
+                                class="text-dark font-weight-bold">Email</span>
                         </label>
-                        <input id="input-email" type="email" name="email" class="form-control" aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required tabindex="1">
+                        <input id="input-email" type="email" name="email" class="form-control"
+                            aria-describedby="emailHelp" value="{{ old('email')}}" autofocus required tabindex="1">
                     </div>
                     <div class="col-12 form-group mb-3">
                         <label for="input-email" class="mb-2 d-flex align-items-center">
-                            <i class="fas fa-lock" style="font-size: 1.3rem;"></i>&nbsp;<span class="text-dark font-weight-bold">Password</span>
+                            <i class="fas fa-lock" style="font-size: 1.3rem;"></i>&nbsp;<span
+                                class="text-dark font-weight-bold">Password</span>
                         </label>
                         <div class="input-group">
-                            <input id="input-password" type="password" name="password" class="form-control" required tabindex="2">
+                            <input id="input-password" type="password" name="password" class="form-control" required
+                                tabindex="2">
                             <div class="input-group-append">
                                 <a class="input-group-text" id="toggle-reveal-password" tabindex="5">
                                     <i class="material-icons">remove_red_eye</i>
@@ -41,8 +45,10 @@
                         </div>
                     </div>
                     <div class="col-12 form-group my-3 text-right">
-                        <a class="font-weight-bold btn btn-secondary rounded mr-2" href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
-                        <button type="submit" class="text-white font-weight-bold btn btn-primary rounded" tabindex="3">Đăng Nhập</button>
+                        <a class="font-weight-bold btn btn-secondary rounded mr-2"
+                            href="{{ route('admin.password.request') }}" tabindex="4">Quên mật khẩu</a>
+                        <button type="submit" class="text-white font-weight-bold btn btn-primary rounded"
+                            tabindex="3">Đăng Nhập</button>
                     </div>
 
                 </div>
@@ -58,16 +64,17 @@
 
 @push('js')
 <script>
-$(document).ready(function() {
-    $('#toggle-reveal-password').click(function(e) {
-        e.preventDefault();
-        var x = document.getElementById("input-password");
-        if (x.type === "password") {
-            x.type = "text";
-        } else {
-            x.type = "password";
-        }
+    $(document).ready(function () {
+        $('#toggle-reveal-password').click(function (e) {
+            e.preventDefault();
+            var x = document.getElementById("input-password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        });
     });
-});
+
 </script>
 @endpush

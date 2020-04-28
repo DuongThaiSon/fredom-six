@@ -3,7 +3,7 @@
     <section id="sidebar" class="d-flex flex-column">
         <div class="sidebar-header">
             <a href="">
-                <img src="{{ asset('assets/admin') }}/img/logo.webp" alt="logo" />
+                <h4 class="text-white py-3 px-4">MENU</h4>
             </a>
         </div>
 
@@ -58,7 +58,7 @@
                 </li>
 
                 <!-- News -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a href="#submenu2" data-toggle="collapse" data-target="#submenu2" class="nav-link collapsed">
                         <i class="material-icons align-middle">dvr</i>
                         <span>Tin bài</span>
@@ -88,10 +88,10 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- Slide & Album -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a href="#gallerysubmenu" data-toggle="collapse" data-target="#gallerysubmenu"
                         class="nav-link collapsed">
                         <i class="material-icons align-middle">collections</i>
@@ -123,10 +123,10 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- Video -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a href="#videosubmenu" data-toggle="collapse" data-target="#videosubmenu"
                         class="nav-link collapsed">
                         <i class="material-icons align-middle">video_library</i>
@@ -156,7 +156,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- Order -->
                 <li class="nav-item">
@@ -166,7 +166,7 @@
                 </li>
 
                 <!-- Language -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a data-toggle="collapse" data-target="#languagesubmenu" href="" class="nav-link collapsed"><i
                             class="material-icons align-middle">language</i><span>Ngôn ngữ</span></a>
                     <div class="sub collapse" id="languagesubmenu">
@@ -185,7 +185,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!--Contact-->
                 <li class="nav-item">
@@ -195,14 +195,14 @@
                 </li>
 
                 <!-- Component -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('admin.components.index')}}" class="nav-link menu-components-index">
                         <i class="material-icons align-middle">picture_in_picture</i><span>Thành phần tĩnh</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Menu -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a data-toggle="collapse" data-target="#menusubmenu" href="" class="nav-link collapsed"><i
                             class="material-icons align-middle">menu</i><span>Menu</span></a>
                     <div class="sub collapse" id="menusubmenu">
@@ -221,10 +221,10 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- User -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a data-toggle="collapse" data-target="#menu-admin-user" href="#menu-admin-user"
                         class="nav-link collapsed">
                         <i class="material-icons align-middle">face</i>
@@ -240,17 +240,17 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
 
                 <!-- File -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('admin.files') }}" class="nav-link menu-files" id="menu-files">
                         <i class="material-icons align-middle">settings_system_daydream</i><span>Quản lý file</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Setting -->
-                <li class="nav-item has-child">
+                <!-- <li class="nav-item has-child">
                     <a data-toggle="collapse" data-target="#setting-sub-menu" href="#setting-sub-menu"
                         class="nav-link collapsed">
                         <i class="material-icons">settings</i>
@@ -283,7 +283,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> -->
             </ul>
         </div>
 

@@ -1,7 +1,7 @@
 <!-- Page Content -->
 
 <div class="navbar-top fixed-top bg-white">
-    <div class="nav-search float-left align-middle">
+    <!-- <div class="nav-search float-left align-middle">
         <form action="#" method="GET" class="form-inline md-form form-sm">
             <a href="#" class="material-icons text-secondary">
                 search
@@ -16,11 +16,11 @@
             </span>
 
         </form>
-    </div>
+    </div> -->
 
     <!-- Navbar-nav -->
     <div class="float-right right-top-bar">
-        <span>Quản trị nội dung</span>
+        <!-- <span>Quản trị nội dung</span>
         <div class="btn-group dropdown">
             <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
                 data-toggle="dropdown">
@@ -28,14 +28,15 @@
                 </i>
                 <div class="dropdown-menu">
                     @forelse ($languages as $language)
-                    <a href="#" class="dropdown-item nav-choose-locale" data-href="{{ route('admin.languages.setLocale', $language->locale) }}">{{ $language->name }}</a>
+                    <a href="#" class="dropdown-item nav-choose-locale"
+                        data-href="{{ route('admin.languages.setLocale', $language->locale) }}">{{ $language->name }}</a>
                     @empty
                     @endforelse
                 </div>
-        </div>
+        </div> -->
 
         <div class="btn-group dropdown">
-            <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
+            <!-- <button type="button" class="btn bg-white dropdown-toggle text-capitalize" id="dropdownMenuButton"
                 data-toggle="dropdown">
                 {{ Auth::user()->name}}
             </button>
@@ -45,16 +46,16 @@
                     khẩu</a>
                 <a href="signin.html" class="btn btn-sm dropdown-item" id="power-button"
                     onclick="event.preventDefault();document.getElementById('logout').submit();">Thoát</a>
-            </div>
+            </div> -->
             <a href="signin.html" class="btn-sm mx-4"
                 onclick="event.preventDefault();document.getElementById('logout').submit();">
                 <i class="material-icons">
                     settings_power
                 </i>
             </a>
-            <form id="logout" method="POST" action="/admin/logout">
-                @csrf
-            </form>
-        </div>
+        <form id="logout" method="POST" action="/admin/logout">
+            @csrf
+        </form>
     </div>
+</div>
 </div>

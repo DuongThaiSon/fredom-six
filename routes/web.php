@@ -45,6 +45,10 @@ Route::group([
         'uses' => 'CartController@checkout'
     ]);
 
+    Route::get('search', [
+        'as' => 'client.search',
+        'uses' => 'SearchController@index'
+    ]);
 
     Route::get('collections', [
         'as' => 'client.collection',

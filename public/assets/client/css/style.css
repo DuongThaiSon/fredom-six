@@ -625,9 +625,10 @@ a:hover {
 }
 
 .breadcrumbs {
-    /* border-top: 1px solid #0d00ff;
-    border-bottom: 1px solid #0d00ff; */
+    border: 1px solid #0d00ff;
     padding: 6px;
+    border-left: 0;
+    border-right: 0;
 }
 
 .breadcrumbs a {

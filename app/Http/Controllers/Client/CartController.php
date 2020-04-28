@@ -138,6 +138,6 @@ class CartController extends Controller
         }
         Cart::clear();
 
-        return view('client.cart', compact('cartItems'));
+        return redirect()->route('client.cart');
     }
 }

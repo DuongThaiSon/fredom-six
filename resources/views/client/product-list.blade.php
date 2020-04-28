@@ -1,21 +1,9 @@
 @extends('client.layouts.main')
 @section('title', 'Sản phẩm')
 @section('content')
-<section id="banner" class="owl-carousel owl-theme">
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-</section>
-
 <div class="breadcrumbs my-3">
     <div class="container">
-        <a href="/">home</a>
+        <a href="/">trang chủ</a>
         <span class="breadcrumbs-arrow">
             <span class="ti-angle-right"></span>
         </span>
@@ -23,8 +11,8 @@
     </div>
 </div>
 
-<section class="products-page collection pb-5">
-    <h2 class="title">{{ $category->name }}</h2>
+<section class="products-page collection py-5">
+    <!-- <h2 class="title">{{ $category->name }}</h2> -->
     <div class="row product-grid m-0">
         @forelse ($category->products as $product)
             <div class="col-lg-4 col-md-4 p-0">
@@ -33,6 +21,11 @@
                         <div class="product-double--image">
                             <div class="product-double--front"
                                 style="background-image: url('/{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $product->avatar }}')">
+
+                            </div>
+
+                            <div class="product-double--under"
+                                style="background-image: url('/{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $product->images[0]->name ?? '' }}')">
 
                             </div>
                             {{-- <div class="product-double--front"

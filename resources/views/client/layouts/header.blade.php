@@ -25,12 +25,22 @@
                 <div class="main-nav d-none d-lg-block">
                     <nav class="site-navigation text-right text-md-center">
                         <ul class="site-menu js-clone-nav">
-                            <li class="active"><a href="/">Trang chủ</a></li>
-                            <li><a href="/quan">Quần</a></li>
-                            <li><a href="/ao">Áo</a></li>
-                            <li><a href="/phu-kien">Phụ kiện</a></li>
-                            <li><a href="/collections">Bộ sưu tập</a></li>
-                            <li><a href="https://www.instagram.com/fredom.6ix/">Instashop</a></li>
+                            <li class="{{ Request::is('/') ? 'active' : '' }}">
+                                <a href="/">Trang chủ</a>
+                            </li>
+                            <li class="{{ Request::is('quan') ? 'active' : '' }}">
+                                <a href="/quan">Quần</a>
+                            </li>
+                            <li class="{{ Request::is('ao') ? 'active' : '' }}">
+                                <a href="/ao">Áo</a>
+                            </li>
+                            <li class="{{ Request::is('phu-kien') ? 'active' : '' }}">
+                                <a href="/phu-kien">Phụ kiện</a>
+                            </li>
+                            <li class="{{ Request::is('collections') ? 'active' : '' }}">
+                                <a href="/collections">Bộ sưu tập</a>
+                            </li>
+                            <li><a href="https://www.instagram.com/fredom.6ix">Instashop</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -59,28 +69,23 @@
                         </a>
                     </div>
                     <div class="mobile-menu--content">
-                        <ul class="p-0 m-0">
-                            <li class="active">
+                        <ul class="p-0 m-0 site-menu">
+                            <li class="{{ Request::is('/') ? 'active' : '' }}">
                                 <a href="/">Trang chủ</a>
                             </li>
-                            <li>
+                            <li class="{{ Request::is('quan') ? 'active' : '' }}">
                                 <a href="/quan">Quần</a>
                             </li>
-                            <li>
+                            <li class="{{ Request::is('ao') ? 'active' : '' }}">
                                 <a href="/ao">Áo</a>
                             </li>
-                            <li>
+                            <li class="{{ Request::is('phu-kien') ? 'active' : '' }}">
                                 <a href="/phu-kien">Phụ kiện</a>
                             </li>
-                            <li>
+                            <li class="{{ Request::is('collections') ? 'active' : '' }}">
                                 <a href="/collections">Bộ sưu tập</a>
                             </li>
-                            <li>
-                                <a href="">Liên hệ</a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/fredom.6ix/">Instashop</a>
-                            </li>
+                            <li><a href="https://www.instagram.com/fredom.6ix">Instashop</a></li>
                         </ul>
                     </div>
                 </div>

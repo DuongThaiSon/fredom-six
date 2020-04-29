@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    line-height: 1.15;
+    /* line-height: 1.15; */
 }
 
 /*------ BODY------ */
@@ -17,9 +17,6 @@ body button {
 }
 body small {
     color: #818e9b;
-}
-body label {
-    margin-bottom: 0 !important;
 }
 body h5 {
     text-transform: none !important;
@@ -278,10 +275,6 @@ body h5 {
     width: 100%;
     padding: 30px 3px 50px 20px;
 }
-#page-content #main-content #content form {
-    /* margin-top: 38px !important;
-    padding-top: 21px !important; */
-}
 #page-content #main-content #content form input,
 #page-content #main-content #content form select {
     border-bottom: 1px solid #818e9b;
@@ -300,8 +293,6 @@ body h5 {
 }
 #page-content #main-content .pagination li.active a {
     font-weight: 900;
-    font-size: 16px !important;
-    padding-top: 6.5px;
 }
 #page-content #main-content .col-6 {
     max-width: 492px;
@@ -412,7 +403,7 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
     padding: 0.5rem;
     position: fixed;
     top: 87px;
-    right: 38px;
+    right: 25px;
 }
 .save-group-buttons button,
 .save-group-buttons a {
@@ -517,4 +508,37 @@ input.checkbox-toggle:checked + label.label-checkbox:after {
 
 .text-red {
     color: red;
+}
+
+.font-larger{
+    font-size: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+table{
+    color: #000000 !important;
+}
+table th{
+    color: #000000 !important;
+}
+#table_wrapper .row:nth-child(1){
+    padding: 0 20px;
+}
+#table_filter .form-control{
+    border-bottom: 1px solid #818e9b;
+    background: #ffffff;
+}
+.sort .btn-group a, .sort .btn-group button{
+    color: #000000;
+}
+.bootstrap-select .btn{
+    background: #fff;
+    color: #000000;
+    font-weight: lighter;
+    border-bottom: 1px solid #818e9b;
 }

@@ -33,11 +33,11 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-hover table-borderless table-sm">
-                        <tbody width="100%">
+                    <table class="table table-borderless table-sm m-0">
+                        <tbody>
                             @forelse ($productAttributes as $attribute)
-                            <tr>
-                                <td width="30%">
+                            <tr style="height: 110px;" class="d-flex align-items-center">
+                                <td width="30%" class="d-flex align-items-center">
                                     <div class="pretty p-default p-curve p-bigger p-smooth">
                                         <input type="checkbox" value="{{ $attribute->id }}" data-name="attribute" />
                                         <div class="state p-primary-o">
@@ -63,15 +63,14 @@
                             </tr>
                             @empty
                             <tr>
-                                <td>Chưa có thuộc tính nào. <a href="{{ route('admin.product-attributes.create') }}"
-                                        target="_blank">Thêm mới ngay</td>
+                                <td>Chưa có thuộc tính nào. 
+                                    <a href="{{ route('admin.product-attributes.create') }}" target="_blank">Thêm mới ngay
+                                </td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary rounded" data-dismiss="modal">Đóng</button>

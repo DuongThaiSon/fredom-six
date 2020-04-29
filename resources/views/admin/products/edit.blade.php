@@ -31,13 +31,6 @@
                             save
                         </i>
                     </button>
-                    <a class="btn btn-sm btn-dark"
-                        href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
-                        target="_blank">
-                        <i class="material-icons">
-                            help_outline
-                        </i>
-                    </a>
                 </div>
                 <!-- Form -->
                 <ul class="nav nav-tabs">
@@ -51,14 +44,12 @@
                         <a class="nav-link" data-toggle="tab" href="#nav-attribute">Thuộc tính</a>
                     </li>
                 </ul>
-                <br>
-                <div class="tab-content" id="nav-tabContent">
-                    <!--tab basic info-->
+                <div class="tab-content mt-4" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-basic" role="tabpanel"
                         aria-labelledby="nav-basic-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <legend>Thông tin cơ bản</legend>
+                                <legend class="mb-4">Thông tin cơ bản</legend>
                                 <div class="form-group d-none">
                                     <label>Id</label>
                                     <input type="text" name="id" required class="form-control"
@@ -72,11 +63,11 @@
                                         value="{{ old('name') ?? $product->name ?? '' }}" />
                                 </div>
                                 <div class="form-group">
-                                    <label>SKU @importantfield</label>
+                                    <label>Mã sản phẩm @importantfield</label>
                                     <input type="text" name="sku" required class="form-control"
                                         placeholder="Mã sản phẩm" value="{{ old('sku') ?? $product->sku ?? '' }}" />
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Loại sản phẩm @importantfield</label>
                                     <select required name="type" class="selectpicker form-control"
                                         data-style="select-with-transition" data-show-tick="true">
@@ -86,8 +77,7 @@
 
                                         @endforelse
                                     </select>
-                                </div>
-
+                                </div> -->
                                 <div class="form-group">
                                     <label>Nằm trong mục</label>
                                     <select name="category_id[]" data-selected-text-format="count > 2"
@@ -104,25 +94,6 @@
                                     <label>Giá sản phẩm @importantfield</label>
                                     <input type="text" name="price" class="form-control price-format" placeholder=""
                                         value="{{ old('price') ?? $product->price ?? '' }}" />
-                                    {{-- <input type="hidden" name="price"> --}}
-                                    <small class="form-text">Giá của sản phẩm</small>
-                                </div>
-                                <div class="form-group">
-                                    <label>Đơn vị</label>
-                                    <input type="text" name="unit" class="form-control" placeholder="Đơn vị sản phẩm"
-                                        value="{{ old('unit') ?? $product->unit ?? '' }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Cân nặng</label>
-                                    <input type="text" name="weight" class="form-control"
-                                        placeholder="Cân nặng của sản phẩm"
-                                        value="{{ old('weight') ?? $product->weight ?? '' }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Chiều dài</label>
-                                    <input type="text" name="height" class="form-control"
-                                        placeholder="Chiều dài của sản phẩm"
-                                        value="{{ old('height') ?? $product->height ?? '' }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Số lượng</label>
@@ -132,7 +103,7 @@
                                 </div>
 
                                 <!-- Button Toggle -->
-                                <div class="mb-2">
+                                <div class="form-group">
                                     <label class="control-label">Hiển thị</label>
                                     <input type="checkbox" class="checkbox-toggle" name="is_public" id="public"
                                         {{ isset($product)&&$product->is_public==1?'checked':'' }} />
@@ -140,7 +111,7 @@
                                     <small class="form-text">Khi tính năng “Hiển thị” được bật, sản phẩm này có thể
                                         hiện thị trên giao diện trang web</small>
                                 </div>
-                                <div class="mb-2">
+                                <div class="form-group">
                                     <label class="control-label">Nổi bật</label>
                                     <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"
                                         {{ isset($product)&&$product->is_highlight==1?'checked':'' }} />
@@ -148,27 +119,18 @@
                                 </div>
                                 <small class="form-text">Khi tính năng “Nổi bật” được bật, sản phẩm này sẽ đc hiển
                                     thị trên trang chủ hoặc các điểm chỉ định trên giao
-                                    diện.</small>
-                                <div class="mb-2">
-                                    <label class="control-label">Mới</label>
-                                    <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"
-                                        {{ isset($product)&&$product->is_new==1?'checked':'' }} />
-                                    <label class="label-checkbox" for="new">Mới </label>
-                                </div>
-                                <small class="form-text">Khi tính năng “Mới” được bật, sản phẩm này sẽ đc hiển thị
-                                    trên trang chủ hoặc các điểm chỉ định trên giao
-                                    diện.</small>
+                                    diện.
+                                </small>
                             </div>
 
                             <div class="col-lg-6">
-                                <legend>Tối ưu hóa SEO</legend>
+                                <legend class="mb-4">Tối ưu hóa SEO</legend>
                                 <div class="form-group">
                                     <label class="control-label">Tiêu đề Browser (title)</label>
                                     <input type="text" class="form-control" name="meta_title"
                                         placeholder="Tiêu đề Browser (title)"
                                         value="{{ old('meta_title') ?? $product->meta_title ?? '' }}" />
-                                    <small class="form-text">Tiêu đề của trang chủ có tác dụng tốt nhất cho
-                                        SEO</small>
+                                    <small class="form-text">Tiêu đề của trang chủ có tác dụng tốt nhất cho SEO</small>
                                 </div>
 
                                 <div class="form-group">
@@ -189,7 +151,8 @@
                                         vài từ
                                         hoặc cụm từ, thẻ mô tả của trang phải có một hoặc hai câu hoặc một đoạn ngắn.
                                         Thẻ meta
-                                        description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận</small>
+                                        description là một yếu tố SEO Onpage khá cơ bản cần được tối ưu cẩn thận
+                                    </small>
                                 </div>
 
                                 <div class="form-group">
@@ -203,7 +166,8 @@
                                         cho bộ máy
                                         tìm kiếm. Với thuộc tính này, các bộ máy tìm kiếm (Search Engine) sẽ dễ dàng
                                         hiểu nội
-                                        dung của bạn đang muốn nói đến những vấn đề gì!</small>
+                                        dung của bạn đang muốn nói đến những vấn đề gì!
+                                    </small>
                                 </div>
 
                                 <div class="form-group">
@@ -258,15 +222,6 @@
                             </div>
                         </div>
                         <hr>
-                        <div class="row">
-                            <div class="col-12">
-                                <legend>Nội dung chi tiết</legend>
-                                <div class="form-group">
-                                    <textarea class="form-control ckeditor"
-                                        name="detail">{{ old('detail') ?? $product->detail ?? '' }}</textarea>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <!--end tab basic info-->
 
@@ -274,7 +229,7 @@
                     <div class="tab-pane fade show" id="nav-image" role="tabpanel" aria-labelledby="nav-image-tab">
                         <div class="row">
                             <div class="col-12">
-                                <legend>Ảnh bộ sưu tập</legend>
+                                <legend class="mb-4">Ảnh bộ sưu tập</legend>
                                 <div class="row">
                                     <div class="form-group col-4">
                                         <div class="input-group mb-3">
@@ -300,53 +255,6 @@
                         @include('admin.products.variant')
                     </div>
                     <!--end tab attribute-->
-
-                    <!--tab review-->
-                    <div class="tab-pane fade show" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
-                        <div class="row">
-                            <div class="col-12">
-                                <legend>Quản lý review</legend>
-                                <div class="row">
-                                    <div class="bg-white mt-4">
-                                        <table class="table-responsive table-sm table-hover table mb-2" width="100%"
-                                            id="table-review">
-                                            <thead>
-                                                <tr>
-                                                    <th width="5%">STT</th>
-                                                    <th width="15%">Người tạo</th>
-                                                    <th width="40%">Review</th>
-                                                    <th width="10%">Đánh giá</th>
-                                                    <th width="15%">Ngày tạo</th>
-                                                    <th width="10%">Thao tác</th>
-                                                </tr>
-                                            </thead>
-                                            {{-- <tbody>
-                                                @forelse ($product->reviews as $item)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->user->name ?? '' }}</td>
-                                            <td>{{ $item->content ?? '' }}</td>
-                                            <td>{{ $item->rate ?? '' }} *</td>
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>
-                                                <button class="btn btn-sm p-1 btn-delete" data-toggle="tooltip"
-                                                    title="Xoá" type="submit" data-user="{{ $item->user_id }}"
-                                                    data-product="{{ $item->product_id }}"
-                                                    data-href="{{ route('admin.reviews.destroy', $item->product_id) }}">
-                                                    <i class="material-icons">delete</i>
-                                                </button>
-                                            </td>
-                                            </tr>
-                                            @empty
-                                            @endforelse
-                                            </tbody> --}}
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end tab review-->
                 </div>
             </form>
         </div>

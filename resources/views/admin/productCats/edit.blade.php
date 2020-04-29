@@ -6,7 +6,7 @@
             <h1 class="mt-3 pl-4">THÔNG TIN DANH MỤC BÀI VIẾT</h1>
             <!-- Save group button -->
             <form action="{{ route('admin.product-categories.update', $category->id) }}" method="POST"
-                enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-5">
+                enctype="multipart/form-data" class="bg-white mt-3 mb-0 p-4 pt-4">
 
                 @if ($errors->any())
                 @component('admin.layouts.components.alert')
@@ -32,25 +32,16 @@
                             save
                         </i>
                     </button>
-                    <a class="btn btn-sm btn-dark"
-                        href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
-                        target="_blank">
-                        <i class="material-icons">
-                            help_outline
-                        </i>
-                    </a>
                 </div>
                 <!-- End group button -->
                 <!-- Form -->
                 <div class="row">
                     <div class="col-md-6">
-                        <legend>Thông tin cơ bản</legend>
-
+                        <legend class="mb-4">Thông tin cơ bản</legend>
                         <div class="form-group">
                             <label>Tên mục @importantfield</label>
                             <input type="text" name="name" required class="form-control" placeholder="Tên mục"
                                 value="{{ old('name') ?? $category->name }}" />
-                            <small class="form-text">Tên của mục</small>
                         </div>
 
                         <div class="form-group">
@@ -59,7 +50,6 @@
                                 <option value="0"></option>
                                 @include('admin.partials.categoryOptions')
                             </select>
-                            <small class="form-text">Chọn mục cho dữ liệu này, bạn không nên để trống</small>
                         </div>
 
                         <!-- Button Toggle -->
@@ -81,18 +71,9 @@
                                 hiện thị trên giao diện trang web
                             </small>
                         </div>
-                        <div class="mb-2">
-                            <label class="control-label">Mới</label>
-                            <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"
-                                {{ $category->is_new==1?'checked':'' }} />
-                            <label class="label-checkbox" for="new">Hiển thị</label>
-                            <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
-                                hiện thị trên giao diện trang web
-                            </small>
-                        </div>
                     </div>
                     <div class="col-lg-6">
-                        <legend>Tối ưu hóa SEO</legend>
+                        <legend class="mb-4">Tối ưu hóa SEO</legend>
                         <div class="form-group">
                             <label class="control-label">Tiêu đề Browser (title)</label>
                             <input type="text" class="form-control" name="meta_title"

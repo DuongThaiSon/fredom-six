@@ -6,7 +6,7 @@
             <h1 class="mt-3 pl-4 text-uppercase">sửa thuộc tính</h1>
             <!-- Save group button -->
             <form action="{{route('admin.product-attributes.update', $productAttribute->id)}}" method="POST"
-                enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-5">
+                enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-4">
                 @method('PUT')
                 @csrf
                 @if ($errors->any())
@@ -21,18 +21,12 @@
                     <button class="btn btn-sm btn-dark btn-submit-data" data-toggle="tooltip" title="Lưu">
                         <i class="material-icons"> save</i>
                     </button>
-                    <a class="btn btn-sm btn-dark"
-                        href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc?usp=sharing"
-                        target="_blank">
-                        <i class="material-icons"> help_outline </i>
-                    </a>
                 </div>
                 <!-- End group button -->
                 <!-- Form -->
                 <div class="row">
                     <div class="col-md-6">
-                        <legend>Thông tin cơ bản</legend>
-
+                        <legend class="mb-4">Thông tin cơ bản</legend>
                         <div class="form-group">
                             <label>Tên thuộc tính</label>
                             <input type="text" name="name" required class="form-control"
@@ -43,14 +37,14 @@
                 <hr>
                 <div class="row">
                     <div class="col-lg-6 select-zone">
-                        <legend>Tạo lựa chọn</legend>
+                        <legend class="mb-4">Tạo lựa chọn</legend>
                         <div class="selection-list">
                             @forelse ($productAttribute->productAttributeOptions()->get() as $item)
                             <div class="row form-group selection-item">
                                 <div class="col-5">
                                     <input type="hidden" name="attribute_values[{{ $item->id }}][id]"
                                         value="{{ $item->id }}" class="selection-item-id" />
-                                    <input type="{{ $productAttribute->type }}"
+                                    <input class="form-control" type="{{ $productAttribute->type }}"
                                         name="attribute_values[{{ $item->id }}][value]" value="{{ $item->value }}"
                                         class="selection-item-value" />
                                 </div>

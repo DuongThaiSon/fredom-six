@@ -110,12 +110,13 @@ a:hover {
     letter-spacing: 3px;
 }
 
-.site-navbar .site-navigation .site-menu .active>a {
-    color: #13269c;
+.site-menu .active>a {
+    color: #13269c !important;
+    /* font-weight: bold; */
 }
 
-.site-navbar .site-navigation .site-menu>li>a:hover {
-    color: #13269c;
+.site-menu>li>a:hover {
+    color: #13269c !important;
 }
 
 .site-navbar a {
@@ -698,7 +699,7 @@ a:hover {
 }
 
 .products-wrapper {
-    margin: 90px 40px 0 40px;
+    margin: 0 40px;
 }
 
 .product-detail--item {

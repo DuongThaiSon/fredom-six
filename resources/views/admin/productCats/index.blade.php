@@ -46,19 +46,13 @@
                     target="_blank">
                     <i class="material-icons">delete_forever</i>
                 </button>
-                <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc" target="_blank"
-                    class="btn btn-sm btn-dark">
-                    <i class="material-icons">
-                        help_outline
-                    </i>
-                </a>
             </div>
             <!-- TABLE -->
-            <div class="card-body">
+            <div class="card-body pt-0">
                 <div class="table-responsive bg-white mt-4" id="table"
                     data-reorder="{{ route('admin.product-categories.reorder') }}"
                     data-destroy-many="{{ route('admin.product-categories.destroyMany') }}">
-                    <table class="table-sm table-hover mb-2" width="100%">
+                    <table class="table-sm table-hover" width="100%">
                         <thead>
                             <tr class="text-muted">
                                 <th width="5%"></th>

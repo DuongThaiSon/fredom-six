@@ -188,11 +188,11 @@
                 </li> -->
 
                 <!--Contact-->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ route('admin.contacts.index')}}" class="nav-link menu-contacts-index">
                         <i class="material-icons align-middle">chat_bubble_outline</i><span>Liên hệ</span>
                     </a>
-                </li>
+                </li> -->
 
                 <!-- Component -->
                 <!-- <li class="nav-item">

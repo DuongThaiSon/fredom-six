@@ -110,6 +110,7 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
         $request->validate([
+            'ten' => 'required',
             'phone' => 'required',
             'address' => 'required',
             'email' => 'required',
@@ -121,6 +122,7 @@ class CartController extends Controller
         }
         $cartItems = Cart::getContent();
         $order = AppCart::create([
+            'first_name' => $request->ten,
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,

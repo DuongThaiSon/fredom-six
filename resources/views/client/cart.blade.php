@@ -82,15 +82,19 @@
                 <form action="{{ route('client.cart.checkout') }}" method="post" id="checkout-form">
                     @csrf
                     <input type="hidden" name="total" id="">
-                    <div>
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" name="ten" id="" placeholder="Name" required class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label for="">Email</label>
                         <input type="email" name="email" id="" placeholder="Email" required class="form-control">
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label for="">Phone</label>
                         <input type="text" name="phone" id="" placeholder="Phone" required class="form-control">
                     </div>
-                    <div>
+                    <div class="form-group">
                         <label for="">Địa chỉ</label>
                         <input type="text" name="address" id="" placeholder="Địa chỉ" required class="form-control">
                     </div>

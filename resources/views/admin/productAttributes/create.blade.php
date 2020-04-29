@@ -5,7 +5,7 @@
         <div id="content">
             <h1 class="mt-3 pl-4 text-uppercase">thêm mới thuộc tính</h1>
             <!-- Save group button -->
-            <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-5">
+            <form action="{{route('admin.product-attributes.store')}}" method="POST" enctype="application/json" class="form-main bg-white mt-3 mb-0 p-4 pt-4">
 
                 @if ($errors->any())
                 @component('admin.layouts.components.alert')
@@ -36,7 +36,7 @@
                 <!-- Form -->
                 <div class="row">
                     <div class="col-md-6">
-                        <legend>Thông tin cơ bản</legend>
+                        <legend class="mb-4">Thông tin cơ bản</legend>
 
                         <div class="form-group">
                             <label>Tên thuộc tính</label>
@@ -47,7 +47,7 @@
                 <hr>
                 <div class="row">
                     <div class="col-md-6 select-zone">
-                        <legend>Tạo lựa chọn</legend>
+                        <legend class="mb-4">Tạo lựa chọn</legend>
                         <div class="selection-list">
 
                         </div>

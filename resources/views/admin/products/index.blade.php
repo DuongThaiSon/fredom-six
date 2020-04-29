@@ -3,7 +3,7 @@
 <div id="main-content">
     <div class="container-fluid" style="background: #e5e5e5;">
         <div id="content">
-            <h1 class="mt-3 pl-4">Tin bài</h1>
+            <h1 class="mt-3 pl-4">Sản phẩm</h1>
             <!-- Save group button -->
             <div class="save-group-buttons">
                 <a href="{{route('admin.products.create')}}" class="btn btn-sm btn-dark" data-toggle="tooltip"
@@ -18,19 +18,14 @@
                         delete_forever
                     </i>
                 </button>
-                <a href="https://drive.google.com/drive/folders/1HCQDgAW3zdZhjq9-Jgfwlep9kZjEkbnc" target="_blank"
-                    class="btn btn-sm btn-dark">
-                    <i class="material-icons">
-                        help_outline
-                    </i>
-                </a>
             </div>
             <!-- TABLE -->
-            <div class="bg-white mt-4">
-                <table class="table-sm table-responsive table-hover table mb-2" width="100%" id="table" data-reorder="{{ route('admin.products.reorder') }}"
-                data-destroy-many="{{ route('admin.products.destroyMany') }}"
-                data-update-view-status="{{ route('admin.products.updateViewStatus') }}"
-                data-list="{{ route('admin.products.index') }}">
+            <div class="bg-white mt-4 pt-4">
+                <table class="table-sm table-responsive table-hover table mb-2" width="100%" id="table" 
+                    data-reorder="{{ route('admin.products.reorder') }}"
+                    data-destroy-many="{{ route('admin.products.destroyMany') }}"
+                    data-update-view-status="{{ route('admin.products.updateViewStatus') }}"
+                    data-list="{{ route('admin.products.index') }}">
                     <thead>
                         <tr class="text-muted">
                             <th width="5%"></th>

@@ -23,16 +23,15 @@
             <!-- TABLE -->
             <div class="bg-white mt-4" id="cat_table">
                 @csrf
-                <table class="table-responsive table-sm table-hover table mb-2" width="100%">
+                <table class="table-responsive table-sm table-hover table mb-2 overflow-hidden" width="100%">
                     <thead>
                         <tr class="text-muted">
                             <th width="5%">#</th>
                             <th width="20%">Tên thuộc tính</th>
                             <th>Giá trị</th>
-                            <th width="10%">Cho phép chọn nhiều</th>
                             <th width="10%">Ngày tạo</th>
                             <th width="10%">Người đăng</th>
-                            <th width="5%" class="text-right">Thao tác</th>
+                            <th width="10%" class="text-right">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody class="sort" data-link="row" class="rowlink">
@@ -45,20 +44,7 @@
                             <td>
                                 {{ $attribute->productAttributeOptions->pluck('value')->implode(', ') }}
                             </td>
-                            <td>
-                                <div class="pretty p-icon p-toggle p-round p-bigger p-smooth">
-                                    <input type="checkbox" class="btn-update-view-status" data-id="{{ $attribute->id }}"
-                                        {{ $attribute->allow_multiple ? 'checked' : '' }} name="allow_multiple" />
-                                    <div class="state p-on p-primary-o">
-                                        <i class="icon material-icons">check</i>
-                                        <label></label>
-                                    </div>
-                                    <div class="state p-off">
-                                        <i class="icon material-icons">clear</i>
-                                        <label></label>
-                                    </div>
-                                </div>
-                            </td>
+                       
                             <td>{{$attribute->updated_at}}</td>
                             <td>{{$attribute->updater->name ?? ''}}</td>
                             <td class="text-right rowlink-skip">

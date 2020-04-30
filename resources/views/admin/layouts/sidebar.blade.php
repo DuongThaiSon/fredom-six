@@ -2,7 +2,7 @@
     <!-- Sidebar -->
     <section id="sidebar" class="d-flex flex-column">
         <div class="sidebar-header">
-            <a href="">
+            <a href="/admin">
                 <h4 class="text-white py-3 px-4">MENU</h4>
             </a>
         </div>
@@ -11,7 +11,7 @@
             <ul class="nav flex-column">
                 <!-- Dashboard -->
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard.index') }}" class="nav-link menu-dashboard" id="menu-dashboard">
+                    <a href="{{ route('admin.dashboard.index') }}" class="nav-link menu-dashboard d-flex align-items-center" id="menu-dashboard">
                         <i class="material-icons align-middle">dashboard</i>
                         <span>Tổng quan hệ thống</span>
                     </a>
@@ -19,7 +19,7 @@
 
                 <!-- Product -->
                 <li class="nav-item has-child">
-                    <a href="#submenu1" data-toggle="collapse" data-target="#submenu1" class="nav-link collapsed">
+                    <a href="#submenu1" data-toggle="collapse" data-target="#submenu1" class="nav-link collapsed d-flex align-items-center">
                         <i class="material-icons align-middle">group_work</i><span>Sản phẩm</span>
                     </a>
                     <div class="sub collapse" id="submenu1">
@@ -160,7 +160,7 @@
 
                 <!-- Order -->
                 <li class="nav-item">
-                    <a href="{{ route('admin.orders.index') }}" class="nav-link menu-cart" id="menu-order">
+                    <a href="{{ route('admin.orders.index') }}" class="nav-link menu-cart d-flex align-items-center" id="menu-order">
                         <i class="material-icons align-middle">shopping_cart</i><span>Đặt hàng</span>
                     </a>
                 </li>

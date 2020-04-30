@@ -41,12 +41,6 @@ $(document).ready(function () {
         }
     });
 
-    // //promo
-    // $('.marquee').marquee();
-    // $('.js-close--promo').click(function () {
-    //     $('.promo').addClass('d-none');
-    // })
-
     //fixed header
     var siteScroll = function () {
         $(window).scroll(function () {
@@ -146,6 +140,7 @@ $(document).ready(function () {
     $('#product-detail--slide').owlCarousel({
         loop: true,
         responsiveClass: true,
+        margin: 0,
         nav: true,
         dots: false,
         navText: ["<i class='ti-angle-left'></i>", "<i class='ti-angle-right'></i>"],
@@ -179,21 +174,4 @@ $(document).ready(function () {
             input.value -= -1;
         };
     }
-
-    $('.slider-for').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false,
-        fade: true,
-        asNavFor: '.slider-nav'
-      });
-      $('.slider-nav').slick({
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: true,
-        centerMode: true,
-        focusOnSelect: true
-      });
-
 })

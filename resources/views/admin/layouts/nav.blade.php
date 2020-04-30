@@ -53,9 +53,9 @@
                     settings_power
                 </i>
             </a>
-        <form id="logout" method="POST" action="/admin/logout">
-            @csrf
-        </form>
+            <form id="logout" method="POST" action="/admin/logout">
+                @csrf
+            </form>
+        </div>
     </div>
-</div>
 </div>

@@ -30,6 +30,7 @@
     <script src="{{ asset('assets/client') }}/js/owl.carousel.min.js"></script>
     <script src="{{ asset('assets/client') }}/js/aos.js"></script>
     <script src="{{ asset('assets/client') }}/js/accounting.min.js"></script>
+    <script src="{{ asset('assets/client') }}/js/jquery.lazyload-any.js"></script>
     <script src="{{ asset('assets/client') }}/js/script.js"></script>
     @stack('js')
 </body>

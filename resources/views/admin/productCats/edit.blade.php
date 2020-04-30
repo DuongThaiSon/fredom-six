@@ -71,6 +71,15 @@
                                 hiện thị trên giao diện trang web
                             </small>
                         </div>
+                        <div class="mb-2">
+                            <label class="control-label">Mới</label>
+                            <input type="checkbox" class="checkbox-toggle" name="is_new" id="new"
+                                {{ $category->is_new==1?'checked':'' }} />
+                            <label class="label-checkbox" for="new">Hiển thị</label>
+                            <small class="form-text">Khi tính năng “Hiển thị” được bật, bài viết này có thể
+                                hiện thị trên giao diện trang web
+                            </small>
+                        </div>
                     </div>
                     <div class="col-lg-6">
                         <legend class="mb-4">Tối ưu hóa SEO</legend>

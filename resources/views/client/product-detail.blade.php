@@ -20,19 +20,13 @@
         <div class="col-lg-6 col-md-6">
             <div id="product-detail--slide" class="owl-carousel owl-theme">
                 <div class="product-detail--item" style="background: url('/{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $product->avatar }}')">
-
+                    
                 </div>
                 @foreach ($product->images as $image)
                     <div class="product-detail--item" style="background: url('/{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $image->name }}')">
 
                     </div>
                 @endforeach
-                {{-- <div class="product-detail--item" style="background: url('{{ asset('assets/client') }}/images/2.jpg')">
-
-                </div>
-                <div class="product-detail--item" style="background: url('{{ asset('assets/client') }}/images/11.jpg')">
-
-                </div> --}}
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -66,7 +60,7 @@
                             </span>
                         </div>
                         <span>Còn <span class="stock">{{ $variants->first()->quantity }}</span> sản phẩm</span>
-                        <div class="button-group-action">
+                        <div class="button-group-action mt-2">
                             @if ($variants->first()->quantity && $variants->first()->quantity > 0)
                                 <button type="submit" class="btn-cart">
                                     <span>Thêm vào giỏ</span>
@@ -97,18 +91,12 @@
                 $('.stock').text($('option:selected', this).data('quantity'))
                 if($('option:selected', this).data('quantity') < 1) {
                     $('.button-group-action').empty();
-                    $('.button-group-action')
-                                        .append(`<button class="btn-cart btn" disabled>
-                                                    <span>Hết hàng</span>
-                                                </button>`);
+                    $('.button-group-action').append(`<button class="btn-cart btn" disabled><span>Hết hàng</span></button>`);
                 } else {
                     $('.button-group-action').empty();
-                    $('.button-group-action')
-                                        .append(`<button type="submit" class="btn-cart">
-                                                    <span>Thêm vào giỏ</span>
-                                                </button>`);
+                    $('.button-group-action').append(`<button type="submit" class="btn-cart"><span>Thêm vào giỏ</span></button>`);
                 }
             })
-        })
+        });
     </script>
 @endpush

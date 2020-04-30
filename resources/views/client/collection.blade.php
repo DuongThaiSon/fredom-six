@@ -11,8 +11,7 @@
     </div>
 </div>
 
-<section id="collection-page" class="collection">
-    <!-- <h2 class="title">bộ sưu tập</h2> -->
+<section id="collection-page" class="collection py-5">
     <div class="collection-list">
         <div class="collection-block">
             <div class="collection-block--content">
@@ -34,7 +33,7 @@
         </div>
         <div class="collection-block">
             <div class="collection-block--content">
-                <h2 class="collection-block--title">will i be missed</h2>
+                <h2 class="collection-block--title">glow</h2>
                 <a href="product-list" class="btn-discover">Xem bộ sưu tập</a>
             </div>
             <div class="product-image">
@@ -52,17 +51,17 @@
         </div>
         <div class="collection-block">
             <div class="collection-block--content">
-                <h2 class="collection-block--title">lemon project</h2>
+                <h2 class="collection-block--title">sundown</h2>
                 <a href="product-list" class="btn-discover">Xem bộ sưu tập</a>
             </div>
             <div class="product-image">
                 <div class="product-double--image">
                     <div class="product-double--front"
-                        style="background-image: url('{{ asset('assets/client') }}/images/22.jpg')">
+                        style="background-image: url('{{ asset('assets/client') }}/images/IMG_9869.jpg')">
 
                     </div>
                     <div class="product-double--under"
-                        style="background-image: url('{{ asset('assets/client') }}/images/16.jpg')">
+                        style="background-image: url('{{ asset('assets/client') }}/images/IMG_9915-2.jpg')">
 
                     </div>
                 </div>

@@ -3,10 +3,7 @@
 @section('content')
 <section id="banner" class="owl-carousel owl-theme">
     <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
-    </div>
-    <div class="banner-item">
-        <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
+        <img src="{{ asset('assets/client') }}/images/banner2.jpg" alt="">
     </div>
     <div class="banner-item">
         <img src="{{ asset('assets/client') }}/images/banner.jpg" alt="">
@@ -18,7 +15,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="welcome-img d-flex justify-content-center">
-                    <img src="{{ asset('assets/client') }}/images/1.jpg" alt="">
+                    <img src="{{ asset('assets/client') }}/images/IMG_871.jpg" alt="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -37,7 +34,7 @@
 </section>
 
 <section id="collection" class="owl-carousel owl-theme">
-    @foreach ($collections->children as $collection)
+    @foreach ($collections->children()->orderBy('order', 'desc')->get() as $collection)
         <div class="collection-item">
             <div class="collection-wrap">
                 <div class="collection-content">
@@ -87,7 +84,40 @@
 </section>
 
 <section id="product" class="owl-carousel owl-theme">
+    @if(isset($isNew))
+    @foreach($isNew as $new)
+    <div class="product-item border-0">
+            <div class="product-item--wrap">
+                <p class="product-title--mobile">Các sản phẩm</p>
+                <div class="product-image">
+                    <div class="product-image--bg" style="background-image: url('{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $new->avatar ?? ''}}')">
+
+                    </div>
+                </div>
+                <div class="product-content">
+                    <div class="product-content--item">
+                        <a href="{{ route('client.productDetail', ['slug_cat' => $new->categories[0]->slug, 'slug_view' => $new->slug]) }}" class="product-link">
+                            <div class="product-double--image">
+                                @foreach ($new->images()->orderBy('order', 'desc')->take(2)->get() as $item)
+                                    <div class="{{ $loop->first ? 'product-double--front' : 'product-double--under' }}" style="background-image: url('{{ env('UPLOAD_DIR_PRODUCT', 'media/products') }}/{{ $item->name }}')">
+
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="product-content--info">
+                                <h3 class="title">{{ $new->name }}</h3>
+                                <span class="price">{{ number_format($new->price) ?? '0' }} VNĐ</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+    
+    @endif
     @foreach ($highlightProducts as $product)
+    @if($product->is_new != 1)
         <div class="product-item border-0">
             <div class="product-item--wrap">
                 <p class="product-title--mobile">Các sản phẩm</p>
@@ -105,12 +135,6 @@
 
                                     </div>
                                 @endforeach
-                                {{-- <div class="product-double--front" style="background-image: url('{{ asset('assets/client') }}/images/9.jpg')">
-
-                                </div>
-                                <div class="product-double--under" style="background-image: url('{{ asset('assets/client') }}/images/10.jpg')"> --}}
-
-                                {{-- </div> --}}
                             </div>
                             <div class="product-content--info">
                                 <h3 class="title">{{ $product->name }}</h3>
@@ -121,6 +145,7 @@
                 </div>
             </div>
         </div>
+    @endif
     @endforeach
 </section>
 @endsection

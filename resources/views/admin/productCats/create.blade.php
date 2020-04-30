@@ -67,6 +67,15 @@
                             thị trên trang chủ hoặc các điểm chỉ định trên giao
                             diện.
                         </small>
+                        <div class="mb-2">
+                            <label class="control-label">Mới</label>
+                            <input type="checkbox" class="checkbox-toggle" name="is_new" id="new" />
+                            <label class="label-checkbox" for="new">Mới </label>
+                        </div>
+                        <small class="form-text">Khi tính năng “Mới” được bật, bài viết này sẽ đc hiển thị
+                            trên trang chủ hoặc các điểm chỉ định trên giao
+                            diện.
+                        </small>
                     </div>
 
                     <div class="col-lg-6">

@@ -80,11 +80,20 @@
                             <input type="checkbox" class="checkbox-toggle" name="is_highlight" id="highlight"
                                 {{ isset($product)&&$product->is_highlight==1?'checked':'' }} />
                             <label class="label-checkbox" for="highlight">Nổi bật</label>
+                            <small class="form-text">Khi tính năng “Nổi bật” được bật, sản phẩm này sẽ đc hiển
+                                thị trên trang chủ hoặc các điểm chỉ định trên giao
+                                diện.
+                            </small>
                         </div>
-                        <small class="form-text">Khi tính năng “Nổi bật” được bật, sản phẩm này sẽ đc hiển
-                            thị trên trang chủ hoặc các điểm chỉ định trên giao
-                            diện.
-                        </small>
+                        <div class="form-group">
+                            <label class="control-label">Mới</label>
+                            <input type="checkbox" class="checkbox-toggle" name="is_new"
+                                {{ isset($product)&&$product->is_new==1?'checked':'' }} id="new" />
+                            <label class="label-checkbox" for="new">Mới </label>
+                            <small class="form-text">Khi tính năng “Mới” được bật, sản phẩm này sẽ đc hiển thị
+                                trên trang chủ hoặc các điểm chỉ định trên giao
+                                diện.</small>
+                        </div>
                     </div>
 
                     <div class="col-lg-6">

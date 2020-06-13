@@ -40,7 +40,7 @@
                             <li class="{{ Request::is('collections') ? 'active' : '' }}">
                                 <a href="/collections">Bộ sưu tập</a>
                             </li>
-                            <li><a href="https://www.instagram.com/fredom.6ix">Instashop</a></li>
+                            <li><a href="https://www.instagram.com/fredom.6ix" target="_blank">Instashop</a></li>
                         </ul>
                     </nav>
                 </div>

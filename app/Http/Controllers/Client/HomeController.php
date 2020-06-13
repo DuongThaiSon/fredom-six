@@ -20,7 +20,6 @@ class HomeController extends Controller
         $highlightProducts = Product::where('is_public', 1)->where('is_highlight', 1)->orderBy('order', 'desc')->get();
         $isNew = Product::where('is_public', 1)->where('is_highlight', 1)->where('is_new', 1)->orderBy('updated_at', 'desc')->get();
         $collections = Category::find(2)->load(['children']);
-        // print_r($collections->children()->orderBy('order', 'desc')->get());die;
         return view('client.index', compact('highlightProducts', 'collections', 'isNew'));
     }
 
